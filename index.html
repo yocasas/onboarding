@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="icon" type="image/svg" sizes="32x32" href="LOGO.svg" />
+  <link rel="icon" type="image/svg" sizes="16x16" href="LOGO.svg" />
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./build/tailwind.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.css" />
+
+
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+
+
+  <title>Yô</title>
+
+
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+  <script>
+    function getCookie(name) {
+      var dc = document.cookie;
+      var prefix = name + "=";
+      var begin = dc.indexOf("; " + prefix);
+      if (begin == -1) {
+        begin = dc.indexOf(prefix);
+        if (begin != 0) return null;
+      }
+      else {
+        begin += 2;
+        var end = document.cookie.indexOf(";", begin);
+        if (end == -1) {
+          end = dc.length;
+        }
+      }
+      // because unescape has been deprecated, replaced with decodeURI
+      //return unescape(dc.substring(begin + prefix.length, end));
+      return decodeURI(dc.substring(begin + prefix.length, end));
+    }
+
+    $(document).ready(function () {
+
+      var myCookie = getCookie("login_session");
+
+      if (myCookie == null) {
+      }
+      else {
+
+      }
+
+    });
+
+  </script>
+
+
+</head>
+
+<body class="antialiased text-gray-800 font-niveau">
+  <div class="md:w-screen md:h-screen md:grid md:grid-cols-5 md:grid-rows-2">
+
+    <div class="bg-white md:col-start-1 md:col-span-3 w-full  md:h-screen md:ml-36 md:px-0 px-10">
+
+      <header class="mb-20 pl-0">
+        <div class="flex items-center flex-wrap justify-between mb-6 md:mb-0">
+          <a href="yocasas.com.br/home">
+            <h1>
+              <span class="sr-only">Yo</span>
+              <img src="LOGO.svg" class="h-20 flex-1">
+
+            </h1>
+          </a>
+        </div>
+      </header>
+
+      <div class="items-center">
+        <h1
+          class="w-full text-2xl tracking-tight leading-10 md:font-niveau-medium font-niveau-bold text-green_dark sm:text-5xl sm:leading-none md:text-4xl my-auto mb-5">
+          Onboarding
+        </h1>
+
+        <div
+          class="md:inline-flex text-center justify-between  md:space-x-12 mb-2 overflow-auto border-b border-green_light">
+
+          <div class="md:inline-flex flex text-center justify-between  md:space-x-12 mb-2 overflow-auto">
+
+            <a class="cursor-pointer" onClick="sobre_button();">
+              <div class="flex items-center">
+                
+
+                  <div
+                    class="sobre_yo around rounded-full flex items-center justify-center z-10">1
+                  </div>
+              
+                <div class="sobre_yo_text ml-2 text-green_dark md:flex hidden">Sobre Yô</div>
+              </div>
+            </a>
+
+            <a class="cursor-pointer" onClick="voce_button();">
+            <div class="flex items-center">
+              <div class="voce not-around rounded-full flex items-center justify-center z-10">2</div>
+              <div class="voce_text ml-2 text-green_light md:flex hidden">Você</div>
+            </div>
+          </a>
+
+          <a class="cursor-pointer" onClick="casa_button();">
+            <div class="flex items-center">
+              <div class="casa not-around rounded-full flex items-center justify-center z-10">3</div>
+              <div class="casa_text ml-2 text-green_light md:flex hidden">Casa</div>
+            </div>
+          </a>
+
+          <a class="cursor-pointer" onClick="hospedagem_button();">
+            <div class="flex items-center">
+              <div class="hospedagem not-around rounded-full flex items-center justify-center z-10">4</div>
+              <div class="hospedagem_text ml-2 text-green_light md:flex hidden">Hospedagem</div>
+            </div>
+          </a>
+
+          </div>
+
+        </div>
+        <script type="text/javascript">
+          function sobre_button() {
+            $('.sobre_yo').addClass('around');
+            $('.sobre_yo').removeClass('not-around');
+            $('.sobre_yo_text').addClass('text-green_dark');
+            $('.sobre_yo_text').removeClass('text-green_light');
+
+            $('.voce, .casa, .hospedagem').addClass('not-around');
+            $('.voce, .casa, .hospedagem').removeClass('around');
+            $('.voce_text, .casa_text, .hospedagem_text').addClass('text-green_light');
+            $('.voce_text, .casa_text, .hospedagem_text').removeClass('text-green_dark');
+
+          }
+
+          function voce_button() {
+            $('.voce').addClass('around');
+            $('.voce').removeClass('not-around');
+            $('.voce_text').addClass('text-green_dark');
+            $('.voce_text').removeClass('text-green_light');
+
+            $('.sobre_yo, .casa, .hospedagem').addClass('not-around');
+            $('.sobre_yo, .casa, .hospedagem').removeClass('around');
+            $('.sobre_yo_text, .casa_text, .hospedagem_text').addClass('text-green_light');
+            $('.sobre_yo_text, .casa_text, .hospedagem_text').removeClass('text-green_dark');
+          }
+
+          function casa_button() {
+            $('.casa').addClass('around');
+            $('.casa').removeClass('not-around');
+            $('.casa_text').addClass('text-green_dark');
+            $('.casa_text').removeClass('text-green_light');
+
+
+            $('.sobre_yo, .voce, .hospedagem').addClass('not-around');
+            $('.sobre_yo, .voce, .hospedagem').removeClass('around');
+            $('.sobre_yo_text, .voce_text, .hospedagem_text').addClass('text-green_light');
+            $('.sobre_yo_text, .voce_text, .hospedagem_text').removeClass('text-green_dark');
+          }
+
+          function hospedagem_button() {
+            $('.hospedagem').addClass('around');
+            $('.hospedagem').removeClass('not-around');
+            $('.hospedagem_text').addClass('text-green_dark');
+            $('.hospedagem_text').removeClass('text-green_light');
+
+            $('.sobre_yo, .voce, .casa').addClass('not-around');
+            $('.sobre_yo, .voce, .casa').removeClass('around');
+            $('.sobre_yo_text, .voce_text, .casa_text').addClass('text-green_light');
+            $('.sobre_yo_text, .voce_text, .casa_text').removeClass('text-green_dark');
+          }
+
+        </script>
+
+        <!-- <div class="rounded-full border-green_light w-full bg-green_light border"></div> -->
+
+
+
+
+
+
+
+
+      </div>
+
+    </div>
+
+
+    <div class="bg-green_dark col-start-4 col-span-2 hidden md:flex h-screen">
+    </div>
+
+
+    <!-- Slider sobre yo -->
+    <div class="flex md:ml-36 col-span-3 w-full h-full" id="slider">
+
+      <style>
+        .swiper-container {
+          width: 100%;
+          height: 100%;
+        }
+
+        .swiper-slide {
+          text-align: center;
+          font-size: 18px;
+          background: #fff;
+
+          /* Center slide text vertically */
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: -webkit-flex;
+          display: flex;
+          -webkit-box-pack: center;
+          -ms-flex-pack: center;
+          -webkit-justify-content: center;
+          justify-content: center;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          -webkit-align-items: center;
+          align-items: center;
+        }
+
+        .swiper-slide img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .swiper-pagination-bullet {
+          width: 15px;
+          height: 15px;
+          text-align: center;
+          line-height: 20px;
+          font-size: 12px;
+          color: #000;
+          opacity: 1;
+          border: 1px solid #455F5D;
+          background: rgba(0, 0, 0, 0);
+        }
+
+        .swiper-pagination-bullet-active {
+          color: #fff;
+          background: #455F5D;
+        }
+      </style>
+
+      <div class="swiper-container mySwiper hidden md:flex">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_1.jpg"></div>
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_2.jpg"></div>
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_3.jpg"></div>
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_4.jpg"></div>
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_5.jpg"></div>
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_6.jpg"></div>
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_7.jpg"></div>
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_8.jpg"></div>
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_9.jpg"></div>
+        </div>
+
+        <div class="swiper-pagination"></div>
+      </div>
+
+      <div class="swiper-container mySwiper flex md:hidden">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_mobile_1.jpg"></div>
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_mobile_2.jpg"></div>
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_mobile_3.jpg"></div>
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_mobile_4.jpg"></div>
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_mobile_5.jpg"></div>
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_mobile_6.jpg"></div>
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_mobile_7.jpg"></div>
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_mobile_8.jpg"></div>
+          <div class="swiper-slide hidden md:flex"><img src="slider_images/slider_mobile_9.jpg"></div>
+        </div>
+
+        <div class="swiper-pagination"></div>
+      </div>
+
+      <!-- Swiper JS -->
+      <script src="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.js"></script>
+
+      <!-- Initialize Swiper -->
+      <script>
+        var swiper = new Swiper(".mySwiper", {
+          autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+          },
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+          }
+        });
+      </script>
+
+
+
+
+    </div>
+
+    <!-- Slider sobre yo -->
+  </div>
+
+
+</body>
+
+</html>
