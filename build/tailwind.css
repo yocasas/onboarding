@@ -10435,6 +10435,18 @@ video {
   font-family: Niveau Grotesk;
 }
 
+.font-niveau-medium {
+  font-family: Niveau Grotesk-medium;
+}
+
+.font-niveau-black {
+  font-family: Niveau Grotesk-black;
+}
+
+.font-niveau-bold {
+  font-family: Niveau Grotesk-bold;
+}
+
 .font-hairline {
   font-weight: 100;
 }
@@ -21951,6 +21963,41 @@ video {
   background-color: #008F94;
 }
 
+.border-b-1 {
+  border-bottom-width: 1px;
+}
+
+.col-span-13 {
+  grid-column: span 34 / span 34;
+}
+
+.around {
+  border-width: 2px;
+  --border-opacity: 1;
+  border-color: #C0E5D8;
+  border-color: rgba(192, 229, 216, var(--border-opacity));
+  padding: .1em;
+  height: 2rem/* 32px */;
+  width: 2rem/* 32px */;
+  --bg-opacity: 1;
+  background: #C0E5D8 content-box;
+  background-color: rgba(192, 229, 216, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #455F5D;
+  color: rgba(69, 95, 93, var(--text-opacity));
+}
+
+.not-around {
+  --bg-opacity: 1;
+  background-color: #455F5D;
+  background-color: rgba(69, 95, 93, var(--bg-opacity));
+  height: 1.9rem/* 32px */;
+  width: 1.9rem/* 32px */;
+  --text-opacity: 1;
+  color: #C0E5D8;
+  color: rgba(192, 229, 216, var(--text-opacity));
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
@@ -31775,6 +31822,18 @@ video {
 
   .sm\:font-niveau {
     font-family: Niveau Grotesk;
+  }
+
+  .sm\:font-niveau-medium {
+    font-family: Niveau Grotesk-medium;
+  }
+
+  .sm\:font-niveau-black {
+    font-family: Niveau Grotesk-black;
+  }
+
+  .sm\:font-niveau-bold {
+    font-family: Niveau Grotesk-bold;
   }
 
   .sm\:font-hairline {
@@ -52966,6 +53025,18 @@ video {
     font-family: Niveau Grotesk;
   }
 
+  .md\:font-niveau-medium {
+    font-family: Niveau Grotesk-medium;
+  }
+
+  .md\:font-niveau-black {
+    font-family: Niveau Grotesk-black;
+  }
+
+  .md\:font-niveau-bold {
+    font-family: Niveau Grotesk-bold;
+  }
+
   .md\:font-hairline {
     font-weight: 100;
   }
@@ -74153,6 +74224,18 @@ video {
 
   .lg\:font-niveau {
     font-family: Niveau Grotesk;
+  }
+
+  .lg\:font-niveau-medium {
+    font-family: Niveau Grotesk-medium;
+  }
+
+  .lg\:font-niveau-black {
+    font-family: Niveau Grotesk-black;
+  }
+
+  .lg\:font-niveau-bold {
+    font-family: Niveau Grotesk-bold;
   }
 
   .lg\:font-hairline {
@@ -95344,6 +95427,18 @@ video {
     font-family: Niveau Grotesk;
   }
 
+  .xl\:font-niveau-medium {
+    font-family: Niveau Grotesk-medium;
+  }
+
+  .xl\:font-niveau-black {
+    font-family: Niveau Grotesk-black;
+  }
+
+  .xl\:font-niveau-bold {
+    font-family: Niveau Grotesk-bold;
+  }
+
   .xl\:font-hairline {
     font-weight: 100;
   }
@@ -106706,6 +106801,5 @@ video {
             animation: bounce 1s infinite;
   }
 }
-
 
 

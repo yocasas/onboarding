@@ -57,40 +57,14 @@
 
   </script>
 
-<style>
-  *{
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
 
-/* width */
-::-webkit-scrollbar {
-  width: 5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888; 
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555; 
-}
-</style>
 </head>
 
 <body class="antialiased text-gray-800 font-niveau">
-  <div class="md:w-screen md:h-screen md:grid md:grid-cols-5 md:grid-rows-2">
+  <div class="md:w-screen md:h-screen md:grid md:grid-cols-5 md:grid-rows-2 ">
 
     <div
-      class="bg-white md:col-start-1 md:col-span-3 md:col-end-3 w-full  md:h-screen md:ml-36 md:px-0 px-10 overflow-y-auto overflow-x-visible">
+      class="bg-white md:col-start-1 md:col-span-3 w-full  md:h-screen md:ml-36 md:px-0 px-10 ">
 
       <header class="mb-20 pl-0">
         <div class="flex items-center flex-wrap justify-between mb-6 md:mb-0">
@@ -111,7 +85,7 @@
         </h1>
 
         <div
-          class="md:inline-flex text-center justify-between  mb-2 border-b border-green_light">
+          class="md:inline-flex text-center justify-between  md:space-x-12 mb-2 border-b border-green_light">
 
           <div class="md:inline-flex flex text-center justify-between  md:space-x-12 mb-2 ">
 
@@ -222,132 +196,15 @@
 
       </div>
 
-
-    <!-- Formulario Usuário -->
-    <div class="hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full " id="user_forms">
-      <h1
-        class="w-full mb-8 md:w-2/3 text-2xl tracking-tight leading-none font-niveau-bold text-green_dark sm:text-5xl sm:leading-none md:text-2xl">
-        Vamos começar com as suas informações pessoais...
-      </h1>
-
-      <div class="flex items-center w-full">
-        <div class="w-full ">
-          <form class="mb-4 md:flex md:flex-wrap md:justify-between" action="/" method="post">
-
-
-
-
-            <div class="md:w-full mb-4">
-              <input required placeholder="Nome completo*" type="text" name="nickname" id="nickname"
-                autocomplete="nickname"
-                class="text-green_dark border-b-1 border-gray-500 h-10 outline-none block w-full  sm:text-sm ">
-            </div>
-
-            <div class="md:w-full mb-4">
-              <input required placeholder="Data de nascimento*" onfocus="(this.type='date')"
-                onblur="if(this.value==''){this.type='text'}" type="text" name="birthday" id="date" autocomplete="bday"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-full mb-4">
-              <input required placeholder="CPF*" type="text" name="cpf" id="cpf"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-full mb-4">
-              <input required placeholder="Número de celular*" type="text" name="telNumber" id="telNumber"
-                autocomplete="tel"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-full mb-4">
-              <input required placeholder="Email*" type="text" name="email" id="email" autocomplete="email"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-full mb-4">
-              <input required placeholder="Senha*" type="text" name="password" id="password" autocomplete="new-password"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-2/4 mb-4 md:pr-2">
-              <input required placeholder="Rua*" type="text" name="rua" id="rua" autocomplete="address-line1"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-1/4 mb-4 md:pr-2">
-              <input required placeholder="Número*" type="text" name="numero" id="numero" autocomplete="address-line2"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-1/4 mb-4">
-              <input placeholder="Complem." type="text" name="complemento" id="complemento" autocomplete="address-line3"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-
-            <div class="md:w-1/5 mb-4 md:pr-2">
-              <input required placeholder="CEP*" type="text" name="cep" id="cep" autocomplete="postal-code"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-2/5 mb-4 md:pr-2">
-              <input required placeholder="Cidade*" type="text" name="cidade" id="cidade" autocomplete="street-address"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-2/5 mb-4">
-              <input required placeholder="Estado*" type="text" name="estado" id="estado" autocomplete="address-level1"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-
-            <div class="md:w-full mb-4">
-              <input placeholder="Nome de quem te convidou/indicou para o clube" type="invitedFrom" name="invitedFrom"
-                id="invitedFrom"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <!-- <button class="btn btn-teal mx-auto" type="submit">Create Account</button> -->
-          </form>
-
-          <div class="flex justify-center md:justify-end">
-            <a onClick="casa_button();" href="#"
-              class=" inline-flex next_step_1 bg-green_light px-8 py-2 rounded-full hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Próximo
-              Passo</a>
-          </div>
-
-      
-        </div>
-
-      </div>
-
-
-
-
-    </div>
-    <!-- Formulario Usuário -->
     </div>
 
 
-    <div class="coluna_fundo bg-green_dark hidden md:flex col-start-4 col-span-2 row-span-2" >
+    <div class="coluna_fundo bg-green_dark  hidden md:flex md:h-screen col-start-4 col-span-2 row-span-" >
     </div>
 
 
     <!-- Slider sobre yo -->
-    <div class=" flex  md:ml-36 col-span-3 w-full h-full" id="slider">
+    <div class="hidden flex md:ml-36 col-span-3 w-full h-full" id="slider">
 
       <style>
         .swiper-container {
@@ -454,6 +311,125 @@
 
     </div>
     <!-- Slider sobre yo -->
+
+    <!-- Formulario Usuário -->
+    <div class=" flex flex-col md:ml-36 md:px-0 md:pr-9 px-10 col-span-2 w-full h-full " id="user_forms">
+      <h1
+        class="w-full mb-8 md:w-2/3 text-2xl tracking-tight leading-none font-niveau-bold text-green_dark sm:text-5xl sm:leading-none md:text-2xl">
+        Vamos começar com as suas informações pessoais...
+      </h1>
+
+      <div class="flex items-center w-full">
+        <div class="w-full ">
+          <form class="mb-4 md:flex md:flex-wrap md:justify-between" action="/" method="post">
+
+
+
+
+            <div class="md:w-full mb-4">
+              <input required placeholder="Nome completo*" type="text" name="nickname" id="nickname"
+                autocomplete="nickname"
+                class="text-green_dark border-b-1 border-gray-500 h-10 outline-none block w-full  sm:text-sm ">
+            </div>
+
+            <div class="md:w-full mb-4">
+              <input required placeholder="Data de nascimento*" onfocus="(this.type='date')"
+                onblur="if(this.value==''){this.type='text'}" type="text" name="birthday" id="date" autocomplete="bday"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+            <div class="md:w-full mb-4">
+              <input required placeholder="CPF*" type="text" name="cpf" id="cpf"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+            <div class="md:w-full mb-4">
+              <input required placeholder="Número de celular*" type="text" name="telNumber" id="telNumber"
+                autocomplete="tel"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+            <div class="md:w-full mb-4">
+              <input required placeholder="Email*" type="text" name="email" id="email" autocomplete="email"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+            <div class="md:w-full mb-4">
+              <input required placeholder="Senha*" type="text" name="password" id="password" autocomplete="new-password"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+            <div class="md:w-2/4 mb-4 md:pr-2">
+              <input required placeholder="Rua*" type="text" name="rua" id="rua" autocomplete="address-line1"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+            <div class="md:w-1/4 mb-4 md:pr-2">
+              <input required placeholder="Número*" type="text" name="numero" id="numero" autocomplete="address-line2"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+            <div class="md:w-1/4 mb-4">
+              <input placeholder="Complem." type="text" name="complemento" id="complemento" autocomplete="address-line3"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+
+            <div class="md:w-1/5 mb-4 md:pr-2">
+              <input required placeholder="CEP*" type="text" name="cep" id="cep" autocomplete="postal-code"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+            <div class="md:w-2/5 mb-4 md:pr-2">
+              <input required placeholder="Cidade*" type="text" name="cidade" id="cidade" autocomplete="street-address"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+            <div class="md:w-2/5 mb-4">
+              <input required placeholder="Estado*" type="text" name="estado" id="estado" autocomplete="address-level1"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+
+            <div class="md:w-full mb-4">
+              <input placeholder="Nome de quem te convidou/indicou para o clube" type="invitedFrom" name="invitedFrom"
+                id="invitedFrom"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+
+
+            <!-- <button class="btn btn-teal mx-auto" type="submit">Create Account</button> -->
+          </form>
+
+          <div class="flex justify-center md:justify-end">
+            <a onClick="casa_button();" href="#"
+              class=" inline-flex next_step_1 bg-green_light px-8 py-2 rounded-full hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Próximo
+              Passo</a>
+          </div>
+
+      
+        </div>
+
+      </div>
+
+
+
+
+    </div>
+    <!-- Formulario Usuário -->
 
 
 

@@ -8,28 +8,23 @@
     font-family: Niveau Grotesk;
     src: url("../fonts/NiveauGroteskRegular.otf")
   }
-}
 
-@layer base {
   @font-face {
     font-family: Niveau Grotesk-bold;
     src: url("../fonts/NiveauGroteskBold.otf")
   }
-}
 
-@layer base {
   @font-face {
     font-family: Niveau Grotesk-black;
     src: url("../fonts/NiveauGroteskBlack.otf")
   }
-}
 
-@layer base {
   @font-face {
     font-family: Niveau Grotesk-medium;
     src: url("../fonts/NiveauGroteskMedium.otf")
   }
 }
+
 /* @layer utilities {
   .bg-slider_1 {
     background-image: url("./slider_images/slider_mobile_1.jpg");
@@ -76,5 +71,46 @@
   background-color: #008F94;
 }
 
+.border-b-1 {
+    border-bottom-width: 1px;
+}
+
+.col-span-13 {
+  grid-column: span 34 / span 34;
+}
+
+.around {
+  border-width: 2px;
+  --border-opacity: 1;
+    border-color: #C0E5D8;
+    border-color: rgba(192, 229, 216, var(--border-opacity));
+    padding: .1em;
+
+    height: 2rem/* 32px */;
+    width: 2rem/* 32px */;
+
+    --bg-opacity: 1;
+    background: #C0E5D8 content-box;
+    background-color: rgba(192, 229, 216, var(--bg-opacity));
+
+    --text-opacity: 1;
+    color: #455F5D;
+    color: rgba(69, 95, 93, var(--text-opacity));
+}
+
+.not-around {
+  --bg-opacity: 1;
+    background-color: #455F5D;
+    background-color: rgba(69, 95, 93, var(--bg-opacity));
+
+
+    height: 1.9rem/* 32px */;
+    width: 1.9rem/* 32px */;
+
+    --text-opacity: 1;
+    color: #C0E5D8;
+    color: rgba(192, 229, 216, var(--text-opacity));
+
+}
 
 
