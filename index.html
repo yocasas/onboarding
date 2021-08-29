@@ -165,10 +165,13 @@
             $('.voce_text, .casa_text, .hospedagem_text').removeClass('text-green_dark');
 
             $('#slider').removeClass('hidden');
-            $('#user_forms').addClass('hidden');
+            $('#user_forms, #home_forms, #host_forms').addClass('hidden');
 
-            $('.coluna_fundo').addClass('bg-green_dark')
-            $('.coluna_fundo').removeClass('bg-pink-500')
+            $('.fundo1').addClass('md:flex')
+            $('.fundo1').removeClass('md:hidden')
+
+            $('.fundo2, .fundo3, .fundo4').addClass('md:hidden')
+            $('.fundo2, .fundo3, .fundo4').removeClass('md:flex')
           }
 
           function voce_button() {
@@ -183,10 +186,13 @@
             $('.sobre_yo_text, .casa_text, .hospedagem_text').removeClass('text-green_dark');
 
             $('#user_forms').removeClass('hidden');
-            $('#slider').addClass('hidden');
+            $('#slider, #home_forms, #host_forms').addClass('hidden');
 
-            $('.coluna_fundo').addClass('bg-pink-500')
-            $('.coluna_fundo').removeClass('bg-green_dark')
+            $('.fundo2').addClass('md:flex')
+            $('.fundo2').removeClass('md:hidden')
+
+            $('.fundo1, .fundo3, .fundo4').addClass('md:hidden')
+            $('.fundo1, .fundo3, .fundo4').removeClass('md:flex')
 
           }
 
@@ -201,6 +207,15 @@
             $('.sobre_yo_text, .voce_text, .hospedagem_text').addClass('text-green_light');
             $('.sobre_yo_text, .voce_text, .hospedagem_text').removeClass('text-green_dark');
 
+
+            $('#home_forms').removeClass('hidden');
+            $('#slider, #user_forms, #host_forms').addClass('hidden');
+
+            $('.fundo3').addClass('md:flex')
+            $('.fundo3').removeClass('md:hidden')
+
+            $('.fundo1, .fundo2, .fundo4').addClass('md:hidden')
+            $('.fundo1, .fundo2, .fundo4').removeClass('md:flex')
           }
 
           function hospedagem_button() {
@@ -213,6 +228,15 @@
             $('.sobre_yo, .voce, .casa').removeClass('around');
             $('.sobre_yo_text, .voce_text, .casa_text').addClass('text-green_light');
             $('.sobre_yo_text, .voce_text, .casa_text').removeClass('text-green_dark');
+
+            $('#host_forms').removeClass('hidden');
+            $('#slider, #user_forms, #home_forms').addClass('hidden');
+
+            $('.fundo4').addClass('md:flex')
+            $('.fundo4').removeClass('md:hidden')
+
+            $('.fundo1, .fundo2, .fundo3').addClass('md:hidden')
+            $('.fundo1, .fundo2, .fundo3').removeClass('md:flex')
 
           }
 
@@ -264,13 +288,13 @@
             </div>
 
             <div class="md:w-full mb-4">
-              <input required placeholder="Email*" type="text" name="email" id="email" autocomplete="email"
+              <input required placeholder="Email*" type="email" name="email" id="email" autocomplete="email"
                 class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
 
             </div>
 
             <div class="md:w-full mb-4">
-              <input required placeholder="Senha*" type="text" name="password" id="password" autocomplete="new-password"
+              <input required placeholder="Senha*" type="password" name="password" id="password" autocomplete="new-password"
                 class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
 
             </div>
@@ -338,12 +362,170 @@
 
 
     </div>
-    <!-- Formulario Usuário -->
-    </div>
+    <!-- Formulario Usuário --> 
+    
 
 
-    <div class="coluna_fundo bg-green_dark hidden md:flex col-start-4 col-span-2 row-span-2" >
+    <!-- Formulario Casa -->
+    <div class="hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full " id="home_forms">
+      <h1
+        class="w-full mb-8 md:w-2/4 text-2xl tracking-tight leading-none font-niveau-bold text-green_dark sm:text-5xl sm:leading-none md:text-2xl">
+        Ótimo, agora conte-nos melhor sobre a casa.
+      </h1>
+
+      <div class="flex items-center w-full">
+        <div class="w-full ">
+          <form class="mb-4 md:flex md:flex-wrap md:justify-between" action="/" method="post">
+
+
+            <h1
+            class="w-full md:w-3/4 tracking-tight leading-relaxed font-niveau text-green_dark">
+            Endereço completo do imóvel candidato a participar do Yô Clube de Casas
+          </h1>
+
+            
+
+            <div class="md:w-2/4 mb-4 md:pr-2">
+              <input required placeholder="Rua*" type="text" name="rua" id="rua" autocomplete="address-line1"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+            <div class="md:w-1/4 mb-4 md:pr-2">
+              <input required placeholder="Número*" type="text" name="numero" id="numero" autocomplete="address-line2"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+            <div class="md:w-1/4 mb-4">
+              <input placeholder="Complem." type="text" name="complemento" id="complemento" autocomplete="address-line3"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+            
+            <div class="md:w-1/5 mb-4 md:pr-2">
+              <input required placeholder="CEP*" type="text" name="cep" id="cep" autocomplete="postal-code"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+            <div class="md:w-2/5 mb-4 md:pr-2">
+              <input required placeholder="Cidade*" type="text" name="cidade" id="cidade" autocomplete="street-address"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+            <div class="md:w-2/5 mb-4">
+              <input required placeholder="Estado*" type="text" name="estado" id="estado" autocomplete="address-level1"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+
+            <div class="md:w-full mb-4">
+              <input placeholder="Aeroporto mais próximo da casas" type="text" name="airport"
+                id="airport"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+            <div class="md:w-full mb-4">
+              <input placeholder="Melhor forma de acesso de carro" type="text" name="access_path"
+                id="access_path"
+                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
+
+            </div>
+
+            <h1
+            class="w-full md:w-full mb-6 tracking-tight leading-relaxed font-niveau font-light text-green_dark italic text-base">
+            Especifique se houver necessidade de outro tipo de locomoção.
+          </h1>
+
+
+          <script type="text/javascript" defer>
+          $(document).ready(function () {
+          $('#checkBtn').click(function() {
+            checked = $('div.checkbox-group.required :checkbox:checked').length > 0;
+
+            if(!checked) {
+              document.getElementById("error_checkbox_location").innerHTML = "Deve selecionar ao menos uma opção."
+              return false;
+            }
+
+          });
+      });
+          </script>
+          <label class="w-full font-light text-green_dark text mb-2">Sua casa fica na*</label>
+          <div class="flex flex-wrap checkbox-group required">
+              <div class="flex items-center mb-2 mr-4">
+                <input id="checkbox-praia" type="checkbox" name="checkbox-praia" class="hidden" />
+                <label for="checkbox-praia" class="flex items-center cursor-pointer text-green_dark">
+                 <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                 Praia</label>
+              </div>
+
+              <div class="flex items-center mb-2 mr-4">
+                <input id="checkbox-campo" type="checkbox" name="checkbox-campo" class="hidden" />
+                <label for="checkbox-campo" class="flex items-center cursor-pointer text-green_dark">
+                 <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                 Campo</label>
+              </div>
+
+              <div class="flex items-center mb-2 mr-4">
+                <input id="checkbox-montanha" type="checkbox" name="checkbox-montanha" class="hidden" />
+                <label for="checkbox-montanha" class="flex items-center cursor-pointer text-green_dark">
+                 <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                 Montanha</label>
+            </div>
+
+            <div class="flex items-center mb-2 mr-4">
+              <input id="checkbox-cidade" type="checkbox" name="checkbox-cidade" class="hidden" />
+                <label for="checkbox-cidade" class="flex items-center cursor-pointer text-green_dark">
+                 <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                 Cidade</label>
+          </div>
+
+          </div>
+          <div id="error_checkbox_location" class="text-red-400"></div>
+
+            <!-- <button class="btn btn-teal mx-auto" type="submit">Create Account</button> -->
+          </form>
+
+          <div class="flex justify-center md:justify-end">
+            <a onClick="hospedagem_button();" href="#"
+              class=" inline-flex next_step_1 bg-green_light px-8 py-2 rounded-full hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Próximo
+              Passo</a>
+          </div>
+
+      
+        </div>
+
+      </div>
+
     </div>
+    <!-- Formulario Casa -->
+
+
+
+
+
+
+    </div>
+
+    <!-- Colunas de fundo -->
+    <div class="fundo1 bg-green_dark hidden md:flex col-start-4 col-span-2 row-span-2 bg-no-repeat bg-cover bg-center ">
+    </div>
+
+    <div class="fundo2 hidden md:hidden col-start-4 col-span-2 row-span-2 bg-no-repeat bg-cover bg-center " style="background-image: url('onboarding_images/onboarding_2.png');">
+    </div>
+
+    <div class="fundo3 hidden md:hidden col-start-4 col-span-2 row-span-2 bg-no-repeat bg-cover bg-center " style="background-image: url('onboarding_images/onboarding_3.png');">
+    </div>
+
+    <div class="fundo4 hidden md:hidden col-start-4 col-span-2 row-span-2 bg-no-repeat bg-cover bg-center " style="background-image: url('onboarding_images/onboarding_4.png');">
+    </div>
+    <!-- Colunas de fundo -->
 
 
     <!-- Slider sobre yo -->
