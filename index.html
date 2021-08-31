@@ -57,33 +57,33 @@
 
   </script>
 
-<style>
-  *{
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
 
-/* width */
-::-webkit-scrollbar {
-  width: 5px;
-}
+    /* width */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888; 
-}
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555; 
-}
-</style>
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  </style>
 </head>
 
 <body class="antialiased text-gray-800 font-niveau">
@@ -110,8 +110,7 @@
           Onboarding
         </h1>
 
-        <div
-          class="md:inline-flex text-center justify-between  mb-2 border-b border-green_light">
+        <div class="md:inline-flex text-center justify-between  mb-2 border-b border-green_light">
 
           <div class="md:inline-flex flex text-center justify-between  md:space-x-12 mb-2 ">
 
@@ -247,267 +246,1125 @@
       </div>
 
 
-    <!-- Formulario Usuário -->
-    <div class="hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full " id="user_forms">
-      <h1
-        class="w-full mb-8 md:w-2/3 text-2xl tracking-tight leading-none font-niveau-bold text-green_dark sm:text-5xl sm:leading-none md:text-2xl">
-        Vamos começar com as suas informações pessoais...
-      </h1>
+      <!-- Formulario Usuário -->
+      <div class="hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full " id="user_forms">
+        <h1
+          class="w-full mb-8 md:w-2/3 text-2xl tracking-tight leading-none font-niveau-bold text-green_dark sm:text-5xl sm:leading-none md:text-2xl">
+          Vamos começar com as suas informações pessoais...
+        </h1>
 
-      <div class="flex items-center w-full">
-        <div class="w-full ">
-          <form class="mb-4 md:flex md:flex-wrap md:justify-between" action="/" method="post">
-
-
+        <div class="flex items-center w-full">
+          <div class="w-full ">
+            <form class="mb-4 md:flex md:flex-wrap md:justify-between" action="/" method="post">
 
 
-            <div class="md:w-full mb-4">
-              <input required placeholder="Nome completo*" type="text" name="nickname" id="nickname"
-                autocomplete="nickname"
-                class="text-green_dark border-b-1 border-gray-500 h-10 outline-none block w-full  sm:text-sm ">
+
+
+              <div class="md:w-full mb-4">
+                <input required placeholder="Nome completo*" type="text" name="nickname" id="nickname"
+                  autocomplete="nickname"
+                  class="text-green_dark border-b-1 border-green_dark h-10 outline-none block w-full  sm:text-sm ">
+              </div>
+
+              <div class="md:w-full mb-4">
+                <input required placeholder="Data de nascimento*" onfocus="(this.type='date')"
+                  onblur="if(this.value==''){this.type='text'}" type="text" name="birthday" id="date"
+                  autocomplete="bday"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <div class="md:w-full mb-4">
+                <input required placeholder="CPF*" type="text" name="cpf" id="cpf"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <div class="md:w-full mb-4">
+                <input required placeholder="Número de celular*" type="text" name="telNumber" id="telNumber"
+                  autocomplete="tel"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <div class="md:w-full mb-4">
+                <input required placeholder="Email*" type="email" name="email" id="email" autocomplete="email"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <div class="md:w-full mb-4">
+                <input required placeholder="Senha*" type="password" name="password" id="password"
+                  autocomplete="new-password"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <div class="md:w-2/4 mb-4 md:pr-2">
+                <input required placeholder="Rua*" type="text" name="rua" id="rua" autocomplete="address-line1"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <div class="md:w-1/4 mb-4 md:pr-2">
+                <input required placeholder="Número*" type="text" name="numero" id="numero" autocomplete="address-line2"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <div class="md:w-1/4 mb-4">
+                <input placeholder="Complem." type="text" name="complemento" id="complemento"
+                  autocomplete="address-line3"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+
+              <div class="md:w-1/5 mb-4 md:pr-2">
+                <input required placeholder="CEP*" type="text" name="cep" id="cep" autocomplete="postal-code"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <div class="md:w-2/5 mb-4 md:pr-2">
+                <input required placeholder="Cidade*" type="text" name="cidade" id="cidade"
+                  autocomplete="street-address"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <div class="md:w-2/5 mb-4">
+                <input required placeholder="Estado*" type="text" name="estado" id="estado"
+                  autocomplete="address-level1"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+
+              <div class="md:w-full mb-4">
+                <input placeholder="Nome de quem te convidou/indicou para o clube" type="invitedFrom" name="invitedFrom"
+                  id="invitedFrom"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <!-- <button class="btn btn-teal mx-auto" type="submit">Create Account</button> -->
+            </form>
+
+            <div class="flex justify-center md:justify-end">
+              <a onClick="casa_button();" href="#"
+                class=" inline-flex next_step_1 bg-green_light px-8 py-2 rounded-full hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Próximo
+                Passo</a>
             </div>
 
-            <div class="md:w-full mb-4">
-              <input required placeholder="Data de nascimento*" onfocus="(this.type='date')"
-                onblur="if(this.value==''){this.type='text'}" type="text" name="birthday" id="date" autocomplete="bday"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
 
-            </div>
-
-            <div class="md:w-full mb-4">
-              <input required placeholder="CPF*" type="text" name="cpf" id="cpf"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-full mb-4">
-              <input required placeholder="Número de celular*" type="text" name="telNumber" id="telNumber"
-                autocomplete="tel"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-full mb-4">
-              <input required placeholder="Email*" type="email" name="email" id="email" autocomplete="email"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-full mb-4">
-              <input required placeholder="Senha*" type="password" name="password" id="password" autocomplete="new-password"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-2/4 mb-4 md:pr-2">
-              <input required placeholder="Rua*" type="text" name="rua" id="rua" autocomplete="address-line1"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-1/4 mb-4 md:pr-2">
-              <input required placeholder="Número*" type="text" name="numero" id="numero" autocomplete="address-line2"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-1/4 mb-4">
-              <input placeholder="Complem." type="text" name="complemento" id="complemento" autocomplete="address-line3"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-
-            <div class="md:w-1/5 mb-4 md:pr-2">
-              <input required placeholder="CEP*" type="text" name="cep" id="cep" autocomplete="postal-code"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-2/5 mb-4 md:pr-2">
-              <input required placeholder="Cidade*" type="text" name="cidade" id="cidade" autocomplete="street-address"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-2/5 mb-4">
-              <input required placeholder="Estado*" type="text" name="estado" id="estado" autocomplete="address-level1"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-
-            <div class="md:w-full mb-4">
-              <input placeholder="Nome de quem te convidou/indicou para o clube" type="invitedFrom" name="invitedFrom"
-                id="invitedFrom"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <!-- <button class="btn btn-teal mx-auto" type="submit">Create Account</button> -->
-          </form>
-
-          <div class="flex justify-center md:justify-end">
-            <a onClick="casa_button();" href="#"
-              class=" inline-flex next_step_1 bg-green_light px-8 py-2 rounded-full hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Próximo
-              Passo</a>
           </div>
 
-      
+        </div>
+
+
+
+
+      </div>
+      <!-- Formulario Usuário -->
+
+
+
+      <!-- Formulario Casa -->
+      <div class="hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full " id="home_forms">
+        <h1
+          class="w-full mb-8 md:w-2/4 text-2xl tracking-tight leading-none font-niveau-bold text-green_dark sm:text-5xl sm:leading-none md:text-2xl">
+          Ótimo, agora conte-nos melhor sobre a casa.
+        </h1>
+
+        <div class="flex items-center w-full">
+          <div class="w-full ">
+            <form class="mb-4 md:flex md:flex-wrap md:justify-between" action="/" method="post">
+
+
+
+              <div class="md:w-full mb-6">
+                <input required placeholder="Qual o nome da sua casa?*" type="text" name="house_name" id="house_name"
+                  class="mb-4 text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+                <h1 class="w-full italic text-green_medium tracking-tight leading-relaxed font-niveau">
+                  Ex: Casa Tupi, Casa pé na areia em Trancoso
+                </h1>
+              </div>
+
+
+              <h1 class="w-full md:w-3/4 tracking-tight leading-relaxed font-niveau text-green_dark">
+                Endereço completo do imóvel candidato a participar do Yô Clube de Casas
+              </h1>
+
+
+
+              <div class="md:w-2/4 mb-4 md:pr-2">
+                <input required placeholder="Rua*" type="text" name="rua" id="rua" autocomplete="address-line1"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <div class="md:w-1/4 mb-4 md:pr-2">
+                <input required placeholder="Número*" type="text" name="numero" id="numero" autocomplete="address-line2"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <div class="md:w-1/4 mb-4">
+                <input placeholder="Complem." type="text" name="complemento" id="complemento"
+                  autocomplete="address-line3"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+
+              <div class="md:w-1/5 mb-4 md:pr-2">
+                <input required placeholder="CEP*" type="text" name="cep" id="cep" autocomplete="postal-code"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <div class="md:w-2/5 mb-4 md:pr-2">
+                <input required placeholder="Cidade*" type="text" name="cidade" id="cidade"
+                  autocomplete="street-address"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <div class="md:w-2/5 mb-4">
+                <input required placeholder="Estado*" type="text" name="estado" id="estado"
+                  autocomplete="address-level1"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+
+              <div class="md:w-full mb-4">
+                <input placeholder="Aeroporto mais próximo da casas" type="text" name="airport" id="airport"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <div class="md:w-full mb-4">
+                <input placeholder="Melhor forma de acesso de carro" type="text" name="access_path" id="access_path"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <h1
+                class="w-full md:w-full mb-6 tracking-tight leading-relaxed font-niveau font-light text-green_medium italic text-base">
+                Especifique se houver necessidade de outro tipo de locomoção.
+              </h1>
+
+              <script type="text/javascript" defer>
+                $(document).ready(function () {
+                  $('#checkBtn').click(function () {
+                    checked = $('div.checkbox-group.required :checkbox:checked').length > 0;
+
+                    if (!checked) {
+                      document.getElementById("error_checkbox_location").innerHTML = "Deve selecionar ao menos uma opção."
+                      return false;
+                    }
+
+                  });
+                });
+              </script>
+
+              <label class="w-full font-light text-green_dark text mb-2">Sua casa fica na*</label>
+              <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-2">
+                Pode selecionar várias opções
+              </h1>
+              <div class="flex flex-wrap checkbox-group required mb-4">
+                <div class="flex items-center mb-2 mr-4">
+                  <input id="checkbox-praia" type="checkbox" name="checkbox-praia" class="hidden" value="praia" />
+                  <label for="checkbox-praia" class="flex items-center cursor-pointer text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Praia</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4">
+                  <input id="checkbox-campo" type="checkbox" name="checkbox-campo" class="hidden" value="campo" />
+                  <label for="checkbox-campo" class="flex items-center cursor-pointer text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Campo</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4">
+                  <input id="checkbox-montanha" type="checkbox" name="checkbox-montanha" class="hidden"
+                    value="montanha" />
+                  <label for="checkbox-montanha" class="flex items-center cursor-pointer text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Montanha</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4">
+                  <input id="checkbox-cidade" type="checkbox" name="checkbox-cidade" class="hidden" value="cidade" />
+                  <label for="checkbox-cidade" class="flex items-center cursor-pointer text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Cidade</label>
+                </div>
+                <div id="error_checkbox_location" class="w-full text-red-400"></div>
+              </div>
+
+
+
+
+              <!-- <script type="text/javascript" defer>
+            $(document).ready(function () {
+            $('#checkBtn').click(function() {
+              checked = $('div.checkbox-group.required :checkbox:checked').length > 0;
+  
+              if(!checked) {
+                document.getElementById("error_checkbox_location").innerHTML = "Deve selecionar ao menos uma opção."
+                return false;
+              }
+  
+            });
+        });
+            </script> -->
+              <label class="w-full font-light text-green_dark text mb-2">Sua casa fica em condomínio?*</label>
+              <div class="flex flex-wrap radio-group required mb-4">
+                <div class="flex items-center mb-2 mr-4">
+                  <input required id="radio-sim_condominio" type="radio" name="radio_condominio" class="hidden"
+                    value="sim" />
+                  <label for="radio-sim_condominio" class=" flex items-center cursor-pointer text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Sim</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4">
+                  <input id="radio-nao_condominio" type="radio" name="radio_condominio" class="hidden" value="nao" />
+                  <label for="radio-nao_condominio" class=" flex items-center cursor-pointer text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Não</label>
+                </div>
+                <!-- <div id="error_radio_location" class="w-full text-red-400"></div> -->
+              </div>
+
+              <div class="md:w-full mb-4">
+                <input required placeholder="Se sua casa fica no litoral, qual a distância aproximada da praia?*"
+                  type="text" name="distance" id="distance"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+
+              <div class="md:w-full mb-4">
+                <input required placeholder="Quais as metragens aproximadas do terreno e da área construída?*"
+                  type="text" name="area" id="area"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <div class="w-full inline-block relative mb-6">
+                <select type="text" required name="house_value" id="house_value"
+                  class="block appearance-none border-b-1 border-green_dark w-full bg-white px-4 py-2 pr-8 leading-tight outline-none focus:outline-none">
+                  <option value="none" disabled selected>Qual o valor venal aproximado do imóvel?</option>
+                  <option value="1a3">1 mi a 3 mi</option>
+                  <option value="3a6">3 mi a 6 mi</option>
+                  <option value="6a9">6 mi a 9 mi</option>
+                  <option value="9a12">9 mi a 12 mi</option>
+                  <option value="mais12">+ 12 mi</option>
+
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </div>
+              </div>
+
+
+
+              <div class="md:w-full mb-4">
+                <input placeholder="Faça uma breve descrição da casa" type="text" name="description" id="description"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+
+              <p class="w-full md:w-full tracking-tight leading-relaxed font-niveau text-green_medium mb-6">
+                Limite de 300 caracteres (sugerimos um breve resumo das qualidades da casa,
+                os detaques mais legais, dicas de utilização do imóvel e dos arredores, informações
+                relacionadas ao acesso ao locao, à entreda no condomínio e à segurança)
+              </p>
+
+              <div class="md:w-full mb-4">
+                <input placeholder="A casa possui algum ponto fraco que seu hóspede deveria saber?" type="text"
+                  name="weakness" id="weakness"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <h1
+                class="w-full border-b-1 h-10 border-green_dark tracking-tight leading-relaxed font-niveau text-green_dark">
+                Fotos
+              </h1>
+
+              <style>
+                /* .images .img,
+                .images .pic {
+                  flex-basis: 100%;
+                  margin-right: 0;
+                } */
+
+
+
+                .images {
+                  display: flex;
+                  flex-wrap: wrap;
+                  margin-top: 20px;
+                }
+
+                .images .img,
+                .images .pic {
+                  /* flex-basis: 25%; */
+                  width: 25%;
+                  margin-bottom: 10px;
+                  border-radius: 4px;
+                }
+
+                .images .img {
+                  width: 112px;
+                  height: 93px;
+                  background-size: cover;
+                  margin-right: 10px;
+                  background-position: center;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  cursor: pointer;
+                  position: relative;
+                  overflow: hidden;
+                }
+
+                .images .img:nth-child(3n) {
+                  margin-right: 0;
+                }
+
+                .images .img span {
+                  display: none;
+                  text-transform: capitalize;
+                  z-index: 2;
+                }
+
+                .images .img::after {
+                  content: '';
+                  width: 100%;
+                  height: 100%;
+                  transition: opacity .1s ease-in;
+                  border-radius: 4px;
+                  opacity: 0;
+                  position: absolute;
+                }
+
+                .images .img:hover::after {
+                  display: block;
+                  background-color: #000;
+                  opacity: .5;
+                }
+
+                .images .img:hover span {
+                  display: block;
+                  color: #fff;
+                }
+
+                .images .pic {
+                  background-color: #F5F7FA;
+                  align-self: center;
+                  text-align: center;
+                  padding: 40px 0;
+                  text-transform: uppercase;
+                  color: #848EA1;
+                  font-size: 12px;
+                  cursor: pointer;
+                }
+
+                @media (max-width: 767px) {
+
+                  .images .img,
+                  .images .pic {
+                    /* flex-basis: 33%; */
+                    width: 33%;
+                    margin-right: 0;
+                  }
+                }
+              </style>
+              <div class="wrapper w-full">
+                <section class="active ">
+
+                  <div class="images ">
+                    <div class="pic ">
+                      +
+                    </div>
+                  </div>
+
+                </section>
+              </div>
+
+              <script>
+
+                (function ($) {
+                  $(document).ready(function () {
+
+                    uploadImage()
+                    submit()
+                    autoDequeue()
+
+                    var ID
+                    var way = 0
+                    var queue = []
+                    var fullStock = 10
+                    var speedCloseNoti = 1000
+
+
+                    function uploadImage() {
+                      var button = $('.images .pic')
+                      var uploader = $('<input type="file" accept="image/*" />')
+                      var images = $('.images')
+
+                      button.on('click', function () {
+                        uploader.click()
+                      })
+
+                      uploader.on('change', function () {
+                        var reader = new FileReader()
+                        reader.onload = function (event) {
+                          images.prepend('<div class="img" style="background-image: url(\'' + event.target.result + '\');" rel="' + event.target.result + '"><span>remove</span></div>')
+                        }
+                        reader.readAsDataURL(uploader[0].files[0])
+
+                      })
+
+                      images.on('click', '.img', function () {
+                        $(this).remove()
+                      })
+
+                    }
+
+                    function submit() {
+                      var button = $('#send')
+
+                      button.on('click', function () {
+                        if (!way) {
+                          var title = $('#title')
+                          var cate = $('#category')
+                          var images = $('.images .img')
+                          var imageArr = []
+
+
+                          for (var i = 0; i < images.length; i++) {
+                            imageArr.push({ url: $(images[i]).attr('rel') })
+                          }
+
+                          var newStock = {
+                            title: title.val(),
+                            category: cate.val(),
+                            images: imageArr,
+                            type: 1
+                          }
+
+                          saveToQueue(newStock)
+                        } else {
+                          // discussion
+                          var topic = $('#topic')
+                          var message = $('#msg')
+
+                          var newStock = {
+                            title: topic.val(),
+                            message: message.val(),
+                            type: 2
+                          }
+
+                          saveToQueue(newStock)
+                        }
+                      })
+                    }
+
+
+
+                    function autoDequeue() {
+                      var notification = $('.notification')
+                      var text
+
+                      setInterval(function () {
+
+                        if (queue.length > 0) {
+                          if (queue[0].type == 2) {
+                            text = ' Your discusstion is sent'
+                          } else {
+                            text = ' Your order is allowed.'
+                          }
+
+                          notification.append('<div class="success btn"><p><strong>Success:</strong>' + text + '</p><span><i class=\"fa fa-times\" aria-hidden=\"true\"></i></span></div>')
+                          queue.splice(0, 1)
+
+                        }
+                      }, 10000)
+                    }
+
+
+
+                    // helpers
+                    function saveToQueue(stock) {
+                      var notification = $('.notification')
+                      var check = 0
+
+                      if (queue.length <= fullStock) {
+                        if (stock.type == 2) {
+                          if (!stock.title || !stock.message) {
+                            check = 1
+                          }
+                        } else {
+                          if (!stock.title || !stock.category || stock.images == 0) {
+                            check = 1
+                          }
+                        }
+
+                        if (check) {
+                          notification.append('<div class="error btn"><p><strong>Error:</strong> Please fill in the form.</p><span><i class=\"fa fa-times\" aria-hidden=\"true\"></i></span></div>')
+                        } else {
+                          notification.append('<div class="success btn"><p><strong>Success:</strong> ' + ID + ' is submitted.</p><span><i class=\"fa fa-times\" aria-hidden=\"true\"></i></span></div>')
+                          queue.push(stock)
+                          reset()
+                        }
+                      } else {
+                        notification.append('<div class="error btn"><p><strong>Error:</strong> Please waiting a queue.</p><span><i class=\"fa fa-times\" aria-hidden=\"true\"></i></span></div>')
+                      }
+                    }
+
+                  })
+                })(jQuery)
+              </script>
+
+
+              <!-- <button class="btn btn-teal mx-auto" type="submit">Create Account</button> -->
+            </form>
+
+            <div class="flex justify-center md:justify-between">
+              <a onClick="hospedagem_button();" href="#"
+                class=" inline-flex skip_2 bg-green_light px-8 py-2 rounded-full h-12 hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Terminar
+                Depois</a>
+
+              <a onClick="hospedagem_button();" href="#"
+                class=" inline-flex next_step_2 bg-green_light px-8 py-2 rounded-full h-12 hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Próximo
+                Passo</a>
+            </div>
+
+
+          </div>
+
         </div>
 
       </div>
+      <!-- Formulario Casa -->
 
 
 
+      <!-- Formulario Hospedagem -->
+      <div class="hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full " id="host_forms">
+        <h1
+          class="w-full mb-8 md:w-11/12 text-2xl tracking-tight leading-none font-niveau-bold text-green_dark sm:text-5xl sm:leading-none md:text-2xl">
+          Você está indo bem, já estamos quase lá! Agora vamos conversar sobre hospedagem...
+        </h1>
 
-    </div>
-    <!-- Formulario Usuário --> 
-    
-
-
-    <!-- Formulario Casa -->
-    <div class="hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full " id="home_forms">
-      <h1
-        class="w-full mb-8 md:w-2/4 text-2xl tracking-tight leading-none font-niveau-bold text-green_dark sm:text-5xl sm:leading-none md:text-2xl">
-        Ótimo, agora conte-nos melhor sobre a casa.
-      </h1>
-
-      <div class="flex items-center w-full">
-        <div class="w-full ">
-          <form class="mb-4 md:flex md:flex-wrap md:justify-between" action="/" method="post">
+        <div class="flex items-center w-full">
+          <div class="w-full ">
+            <form class="mb-4 md:flex md:flex-wrap md:justify-between" action="/" method="post">
 
 
-            <h1
-            class="w-full md:w-3/4 tracking-tight leading-relaxed font-niveau text-green_dark">
-            Endereço completo do imóvel candidato a participar do Yô Clube de Casas
-          </h1>
+              <label class="w-full font-light text-green_dark mb-2">Qual o número máximo de hóspedes permitido em sua
+                casa?*</label>
+              <div class="flex w-full mb-4">
+                <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
+                rounded-full active:border-none active:bg-green_light flex items-center 
+                justify-center" type="button" id="hosts" onclick="decrement(this)">-</a>
 
-            
-
-            <div class="md:w-2/4 mb-4 md:pr-2">
-              <input required placeholder="Rua*" type="text" name="rua" id="rua" autocomplete="address-line1"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-1/4 mb-4 md:pr-2">
-              <input required placeholder="Número*" type="text" name="numero" id="numero" autocomplete="address-line2"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-1/4 mb-4">
-              <input placeholder="Complem." type="text" name="complemento" id="complemento" autocomplete="address-line3"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            
-            <div class="md:w-1/5 mb-4 md:pr-2">
-              <input required placeholder="CEP*" type="text" name="cep" id="cep" autocomplete="postal-code"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-2/5 mb-4 md:pr-2">
-              <input required placeholder="Cidade*" type="text" name="cidade" id="cidade" autocomplete="street-address"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-2/5 mb-4">
-              <input required placeholder="Estado*" type="text" name="estado" id="estado" autocomplete="address-level1"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-
-            <div class="md:w-full mb-4">
-              <input placeholder="Aeroporto mais próximo da casas" type="text" name="airport"
-                id="airport"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <div class="md:w-full mb-4">
-              <input placeholder="Melhor forma de acesso de carro" type="text" name="access_path"
-                id="access_path"
-                class="text-green_dark border-b-1 outline-none border-gray-500  h-10 block w-full sm:text-sm ">
-
-            </div>
-
-            <h1
-            class="w-full md:w-full mb-6 tracking-tight leading-relaxed font-niveau font-light text-green_dark italic text-base">
-            Especifique se houver necessidade de outro tipo de locomoção.
-          </h1>
-
-
-          <script type="text/javascript" defer>
-          $(document).ready(function () {
-          $('#checkBtn').click(function() {
-            checked = $('div.checkbox-group.required :checkbox:checked').length > 0;
-
-            if(!checked) {
-              document.getElementById("error_checkbox_location").innerHTML = "Deve selecionar ao menos uma opção."
-              return false;
-            }
-
-          });
-      });
-          </script>
-          <label class="w-full font-light text-green_dark text mb-2">Sua casa fica na*</label>
-          <div class="flex flex-wrap checkbox-group required">
-              <div class="flex items-center mb-2 mr-4">
-                <input id="checkbox-praia" type="checkbox" name="checkbox-praia" class="hidden" />
-                <label for="checkbox-praia" class="flex items-center cursor-pointer text-green_dark">
-                 <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
-                 Praia</label>
+                <input required type="number" name="hosts" id="hosts_input" min=0
+                  class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
+                <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
+                rounded-full active:border-none active:bg-green_light flex items-center 
+                justify-center" type="button" id="hosts" onclick="increment(this)">+</a>
               </div>
 
-              <div class="flex items-center mb-2 mr-4">
-                <input id="checkbox-campo" type="checkbox" name="checkbox-campo" class="hidden" />
-                <label for="checkbox-campo" class="flex items-center cursor-pointer text-green_dark">
-                 <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
-                 Campo</label>
+
+              <label class="w-full font-light text-green_dark mb-2">Sua casa tem quantas suítes à disposição dos
+                hóspedes?*</label>
+              <div class="flex w-full mb-4">
+                <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
+                rounded-full active:border-none active:bg-green_light flex items-center 
+                justify-center" type="button" id="suites" onclick="decrement(this)">-</a>
+
+                <input required type="number" name="suites" id="suites_input" min=0
+                  class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
+                <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
+                rounded-full active:border-none active:bg-green_light flex items-center 
+                justify-center" type="button" id="suites" onclick="increment(this)">+</a>
               </div>
 
-              <div class="flex items-center mb-2 mr-4">
-                <input id="checkbox-montanha" type="checkbox" name="checkbox-montanha" class="hidden" />
-                <label for="checkbox-montanha" class="flex items-center cursor-pointer text-green_dark">
-                 <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
-                 Montanha</label>
+              <label class="w-full font-light text-green_dark mb-2">E quantos dormitórios sem banheiro à disposição dos
+                hóspedes?*</label>
+              <div class="flex w-full mb-4">
+                <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
+                rounded-full active:border-none active:bg-green_light flex items-center 
+                justify-center" type="button" id="rooms" onclick="decrement(this)">-</a>
+
+                <input required type="number" name="rooms" id="rooms_input" min=0
+                  class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
+                <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
+                rounded-full active:border-none active:bg-green_light flex items-center 
+                justify-center" type="button" id="rooms" onclick="increment(this)">+</a>
+              </div>
+
+
+              <label class="w-full font-light text-green_dark mb-2">No total, são quantos banheiros?*</label>
+              <div class="flex w-full mb-4">
+                <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
+                rounded-full active:border-none active:bg-green_light flex items-center 
+                justify-center" type="button" id="bathroom" onclick="decrement(this)">-</a>
+
+                <input required type="number" name="bathroom" id="bathroom_input" min=0
+                  class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
+                <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
+                rounded-full active:border-none active:bg-green_light flex items-center 
+                justify-center" type="button" id="bathroom" onclick="increment(this)">+</a>
+              </div>
+
+              
+
+
+
+              <label class="w-full font-light text-green_dark mb-1">Sua casa possui</label>
+              <h1
+                class="w-full md:w-full mb-2 tracking-tight leading-relaxed font-niveau font-light text-green_medium italic text-base">
+                Pode selecionar várias opções
+              </h1>
+              <div class="flex flex-wrap w-full justify-between checkbox-group required mb-4">
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+                  <input id="checkbox-ar" type="checkbox" name="checkbox-ar" class="hidden" value="ar" />
+                  <label for="checkbox-ar" class="flex items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Ar-condicionado</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+                  <input id="checkbox-wifi" type="checkbox" name="checkbox-wifi" class="hidden" value="wifi" />
+                  <label for="checkbox-wifi" class="flex items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Wi-fi</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+                  <input id="checkbox-piscina" type="checkbox" name="checkbox-piscina" class="hidden" value="piscina" />
+                  <label for="checkbox-piscina" class="flex items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Piscina</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+                  <input id="checkbox-sauna" type="checkbox" name="checkbox-sauna" class="hidden" value="sauna" />
+                  <label for="checkbox-sauna" class="flex items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Sauna</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+                  <input id="checkbox-jacuzzi" type="checkbox" name="checkbox-jacuzzi" class="hidden" value="jacuzzi" />
+                  <label for="checkbox-jacuzzi" class="flex items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Jacuzzi/ofurô</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+                  <input id="checkbox-banheira" type="checkbox" name="checkbox-banheira" class="hidden"
+                    value="banheira" />
+                  <label for="checkbox-banheira" class="flex items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Banheira</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+                  <input id="checkbox-academia" type="checkbox" name="checkbox-academia" class="hidden"
+                    value="academia" />
+                  <label for="checkbox-academia" class="flex items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Academia</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+                  <input id="checkbox-quadra1" type="checkbox" name="checkbox-quadra1" class="hidden" value="quadra1" />
+                  <label for="checkbox-quadra1" class=" items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Quadra de tênis/beach tennis</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+                  <input id="checkbox-quadra2" type="checkbox" name="checkbox-quadra2" class="hidden" value="quadra2" />
+                  <label for="checkbox-quadra2" class=" items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Quadra /campo de futebol</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+                  <input id="checkbox-churrasqueira" type="checkbox" name="checkbox-churrasqueira" class="hidden"
+                    value="churrasqueira" />
+                  <label for="checkbox-churrasqueira" class="flex items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Churrasqueira</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+                  <input id="checkbox-adega" type="checkbox" name="checkbox-adega" class="hidden" value="adega" />
+                  <label for="checkbox-adega" class="flex items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Adega</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+                  <input id="checkbox-lavadora1" type="checkbox" name="checkbox-lavadora1" class="hidden"
+                    value="lavadora1" />
+                  <label for="checkbox-lavadora1" class=" items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Lavadora de roupa</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+                  <input id="checkbox-lavadora2" type="checkbox" name="checkbox-lavadora2" class="hidden"
+                    value="lavadora2" />
+                  <label for="checkbox-lavadora2" class="flex items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Lavadora de louça</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+
+                  <input id="checkbox-quarto_extra" type="checkbox" name="checkbox-quarto_extra" class="hidden"
+                    value="quarto_extra" />
+                  <label for="checkbox-quarto_extra" class="items-center cursor-pointer text-sm text-green_dark">
+
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Quarto extra para ajudante/babá</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+                  <input id="checkbox-vaga" type="checkbox" name="checkbox-vaga" class="hidden" value="vaga" />
+                  <label for="checkbox-vaga" class="flex items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Vagas para carros</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+                  <input id="checkbox-cozinha" type="checkbox" name="checkbox-cozinha" class="hidden" value="cozinha" />
+                  <label for="checkbox-cozinha" class="flex items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Cozinha casher</label>
+                </div>
+
+                <div id="error_checkbox_location" class="w-full text-red-400"></div>
+              </div>
+
+
+              <div class="md:w-full mb-8">
+                <input placeholder="Se tem ar-condicionado, em quais cômodos?" type="text" name="ar_quantidade"
+                  id="ar_quantidade"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+              <label class="w-full font-light text-green_dark mb-3">Das vagas para carros, quantas são cobertas e
+                quantas são
+                descobertas?*</label>
+
+
+              <div class="flex justify-between mb-8">
+                <div class="flex w-full mb-4 items-center">
+                  <div class="text-green_dark mr-4">Cobertas</div>
+                  <a class="cursor-pointer border border-green_dark outline-none h-8 w-8 bg-transparent 
+                  rounded-full active:border-none active:bg-green_light flex items-center 
+                  justify-center" type="button" id="vagas_cobertas" onclick="decrement(this)">-</a>
+
+                  <input required type="number" name="vagas_cobertas" id="vagas_cobertas_input" min=0
+                    class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
+                  <a class="cursor-pointer border border-green_dark outline-none h-8 w-8 bg-transparent 
+                  rounded-full active:border-none active:bg-green_light flex items-center 
+                  justify-center" type="button" id="vagas_cobertas" onclick="increment(this)">+</a>
+                </div>
+
+                <div class="flex w-full mb-4 items-center">
+                  <div class="text-green_dark mr-4">Descobertas</div>
+                  <a class="cursor-pointer border border-green_dark outline-none h-8 w-8 bg-transparent 
+                  rounded-full active:border-none active:bg-green_light flex items-center 
+                  justify-center" type="button" id="vagas_desccobertas" onclick="decrement(this)">-</a>
+
+                  <input required type="number" name="vagas_desccobertas" id="vagas_desccobertas_input" min=0
+                    class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
+                  <a class="cursor-pointer border border-green_dark outline-none h-8 w-8 bg-transparent 
+                  rounded-full active:border-none active:bg-green_light flex items-center 
+                  justify-center" type="button" id="vagas_desccobertas" onclick="increment(this)">+</a>
+                </div>
+              </div>
+              <script defer>
+
+                function increment(btn) {
+                  document.getElementById(btn.id + "_input").stepUp();
+                }
+                function decrement(btn) {
+                  document.getElementById(btn.id + "_input").stepDown();
+                }
+
+              </script>
+
+              <label class="w-full font-light text-green_dark mb-3">Autorizo*</label>
+              <h1
+              class="w-full md:w-full mb-2 tracking-tight leading-relaxed font-niveau font-light text-green_medium italic text-base">
+              Pode selecionar várias opções
+            </h1>
+
+            
+            <div class="flex flex-wrap w-full justify-between checkbox-group content-between required mb-4">
+              <div class="flex items-center mr-4 mb-2 w-full md:w-1/4">
+                <input id="checkbox-fumantes" type="checkbox" name="checkbox-fumantes" class="hidden" value="fumantes" />
+                <label for="checkbox-fumantes" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                  Fumantes</label>
+              </div>
+
+              <div class="flex items-center mr-4 mb-2 w-full md:w-1/4">
+                <input id="checkbox-criancas" type="checkbox" name="checkbox-criancas" class="hidden" value="criancas" class="align-middle"/>
+                <label for="checkbox-criancas" class=" items-center cursor-pointer text-sm text-green_dark ">
+                  <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
+                  Família com criança(s) pequena(s)</label>
+              </div>
+
+              <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
+                <input id="checkbox-pets" type="checkbox" name="checkbox-pets" class="hidden" value="pets" />
+                <label for="checkbox-pets" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                  Pets</label>
+              </div>
+
+              <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
+                <input id="checkbox-menores" type="checkbox" name="checkbox-menores" class="hidden" value="menores" />
+                <label for="checkbox-menores" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
+                  Menores de 23 anos desacompanhados</label>
+              </div>
+
+              <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
+                <input id="checkbox-uso_suite" type="checkbox" name="checkbox-uso_suite" class="hidden" value="uso_suite" />
+                <label for="checkbox-uso_suite" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                  Uso da suíte máster</label>
+              </div>
+
+              <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
+                <input id="checkbox-uso_adega" type="checkbox" name="checkbox-uso_adega" class="hidden"
+                  value="uso_adega" />
+                <label for="checkbox-uso_adega" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                  Uso da adega</label>
+              </div>
+
+              <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
+                <input id="checkbox-aquecimento_s_reembolso" type="checkbox" name="checkbox-aquecimento_s_reembolso" class="hidden"
+                  value="aquecimento_s_reembolso" />
+                <label for="checkbox-aquecimento_s_reembolso" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
+                  Aquecimento da piscina (sem reembolso do valor)</label>
+              </div>
+
+              <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
+                <input id="checkbox-aquecimento_c_reembolso" type="checkbox" name="checkbox-aquecimento_c_reembolso" class="hidden" value="aquecimento_c_reembolso" />
+                <label for="checkbox-aquecimento_c_reembolso" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
+                  Aquecimento da piscina (com reembolso do valor)</label>
+              </div>
+              </div>
+
+              <div class="md:w-full mb-6">
+                <input placeholder="Alguma restrição extra?" type="text" name="restricao_extra" id="restricao_extra"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+
+              <label class="w-full font-light text-green_dark mb-1">Quais funcionários sua casa disponibiliza?</label>
+              <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-2">
+                Pode selecionar várias opções
+              </h1>
+              
+              <div class="flex flex-wrap w-full justify-between checkbox-group content-between required mb-4">
+                <div class="flex items-center mr-4 mb-2 w-full md:w-1/4">
+                  <input id="checkbox-caseiro" type="checkbox" name="checkbox-caseiro" class="hidden" value="caseiro" />
+                  <label for="checkbox-caseiro" class="flex items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Caseiro/a</label>
+                </div>
+  
+                <div class="flex items-center mr-4 mb-2 w-full md:w-1/4">
+                  <input id="checkbox-cozinheiro" type="checkbox" name="checkbox-cozinheiro" class="hidden" value="cozinheiro" class="align-middle"/>
+                  <label for="checkbox-cozinheiro" class=" items-center cursor-pointer text-sm text-green_dark ">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
+                    Cozinheiro/a</label>
+                </div>
+  
+                <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
+                  <input id="checkbox-faxineiro" type="checkbox" name="checkbox-faxineiro" class="hidden" value="faxineiro" />
+                  <label for="checkbox-faxineiro" class="flex items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Faxineiro/a</label>
+                </div>
+  
+                <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
+                  <input id="checkbox-piscineiro" type="checkbox" name="checkbox-piscineiro" class="hidden" value="piscineiro" />
+                  <label for="checkbox-piscineiro" class=" items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
+                    Piscineiro/a</label>
+                </div>
+  
+                <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
+                  <input id="checkbox-seguranca" type="checkbox" name="checkbox-seguranca" class="hidden" value="seguranca" />
+                  <label for="checkbox-seguranca" class=" items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Segurança</label>
+                </div>
+  
+                <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
+                  <input id="checkbox-outros" type="checkbox" name="checkbox-outros" class="hidden"
+                    value="outros" />
+                  <label for="checkbox-outros" class="flex items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Outros</label>
+                </div>
+  
+                <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
+                  <input id="checkbox-s_funcionarios" type="checkbox" name="checkbox-s_funcionarios" class="hidden"
+                    value="s_funcionarios" />
+                  <label for="checkbox-s_funcionarios" class=" items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
+                    Não disponibiliza funcionários</label>
+                </div>
+  
+                
+                </div>
+
+                <label class="w-full font-light text-green_dark mb-1">Se conta com funcionários, quais orientações importantes?</label>
+              <p class="w-full md:w-full tracking-tight leading-relaxed font-niveau text-green_medium">
+                (quantos são, horário de expediente, dicas legais, logística de compras, remuneração extra... Conte tudo!)
+              </p>
+              <div class="md:w-full mb-6">
+                <input placeholder="" type="text" name="funcionarios_info" id="funcionarios_info"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+
+              </div>
+
+
+              <label class="w-full font-light text-green_dark mb-6">Agora é a hora de emitir 
+                seu passaporte de entrada no Yô Clube de Casas: Indique ao menos 6 dias para disponibilizar 
+                sua casa até o dia 31 de janeiro.</label>
+
+                <label class="w-full font-light text-green_dark mb-1">Os 6 dias devem ser disponibilizados
+                  em fins de semana, feriados ou férias (veja os períodos abaixo).
+                </label>
+
+                <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
+                  Todos os fins de semana
+                </h1>
+
+                <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
+                  8 a 12 de outubro (Nossa Sra. Aparecida)
+                </h1>
+
+                <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
+                  29 de outubro a 2 de novembro (Finados)
+                </h1>
+
+                <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
+                  12 a 15 de novembro (Proclamação da República)
+                </h1>
+
+                <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-8">
+                  20 de dezembro a 31 de janeiro
+                </h1>
+
+                <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
+                  (Não é permitido disponibilizar uma noite isolada)
+                </h1>
+
+  
+
+
+              <script type="text/javascript" defer>
+                $(document).ready(function () {
+                  $('#checkBtn').click(function () {
+                    checked = $('div.checkbox-group.required :checkbox:checked').length > 0;
+
+                    if (!checked) {
+                      document.getElementById("error_checkbox_location").innerHTML = "Deve selecionar ao menos uma opção."
+                      return false;
+                    }
+
+                  });
+                });
+              </script>
+              
+
+
+
+
+              <!-- <script type="text/javascript" defer>
+            $(document).ready(function () {
+            $('#checkBtn').click(function() {
+              checked = $('div.checkbox-group.required :checkbox:checked').length > 0;
+  
+              if(!checked) {
+                document.getElementById("error_checkbox_location").innerHTML = "Deve selecionar ao menos uma opção."
+                return false;
+              }
+  
+            });
+        });
+            </script> -->
+              
+
+              
+
+              
+
+
+
+              
+
+
+              
+
+             
+
+
+              
+
+
+              <!-- <button class="btn btn-teal mx-auto" type="submit">Create Account</button> -->
+            </form>
+
+            <div class="flex justify-center md:justify-between">
+              <a onClick="hospedagem_button();" href="#"
+                class=" inline-flex skip_2 bg-green_light px-8 py-2 rounded-full h-12 hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Terminar
+                Depois</a>
+
+              <a onClick="hospedagem_button();" href="#"
+                class=" inline-flex next_step_2 bg-green_light px-8 py-2 rounded-full h-12 hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Próximo
+                Passo</a>
             </div>
 
-            <div class="flex items-center mb-2 mr-4">
-              <input id="checkbox-cidade" type="checkbox" name="checkbox-cidade" class="hidden" />
-                <label for="checkbox-cidade" class="flex items-center cursor-pointer text-green_dark">
-                 <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
-                 Cidade</label>
-          </div>
 
           </div>
-          <div id="error_checkbox_location" class="text-red-400"></div>
 
-            <!-- <button class="btn btn-teal mx-auto" type="submit">Create Account</button> -->
-          </form>
-
-          <div class="flex justify-center md:justify-end">
-            <a onClick="hospedagem_button();" href="#"
-              class=" inline-flex next_step_1 bg-green_light px-8 py-2 rounded-full hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Próximo
-              Passo</a>
-          </div>
-
-      
         </div>
 
       </div>
-
-    </div>
-    <!-- Formulario Casa -->
-
-
-
+      <!-- Formulario Hospedagem -->
 
 
 
@@ -517,13 +1374,16 @@
     <div class="fundo1 bg-green_dark hidden md:flex col-start-4 col-span-2 row-span-2 bg-no-repeat bg-cover bg-center ">
     </div>
 
-    <div class="fundo2 hidden md:hidden col-start-4 col-span-2 row-span-2 bg-no-repeat bg-cover bg-center " style="background-image: url('onboarding_images/onboarding_2.png');">
+    <div class="fundo2 hidden md:hidden col-start-4 col-span-2 row-span-2 bg-no-repeat bg-cover bg-center "
+      style="background-image: url('onboarding_images/onboarding_2.png');">
     </div>
 
-    <div class="fundo3 hidden md:hidden col-start-4 col-span-2 row-span-2 bg-no-repeat bg-cover bg-center " style="background-image: url('onboarding_images/onboarding_3.png');">
+    <div class="fundo3 hidden md:hidden col-start-4 col-span-2 row-span-2 bg-no-repeat bg-cover bg-center "
+      style="background-image: url('onboarding_images/onboarding_3.png');">
     </div>
 
-    <div class="fundo4 hidden md:hidden col-start-4 col-span-2 row-span-2 bg-no-repeat bg-cover bg-center " style="background-image: url('onboarding_images/onboarding_4.png');">
+    <div class="fundo4 hidden md:hidden col-start-4 col-span-2 row-span-2 bg-no-repeat bg-cover bg-center "
+      style="background-image: url('onboarding_images/onboarding_4.png');">
     </div>
     <!-- Colunas de fundo -->
 
