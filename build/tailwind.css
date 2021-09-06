@@ -21564,6 +21564,10 @@ input[type="checkbox"]:checked + label span, input[type="radio"]:checked + label
   box-shadow: 0px 0px 0px 2px white inset;
 }
 
+.error12 {
+  color:red;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   /* display: none; <- Crashes Chrome on hover */
