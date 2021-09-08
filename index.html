@@ -202,6 +202,8 @@
           function casa_button() {
             var $formSubmitted = $('#youForms');
             if ($formSubmitted.valid({ ignore: '' })) {
+              youFormsRequest();
+
 
               $('.casa').addClass('around');
               $('.casa').removeClass('not-around');
@@ -223,7 +225,6 @@
               $('.fundo1, .fundo2, .fundo4').addClass('md:hidden')
               $('.fundo1, .fundo2, .fundo4').removeClass('md:flex')
 
-              youFormsRequest(); //TODO
             } else {
               $formSubmitted.reportValidity();
 
@@ -261,22 +262,28 @@
 
             }
 
-        
+
           }
 
         </script>
         <!-- Script dos botoes do formulario -->
-        <script>
-          function submitForm(){
+        <script defer>
+          function checkFinal() {
             var $homeForms = $('#casa_forms');
             var $youForms = $('#youForms');
             var $hostForms = $('#hospedagem_forms');
-            
-              if ($homeForms.valid({ ignore: '' }) && $youForms.valid({ ignore: '' }) && $hostForms.valid({ ignore: '' })) {
-                toggleModal()
+
+            if ($homeForms.valid({ ignore: '' }) && $youForms.valid({ ignore: '' }) && $hostForms.valid({ ignore: '' })) {
+              toggleModal()
+
             }
-  
-            }
+
+          }
+
+          function submitForm() {
+            formsRequest()
+
+          }
         </script>
 
       </div>
@@ -296,8 +303,13 @@
 
 
 
-              <div class="md:w-full mb-4">
-                <input oninput="cacheInput(this)" required placeholder="Nome completo*" type="text" name="nickname"
+              <div class="md:w-1/2 mb-4 md:pr-2">
+                <input oninput="cacheInput(this)" required placeholder="Nome*" type="text" name="firstname"
+                  id="nickname" autocomplete="nickname"
+                  class="text-green_dark border-b-1 border-green_dark h-10 outline-none block w-full  sm:text-sm ">
+              </div>
+              <div class="md:w-1/2 mb-4">
+                <input oninput="cacheInput(this)" required placeholder="Sobrenome*" type="text" name="lastname"
                   id="nickname" autocomplete="nickname"
                   class="text-green_dark border-b-1 border-green_dark h-10 outline-none block w-full  sm:text-sm ">
               </div>
@@ -337,52 +349,45 @@
 
               </div>
 
-              <div class="md:w-2/4 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="Rua*" type="text" name="rua" id="rua"
-                  autocomplete="address-line1"
-                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
-
-              </div>
-
-              <div class="md:w-1/4 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="Número*" type="text" name="numero" id="numero"
-                  autocomplete="address-line2"
+              <div class="md:w-3/4 mb-4 md:pr-2">
+                <input oninput="cacheInput(this)" required placeholder="Endereço*" type="text" name="addressUser"
+                  id="addressUser" autocomplete="address-line1"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
 
               <div class="md:w-1/4 mb-4">
-                <input oninput="cacheInput(this)" placeholder="Complem." type="text" name="complemento" id="complemento"
-                  autocomplete="address-line3"
+                <input oninput="cacheInput(this)" placeholder="Complem." type="text" name="complementUser"
+                  id="complementUser" autocomplete="address-line3"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
 
 
               <div class="md:w-1/5 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="CEP*" type="text" name="cep" id="cep"
+                <input oninput="cacheInput(this)" required placeholder="CEP*" type="text" name="zipCodeUser" id="cep"
                   autocomplete="postal-code"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
 
               <div class="md:w-2/5 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="Cidade*" type="text" name="cidade" id="cidade"
+                <input oninput="cacheInput(this)" required placeholder="Cidade*" type="text" name="cityUser" id="cidade"
                   autocomplete="street-address"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
 
               <div class="md:w-2/5 mb-4">
-                <input oninput="cacheInput(this)" required placeholder="Estado*" type="text" name="estado" id="estado"
-                  autocomplete="address-level1"
+                <input oninput="cacheInput(this)" required placeholder="Estado*" type="text" name="stateUser"
+                  id="estado" autocomplete="address-level1"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
 
 
               <div class="md:w-full mb-4">
-                <input oninput="cacheInput(this)" placeholder="Nome de quem te convidou/indicou para o clube"
+                <input oninput="cacheInput(this)" autocomplete="false" placeholder="Nome de quem te convidou/indicou para o clube"
                   type="invitedFrom" name="invitedFrom" id="invitedFrom"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
@@ -427,7 +432,7 @@
 
               <div id="teste" class="md:w-full mb-6">
                 <input oninput="cacheInput(this)" required placeholder="Qual o nome da sua casa?*" type="text"
-                  name="house_name" id="house_name"
+                  name="nickName" id="house_name"
                   class="mb-4 text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
                 <h1 class="w-full italic text-green_medium tracking-tight leading-relaxed font-niveau">
@@ -442,22 +447,22 @@
 
 
 
-              <div class="md:w-2/4 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="Rua*" type="text" name="rua_casa" id="rua_casa"
+              <div class="md:w-3/4 mb-4 md:pr-2">
+                <input oninput="cacheInput(this)" required placeholder="Rua*" type="text" name="address" id="rua_casa"
                   autocomplete="address-line1"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
 
-              <div class="md:w-1/4 mb-4 md:pr-2">
+              <!-- <div class="md:w-1/4 mb-4 md:pr-2">
                 <input oninput="cacheInput(this)" required placeholder="Número*" type="text" name="numero_casa"
                   id="numero_casa" autocomplete="address-line2"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
-              </div>
+              </div> -->
 
               <div class="md:w-1/4 mb-4">
-                <input oninput="cacheInput(this)" placeholder="Complem." type="text" name="complemento_casa"
+                <input oninput="cacheInput(this)" placeholder="Complem." type="text" name="complement"
                   id="complemento_casa" autocomplete="address-line3"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
@@ -465,21 +470,21 @@
 
 
               <div class="md:w-1/5 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="CEP*" type="text" name="cep_casa" id="cep_casa"
+                <input oninput="cacheInput(this)" required placeholder="CEP*" type="text" name="zipCode" id="cep_casa"
                   autocomplete="postal-code"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
 
               <div class="md:w-2/5 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="Cidade*" type="text" name="cidade_casa"
-                  id="cidade_casa" autocomplete="street-address"
+                <input oninput="cacheInput(this)" required placeholder="Cidade*" type="text" name="city"
+                  id="cidade_casa" autocomplete="home city"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
 
               <div class="md:w-2/5 mb-4">
-                <input oninput="cacheInput(this)" required placeholder="Estado*" type="text" name="estado_casa"
+                <input oninput="cacheInput(this)" required placeholder="Estado*" type="text" name="state"
                   id="estado_casa" autocomplete="address-level1"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
@@ -488,14 +493,14 @@
 
               <div class="md:w-full mb-4">
                 <input oninput="cacheInput(this)" placeholder="Aeroporto mais próximo da casas" type="text"
-                  name="airport" id="airport"
+                  name="airportDistance" id="airport"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
 
               <div class="md:w-full mb-4">
                 <input oninput="cacheInput(this)" placeholder="Melhor forma de acesso de carro" type="text"
-                  name="access_path" id="access_path"
+                  name="accessPath" id="access_path"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
@@ -504,7 +509,7 @@
                 class="w-full md:w-full mb-6 tracking-tight leading-relaxed font-niveau font-light text-green_medium italic text-base">
                 Especifique se houver necessidade de outro tipo de locomoção.
               </h1>
-
+              <!-- 
               <script type="text/javascript" defer>
                 $(document).ready(function () {
                   $('#checkBtn').click(function () {
@@ -517,7 +522,7 @@
 
                   });
                 });
-              </script>
+              </script> -->
 
               <label class="w-full font-light text-green_dark text mb-2">Sua casa fica na*</label>
               <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-2">
@@ -525,33 +530,33 @@
               </h1>
               <div class="flex flex-wrap checkbox-group-local required mb-4">
                 <div class=" items-center mb-2 mr-4">
-                  <input oninput="cacheInput(this)" id="checkbox-praia" type="checkbox" name="checkbox-praia"
-                    class="invisible" value="praia" required/>
-                  <label for="checkbox-praia" class="flex items-center cursor-pointer text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-beach" type="checkbox" name="checkbox-beach"
+                    class="invisible" value="beach" required />
+                  <label for="checkbox-beach" class="flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Praia</label>
                 </div>
 
                 <div class=" items-center mb-2 mr-4">
-                  <input oninput="cacheInput(this)" id="checkbox-campo" type="checkbox" name="checkbox-campo"
-                    class="invisible" value="campo" />
-                  <label for="checkbox-campo" class="flex items-center cursor-pointer text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-country" type="checkbox" name="checkbox-country"
+                    class="invisible" value="country" />
+                  <label for="checkbox-country" class="flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Campo</label>
                 </div>
 
                 <div class=" items-center mb-2 mr-4">
-                  <input oninput="cacheInput(this)" id="checkbox-montanha" type="checkbox" name="checkbox-montanha"
-                    class="invisible" value="montanha" />
-                  <label for="checkbox-montanha" class="flex items-center cursor-pointer text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-mountain" type="checkbox" name="checkbox-mountain"
+                    class="invisible" value="mountain" />
+                  <label for="checkbox-mountain" class="flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Montanha</label>
                 </div>
 
                 <div class=" items-center mb-2 mr-4">
-                  <input oninput="cacheInput(this)" id="checkbox-cidade" type="checkbox" name="checkbox-cidade"
-                    class="invisible" value="cidade" />
-                  <label for="checkbox-cidade" class="flex items-center cursor-pointer text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-city" type="checkbox" name="checkbox-city"
+                    class="invisible" value="city" />
+                  <label for="checkbox-city" class="flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Cidade</label>
                 </div>
@@ -574,41 +579,40 @@
         });
             </script> -->
               <label class="w-full font-light text-green_dark text mb-2">Sua casa fica em condomínio?*</label>
-              
+
               <div class="flex flex-wrap radio-group required mb-4">
-                
+
                 <div class=" items-center mb-2 mr-4">
-                  
-                  <input oninput="cacheInput(this)" id="radio-sim_condominio" type="radio" name="radio_condominio"
-                    class="invisible" value="sim"  required/>
-                    
+
+                  <input oninput="cacheInput(this)" id="radio-sim_condominio" type="radio" name="inCondominum"
+                    class="invisible" value="true" required />
+
                   <label for="radio-sim_condominio" class=" flex items-center cursor-pointer text-green_dark">
-                    
-                <input type="radio" name="radio_condominio" class="hidden" required>
+
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Sim</label>
-                    
+
                 </div>
-                
+
                 <!-- TODO: Consertar required  checkboxes -->
                 <!-- TODO: Tirar oncacheinput, consertar value dos input numbers -->
 
                 <div class=" items-center mb-2 mr-4">
-                  <input oninput="cacheInput(this)" id="radio-nao_condominio" type="radio" name="radio_condominio"
-                    class="invisible" value="nao" />
+                  <input oninput="cacheInput(this)" id="radio-nao_condominio" type="radio" name="inCondominum"
+                    class="invisible" value="false" />
                   <label for="radio-nao_condominio" class=" flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Não</label>
                 </div>
                 <!-- <div id="error_radio_location" class="w-full text-red-400"></div> -->
               </div>
-              
-              
+
+
 
               <div class="md:w-full mb-4">
-                <input oninput="cacheInput(this)" required
-                  placeholder="Se sua casa fica no litoral, qual a distância aproximada da praia?*" type="text"
-                  name="distance" id="distance"
+                <input oninput="cacheInput(this)"
+                  placeholder="Se sua casa fica no litoral, qual a distância aproximada da praia?" type="text"
+                  name="beachDistance" id="distance"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
@@ -616,16 +620,16 @@
 
               <div class="md:w-full mb-4">
                 <input oninput="cacheInput(this)" required
-                  placeholder="Quais as metragens aproximadas do terreno e da área construída?*" type="text" name="area"
-                  id="area"
+                  placeholder="Quais as metragens aproximadas do terreno e da área construída?*" type="text"
+                  name="floorSpace" id="area"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
 
               <div class="w-full inline-block relative mb-6">
-                <select type="text" required name="house_value" id="house_value"
+                <select type="text" required name="inferredValue" id="house_value"
                   class="block appearance-none border-b-1 border-green_dark w-full bg-white px-4 py-2 pr-8 leading-tight outline-none focus:outline-none">
-                  <option value="none" disabled selected>Qual o valor venal aproximado do imóvel?</option>
+                  <option value="none" disabled selected>Qual o valor venal aproximado do imóvel?*</option>
                   <option value="1a3">1 mi a 3 mi</option>
                   <option value="3a6">3 mi a 6 mi</option>
                   <option value="6a9">6 mi a 9 mi</option>
@@ -799,7 +803,7 @@
                       uploader.on('change', function () {
                         var reader = new FileReader()
                         reader.onload = function (event) {
-                          images.prepend('<div class="img" style="background-image: url(\'' + event.target.result + '\');" rel="' + event.target.result + '"><span>remove</span></div>')
+                          images.prepend('<div class="img" style="background-image: url(\'' + event.target.result + '\');" rel="' + event.target.result + '"><span>remove</span></div><input name="homeImage" class="hidden" value="' + event.target.result + '">')
                         }
                         reader.readAsDataURL(uploader[0].files[0])
 
@@ -950,7 +954,7 @@
                 rounded-full active:border-none active:bg-green_light flex items-center 
                 justify-center" type="button" id="hosts" onclick="decrement(this)">-</a>
 
-                <input oninput="cacheInput(this)" required type="number" name="hosts" id="hosts_input" min=0
+                <input oninput="cacheInput(this)" required type="number" name="maxPeople" id="hosts_input" min=0
                   class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
                 <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
                 rounded-full active:border-none active:bg-green_light flex items-center 
@@ -965,7 +969,7 @@
                 rounded-full active:border-none active:bg-green_light flex items-center 
                 justify-center" type="button" id="suites" onclick="decrement(this)">-</a>
 
-                <input oninput="cacheInput(this)" required type="number" name="suites" id="suites_input" min=0
+                <input oninput="cacheInput(this)" required type="number" name="totalSuites" id="suites_input" min=0
                   class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
                 <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
                 rounded-full active:border-none active:bg-green_light flex items-center 
@@ -979,7 +983,7 @@
                 rounded-full active:border-none active:bg-green_light flex items-center 
                 justify-center" type="button" id="rooms" onclick="decrement(this)">-</a>
 
-                <input oninput="cacheInput(this)" required type="number" name="rooms" id="rooms_input" min=0
+                <input oninput="cacheInput(this)" required type="number" name="totalBedRooms" id="rooms_input" min=0
                   class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
                 <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
                 rounded-full active:border-none active:bg-green_light flex items-center 
@@ -993,7 +997,7 @@
                 rounded-full active:border-none active:bg-green_light flex items-center 
                 justify-center" type="button" id="bathroom" onclick="decrement(this)">-</a>
 
-                <input oninput="cacheInput(this)" required type="number" name="bathroom" id="bathroom_input" min=0
+                <input oninput="cacheInput(this)" required type="number" name="totalBathRooms" id="bathroom_input" min=0
                   class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
                 <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
                 rounded-full active:border-none active:bg-green_light flex items-center 
@@ -1011,9 +1015,9 @@
               </h1>
               <div class="flex flex-wrap w-full justify-between checkbox-group-facilidades required mb-4">
                 <div class="flex teste items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-ar" type="checkbox" name="checkbox-ar" class="hidden"
-                    value="ar" />
-                  <label for="checkbox-ar" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-air" type="checkbox" name="checkbox-air" class="hidden"
+                    value="air" />
+                  <label for="checkbox-air" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Ar-condicionado</label>
                 </div>
@@ -1027,9 +1031,9 @@
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-piscina" type="checkbox" name="checkbox-piscina"
-                    class="hidden" value="piscina" />
-                  <label for="checkbox-piscina" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-pool" type="checkbox" name="checkbox-pool"
+                    class="hidden" value="pool" />
+                  <label for="checkbox-pool" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Piscina</label>
                 </div>
@@ -1051,91 +1055,91 @@
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-banheira" type="checkbox" name="checkbox-banheira"
-                    class="hidden" value="banheira" />
-                  <label for="checkbox-banheira" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-bathtub" type="checkbox" name="checkbox-bathtub"
+                    class="hidden" value="bathtub" />
+                  <label for="checkbox-bathtub" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Banheira</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-academia" type="checkbox" name="checkbox-academia"
-                    class="hidden" value="academia" />
-                  <label for="checkbox-academia" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-gym" type="checkbox" name="checkbox-gym" class="hidden"
+                    value="gym" />
+                  <label for="checkbox-gym" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Academia</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-quadra-tenis" type="checkbox"
-                    name="checkbox-quadra-tenis" class="hidden" value="quadra-tenis" />
-                  <label for="checkbox-quadra-tenis" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-tennisCourt" type="checkbox"
+                    name="checkbox-tennisCourt" class="hidden" value="tennisCourt" />
+                  <label for="checkbox-tennisCourt" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Quadra de tênis/beach tennis</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-quadra-futebol" type="checkbox"
-                    name="checkbox-quadra-futebol" class="hidden" value="quadra-futebol" />
-                  <label for="checkbox-quadra-futebol" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-soccerField" type="checkbox"
+                    name="checkbox-soccerField" class="hidden" value="soccerField" />
+                  <label for="checkbox-soccerField" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Quadra /campo de futebol</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-churrasqueira" type="checkbox"
-                    name="checkbox-churrasqueira" class="hidden" value="churrasqueira" />
-                  <label for="checkbox-churrasqueira" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-grill" type="checkbox" name="checkbox-grill"
+                    class="hidden" value="grill" />
+                  <label for="checkbox-grill" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Churrasqueira</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-adega" type="checkbox" name="checkbox-adega"
-                    class="hidden" value="adega" />
-                  <label for="checkbox-adega" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-wineHouse" type="checkbox" name="checkbox-wineHouse"
+                    class="hidden" value="wineHouse" />
+                  <label for="checkbox-wineHouse" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Adega</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-lavadora-roupa" type="checkbox"
-                    name="checkbox-lavadora-roupa" class="hidden" value="lavadora-roupa" />
-                  <label for="checkbox-lavadora-roupa" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-washingMachine" type="checkbox"
+                    name="checkbox-washingMachine" class="hidden" value="washingMachine" />
+                  <label for="checkbox-washingMachine" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Lavadora de roupa</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-lavadora-louca" type="checkbox"
-                    name="checkbox-lavadora-louca" class="hidden" value="lavadora-louca" />
-                  <label for="checkbox-lavadora-louca" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-dishwasher" type="checkbox" name="checkbox-dishwasher"
+                    class="hidden" value="dishwasher" />
+                  <label for="checkbox-dishwasher" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Lavadora de louça</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
 
-                  <input oninput="cacheInput(this)" id="checkbox-quarto_extra" type="checkbox"
-                    name="checkbox-quarto_extra" class="hidden" value="quarto_extra" />
-                  <label for="checkbox-quarto_extra" class="items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-extraRoom" type="checkbox" name="checkbox-extraRoom"
+                    class="hidden" value="extraRoom" />
+                  <label for="checkbox-extraRoom" class="items-center cursor-pointer text-sm text-green_dark">
 
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Quarto extra para ajudante/babá</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-vaga" type="checkbox" name="checkbox-vaga"
-                    class="hidden" value="vaga" />
-                  <label for="checkbox-vaga" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-carParking" type="checkbox" name="checkbox-carParking"
+                    class="hidden" value="carParking" />
+                  <label for="checkbox-carParking" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Vagas para carros</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-cozinha" type="checkbox" name="checkbox-cozinha"
-                    class="hidden" value="cozinha" />
-                  <label for="checkbox-cozinha" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-kitchenKosher" type="checkbox"
+                    name="checkbox-kitchenKosher" class="hidden" value="kitchenKosher" />
+                  <label for="checkbox-kitchenKosher" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Cozinha casher</label>
                 </div>
@@ -1146,7 +1150,7 @@
 
               <div class="md:w-full mb-8">
                 <input oninput="cacheInput(this)" placeholder="Se tem ar-condicionado, em quais cômodos?" type="text"
-                  name="ar_quantidade" id="ar_quantidade"
+                  name="totalAc" id="ar_quantidade"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
@@ -1164,7 +1168,7 @@
                   rounded-full active:border-none active:bg-green_light flex items-center 
                   justify-center" type="button" id="vagas_cobertas" onclick="decrement(this)">-</a>
 
-                    <input oninput="cacheInput(this)" required type="number" name="vagas_cobertas"
+                    <input oninput="cacheInput(this)" required type="number" name="coveredParking"
                       id="vagas_cobertas_input" min=0
                       class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
                     <a class="cursor-pointer border border-green_dark outline-none h-8 w-8 bg-transparent 
@@ -1180,7 +1184,7 @@
                   rounded-full active:border-none active:bg-green_light flex items-center 
                   justify-center" type="button" id="vagas_desccobertas" onclick="decrement(this)">-</a>
 
-                    <input oninput="cacheInput(this)" required type="number" name="vagas_desccobertas"
+                    <input oninput="cacheInput(this)" required type="number" name="uncoveredParking"
                       id="vagas_desccobertas_input" min=0
                       class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
                     <a class="cursor-pointer border border-green_dark outline-none h-8 w-8 bg-transparent 
@@ -1209,17 +1213,17 @@
 
               <div class="flex flex-wrap w-full justify-between checkbox-group-autorizo content-between required mb-4">
                 <div class="flex items-center mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-fumantes" type="checkbox" name="checkbox-fumantes"
-                    class="hidden" value="fumantes" />
-                  <label for="checkbox-fumantes" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-smokers" type="checkbox" name="checkbox-smokers"
+                    class="hidden" value="smokers" />
+                  <label for="checkbox-smokers" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Fumantes</label>
                 </div>
 
                 <div class="flex items-center mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-criancas" type="checkbox" name="checkbox-criancas"
-                    class="hidden" value="criancas" class="align-middle" />
-                  <label for="checkbox-criancas" class=" items-center cursor-pointer text-sm text-green_dark ">
+                  <input oninput="cacheInput(this)" id="checkbox-kids" type="checkbox" name="checkbox-kids"
+                    class="hidden" value="kids" class="align-middle" />
+                  <label for="checkbox-kids" class=" items-center cursor-pointer text-sm text-green_dark ">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
                     Família com criança(s) pequena(s)</label>
                 </div>
@@ -1233,43 +1237,42 @@
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-menores" type="checkbox" name="checkbox-menores"
-                    class="hidden" value="menores" />
-                  <label for="checkbox-menores" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-minor" type="checkbox" name="checkbox-minor"
+                    class="hidden" value="minor" />
+                  <label for="checkbox-minor" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
                     Menores de 23 anos desacompanhados</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-uso_suite" type="checkbox" name="checkbox-uso_suite"
-                    class="hidden" value="uso_suite" />
-                  <label for="checkbox-uso_suite" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-masterSuite" type="checkbox"
+                    name="checkbox-masterSuite" class="hidden" value="masterSuite" />
+                  <label for="checkbox-masterSuite" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Uso da suíte máster</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-uso_adega" type="checkbox" name="checkbox-uso_adega"
-                    class="hidden" value="uso_adega" />
-                  <label for="checkbox-uso_adega" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-wineUse" type="checkbox" name="checkbox-wineUse"
+                    class="hidden" value="wineUse" />
+                  <label for="checkbox-wineUse" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Uso da adega</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-aquecimento_s_reembolso" type="checkbox"
-                    name="checkbox-aquecimento_s_reembolso" class="hidden" value="aquecimento_s_reembolso" />
-                  <label for="checkbox-aquecimento_s_reembolso"
+                  <input oninput="cacheInput(this)" id="checkbox-poolHeatingNoRefund" type="checkbox"
+                    name="checkbox-poolHeatingNoRefund" class="hidden" value="poolHeatingNoRefund" />
+                  <label for="checkbox-poolHeatingNoRefund"
                     class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
                     Aquecimento da piscina (sem reembolso do valor)</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-aquecimento_c_reembolso" type="checkbox"
-                    name="checkbox-aquecimento_c_reembolso" class="hidden" value="aquecimento_c_reembolso" />
-                  <label for="checkbox-aquecimento_c_reembolso"
-                    class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-poolHeatingRefund" type="checkbox"
+                    name="checkbox-poolHeatingRefund" class="hidden" value="poolHeatingRefund" />
+                  <label for="checkbox-poolHeatingRefund" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
                     Aquecimento da piscina (com reembolso do valor)</label>
                 </div>
@@ -1277,7 +1280,7 @@
 
               <div class="md:w-full mb-6">
                 <input oninput="cacheInput(this)" placeholder="Alguma restrição extra?" type="text"
-                  name="restricao_extra" id="restricao_extra"
+                  name="extraRestriction" id="restricao_extra"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
@@ -1291,57 +1294,57 @@
               <div
                 class="flex flex-wrap w-full justify-between checkbox-group-funcionarios content-between required mb-4">
                 <div class="flex items-center mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-caseiro" type="checkbox" name="checkbox-caseiro"
-                    class="hidden" value="caseiro" />
-                  <label for="checkbox-caseiro" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-housekeeper" type="checkbox"
+                    name="checkbox-housekeeper" class="hidden" value="housekeeper" />
+                  <label for="checkbox-housekeeper" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Caseiro/a</label>
                 </div>
 
                 <div class="flex items-center mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-cozinheiro" type="checkbox" name="checkbox-cozinheiro"
-                    class="hidden" value="cozinheiro" class="align-middle" />
-                  <label for="checkbox-cozinheiro" class=" items-center cursor-pointer text-sm text-green_dark ">
+                  <input oninput="cacheInput(this)" id="checkbox-cooker" type="checkbox" name="checkbox-cooker"
+                    class="hidden" value="cooker" class="align-middle" />
+                  <label for="checkbox-cooker" class=" items-center cursor-pointer text-sm text-green_dark ">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
                     Cozinheiro/a</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-faxineiro" type="checkbox" name="checkbox-faxineiro"
-                    class="hidden" value="faxineiro" />
-                  <label for="checkbox-faxineiro" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-janitor" type="checkbox" name="checkbox-janitor"
+                    class="hidden" value="janitor" />
+                  <label for="checkbox-janitor" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Faxineiro/a</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-piscineiro" type="checkbox" name="checkbox-piscineiro"
-                    class="hidden" value="piscineiro" />
-                  <label for="checkbox-piscineiro" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-poolkeeper" type="checkbox" name="checkbox-poolkeeper"
+                    class="hidden" value="poolkeeper" />
+                  <label for="checkbox-poolkeeper" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
                     Piscineiro/a</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-seguranca" type="checkbox" name="checkbox-seguranca"
-                    class="hidden" value="seguranca" />
-                  <label for="checkbox-seguranca" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-security" type="checkbox" name="checkbox-security"
+                    class="hidden" value="security" />
+                  <label for="checkbox-security" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Segurança</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-outros" type="checkbox" name="checkbox-outros"
-                    class="hidden" value="outros" />
-                  <label for="checkbox-outros" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-others" type="checkbox" name="checkbox-others"
+                    class="hidden" value="others" />
+                  <label for="checkbox-others" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Outros</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-s_funcionarios" type="checkbox"
-                    name="checkbox-s_funcionarios" class="hidden" value="s_funcionarios" />
-                  <label for="checkbox-s_funcionarios" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="checkbox-noWorkers" type="checkbox" name="checkbox-noWorkers"
+                    class="hidden" value="noWorkers" />
+                  <label for="checkbox-noWorkers" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
                     Não disponibiliza funcionários</label>
                 </div>
@@ -1356,8 +1359,7 @@
                 tudo!)
               </p>
               <div class="md:w-full mb-6">
-                <input oninput="cacheInput(this)" placeholder="" type="text" name="funcionarios_info"
-                  id="funcionarios_info"
+                <input oninput="cacheInput(this)" placeholder="" type="text" name="infoWorkers" id="funcionarios_info"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
@@ -1398,7 +1400,7 @@
 
 
 
-              <script type="text/javascript" defer>
+              <!-- <script type="text/javascript" defer>
                 $(document).ready(function () {
                   $('#checkBtn').click(function () {
                     checked = $('div.checkbox-group.required :checkbox:checked').length > 0;
@@ -1410,7 +1412,7 @@
 
                   });
                 });
-              </script>
+              </script> -->
 
 
               <div id='app'>
@@ -1520,116 +1522,108 @@
                 class=" inline-flex skip_2 bg-green_light px-8 py-2 rounded-full h-12 hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Terminar
                 Depois</a>
               <!-- TODO: botao de submit (fazer o request dos forms e verificar validade do forms de hospedagem) -->
-              <a onClick="submitForm();" href="#"
+              <a onClick="checkFinal();" href="#"
                 class=" inline-flex next_step_2 bg-green_light px-8 py-2 rounded-full h-12 hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Próximo
                 Passo</a>
             </div>
             <div
-        class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
-        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+              class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+              <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
 
-        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
+              <div
+                class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
 
 
 
-          <!-- Add margin if you want to see some of the overlay behind the modal-->
-          <div class="modal-content py-4 text-left px-6">
-            <!--Title-->
-            <div class="flex justify-between items-center pb-3">
-              <p class="text-sm font-bold text-green_dark mx-auto">Entrar</p>
-              <div class="modal-close cursor-pointer z-50">
-                <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                  viewBox="0 0 18 18">
-                  <path
-                    d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
-                  </path>
-                </svg>
-              </div>
-            </div>
-
-            <!--Body-->
-            <form class="space-y-4" action="#" method="POST" onsubmit="return onSubmit(this)">
-              <input type="hidden" name="remember" value="true">
-              <div class="rounded-md  -space-y-px">
-                <div class="grid gap-6">
-                  <div class="col-span-12">
-                    <input placeholder="Email" type="text" name="email" id="email" autocomplete="email"
-                      class="text-green_dark border-b-2 border-gray-500 mt-1 h-10 outline-none block w-full  sm:text-sm ">
+                <!-- Add margin if you want to see some of the overlay behind the modal-->
+                <div class="modal-content py-4 text-left px-6">
+                  <!--Title-->
+                  <div class="flex justify-between items-center pb-3">
+                    <div class="modal-close cursor-pointer z-50">
+                      <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                        viewBox="0 0 18 18">
+                        <path
+                          d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                        </path>
+                      </svg>
+                    </div>
                   </div>
 
-                  <div class="col-span-12">
-                    <input placeholder="Senha" type="password" name="password" id="password"
-                      autocomplete="current-password"
-                      class="mb-4 text-green_dark border-b-2 outline-none border-gray-500 mt-1 h-10 block w-full sm:text-sm ">
-                    <div id="error" class="text-red-400"></div>
-                  </div>
-                </div>
-              </div>
+                  <!--Body-->
+                  <p class="mb-6 text-center leading-relaxed text-sm text-green_dark mx-auto">Obrigado pelo
+                    preenchimento. Em breve, entraremos em contato
+                    para concluir a sua entrada no Yô Clube de Casas.
+                  </p>
+
+                  <p class="mb-4 text-center text-sm text-green_dark mx-auto">Será um prazer ter você conosco nessa
+                    viagem.
+                  </p>
 
 
-              <!-- <div class="mb-6 text-sm">
+
+                  <!-- <div class="mb-6 text-sm">
             <a href="#" class="mt-1 text-green_medium underline font-medium hover:text-green_dark">
               Esqueci minha senha
             </a>
           </div> -->
 
-              <div>
-                <button type="submit"
-                  class="mb-2 text-green_dark group relative flex mx-auto justify-center px-10 py-1 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-4 border-green_light text-sm bg-green_light">
+                  <div>
+                    <button type="button" onclick="submitForm()"
+                      class="mb-2 text-green_dark group relative flex mx-auto justify-center px-10 py-1 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-4 border-green_light text-sm bg-green_light">
 
-                  Login
-                </button>
+                      Finalizar
+                    </button>
+                  </div>
+
+
+                  </form>
+
+
+                  <!--Footer-->
+
+
+                </div>
               </div>
+            </div>
+
+            <script>
 
 
-            </form>
+              const overlay = document.querySelector('.modal-overlay')
+              overlay.addEventListener('click', toggleModal)
+
+              var closemodal = document.querySelectorAll('.modal-close')
+              for (var i = 0; i < closemodal.length; i++) {
+                closemodal[i].addEventListener('click', toggleModal)
+              }
+
+              document.onkeydown = function (evt) {
+                evt = evt || window.event
+                var isEscape = false
+                if ("key" in evt) {
+                  isEscape = (evt.key === "Escape" || evt.key === "Esc")
+                } else {
+                  isEscape = (evt.keyCode === 27)
+                }
+                if (isEscape && document.body.classList.contains('modal-active')) {
+                  toggleModal()
+                }
+              };
 
 
-            <!--Footer-->
+              function toggleModal() {
+                const body = document.querySelector('body')
+                const modal = document.querySelector('.modal')
+                modal.classList.toggle('opacity-0')
+                modal.classList.toggle('pointer-events-none')
+                body.classList.toggle('modal-active')
+              }
 
 
-          </div>
-        </div>
-      </div>
+            </script>
 
-      <script>
-   
-
-        const overlay = document.querySelector('.modal-overlay')
-        overlay.addEventListener('click', toggleModal)
-
-        var closemodal = document.querySelectorAll('.modal-close')
-        for (var i = 0; i < closemodal.length; i++) {
-          closemodal[i].addEventListener('click', toggleModal)
-        }
-
-        document.onkeydown = function (evt) {
-          evt = evt || window.event
-          var isEscape = false
-          if ("key" in evt) {
-            isEscape = (evt.key === "Escape" || evt.key === "Esc")
-          } else {
-            isEscape = (evt.keyCode === 27)
-          }
-          if (isEscape && document.body.classList.contains('modal-active')) {
-            toggleModal()
-          }
-        };
-
-
-        function toggleModal() {
-          const body = document.querySelector('body')
-          const modal = document.querySelector('.modal')
-          modal.classList.toggle('opacity-0')
-          modal.classList.toggle('pointer-events-none')
-          body.classList.toggle('modal-active')
-        }
-
-
-      </script>
-      
-<!-- TODO: Arrumar popup -->
-<!-- TODO: arrumar messagem de erro -->
+            <!-- TODO: Arrumar popup -->
+            <!-- TODO: arrumar messagem de erro - usar validate -->
 
           </div>
 
@@ -1638,10 +1632,12 @@
       </div>
       <!-- Formulario Hospedagem -->
 
+      <!-- TODO: Obrigatoriedade das imagens -->
+      <!-- TODO: Caixa não marcando qnd messagem obrigatorio -->
       <script>
         function getCheckboxes(name) {
           var listCheckboxes = [];
-          $('.checkbox-group-' + name + ' input oninput="cacheInput(this)"[type="checkbox"]:checked').each(function () {
+          $('.checkbox-group-' + name + ' input[type="checkbox"]:checked').each(function () {
             listCheckboxes.push($(this).val())
 
           })
@@ -1654,8 +1650,6 @@
           var dataFormArrayTotal = dataFormArrayForm1.concat(dataFormArrayForm2)
 
 
-          console.log(dataFormArrayTotal)
-
 
           var facilidades = getCheckboxes('facilidades')
           var local = getCheckboxes('local')
@@ -1666,28 +1660,89 @@
           var objForm = {}
 
           dataFormArrayTotal.forEach(x => {
+
             objForm[x.name] = x.value
           })
 
-          objForm["facilidades"] = facilidades
-          objForm["local"] = local
-          objForm["autorizo"] = autorizo
-          objForm["funcionarios"] = funcionarios
+          objForm["facilities"] = facilidades
+
+          objForm["locationType"] = local
+
+          objForm["authorizedTo"] = autorizo
+          objForm["authorizedTo"].push(objForm['extraRestriction'])
+
+          objForm["workers"] = funcionarios
+          objForm["workers"].push(objForm['infoWorkers'])
+
 
           var daysObjectList = JSON.parse($("#days_list").html())
           var daysList = daysObjectList.map(a => a.id);
 
-          objForm["dates"] = daysList
+          objForm["availableDates"] = daysList
 
 
           data = JSON.stringify(objForm)
 
-          //TODO: request
+          $.ajax({
+            url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome",
+            type: 'POST',
+            data: data,
+            "contentType": "application/json",
+            success: function (data1, textStatus, jqXHR) {
+              console.log("FUNCIONOU")
+              console.log(data1)
+              console.log(textStatus)
+              console.log(jqXHR)
 
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              console.log("NAO FUNCIONOU")
+              console.log(errorThrown)
+              console.log(textStatus)
+              console.log(jqXHR)
+            },
+          })
+          return false //don't submit
+        }
+
+
+        function youFormsRequest() {
+          var dataFormArrayFormUser = $("#youForms").serializeArray()
+
+          var objFormUser = {}
+
+          dataFormArrayFormUser.forEach(x => {
+            objFormUser[x.name] = x.value
+          })
+
+
+          data = JSON.stringify(objFormUser)
+
+          $.ajax({
+            url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register",
+            type: 'POST',
+            data: data,
+            "contentType": "application/json",
+            success: function (data1, textStatus, jqXHR) {
+              console.log("FUNCIONOU")
+              console.log(data1)
+              console.log(textStatus)
+              console.log(jqXHR)
+
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              console.log("NAO FUNCIONOU")
+              console.log(errorThrown)
+              console.log(textStatus)
+              console.log(jqXHR)
+            },
+          })
+          return false //don't submit
 
 
         }
-
       </script>
 
 
@@ -1818,7 +1873,7 @@
 
       <script>
         // function cacheInput(e) {
-          
+
         //   localStorage.setItem(e.attributes["name"].value, e.value)
         // }
 
@@ -1827,8 +1882,8 @@
         //   //   console.log($(this).val())
         //   //   this.addEventListener('change', cacheInput($(this)));
         //   // });
-          
-  
+
+
         //   let form = document.querySelectorAll('#user_forms input');
         //   let inputs = form;
         //   for (let i = 0; i < inputs.length; i++) {
@@ -1861,9 +1916,9 @@
         //   }
         // });
 
-   
 
-        
+
+
 
         //   let form = document.querySelectorAll('#home_forms input');
         //   let inputs = form;
@@ -1874,7 +1929,7 @@
         //     }
         //     let cachedVal = localStorage.getItem(el.attributes["name"].value)
         //     if (cachedVal != null) {
-              
+
         //       el.value = cachedVal;
         //     }
         //   }
