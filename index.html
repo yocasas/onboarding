@@ -46,14 +46,48 @@
 
       var myCookie = getCookie("login_session");
 
-      if (myCookie == null) {
-      }
-      else {
+      if (myCookie) {
+        $("#cookie").val(myCookie)
+        casa_button();
 
       }
+
 
     });
 
+  </script>
+
+  <script>
+    function getHomeInfo(id) {
+
+      let data = {
+        "ClientId": id
+      }
+
+
+      data = JSON.stringify(data)
+
+      $.ajax({
+        url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes",
+        type: 'POST',
+        data: data,
+        "contentType": "application/json",
+        success: function (data1, textStatus, jqXHR) {
+          let element = data1[0]
+          $("#nickName").val(`${element["nickName"]}`) //TODO: ver se carrega no input corretamente
+
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+        },
+      })
+
+
+
+
+
+    }
   </script>
 
   <style>
@@ -84,6 +118,7 @@
     }
   </style>
 </head>
+<!-- TODO: Mandar imagens pro S3 -->
 
 <body class="antialiased text-gray-800 font-niveau">
   <div class="md:w-screen md:h-screen md:grid md:grid-cols-5 md:grid-rows-2">
@@ -102,6 +137,7 @@
           </a>
         </div>
       </header>
+      <input class="hidden" id="cookie" name="teste" type="text">
 
       <div class="items-center">
         <h1
@@ -131,7 +167,7 @@
               </div>
             </a>
 
-            <a class="cursor-pointer" onClick="casa_button();">
+            <a class="cursor-pointer" onClick="submitYouForms();">
               <div class="flex items-center">
                 <div class="casa not-around rounded-full flex items-center justify-center z-10">3</div>
                 <div class="casa_text ml-2 text-green_light md:flex hidden">Casa</div>
@@ -199,10 +235,11 @@
 
           }
 
+          //TODO: Caso a pessoa volte a fazer o cadastro, permitir ela alterar as informacoes que ja cadastrou de usuario?
           function casa_button() {
             var $formSubmitted = $('#youForms');
             if ($formSubmitted.valid({ ignore: '' })) {
-              youFormsRequest();
+
 
 
               $('.casa').addClass('around');
@@ -229,6 +266,12 @@
               $formSubmitted.reportValidity();
 
             }
+          }
+
+          function submitYouForms() {
+            casa_button()
+            youFormsRequest();
+
           }
 
           function hospedagem_button() {
@@ -282,6 +325,7 @@
 
           function submitForm() {
             formsRequest()
+            window.location.href = "https://yocasas.com.br/home/";
 
           }
         </script>
@@ -305,12 +349,12 @@
 
               <div class="md:w-1/2 mb-4 md:pr-2">
                 <input oninput="cacheInput(this)" required placeholder="Nome*" type="text" name="firstname"
-                  id="nickname" autocomplete="nickname"
+                  id="firstname" autocomplete="given-name"
                   class="text-green_dark border-b-1 border-green_dark h-10 outline-none block w-full  sm:text-sm ">
               </div>
               <div class="md:w-1/2 mb-4">
                 <input oninput="cacheInput(this)" required placeholder="Sobrenome*" type="text" name="lastname"
-                  id="nickname" autocomplete="nickname"
+                  id="lastname" autocomplete="family-name"
                   class="text-green_dark border-b-1 border-green_dark h-10 outline-none block w-full  sm:text-sm ">
               </div>
 
@@ -387,8 +431,9 @@
 
 
               <div class="md:w-full mb-4">
-                <input oninput="cacheInput(this)" autocomplete="false" placeholder="Nome de quem te convidou/indicou para o clube"
-                  type="invitedFrom" name="invitedFrom" id="invitedFrom"
+                <input oninput="cacheInput(this)" autocomplete="false"
+                  placeholder="Nome de quem te convidou/indicou para o clube" type="invitedFrom" name="invitedFrom"
+                  id="invitedFrom"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
@@ -397,7 +442,7 @@
             </form>
 
             <div class="flex justify-center md:justify-end">
-              <a onClick="casa_button();" href="#"
+              <a onClick="submitYouForms();" href="#"
                 class=" inline-flex next_step_1 bg-green_light px-8 py-2 rounded-full hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Próximo
                 Passo</a>
             </div>
@@ -432,7 +477,7 @@
 
               <div id="teste" class="md:w-full mb-6">
                 <input oninput="cacheInput(this)" required placeholder="Qual o nome da sua casa?*" type="text"
-                  name="nickName" id="house_name"
+                  name="nickName" id="nickName"
                   class="mb-4 text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
                 <h1 class="w-full italic text-green_medium tracking-tight leading-relaxed font-niveau">
@@ -916,7 +961,7 @@
 
             <!-- TODO: Request terminar depois -->
             <div class="flex justify-center md:justify-between">
-              <a onClick="formsRequest();" href="#"
+              <a onClick="submitForm();" href="#"
                 class=" inline-flex skip_2 bg-green_light px-8 py-2 rounded-full h-12 hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Terminar
                 Depois</a>
 
@@ -1416,7 +1461,7 @@
 
 
               <div id='app'>
-                <v-calendar :attributes='attributes' @dayclick='onDayClick'>
+                <v-calendar color="green" :attributes='attributes' @dayclick='onDayClick'>
                 </v-calendar>
                 <!-- Add a column to display info for clicked day -->
                 <div v-if='days' class='selected-day'>
@@ -1518,7 +1563,7 @@
             </form>
 
             <div class="flex justify-center md:justify-between">
-              <a onClick="formsRequest();" href="#"
+              <a onClick="submitForm();" href="#"
                 class=" inline-flex skip_2 bg-green_light px-8 py-2 rounded-full h-12 hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Terminar
                 Depois</a>
               <!-- TODO: botao de submit (fazer o request dos forms e verificar validade do forms de hospedagem) -->
@@ -1622,7 +1667,6 @@
 
             </script>
 
-            <!-- TODO: Arrumar popup -->
             <!-- TODO: arrumar messagem de erro - usar validate -->
 
           </div>
@@ -1681,6 +1725,17 @@
           objForm["availableDates"] = daysList
 
 
+
+          var tokens = $("#cookie").val().split(".");
+          // console.log(atob(tokens[0])); //Alg, Type
+          var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
+
+          var clientId = clientObject.ClientId
+
+          objForm["ClientId"] = clientId
+
+
+
           data = JSON.stringify(objForm)
 
           $.ajax({
@@ -1689,18 +1744,12 @@
             data: data,
             "contentType": "application/json",
             success: function (data1, textStatus, jqXHR) {
-              console.log("FUNCIONOU")
-              console.log(data1)
-              console.log(textStatus)
-              console.log(jqXHR)
+
 
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
-              console.log("NAO FUNCIONOU")
-              console.log(errorThrown)
-              console.log(textStatus)
-              console.log(jqXHR)
+
             },
           })
           return false //don't submit
@@ -1725,18 +1774,12 @@
             data: data,
             "contentType": "application/json",
             success: function (data1, textStatus, jqXHR) {
-              console.log("FUNCIONOU")
-              console.log(data1)
-              console.log(textStatus)
-              console.log(jqXHR)
-
+              $("#cookie").val(data1.token) 
+              document.cookie = `login_session=${data1.token}; max-age=3000`;
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
-              console.log("NAO FUNCIONOU")
-              console.log(errorThrown)
-              console.log(textStatus)
-              console.log(jqXHR)
+
             },
           })
           return false //don't submit
