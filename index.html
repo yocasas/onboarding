@@ -74,7 +74,50 @@
         "contentType": "application/json",
         success: function (data1, textStatus, jqXHR) {
           let element = data1[0]
-          $("#nickName").val(`${element["nickName"]}`) //TODO: ver se carrega no input corretamente
+          console.log(element)
+          if (`${element["nickName"]}` !== 'undefined') $("#nickName").val(`${element["nickName"]}`)
+          if (`${element["address"]}` !== 'undefined') $("#address").val(`${element["address"]}`)
+          if (`${element["complement"]}` !== 'undefined') $("#complement").val(`${element["complement"]}`) 
+          if (`${element["zipCode"]}` !== 'undefined') $("#zipCode").val(`${element["zipCode"]}`)
+          if (`${element["city"]}` !== 'undefined') $("#city-input").val(`${element["city"]}`)
+          if (`${element["state"]}` !== 'undefined') $("#state").val(`${element["state"]}`);
+          if (`${element["airportDistance"]}` !== 'undefined') $("#airportDistance").val(`${element["airportDistance"]}`);
+          if (`${element["accessPath"]}` !== 'undefined') $("#accessPath").val(`${element["accessPath"]}`)
+          if (`${element["locationType"]}` !== 'undefined') $('#' + `${element["locationType"]}`).attr('checked', 'checked')
+          if (`${element["inCondominum"]}` !== 'undefined') $('#' + `${element["inCondominum"]}`).attr('checked', 'checked')
+          if (`${element["beachDistance"]}` !== 'undefined') $("#beachDistance").val(`${element["beachDistance"]}`)
+          if (`${element["floorSpace"]}` !== 'undefined') $("#floorSpace").val(`${element["floorSpace"]}`)
+          if (`${element["inferredValue"]}` !== 'undefined') $("#inferredValue").val(`${element["inferredValue"]}`)
+          if (`${element["description"]}` !== 'undefined') $("#description").val(`${element["description"]}`)
+          if (`${element["weakness"]}` !== 'undefined') $("#weakness").val(`${element["weakness"]}`)
+          if (`${element["maxPeople"]}` !== 'undefined') $("#hosts_input").val(`${element["maxPeople"]}`)
+          if (`${element["totalSuites"]}` !== 'undefined') $("#suites_input").val(`${element["totalSuites"]}`)
+          if (`${element["totalBedRooms"]}` !== 'undefined') $("#rooms_input").val(`${element["totalBedRooms"]}`)
+          if (`${element["totalBathRooms"]}` !== 'undefined') $("#bathroom_input").val(`${element["totalBathRooms"]}`)
+          if (`${element["totalBathRooms"]}` !== 'undefined') $("#bathroom_input").val(`${element["totalBathRooms"]}`)
+          if (`${element["facilities"]}` !== 'undefined' || `${element["facilities"]}`.length === 0) {
+            $.each(`${element["facilities"]}`, function (i, val) {
+              $('#' + val).attr('checked', 'checked')
+            })
+          }
+
+          if (`${element["totalAc"]}` !== 'undefined') $("#totalAc").val(`${element["totalAc"]}`);
+
+          if (`${element["authorizedTo"]}` !== 'undefined' || `${element["authorizedTo"]}`.length === 0) {
+            $.each(`${element["authorizedTo"]}`, function (i, val) {
+              $('#' + val).attr('checked', 'checked')
+            })
+          }
+
+          if (`${element["workers"]}` !== 'undefined' || `${element["workers"]}`.length === 0) {
+            $.each(`${element["workers"]}`, function (i, val) {
+              $('#' + val).attr('checked', 'checked')
+            })
+          }
+
+          if (`${element["infoWorkers"]}` !== 'undefined') $("#infoWorkers").val(`${element["infoWorkers"]}`)
+
+          $('#days_list').html(["2021-09-16T03:00:00.000Z"]) //TODO: marcar as datas
 
 
         },
@@ -83,11 +126,8 @@
         },
       })
 
-
-
-
-
     }
+
   </script>
 
   <style>
@@ -493,7 +533,7 @@
 
 
               <div class="md:w-3/4 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="Rua*" type="text" name="address" id="rua_casa"
+                <input oninput="cacheInput(this)" required placeholder="Rua*" type="text" name="address" id="address"
                   autocomplete="address-line1"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
@@ -507,30 +547,30 @@
               </div> -->
 
               <div class="md:w-1/4 mb-4">
-                <input oninput="cacheInput(this)" placeholder="Complem." type="text" name="complement"
-                  id="complemento_casa" autocomplete="address-line3"
+                <input oninput="cacheInput(this)" placeholder="Complem." type="text" name="complement" id="complement"
+                  autocomplete="address-line3"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
 
 
               <div class="md:w-1/5 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="CEP*" type="text" name="zipCode" id="cep_casa"
+                <input oninput="cacheInput(this)" required placeholder="CEP*" type="text" name="zipCode" id="zipCode"
                   autocomplete="postal-code"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
 
               <div class="md:w-2/5 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="Cidade*" type="text" name="city"
-                  id="cidade_casa" autocomplete="home city"
+                <input oninput="cacheInput(this)" required placeholder="Cidade*" type="text" name="city" id="city-input"
+                  autocomplete="home city"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
 
               <div class="md:w-2/5 mb-4">
-                <input oninput="cacheInput(this)" required placeholder="Estado*" type="text" name="state"
-                  id="estado_casa" autocomplete="address-level1"
+                <input oninput="cacheInput(this)" required placeholder="Estado*" type="text" name="state" id="state"
+                  autocomplete="address-level1"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
@@ -538,14 +578,14 @@
 
               <div class="md:w-full mb-4">
                 <input oninput="cacheInput(this)" placeholder="Aeroporto mais próximo da casas" type="text"
-                  name="airportDistance" id="airport"
+                  name="airportDistance" id="airportDistance"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
 
               <div class="md:w-full mb-4">
                 <input oninput="cacheInput(this)" placeholder="Melhor forma de acesso de carro" type="text"
-                  name="accessPath" id="access_path"
+                  name="accessPath" id="accessPath"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
@@ -569,39 +609,37 @@
                 });
               </script> -->
 
-              <label class="w-full font-light text-green_dark text mb-2">Sua casa fica na*</label>
-              <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-2">
-                Pode selecionar várias opções
-              </h1>
-              <div class="flex flex-wrap checkbox-group-local required mb-4">
+
+              <label class="w-full font-light text-green_dark text">Sua casa fica na*</label>
+              <div class="flex flex-wrap checkbox-group-local required mb-8">
                 <div class=" items-center mb-2 mr-4">
-                  <input oninput="cacheInput(this)" id="checkbox-beach" type="checkbox" name="checkbox-beach"
-                    class="invisible" value="beach" required />
-                  <label for="checkbox-beach" class="flex items-center cursor-pointer text-green_dark">
+                  <input oninput="cacheInput(this)" id="beach" type="radio" name="locationType" class="invisible"
+                    value="beach" required />
+                  <label for="beach" class="flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Praia</label>
                 </div>
 
                 <div class=" items-center mb-2 mr-4">
-                  <input oninput="cacheInput(this)" id="checkbox-country" type="checkbox" name="checkbox-country"
-                    class="invisible" value="country" />
-                  <label for="checkbox-country" class="flex items-center cursor-pointer text-green_dark">
+                  <input oninput="cacheInput(this)" id="country" type="radio" name="locationType" class="invisible"
+                    value="country" />
+                  <label for="country" class="flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Campo</label>
                 </div>
 
                 <div class=" items-center mb-2 mr-4">
-                  <input oninput="cacheInput(this)" id="checkbox-mountain" type="checkbox" name="checkbox-mountain"
-                    class="invisible" value="mountain" />
-                  <label for="checkbox-mountain" class="flex items-center cursor-pointer text-green_dark">
+                  <input oninput="cacheInput(this)" id="mountain" type="radio" name="locationType" class="invisible"
+                    value="mountain" />
+                  <label for="mountain" class="flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Montanha</label>
                 </div>
 
                 <div class=" items-center mb-2 mr-4">
-                  <input oninput="cacheInput(this)" id="checkbox-city" type="checkbox" name="checkbox-city"
-                    class="invisible" value="city" />
-                  <label for="checkbox-city" class="flex items-center cursor-pointer text-green_dark">
+                  <input oninput="cacheInput(this)" id="city" type="radio" name="locationType" class="invisible"
+                    value="city" />
+                  <label for="city" class="flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Cidade</label>
                 </div>
@@ -623,16 +661,16 @@
             });
         });
             </script> -->
-              <label class="w-full font-light text-green_dark text mb-2">Sua casa fica em condomínio?*</label>
+              <label class="w-full font-light text-green_dark text">Sua casa fica em condomínio?*</label>
 
               <div class="flex flex-wrap radio-group required mb-4">
 
                 <div class=" items-center mb-2 mr-4">
 
-                  <input oninput="cacheInput(this)" id="radio-sim_condominio" type="radio" name="inCondominum"
-                    class="invisible" value="true" required />
+                  <input oninput="cacheInput(this)" id="true" type="radio" name="inCondominum" class="invisible"
+                    value="true" required />
 
-                  <label for="radio-sim_condominio" class=" flex items-center cursor-pointer text-green_dark">
+                  <label for="true" class=" flex items-center cursor-pointer text-green_dark">
 
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Sim</label>
@@ -640,12 +678,11 @@
                 </div>
 
                 <!-- TODO: Consertar required  checkboxes -->
-                <!-- TODO: Tirar oncacheinput, consertar value dos input numbers -->
 
                 <div class=" items-center mb-2 mr-4">
-                  <input oninput="cacheInput(this)" id="radio-nao_condominio" type="radio" name="inCondominum"
-                    class="invisible" value="false" />
-                  <label for="radio-nao_condominio" class=" flex items-center cursor-pointer text-green_dark">
+                  <input oninput="cacheInput(this)" id="false" type="radio" name="inCondominum" class="invisible"
+                    value="false" />
+                  <label for="false" class=" flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Não</label>
                 </div>
@@ -657,7 +694,7 @@
               <div class="md:w-full mb-4">
                 <input oninput="cacheInput(this)"
                   placeholder="Se sua casa fica no litoral, qual a distância aproximada da praia?" type="text"
-                  name="beachDistance" id="distance"
+                  name="beachDistance" id="beachDistance"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
@@ -666,20 +703,20 @@
               <div class="md:w-full mb-4">
                 <input oninput="cacheInput(this)" required
                   placeholder="Quais as metragens aproximadas do terreno e da área construída?*" type="text"
-                  name="floorSpace" id="area"
+                  name="floorSpace" id="floorSpace"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
 
               <div class="w-full inline-block relative mb-6">
-                <select type="text" required name="inferredValue" id="house_value"
+                <select type="text" required name="inferredValue" id="inferredValue"
                   class="block appearance-none border-b-1 border-green_dark w-full bg-white px-4 py-2 pr-8 leading-tight outline-none focus:outline-none">
                   <option value="none" disabled selected>Qual o valor venal aproximado do imóvel?*</option>
-                  <option value="1a3">1 mi a 3 mi</option>
-                  <option value="3a6">3 mi a 6 mi</option>
-                  <option value="6a9">6 mi a 9 mi</option>
-                  <option value="9a12">9 mi a 12 mi</option>
-                  <option value="mais12">+ 12 mi</option>
+                  <option value="1 mi a 3 mi">1 mi a 3 mi</option>
+                  <option value="1 mi a 3 mi">3 mi a 6 mi</option>
+                  <option value="1 mi a 3 mi">6 mi a 9 mi</option>
+                  <option value="1 mi a 3 mi">9 mi a 12 mi</option>
+                  <option value="1 mi a 3 mi">+ 12 mi</option>
 
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -959,7 +996,6 @@
               <!-- <button class="btn btn-teal mx-auto" type="submit">Create Account</button> -->
             </form>
 
-            <!-- TODO: Request terminar depois -->
             <div class="flex justify-center md:justify-between">
               <a onClick="submitForm();" href="#"
                 class=" inline-flex skip_2 bg-green_light px-8 py-2 rounded-full h-12 hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Terminar
@@ -1060,131 +1096,131 @@
               </h1>
               <div class="flex flex-wrap w-full justify-between checkbox-group-facilidades required mb-4">
                 <div class="flex teste items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-air" type="checkbox" name="checkbox-air" class="hidden"
+                  <input oninput="cacheInput(this)" id="air" type="checkbox" name="air" class="hidden"
                     value="air" />
-                  <label for="checkbox-air" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <label for="air" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Ar-condicionado</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-wifi" type="checkbox" name="checkbox-wifi"
+                  <input oninput="cacheInput(this)" id="wifi" type="checkbox" name="wifi"
                     class="hidden" value="wifi" />
-                  <label for="checkbox-wifi" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <label for="wifi" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Wi-fi</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-pool" type="checkbox" name="checkbox-pool"
+                  <input oninput="cacheInput(this)" id="pool" type="checkbox" name="pool"
                     class="hidden" value="pool" />
-                  <label for="checkbox-pool" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <label for="pool" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Piscina</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-sauna" type="checkbox" name="checkbox-sauna"
+                  <input oninput="cacheInput(this)" id="sauna" type="checkbox" name="sauna"
                     class="hidden" value="sauna" />
-                  <label for="checkbox-sauna" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <label for="sauna" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Sauna</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-jacuzzi" type="checkbox" name="checkbox-jacuzzi"
+                  <input oninput="cacheInput(this)" id="jacuzzi" type="checkbox" name="jacuzzi"
                     class="hidden" value="jacuzzi" />
-                  <label for="checkbox-jacuzzi" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <label for="jacuzzi" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Jacuzzi/ofurô</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-bathtub" type="checkbox" name="checkbox-bathtub"
+                  <input oninput="cacheInput(this)" id="bathtub" type="checkbox" name="bathtub"
                     class="hidden" value="bathtub" />
-                  <label for="checkbox-bathtub" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <label for="bathtub" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Banheira</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-gym" type="checkbox" name="checkbox-gym" class="hidden"
+                  <input oninput="cacheInput(this)" id="gym" type="checkbox" name="gym" class="hidden"
                     value="gym" />
-                  <label for="checkbox-gym" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <label for="gym" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Academia</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-tennisCourt" type="checkbox"
-                    name="checkbox-tennisCourt" class="hidden" value="tennisCourt" />
-                  <label for="checkbox-tennisCourt" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="tennisCourt" type="checkbox"
+                    name="tennisCourt" class="hidden" value="tennisCourt" />
+                  <label for="tennisCourt" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Quadra de tênis/beach tennis</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-soccerField" type="checkbox"
-                    name="checkbox-soccerField" class="hidden" value="soccerField" />
-                  <label for="checkbox-soccerField" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="soccerField" type="checkbox"
+                    name="soccerField" class="hidden" value="soccerField" />
+                  <label for="soccerField" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Quadra /campo de futebol</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-grill" type="checkbox" name="checkbox-grill"
+                  <input oninput="cacheInput(this)" id="grill" type="checkbox" name="grill"
                     class="hidden" value="grill" />
-                  <label for="checkbox-grill" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <label for="grill" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Churrasqueira</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-wineHouse" type="checkbox" name="checkbox-wineHouse"
+                  <input oninput="cacheInput(this)" id="wineHouse" type="checkbox" name="wineHouse"
                     class="hidden" value="wineHouse" />
-                  <label for="checkbox-wineHouse" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <label for="wineHouse" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Adega</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-washingMachine" type="checkbox"
-                    name="checkbox-washingMachine" class="hidden" value="washingMachine" />
-                  <label for="checkbox-washingMachine" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="washingMachine" type="checkbox"
+                    name="washingMachine" class="hidden" value="washingMachine" />
+                  <label for="washingMachine" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Lavadora de roupa</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-dishwasher" type="checkbox" name="checkbox-dishwasher"
+                  <input oninput="cacheInput(this)" id="dishwasher" type="checkbox" name="dishwasher"
                     class="hidden" value="dishwasher" />
-                  <label for="checkbox-dishwasher" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <label for="dishwasher" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Lavadora de louça</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
 
-                  <input oninput="cacheInput(this)" id="checkbox-extraRoom" type="checkbox" name="checkbox-extraRoom"
+                  <input oninput="cacheInput(this)" id="extraRoom" type="checkbox" name="extraRoom"
                     class="hidden" value="extraRoom" />
-                  <label for="checkbox-extraRoom" class="items-center cursor-pointer text-sm text-green_dark">
+                  <label for="extraRoom" class="items-center cursor-pointer text-sm text-green_dark">
 
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Quarto extra para ajudante/babá</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-carParking" type="checkbox" name="checkbox-carParking"
+                  <input oninput="cacheInput(this)" id="carParking" type="checkbox" name="carParking"
                     class="hidden" value="carParking" />
-                  <label for="checkbox-carParking" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <label for="carParking" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Vagas para carros</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-kitchenKosher" type="checkbox"
-                    name="checkbox-kitchenKosher" class="hidden" value="kitchenKosher" />
-                  <label for="checkbox-kitchenKosher" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="kitchenKosher" type="checkbox"
+                    name="kitchenKosher" class="hidden" value="kitchenKosher" />
+                  <label for="kitchenKosher" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Cozinha casher</label>
                 </div>
@@ -1195,7 +1231,7 @@
 
               <div class="md:w-full mb-8">
                 <input oninput="cacheInput(this)" placeholder="Se tem ar-condicionado, em quais cômodos?" type="text"
-                  name="totalAc" id="ar_quantidade"
+                  name="totalAc" id="totalAc"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
@@ -1241,10 +1277,34 @@
               <script defer>
 
                 function increment(btn) {
-                  document.getElementById(btn.id + "_input").stepUp();
+
+                  var a = $("#" + btn.id + "_input");
+
+                  if (a.val() == "") {
+                    a.val(1)
+                  } else {
+                    var b = parseInt(a.val(), 10)
+                    a.val(b + 1)
+
+                  }
+
+
+
                 }
                 function decrement(btn) {
-                  document.getElementById(btn.id + "_input").stepDown();
+
+
+                  var a = $("#" + btn.id + "_input");
+
+                  if (a.val() == "") {
+                    a.val(0)
+                  } else {
+                    var b = parseInt(a.val(), 10)
+                    b = b < 1 ? 1 : b
+                    a.val(b - 1)
+
+                  }
+
                 }
 
               </script>
@@ -1404,7 +1464,7 @@
                 tudo!)
               </p>
               <div class="md:w-full mb-6">
-                <input oninput="cacheInput(this)" placeholder="" type="text" name="infoWorkers" id="funcionarios_info"
+                <input oninput="cacheInput(this)" placeholder="" type="text" name="infoWorkers" id="infoWorkers"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
@@ -1494,18 +1554,22 @@
                     return {
                       selectedDay: null, // Add state to store selected day
                       days: [],
+                    //["2021-09-16T03:00:00.000Z"]
                     };
                   },
                   computed: {
                     dates() {
                       return this.days.map(day => day.date);
                     },
-                    attributes() {
+                    attributes() 
+                      {
                       return this.dates.map(date => ({
                         highlight: true,
                         dates: date,
                       }));
+                      
                     },
+                    
                   },
                   methods: {
                     onDayClick(day) {
@@ -1681,7 +1745,7 @@
       <script>
         function getCheckboxes(name) {
           var listCheckboxes = [];
-          $('.checkbox-group-' + name + ' input[type="checkbox"]:checked').each(function () {
+          $('.checkbox-group-' + name + ' input[type="radio"]:checked').each(function () {
             listCheckboxes.push($(this).val())
 
           })
@@ -1696,7 +1760,6 @@
 
 
           var facilidades = getCheckboxes('facilidades')
-          var local = getCheckboxes('local')
           var autorizo = getCheckboxes('autorizo')
           var funcionarios = getCheckboxes('funcionarios')
 
@@ -1710,7 +1773,6 @@
 
           objForm["facilities"] = facilidades
 
-          objForm["locationType"] = local
 
           objForm["authorizedTo"] = autorizo
           objForm["authorizedTo"].push(objForm['extraRestriction'])
@@ -1774,8 +1836,8 @@
             data: data,
             "contentType": "application/json",
             success: function (data1, textStatus, jqXHR) {
-              $("#cookie").val(data1.token) 
-              document.cookie = `login_session=${data1.token}; max-age=3000`;
+              $("#cookie").val(data1.token)
+              document.cookie = `login_session=${data1.token}; max-age=3000; path=/`;
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
