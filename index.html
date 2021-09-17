@@ -19,9 +19,17 @@
 
   <title>Yô</title>
 
-
   <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+
+
   <script>
+    var imageKeysList = []
+
     function getCookie(name) {
       var dc = document.cookie;
       var prefix = name + "=";
@@ -44,8 +52,8 @@
 
     $(document).ready(function () {
 
-      var myCookie = getCookie("login_session");
 
+      var myCookie = getCookie("login_session");
       if (myCookie) {
         $("#cookie").val(myCookie)
         casa_button();
@@ -56,6 +64,7 @@
     });
 
   </script>
+
 
   <script>
     function getHomeInfo(id) {
@@ -77,14 +86,14 @@
           console.log(element)
           if (`${element["nickName"]}` !== 'undefined') $("#nickName").val(`${element["nickName"]}`)
           if (`${element["address"]}` !== 'undefined') $("#address").val(`${element["address"]}`)
-          if (`${element["complement"]}` !== 'undefined') $("#complement").val(`${element["complement"]}`) 
+          if (`${element["complement"]}` !== 'undefined') $("#complement").val(`${element["complement"]}`)
           if (`${element["zipCode"]}` !== 'undefined') $("#zipCode").val(`${element["zipCode"]}`)
           if (`${element["city"]}` !== 'undefined') $("#city-input").val(`${element["city"]}`)
           if (`${element["state"]}` !== 'undefined') $("#state").val(`${element["state"]}`);
           if (`${element["airportDistance"]}` !== 'undefined') $("#airportDistance").val(`${element["airportDistance"]}`);
           if (`${element["accessPath"]}` !== 'undefined') $("#accessPath").val(`${element["accessPath"]}`)
           if (`${element["locationType"]}` !== 'undefined') $('#' + `${element["locationType"]}`).attr('checked', 'checked')
-          if (`${element["inCondominum"]}` !== 'undefined') $('#' + `${element["inCondominum"]}`).attr('checked', 'checked')
+          if (`${element["inCondominium"]}` !== 'undefined') $('#' + `${element["inCondominium"]}`).attr('checked', 'checked')
           if (`${element["beachDistance"]}` !== 'undefined') $("#beachDistance").val(`${element["beachDistance"]}`)
           if (`${element["floorSpace"]}` !== 'undefined') $("#floorSpace").val(`${element["floorSpace"]}`)
           if (`${element["inferredValue"]}` !== 'undefined') $("#inferredValue").val(`${element["inferredValue"]}`)
@@ -94,30 +103,66 @@
           if (`${element["totalSuites"]}` !== 'undefined') $("#suites_input").val(`${element["totalSuites"]}`)
           if (`${element["totalBedRooms"]}` !== 'undefined') $("#rooms_input").val(`${element["totalBedRooms"]}`)
           if (`${element["totalBathRooms"]}` !== 'undefined') $("#bathroom_input").val(`${element["totalBathRooms"]}`)
-          if (`${element["totalBathRooms"]}` !== 'undefined') $("#bathroom_input").val(`${element["totalBathRooms"]}`)
-          if (`${element["facilities"]}` !== 'undefined' || `${element["facilities"]}`.length === 0) {
-            $.each(`${element["facilities"]}`, function (i, val) {
+          if (`${element["coveredParking"]}` !== 'undefined') $("#vagas_cobertas_input").val(`${element["coveredParking"]}`)
+          if (`${element["uncoveredParking"]}` !== 'undefined') $("#vagas_descobertas_input").val(`${element["uncoveredParking"]}`)
+
+          if (`${element["facilities"]}` !== 'undefined' || element["facilities"].length === 0) {
+            $.each(element["facilities"], function (i, val) {
               $('#' + val).attr('checked', 'checked')
             })
           }
 
           if (`${element["totalAc"]}` !== 'undefined') $("#totalAc").val(`${element["totalAc"]}`);
 
-          if (`${element["authorizedTo"]}` !== 'undefined' || `${element["authorizedTo"]}`.length === 0) {
-            $.each(`${element["authorizedTo"]}`, function (i, val) {
+          if (`${element["authorizatedTo"]}` !== 'undefined' || element["authorizatedTo"].length === 0) {
+            $.each(element["authorizatedTo"], function (i, val) {
               $('#' + val).attr('checked', 'checked')
             })
           }
 
-          if (`${element["workers"]}` !== 'undefined' || `${element["workers"]}`.length === 0) {
-            $.each(`${element["workers"]}`, function (i, val) {
+          if (`${element["extraRestriction"]}` !== 'undefined') $("#extraRestriction").val(`${element["extraRestriction"]}`)
+
+
+          if (`${element["workers"]}` !== 'undefined' || element["workers"].length === 0) {
+            $.each(element["workers"], function (i, val) {
               $('#' + val).attr('checked', 'checked')
             })
           }
 
           if (`${element["infoWorkers"]}` !== 'undefined') $("#infoWorkers").val(`${element["infoWorkers"]}`)
 
-          $('#days_list').html(["2021-09-16T03:00:00.000Z"]) //TODO: marcar as datas
+          if (`${element["availableDates"]}` !== 'undefined' || element["availableDates"].length === 0) {
+            $.each(element["availableDates"], function (i, val) {
+              vue.onDayClick({ 'id': val, 'date': val + 'T03:00:00.000Z' })
+            })
+          }
+
+
+
+
+
+          var images = $('.images')
+
+          if (`${element["picturesS3Urls"]}` !== 'undefined' || element["picturesS3Urls"].length === 0) {
+            $.each(element["picturesS3Urls"], function (i, val) {
+            
+              $.ajax({
+                    url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                    type: "POST",
+                    data: JSON.stringify({
+                        "pic-name": val
+                    }),
+                    contentType: "application/json",
+                    success: (x) => {
+                      
+                      images.prepend('<div class="img" id="' + val + '" style="background-image: url(\'data:image/png;base64,' + x + '\');" rel="' + x + '"><span>remove</span></div>') 
+
+
+                        
+                    }
+                })
+            })
+          }
 
 
         },
@@ -224,10 +269,7 @@
           </div>
 
         </div>
-        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 
-        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 
 
         <!-- Script dos botoes do formulario -->
@@ -365,7 +407,7 @@
 
           function submitForm() {
             formsRequest()
-            window.location.href = "https://yocasas.com.br/home/";
+
 
           }
         </script>
@@ -399,7 +441,7 @@
               </div>
 
               <div class="md:w-full mb-4">
-                <input oninput="cacheInput(this)" required placeholder="Data de nascimento*"
+                <input oninput="cacheInput(this)" required placeholder="Data de nascimento*" min='1899-01-01'
                   onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" type="text" name="birthday"
                   id="date" autocomplete="bday"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
@@ -449,8 +491,8 @@
 
 
               <div class="md:w-1/5 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="CEP*" type="text" name="zipCodeUser" id="cep"
-                  autocomplete="postal-code"
+                <input oninput="cacheInput(this)" required placeholder="CEP*" type="number" name="zipCodeUser"
+                  id="zipCodeUser" autocomplete="postal-code"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
@@ -555,7 +597,7 @@
 
 
               <div class="md:w-1/5 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="CEP*" type="text" name="zipCode" id="zipCode"
+                <input oninput="cacheInput(this)" required placeholder="CEP*" type="number" name="zipCode" id="zipCode"
                   autocomplete="postal-code"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
@@ -613,6 +655,7 @@
               <label class="w-full font-light text-green_dark text">Sua casa fica na*</label>
               <div class="flex flex-wrap checkbox-group-local required mb-8">
                 <div class=" items-center mb-2 mr-4">
+
                   <input oninput="cacheInput(this)" id="beach" type="radio" name="locationType" class="invisible"
                     value="beach" required />
                   <label for="beach" class="flex items-center cursor-pointer text-green_dark">
@@ -858,7 +901,7 @@
 
               <!-- TODO: Enviar imagem tbm  -->
               <script>
-
+                
                 (function ($) {
                   $(document).ready(function () {
 
@@ -873,6 +916,7 @@
                     var speedCloseNoti = 1000
 
 
+
                     function uploadImage() {
                       var button = $('.images .pic')
                       var uploader = $('<input type="file" accept="image/*" />')
@@ -881,19 +925,53 @@
                       button.on('click', function () {
                         uploader.click()
                       })
-
                       uploader.on('change', function () {
                         var reader = new FileReader()
                         reader.onload = function (event) {
-                          images.prepend('<div class="img" style="background-image: url(\'' + event.target.result + '\');" rel="' + event.target.result + '"><span>remove</span></div><input name="homeImage" class="hidden" value="' + event.target.result + '">')
+
+
+                          var imageBase = event.target.result.replace(/data:image\/.*?\;base64,/g, ""); 
+          
+
+                          imageObject = { "b64pic": imageBase }
+                          data = JSON.stringify(imageObject)
+
+
+
+                          $.ajax({
+                            url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/addfile",
+                            type: 'POST',
+                            data: data,
+                            "contentType": "application/json",
+                            success: function (data1, textStatus, jqXHR) {
+                              var keyImage = JSON.parse(data1)['key']
+                              images.prepend('<div class="img" id="' + keyImage + '" style="background-image: url(\'' + event.target.result + '\');" rel="' + event.target.result + '"><span>remove</span></div>') //<input name="homeImage" class="hidden" value="' + event.target.result + '">
+                              imageKeysList.push(keyImage)
+
+
+
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+
+                            },
+                          })
+
+
                         }
                         reader.readAsDataURL(uploader[0].files[0])
 
                       })
 
                       images.on('click', '.img', function () {
+                        const index = imageKeysList.indexOf($(this).attr('id'));
+                        if (index > -1) {
+                          imageKeysList.splice(index, 1);
+                        }
+
                         $(this).remove()
+
                       })
+
 
                     }
 
@@ -997,7 +1075,7 @@
             </form>
 
             <div class="flex justify-center md:justify-between">
-              <a onClick="submitForm();" href="#"
+              <a onClick="formsRequest();" href="#"
                 class=" inline-flex skip_2 bg-green_light px-8 py-2 rounded-full h-12 hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Terminar
                 Depois</a>
 
@@ -1096,104 +1174,100 @@
               </h1>
               <div class="flex flex-wrap w-full justify-between checkbox-group-facilidades required mb-4">
                 <div class="flex teste items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="air" type="checkbox" name="air" class="hidden"
-                    value="air" />
+                  <input oninput="cacheInput(this)" id="air" type="checkbox" name="air" class="hidden" value="air" />
                   <label for="air" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Ar-condicionado</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="wifi" type="checkbox" name="wifi"
-                    class="hidden" value="wifi" />
+                  <input oninput="cacheInput(this)" id="wifi" type="checkbox" name="wifi" class="hidden" value="wifi" />
                   <label for="wifi" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Wi-fi</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="pool" type="checkbox" name="pool"
-                    class="hidden" value="pool" />
+                  <input oninput="cacheInput(this)" id="pool" type="checkbox" name="pool" class="hidden" value="pool" />
                   <label for="pool" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Piscina</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="sauna" type="checkbox" name="sauna"
-                    class="hidden" value="sauna" />
+                  <input oninput="cacheInput(this)" id="sauna" type="checkbox" name="sauna" class="hidden"
+                    value="sauna" />
                   <label for="sauna" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Sauna</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="jacuzzi" type="checkbox" name="jacuzzi"
-                    class="hidden" value="jacuzzi" />
+                  <input oninput="cacheInput(this)" id="jacuzzi" type="checkbox" name="jacuzzi" class="hidden"
+                    value="jacuzzi" />
                   <label for="jacuzzi" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Jacuzzi/ofurô</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="bathtub" type="checkbox" name="bathtub"
-                    class="hidden" value="bathtub" />
+                  <input oninput="cacheInput(this)" id="bathtub" type="checkbox" name="bathtub" class="hidden"
+                    value="bathtub" />
                   <label for="bathtub" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Banheira</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="gym" type="checkbox" name="gym" class="hidden"
-                    value="gym" />
+                  <input oninput="cacheInput(this)" id="gym" type="checkbox" name="gym" class="hidden" value="gym" />
                   <label for="gym" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Academia</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="tennisCourt" type="checkbox"
-                    name="tennisCourt" class="hidden" value="tennisCourt" />
+                  <input oninput="cacheInput(this)" id="tennisCourt" type="checkbox" name="tennisCourt" class="hidden"
+                    value="tennisCourt" />
                   <label for="tennisCourt" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Quadra de tênis/beach tennis</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="soccerField" type="checkbox"
-                    name="soccerField" class="hidden" value="soccerField" />
+                  <input oninput="cacheInput(this)" id="soccerField" type="checkbox" name="soccerField" class="hidden"
+                    value="soccerField" />
                   <label for="soccerField" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Quadra /campo de futebol</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="grill" type="checkbox" name="grill"
-                    class="hidden" value="grill" />
+                  <input oninput="cacheInput(this)" id="grill" type="checkbox" name="grill" class="hidden"
+                    value="grill" />
                   <label for="grill" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Churrasqueira</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="wineHouse" type="checkbox" name="wineHouse"
-                    class="hidden" value="wineHouse" />
+                  <input oninput="cacheInput(this)" id="wineHouse" type="checkbox" name="wineHouse" class="hidden"
+                    value="wineHouse" />
                   <label for="wineHouse" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Adega</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="washingMachine" type="checkbox"
-                    name="washingMachine" class="hidden" value="washingMachine" />
+                  <input oninput="cacheInput(this)" id="washingMachine" type="checkbox" name="washingMachine"
+                    class="hidden" value="washingMachine" />
                   <label for="washingMachine" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Lavadora de roupa</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="dishwasher" type="checkbox" name="dishwasher"
-                    class="hidden" value="dishwasher" />
+                  <input oninput="cacheInput(this)" id="dishwasher" type="checkbox" name="dishwasher" class="hidden"
+                    value="dishwasher" />
                   <label for="dishwasher" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Lavadora de louça</label>
@@ -1201,8 +1275,8 @@
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
 
-                  <input oninput="cacheInput(this)" id="extraRoom" type="checkbox" name="extraRoom"
-                    class="hidden" value="extraRoom" />
+                  <input oninput="cacheInput(this)" id="extraRoom" type="checkbox" name="extraRoom" class="hidden"
+                    value="extraRoom" />
                   <label for="extraRoom" class="items-center cursor-pointer text-sm text-green_dark">
 
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
@@ -1210,16 +1284,16 @@
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="carParking" type="checkbox" name="carParking"
-                    class="hidden" value="carParking" />
+                  <input oninput="cacheInput(this)" id="carParking" type="checkbox" name="carParking" class="hidden"
+                    value="carParking" />
                   <label for="carParking" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Vagas para carros</label>
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="kitchenKosher" type="checkbox"
-                    name="kitchenKosher" class="hidden" value="kitchenKosher" />
+                  <input oninput="cacheInput(this)" id="kitchenKosher" type="checkbox" name="kitchenKosher"
+                    class="hidden" value="kitchenKosher" />
                   <label for="kitchenKosher" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Cozinha casher</label>
@@ -1263,14 +1337,14 @@
                   <div class=" flex justify-end ">
                     <a class="cursor-pointer border border-green_dark outline-none h-8 w-8 bg-transparent 
                   rounded-full active:border-none active:bg-green_light flex items-center 
-                  justify-center" type="button" id="vagas_desccobertas" onclick="decrement(this)">-</a>
+                  justify-center" type="button" id="vagas_descobertas" onclick="decrement(this)">-</a>
 
                     <input oninput="cacheInput(this)" required type="number" name="uncoveredParking"
-                      id="vagas_desccobertas_input" min=0
+                      id="vagas_descobertas_input" min=0
                       class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
                     <a class="cursor-pointer border border-green_dark outline-none h-8 w-8 bg-transparent 
                   rounded-full active:border-none active:bg-green_light flex items-center 
-                  justify-center" type="button" id="vagas_desccobertas" onclick="increment(this)">+</a>
+                  justify-center" type="button" id="vagas_descobertas" onclick="increment(this)">+</a>
                   </div>
                 </div>
               </div>
@@ -1318,66 +1392,64 @@
 
               <div class="flex flex-wrap w-full justify-between checkbox-group-autorizo content-between required mb-4">
                 <div class="flex items-center mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-smokers" type="checkbox" name="checkbox-smokers"
-                    class="hidden" value="smokers" />
-                  <label for="checkbox-smokers" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="smokers" type="checkbox" name="smokers" class="hidden"
+                    value="smokers" />
+                  <label for="smokers" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Fumantes</label>
                 </div>
 
                 <div class="flex items-center mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-kids" type="checkbox" name="checkbox-kids"
-                    class="hidden" value="kids" class="align-middle" />
-                  <label for="checkbox-kids" class=" items-center cursor-pointer text-sm text-green_dark ">
+                  <input oninput="cacheInput(this)" id="kids" type="checkbox" name="kids" class="hidden" value="kids"
+                    class="align-middle" />
+                  <label for="kids" class=" items-center cursor-pointer text-sm text-green_dark ">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
                     Família com criança(s) pequena(s)</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-pets" type="checkbox" name="checkbox-pets"
-                    class="hidden" value="pets" />
-                  <label for="checkbox-pets" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="pets" type="checkbox" name="pets" class="hidden" value="pets" />
+                  <label for="pets" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Pets</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-minor" type="checkbox" name="checkbox-minor"
-                    class="hidden" value="minor" />
-                  <label for="checkbox-minor" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="minor" type="checkbox" name="minor" class="hidden"
+                    value="minor" />
+                  <label for="minor" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
                     Menores de 23 anos desacompanhados</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-masterSuite" type="checkbox"
-                    name="checkbox-masterSuite" class="hidden" value="masterSuite" />
-                  <label for="checkbox-masterSuite" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="masterSuite" type="checkbox" name="masterSuite" class="hidden"
+                    value="masterSuite" />
+                  <label for="masterSuite" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Uso da suíte máster</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-wineUse" type="checkbox" name="checkbox-wineUse"
-                    class="hidden" value="wineUse" />
-                  <label for="checkbox-wineUse" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="wineUse" type="checkbox" name="wineUse" class="hidden"
+                    value="wineUse" />
+                  <label for="wineUse" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Uso da adega</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-poolHeatingNoRefund" type="checkbox"
-                    name="checkbox-poolHeatingNoRefund" class="hidden" value="poolHeatingNoRefund" />
-                  <label for="checkbox-poolHeatingNoRefund"
-                    class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="poolHeatingNoRefund" type="checkbox" name="poolHeatingNoRefund"
+                    class="hidden" value="poolHeatingNoRefund" />
+                  <label for="poolHeatingNoRefund" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
                     Aquecimento da piscina (sem reembolso do valor)</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-poolHeatingRefund" type="checkbox"
-                    name="checkbox-poolHeatingRefund" class="hidden" value="poolHeatingRefund" />
-                  <label for="checkbox-poolHeatingRefund" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="poolHeatingRefund" type="checkbox" name="poolHeatingRefund"
+                    class="hidden" value="poolHeatingRefund" />
+                  <label for="poolHeatingRefund" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
                     Aquecimento da piscina (com reembolso do valor)</label>
                 </div>
@@ -1385,7 +1457,7 @@
 
               <div class="md:w-full mb-6">
                 <input oninput="cacheInput(this)" placeholder="Alguma restrição extra?" type="text"
-                  name="extraRestriction" id="restricao_extra"
+                  name="extraRestriction" id="extraRestriction"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
@@ -1399,57 +1471,57 @@
               <div
                 class="flex flex-wrap w-full justify-between checkbox-group-funcionarios content-between required mb-4">
                 <div class="flex items-center mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-housekeeper" type="checkbox"
-                    name="checkbox-housekeeper" class="hidden" value="housekeeper" />
-                  <label for="checkbox-housekeeper" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="housekeeper" type="checkbox" name="housekeeper" class="hidden"
+                    value="housekeeper" />
+                  <label for="housekeeper" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Caseiro/a</label>
                 </div>
 
                 <div class="flex items-center mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-cooker" type="checkbox" name="checkbox-cooker"
-                    class="hidden" value="cooker" class="align-middle" />
-                  <label for="checkbox-cooker" class=" items-center cursor-pointer text-sm text-green_dark ">
+                  <input oninput="cacheInput(this)" id="cooker" type="checkbox" name="cooker" class="hidden"
+                    value="cooker" class="align-middle" />
+                  <label for="cooker" class=" items-center cursor-pointer text-sm text-green_dark ">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
                     Cozinheiro/a</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-janitor" type="checkbox" name="checkbox-janitor"
-                    class="hidden" value="janitor" />
-                  <label for="checkbox-janitor" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="janitor" type="checkbox" name="janitor" class="hidden"
+                    value="janitor" />
+                  <label for="janitor" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Faxineiro/a</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-poolkeeper" type="checkbox" name="checkbox-poolkeeper"
-                    class="hidden" value="poolkeeper" />
-                  <label for="checkbox-poolkeeper" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="poolkeeper" type="checkbox" name="poolkeeper" class="hidden"
+                    value="poolkeeper" />
+                  <label for="poolkeeper" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
                     Piscineiro/a</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-security" type="checkbox" name="checkbox-security"
-                    class="hidden" value="security" />
-                  <label for="checkbox-security" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="security" type="checkbox" name="security" class="hidden"
+                    value="security" />
+                  <label for="security" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Segurança</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-others" type="checkbox" name="checkbox-others"
-                    class="hidden" value="others" />
-                  <label for="checkbox-others" class="flex items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="others" type="checkbox" name="others" class="hidden"
+                    value="others" />
+                  <label for="others" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Outros</label>
                 </div>
 
                 <div class="flex items-center  mr-4 mb-2 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="checkbox-noWorkers" type="checkbox" name="checkbox-noWorkers"
-                    class="hidden" value="noWorkers" />
-                  <label for="checkbox-noWorkers" class=" items-center cursor-pointer text-sm text-green_dark">
+                  <input oninput="cacheInput(this)" id="noWorkers" type="checkbox" name="noWorkers" class="hidden"
+                    value="noWorkers" />
+                  <label for="noWorkers" class=" items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark align-middle"></span>
                     Não disponibiliza funcionários</label>
                 </div>
@@ -1528,17 +1600,17 @@
                   <div class="hidden" id="days_list">{{ days }}</div>
                   <!-- <ul>
                     <li v-for='day in days' :key='day.highlight'>
-                      {{ day.id }}
+                      {{ day }}
                     </li>
                   </ul> -->
                 </div>
               </div>
-              <script>
+              <!-- <script>
                 function days_print() {
                   console.log($("#days_list").html())
                 }
 
-              </script>
+              </script> -->
               <!-- 1. Link Vue Javascript -->
               <script src='https://unpkg.com/vue/dist/vue.js'></script>
 
@@ -1548,28 +1620,27 @@
               <!--3. Create the Vue instance-->
               <script>
 
-                new Vue({
+                let vue = new Vue({
                   el: "#app",
                   data() {
                     return {
                       selectedDay: null, // Add state to store selected day
                       days: [],
-                    //["2021-09-16T03:00:00.000Z"]
+                      //["2021-09-16T03:00:00.000Z"]
                     };
                   },
                   computed: {
                     dates() {
                       return this.days.map(day => day.date);
                     },
-                    attributes() 
-                      {
+                    attributes() {
                       return this.dates.map(date => ({
                         highlight: true,
                         dates: date,
                       }));
-                      
+
                     },
-                    
+
                   },
                   methods: {
                     onDayClick(day) {
@@ -1585,6 +1656,10 @@
                     },
                   },
                 })
+
+
+
+
 
               </script>
 
@@ -1627,7 +1702,7 @@
             </form>
 
             <div class="flex justify-center md:justify-between">
-              <a onClick="submitForm();" href="#"
+              <a onClick="formsRequest();" href="#"
                 class=" inline-flex skip_2 bg-green_light px-8 py-2 rounded-full h-12 hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Terminar
                 Depois</a>
               <!-- TODO: botao de submit (fazer o request dos forms e verificar validade do forms de hospedagem) -->
@@ -1677,7 +1752,7 @@
           </div> -->
 
                   <div>
-                    <button type="button" onclick="submitForm()"
+                    <button type="button" onclick="formsRequest()"
                       class="mb-2 text-green_dark group relative flex mx-auto justify-center px-10 py-1 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-4 border-green_light text-sm bg-green_light">
 
                       Finalizar
@@ -1745,7 +1820,7 @@
       <script>
         function getCheckboxes(name) {
           var listCheckboxes = [];
-          $('.checkbox-group-' + name + ' input[type="radio"]:checked').each(function () {
+          $('.checkbox-group-' + name + ' input[type="checkbox"]:checked').each(function () {
             listCheckboxes.push($(this).val())
 
           })
@@ -1771,16 +1846,17 @@
             objForm[x.name] = x.value
           })
 
+          //Get checkboxes
           objForm["facilities"] = facilidades
 
-
           objForm["authorizedTo"] = autorizo
-          objForm["authorizedTo"].push(objForm['extraRestriction'])
+          // objForm["authorizedTo"].push(objForm['extraRestriction'])
 
           objForm["workers"] = funcionarios
-          objForm["workers"].push(objForm['infoWorkers'])
+          // objForm["workers"].push(objForm['infoWorkers'])
 
 
+          //Get inputed days
           var daysObjectList = JSON.parse($("#days_list").html())
           var daysList = daysObjectList.map(a => a.id);
 
@@ -1788,13 +1864,27 @@
 
 
 
+          //Get clientId
           var tokens = $("#cookie").val().split(".");
           // console.log(atob(tokens[0])); //Alg, Type
           var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
 
           var clientId = clientObject.ClientId
 
-          objForm["ClientId"] = clientId
+          objForm["clientId"] = clientId
+
+
+          //Parse to Int 
+          objForm["maxPeople"] = parseInt(objForm["maxPeople"])
+          objForm["totalSuites"] = parseInt(objForm["totalSuites"])
+          objForm["totalBedRooms"] = parseInt(objForm["totalBedRooms"])
+          objForm["totalBathRooms"] = parseInt(objForm["totalBathRooms"])
+          objForm["coveredParking"] = parseInt(objForm["coveredParking"])
+          objForm["uncoveredParking"] = parseInt(objForm["uncoveredParking"])
+
+          //Get image list
+          
+          objForm["s3Pics"] = imageKeysList
 
 
 
@@ -1806,6 +1896,7 @@
             data: data,
             "contentType": "application/json",
             success: function (data1, textStatus, jqXHR) {
+              window.location.href = "https://yocasas.com.br/home/";
 
 
 
@@ -2057,6 +2148,8 @@
 
         jQuery.extend(jQuery.validator.messages, {
           required: '<span class="error12 ">Este campo é obrigatório</span>',
+          email: '<span class="error12 ">Por favor, digite um email válido.</span>',
+          min: jQuery.validator.format('<span class="error12 ">Por favor, digite um valor maior ou igual que {0}.</span>')
         });
 
 
