@@ -49,13 +49,20 @@
       //return unescape(dc.substring(begin + prefix.length, end));
       return decodeURI(dc.substring(begin + prefix.length, end));
     }
-
+//TODO: atob as a function to get info jwt
     $(document).ready(function () {
 
 
       var myCookie = getCookie("login_session");
       if (myCookie) {
         $("#cookie").val(myCookie)
+        var tokens = $("#cookie").val().split(".");
+          // console.log(atob(tokens[0])); //Alg, Type
+          var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
+
+          var clientId = clientObject.ClientId
+          console.log(clientId)
+        getHomeInfo(clientId)
         casa_button();
 
       }
@@ -145,22 +152,22 @@
 
           if (`${element["picturesS3Urls"]}` !== 'undefined' || element["picturesS3Urls"].length === 0) {
             $.each(element["picturesS3Urls"], function (i, val) {
-            
+
               $.ajax({
-                    url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
-                    type: "POST",
-                    data: JSON.stringify({
-                        "pic-name": val
-                    }),
-                    contentType: "application/json",
-                    success: (x) => {
-                      
-                      images.prepend('<div class="img" id="' + val + '" style="background-image: url(\'data:image/png;base64,' + x + '\');" rel="' + x + '"><span>remove</span></div>') 
+                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                type: "POST",
+                data: JSON.stringify({
+                  "pic-name": val
+                }),
+                contentType: "application/json",
+                success: (x) => {
+
+                  images.prepend('<div class="img" id="' + val + '" style="background-image: url(\'data:image/png;base64,' + x + '\');" rel="' + x + '"><span>remove</span></div>')
 
 
-                        
-                    }
-                })
+
+                }
+              })
             })
           }
 
@@ -353,6 +360,8 @@
           function submitYouForms() {
             casa_button()
             youFormsRequest();
+
+
 
           }
 
@@ -901,7 +910,7 @@
 
               <!-- TODO: Enviar imagem tbm  -->
               <script>
-                
+
                 (function ($) {
                   $(document).ready(function () {
 
@@ -930,8 +939,8 @@
                         reader.onload = function (event) {
 
 
-                          var imageBase = event.target.result.replace(/data:image\/.*?\;base64,/g, ""); 
-          
+                          var imageBase = event.target.result.replace(/data:image\/.*?\;base64,/g, "");
+
 
                           imageObject = { "b64pic": imageBase }
                           data = JSON.stringify(imageObject)
@@ -1883,7 +1892,7 @@
           objForm["uncoveredParking"] = parseInt(objForm["uncoveredParking"])
 
           //Get image list
-          
+
           objForm["s3Pics"] = imageKeysList
 
 
@@ -1917,6 +1926,21 @@
           dataFormArrayFormUser.forEach(x => {
             objFormUser[x.name] = x.value
           })
+
+
+          var myCookie = getCookie("login_session");
+          if (myCookie) {
+            var tokens = myCookie.split(".");
+          // console.log(atob(tokens[0])); //Alg, Type
+            var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
+
+            var clientId = clientObject.ClientId
+            objFormUser["ClientId"] = clientId
+            
+          }
+
+
+
 
 
           data = JSON.stringify(objFormUser)
