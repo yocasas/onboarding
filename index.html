@@ -61,8 +61,8 @@
           var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
 
           var clientId = clientObject.ClientId
-          console.log(clientId)
         getHomeInfo(clientId)
+        getUserInfo(clientId)
         casa_button();
 
       }
@@ -74,6 +74,48 @@
 
 
   <script>
+    function getUserInfo(id) {
+
+      let data = {
+        "ClientId": id
+      }
+
+
+      data = JSON.stringify(data)
+
+      $.ajax({
+        url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser",
+        type: 'POST',
+        data: data,
+        "contentType": "application/json",
+        success: function (data1, textStatus, jqXHR) {
+          let element = data1
+          console.log(element)
+          if (`${element["firstname"]}` !== 'undefined') $("#firstname").val(`${element["firstname"]}`)
+          if (`${element["lastname"]}` !== 'undefined') $("#lastname").val(`${element["lastname"]}`)
+          if (`${element["birthday"]}` !== 'undefined') $("#birthday").val(`${element["birthday"]}`)
+          if (`${element["cpf"]}` !== 'undefined') $("#cpf").val(`${element["cpf"]}`)
+          if (`${element["telNumber"]}` !== 'undefined') $("#telNumber").val(`${element["telNumber"]}`)
+          if (`${element["email"]}` !== 'undefined') $("#email").val(`${element["email"]}`);
+          if (`${element["addressUser"]}` !== 'undefined') $("#addressUser").val(`${element["addressUser"]}`)
+          if (`${element["complementUser"]}` !== 'undefined') $("#complementUser").val(`${element["complementUser"]}`)
+          if (`${element["zipCodeUser"]}` !== 'undefined') $("#zipCodeUser").val(`${element["zipCodeUser"]}`)
+          if (`${element["cityUser"]}` !== 'undefined') $("#cityUser").val(`${element["cityUser"]}`)
+          if (`${element["stateUser"]}` !== 'undefined') $("#stateUser").val(`${element["stateUser"]}`)
+          if (`${element["invitedFrom"]}` !== 'undefined') $("#invitedFrom").val(`${element["invitedFrom"]}`)
+          
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+        },
+      })
+
+
+
+    }
+
+
     function getHomeInfo(id) {
 
       let data = {
@@ -452,7 +494,7 @@
               <div class="md:w-full mb-4">
                 <input oninput="cacheInput(this)" required placeholder="Data de nascimento*" min='1899-01-01'
                   onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" type="text" name="birthday"
-                  id="date" autocomplete="bday"
+                  id="birthday" autocomplete="bday"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
@@ -507,7 +549,7 @@
               </div>
 
               <div class="md:w-2/5 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="Cidade*" type="text" name="cityUser" id="cidade"
+                <input oninput="cacheInput(this)" required placeholder="Cidade*" type="text" name="cityUser" id="cityUser"
                   autocomplete="street-address"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
@@ -515,7 +557,7 @@
 
               <div class="md:w-2/5 mb-4">
                 <input oninput="cacheInput(this)" required placeholder="Estado*" type="text" name="stateUser"
-                  id="estado" autocomplete="address-level1"
+                  id="stateUser" autocomplete="address-level1"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
