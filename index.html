@@ -807,10 +807,10 @@
                   class="block appearance-none border-b-1 border-green_dark w-full bg-white px-4 py-2 pr-8 leading-tight outline-none focus:outline-none">
                   <option value="none" disabled selected>Qual o valor venal aproximado do imóvel?*</option>
                   <option value="1 mi a 3 mi">1 mi a 3 mi</option>
-                  <option value="1 mi a 3 mi">3 mi a 6 mi</option>
-                  <option value="1 mi a 3 mi">6 mi a 9 mi</option>
-                  <option value="1 mi a 3 mi">9 mi a 12 mi</option>
-                  <option value="1 mi a 3 mi">+ 12 mi</option>
+                  <option value="3 mi a 6 mi">3 mi a 6 mi</option>
+                  <option value="6 mi a 9 mi">6 mi a 9 mi</option>
+                  <option value="9 mi a 12 mi">9 mi a 12 mi</option>
+                  <option value="+ 12 mi">+ 12 mi</option>
 
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -987,8 +987,6 @@
                           imageObject = { "b64pic": imageBase }
                           data = JSON.stringify(imageObject)
 
-                          console.log("data imagem")
-                          // console.log(data)
 
                           $.ajax({
                             url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/addfile",
@@ -996,8 +994,6 @@
                             data: data,
                             "contentType": "application/json",
                             success: function (data1, textStatus, jqXHR) {
-                              console.log("ajax imagem")
-                              // console.log(data1)
                               var keyImage = JSON.parse(data1)['key']
                               images.prepend('<div class="img" id="' + keyImage + '" style="background-image: url(\'' + event.target.result + '\');" rel="' + event.target.result + '"><span>remove</span></div>') //<input name="homeImage" class="hidden" value="' + event.target.result + '">
                               imageKeysList.push(keyImage)
