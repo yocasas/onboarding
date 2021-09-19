@@ -988,7 +988,7 @@
                           data = JSON.stringify(imageObject)
 
                           console.log("data imagem")
-                          console.log(data)
+                          // console.log(data)
 
                           $.ajax({
                             url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/addfile",
@@ -997,7 +997,7 @@
                             "contentType": "application/json",
                             success: function (data1, textStatus, jqXHR) {
                               console.log("ajax imagem")
-                              console.log(data1)
+                              // console.log(data1)
                               var keyImage = JSON.parse(data1)['key']
                               images.prepend('<div class="img" id="' + keyImage + '" style="background-image: url(\'' + event.target.result + '\');" rel="' + event.target.result + '"><span>remove</span></div>') //<input name="homeImage" class="hidden" value="' + event.target.result + '">
                               imageKeysList.push(keyImage)
