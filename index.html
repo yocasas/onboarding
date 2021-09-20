@@ -30,6 +30,8 @@
   <script>
     var imageKeysList = []
 
+    var emailStatus = 0
+
     function getCookie(name) {
       var dc = document.cookie;
       var prefix = name + "=";
@@ -377,7 +379,9 @@
           //TODO: Caso a pessoa volte a fazer o cadastro, permitir ela alterar as informacoes que ja cadastrou de usuario?
           function casa_button() {
             var $formSubmitted = $('#youForms');
-            if ($formSubmitted.valid({ ignore: '' })) {
+            console.log(emailStatus)
+
+            if ($formSubmitted.valid({ ignore: '' }) && emailStatus != 0) {
 
 
 
@@ -408,8 +412,7 @@
           }
 
           function submitYouForms() {
-            casa_button()
-            youFormsRequest();
+              youFormsRequest();
 
 
 
@@ -524,8 +527,12 @@
                 <input oninput="cacheInput(this)" required placeholder="Email*" type="email" name="email" id="email"
                   autocomplete="email"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+                <div id="errorEmail" class="text-red-400"></div>
+                <div  id="emailStatus" class="text-red-400 hidden"></div>
+
 
               </div>
+
 
               <div class="md:w-full mb-4">
                 <input oninput="cacheInput(this)" required placeholder="Senha*" type="password" name="password"
@@ -1999,7 +2006,6 @@
 
 
 
-
           data = JSON.stringify(objFormUser)
 
           $.ajax({
@@ -2011,11 +2017,23 @@
             },
             "contentType": "application/json",
             success: function (data1, textStatus, jqXHR) {
+              console.log(data1)
               $("#cookie").val(data1.token)
               document.cookie = `login_session=${data1.token}; max-age=3000; path=/`;
+              document.getElementById("errorEmail").innerHTML = ""
+              emailStatus = 1
+              casa_button() //TODO: tentar chamar em outro lugar, problema em que o emailStatus é alterado apenas depois de casa_button() ser chamado
+
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
+              document.getElementById("errorEmail").innerHTML = "Email já existente"
+              emailStatus = 0
+              casa_button()
+
+
+
+
 
             },
           })
@@ -2024,6 +2042,8 @@
 
         }
       </script>
+                <input  id="emailStatus" class="text-red-400 hidden">
+
 
 
 
