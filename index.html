@@ -49,7 +49,7 @@
       //return unescape(dc.substring(begin + prefix.length, end));
       return decodeURI(dc.substring(begin + prefix.length, end));
     }
-//TODO: atob as a function to get info jwt
+    //TODO: atob as a function to get info jwt
     $(document).ready(function () {
 
 
@@ -57,10 +57,10 @@
       if (myCookie) {
         $("#cookie").val(myCookie)
         var tokens = $("#cookie").val().split(".");
-          // console.log(atob(tokens[0])); //Alg, Type
-          var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
+        // console.log(atob(tokens[0])); //Alg, Type
+        var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
 
-          var clientId = clientObject.ClientId
+        var clientId = clientObject.ClientId
         getHomeInfo(clientId)
         getUserInfo(clientId)
         casa_button();
@@ -103,7 +103,7 @@
           if (`${element["cityUser"]}` !== 'undefined') $("#cityUser").val(`${element["cityUser"]}`)
           if (`${element["stateUser"]}` !== 'undefined') $("#stateUser").val(`${element["stateUser"]}`)
           if (`${element["invitedFrom"]}` !== 'undefined') $("#invitedFrom").val(`${element["invitedFrom"]}`)
-          
+
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -290,28 +290,36 @@
                 <div class="sobre_yo around rounded-full flex items-center justify-center z-10">1
                 </div>
 
-                <nobr><div class="sobre_yo_text  text-sm ml-2 text-green_dark md:flex hidden">Sobre o Yô</div></nobr>
+                <nobr>
+                  <div class="sobre_yo_text  text-sm ml-2 text-green_dark md:flex hidden">Sobre o Yô</div>
+                </nobr>
               </div>
             </a>
 
             <a class="cursor-pointer" onClick="voce_button();">
               <div class="flex items-center">
                 <div class="voce not-around rounded-full flex items-center justify-center z-10">2</div>
-                <nobr><div class="voce_text ml-2 text-sm text-green_light md:flex hidden">Você</div></nobr>
+                <nobr>
+                  <div class="voce_text ml-2 text-sm text-green_light md:flex hidden">Você</div>
+                </nobr>
               </div>
             </a>
 
             <a class="cursor-pointer" onClick="submitYouForms();">
               <div class="flex items-center">
                 <div class="casa not-around rounded-full flex items-center justify-center z-10">3</div>
-                <nobr><div class="casa_text ml-2 text-sm text-green_light md:flex hidden">Sua Casa</div></nobr>
+                <nobr>
+                  <div class="casa_text ml-2 text-sm text-green_light md:flex hidden">Sua Casa</div>
+                </nobr>
               </div>
             </a>
 
             <a class="cursor-pointer" onClick="hospedagem_button();">
               <div class="flex items-center">
                 <div class="hospedagem not-around rounded-full flex items-center justify-center z-10">4</div>
-                <nobr><div class="hospedagem_text ml-2 text-sm text-green_light md:flex hidden">Hospedagem</div></nobr>
+                <nobr>
+                  <div class="hospedagem_text ml-2 text-sm text-green_light md:flex hidden">Hospedagem</div>
+                </nobr>
               </div>
             </a>
 
@@ -549,8 +557,8 @@
               </div>
 
               <div class="md:w-2/5 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="Cidade*" type="text" name="cityUser" id="cityUser"
-                  autocomplete="street-address"
+                <input oninput="cacheInput(this)" required placeholder="Cidade*" type="text" name="cityUser"
+                  id="cityUser" autocomplete="street-address"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
 
               </div>
@@ -610,8 +618,7 @@
 
               <label class="w-full font-light text-green_dark">Qual o nome da sua casa?*</label>
               <div id="teste" class="md:w-full mb-6">
-                <input oninput="cacheInput(this)" required placeholder="" type="text"
-                  name="nickName" id="nickName"
+                <input oninput="cacheInput(this)" required placeholder="" type="text" name="nickName" id="nickName"
                   class="mb-4 text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
                 <h1 class="w-full italic text-green_medium tracking-tight leading-relaxed font-niveau">
@@ -627,7 +634,7 @@
 
 
               <div class="md:w-3/4 mb-4 md:pr-2">
-              <label class=" font-light text-green_dark">Rua*</label>
+                <label class=" font-light text-green_dark">Rua*</label>
 
                 <input oninput="cacheInput(this)" required placeholder="" type="text" name="address" id="address"
                   autocomplete="address-line1"
@@ -644,7 +651,7 @@
 
 
               <div class="md:w-1/4 mb-4">
-              <label class=" font-light text-green_dark">Complem.</label>
+                <label class=" font-light text-green_dark">Complem.</label>
 
                 <input oninput="cacheInput(this)" placeholder="" type="text" name="complement" id="complement"
                   autocomplete="address-line3"
@@ -654,7 +661,7 @@
 
 
               <div class="md:w-1/5 mb-4 md:pr-2">
-              <label class=" font-light text-green_dark">CEP*</label>
+                <label class=" font-light text-green_dark">CEP*</label>
                 <input oninput="cacheInput(this)" required placeholder="" type="number" name="zipCode" id="zipCode"
                   autocomplete="postal-code"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
@@ -662,7 +669,7 @@
               </div>
 
               <div class="md:w-2/5 mb-4 md:pr-2">
-              <label class=" font-light text-green_dark">Cidade*</label>
+                <label class=" font-light text-green_dark">Cidade*</label>
                 <input oninput="cacheInput(this)" required placeholder="" type="text" name="city" id="city-input"
                   autocomplete="home city"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
@@ -670,7 +677,7 @@
               </div>
 
               <div class="md:w-2/5 mb-4">
-              <label class=" font-light text-green_dark">Estado*</label>
+                <label class=" font-light text-green_dark">Estado*</label>
                 <input oninput="cacheInput(this)" required placeholder="" type="text" name="state" id="state"
                   autocomplete="address-level1"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
@@ -679,17 +686,15 @@
 
 
               <div class="md:w-full mb-4">
-              <label class=" font-light text-green_dark">Aeroporto mais próximo da casas</label>
-                <input oninput="cacheInput(this)" placeholder="" type="text"
-                  name="airportDistance" id="airportDistance"
+                <label class=" font-light text-green_dark">Aeroporto mais próximo da casas</label>
+                <input oninput="cacheInput(this)" placeholder="" type="text" name="airportDistance" id="airportDistance"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
 
               <div class="md:w-full mb-4">
-              <label class=" font-light text-green_dark">Melhor forma de acesso de carro</label>
-                <input oninput="cacheInput(this)" placeholder="" type="text"
-                  name="accessPath" id="accessPath"
+                <label class=" font-light text-green_dark">Melhor forma de acesso de carro</label>
+                <input oninput="cacheInput(this)" placeholder="" type="text" name="accessPath" id="accessPath"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
@@ -796,21 +801,19 @@
 
 
 
-              <label class="w-full font-light text-green_dark">Se sua casa fica no litoral, qual a distância aproximada da praia?</label>
+              <label class="w-full font-light text-green_dark">Se sua casa fica no litoral, qual a distância aproximada
+                da praia?</label>
               <div class="md:w-full mb-6">
-                <input oninput="cacheInput(this)"
-                  placeholder="" type="text"
-                  name="beachDistance" id="beachDistance"
+                <input oninput="cacheInput(this)" placeholder="" type="text" name="beachDistance" id="beachDistance"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
 
 
-              <label class="w-full font-light text-green_dark">Quais as metragens aproximadas do terreno e da área construída?*</label>
+              <label class="w-full font-light text-green_dark">Quais as metragens aproximadas do terreno e da área
+                construída?*</label>
               <div class="md:w-full mb-6">
-                <input oninput="cacheInput(this)" required
-                  placeholder="" type="text"
-                  name="floorSpace" id="floorSpace"
+                <input oninput="cacheInput(this)" required placeholder="" type="text" name="floorSpace" id="floorSpace"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
@@ -837,8 +840,8 @@
 
               <label class="w-full font-light text-green_dark">Faça uma breve descrição da casa</label>
               <div class="md:w-full mb-4">
-                <textarea required oninput="cacheInput(this)" placeholder="" type="text"
-                  name="description" id="description"
+                <textarea required oninput="cacheInput(this)" placeholder="" type="text" name="description"
+                  id="description"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-20 block w-full sm:text-sm "></textarea>
 
               </div>
@@ -850,11 +853,10 @@
                 relacionadas ao acesso ao locao, à entreda no condomínio e à segurança)
               </p>
 
-              <label class="w-full font-light text-green_dark">A casa possui algum ponto fraco que seu hóspede deveria saber?</label>
+              <label class="w-full font-light text-green_dark">A casa possui algum ponto fraco que seu hóspede deveria
+                saber?</label>
               <div class="md:w-full mb-4">
-                <input oninput="cacheInput(this)"
-                  placeholder="" type="text"
-                  name="weakness" id="weakness"
+                <input oninput="cacheInput(this)" placeholder="" type="text" name="weakness" id="weakness"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
@@ -1369,8 +1371,7 @@
 
               <label class="w-full font-light text-green_dark">Se tem ar-condicionado, em quais cômodos?</label>
               <div class="md:w-full mb-8">
-                <input oninput="cacheInput(this)" placeholder="" type="text"
-                  name="totalAc" id="totalAc"
+                <input oninput="cacheInput(this)" placeholder="" type="text" name="totalAc" id="totalAc"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
@@ -1388,9 +1389,8 @@
                   rounded-full active:border-none active:bg-green_light flex items-center 
                   justify-center" type="button" id="vagas_cobertas" onclick="decrement(this)">-</a>
 
-                    <input oninput="cacheInput(this)" type="number" name="coveredParking"
-                      id="vagas_cobertas_input" min=0
-                      class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
+                    <input oninput="cacheInput(this)" type="number" name="coveredParking" id="vagas_cobertas_input"
+                      min=0 class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
                     <a class="cursor-pointer border border-green_dark outline-none h-8 w-8 bg-transparent 
                   rounded-full active:border-none active:bg-green_light flex items-center 
                   justify-center" type="button" id="vagas_cobertas" onclick="increment(this)">+</a>
@@ -1404,9 +1404,8 @@
                   rounded-full active:border-none active:bg-green_light flex items-center 
                   justify-center" type="button" id="vagas_descobertas" onclick="decrement(this)">-</a>
 
-                    <input oninput="cacheInput(this)" type="number" name="uncoveredParking"
-                      id="vagas_descobertas_input" min=0
-                      class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
+                    <input oninput="cacheInput(this)" type="number" name="uncoveredParking" id="vagas_descobertas_input"
+                      min=0 class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
                     <a class="cursor-pointer border border-green_dark outline-none h-8 w-8 bg-transparent 
                   rounded-full active:border-none active:bg-green_light flex items-center 
                   justify-center" type="button" id="vagas_descobertas" onclick="increment(this)">+</a>
@@ -1523,8 +1522,8 @@
 
               <label class="w-full font-light text-green_dark">Alguma restrição extra?</label>
               <div class="md:w-full mb-6">
-                <input oninput="cacheInput(this)" placeholder="" type="text"
-                  name="extraRestriction" id="extraRestriction"
+                <input oninput="cacheInput(this)" placeholder="" type="text" name="extraRestriction"
+                  id="extraRestriction"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
@@ -1989,12 +1988,12 @@
           var myCookie = getCookie("login_session");
           if (myCookie) {
             var tokens = myCookie.split(".");
-          // console.log(atob(tokens[0])); //Alg, Type
+            // console.log(atob(tokens[0])); //Alg, Type
             var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
 
             var clientId = clientObject.ClientId
-            objFormUser["ClientId"] = clientId
-            
+            // objFormUser["ClientId"] = clientId
+
           }
 
 
@@ -2007,6 +2006,9 @@
             url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register",
             type: 'POST',
             data: data,
+            headers: {
+              'Authorization': myCookie,
+            },
             "contentType": "application/json",
             success: function (data1, textStatus, jqXHR) {
               $("#cookie").val(data1.token)
