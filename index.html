@@ -379,7 +379,6 @@
           //TODO: Caso a pessoa volte a fazer o cadastro, permitir ela alterar as informacoes que ja cadastrou de usuario?
           function casa_button() {
             var $formSubmitted = $('#youForms');
-            console.log(emailStatus)
 
             if ($formSubmitted.valid({ ignore: '' }) && emailStatus != 0) {
 
@@ -491,42 +490,47 @@
 
 
 
-              <div class="md:w-1/2 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="Nome*" type="text" name="firstname"
+              <div class="md:w-1/2 mb-6 md:pr-2">
+                <label class=" font-light text-green_dark">Nome*</label>
+                <input oninput="cacheInput(this)" required placeholder="" type="text" name="firstname"
                   id="firstname" autocomplete="given-name"
-                  class="text-green_dark border-b-1 border-green_dark h-10 outline-none block w-full  sm:text-sm ">
+                  class="text-green_dark border-b-1 border-green_dark h-8 outline-none block w-full  sm:text-sm ">
               </div>
-              <div class="md:w-1/2 mb-4">
-                <input oninput="cacheInput(this)" required placeholder="Sobrenome*" type="text" name="lastname"
+              <div class="md:w-1/2 mb-6">
+                <label class=" font-light text-green_dark">Sobrenome*</label>
+                <input oninput="cacheInput(this)" required placeholder="" type="text" name="lastname"
                   id="lastname" autocomplete="family-name"
-                  class="text-green_dark border-b-1 border-green_dark h-10 outline-none block w-full  sm:text-sm ">
+                  class="text-green_dark border-b-1 border-green_dark h-8 outline-none block w-full  sm:text-sm ">
               </div>
 
-              <div class="md:w-full mb-4">
-                <input oninput="cacheInput(this)" required placeholder="Data de nascimento*" min='1899-01-01'
+              <div class="md:w-full mb-6">
+                <label class=" font-light text-green_dark">Data de nascimento*</label>
+                <input oninput="cacheInput(this)" required placeholder="" min='1899-01-01'
                   onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" type="text" name="birthday"
                   id="birthday" autocomplete="bday"
-                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
+              </div>
+
+              <div class="md:w-full mb-6">
+                <label class=" font-light text-green_dark">CPF*</label>
+                <input oninput="cacheInput(this)" required placeholder="" type="text" name="cpf" id="cpf"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
 
-              <div class="md:w-full mb-4">
-                <input oninput="cacheInput(this)" required placeholder="CPF*" type="text" name="cpf" id="cpf"
-                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
-
-              </div>
-
-              <div class="md:w-full mb-4">
-                <input oninput="cacheInput(this)" required placeholder="Número de celular*" type="text" name="telNumber"
+              <div class="md:w-full mb-6">
+                <label class=" font-light text-green_dark">Número de celular*</label>
+                <input oninput="cacheInput(this)" required placeholder="" type="text" name="telNumber"
                   id="telNumber" autocomplete="tel"
-                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
 
-              <div class="md:w-full mb-4">
-                <input oninput="cacheInput(this)" required placeholder="Email*" type="email" name="email" id="email"
+              <div class="md:w-full mb-6">
+                <label class=" font-light text-green_dark">Email*</label>
+                <input oninput="cacheInput(this)" required placeholder="" type="email" name="email" id="email"
                   autocomplete="email"
-                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
                 <div id="errorEmail" class="text-red-400"></div>
                 <div  id="emailStatus" class="text-red-400 hidden"></div>
 
@@ -534,55 +538,62 @@
               </div>
 
 
-              <div class="md:w-full mb-4">
-                <input oninput="cacheInput(this)" required placeholder="Senha*" type="password" name="password"
+              <div class="md:w-full mb-6">
+                <label class=" font-light text-green_dark">Crie sua senha*</label>
+                <input oninput="cacheInput(this)" required placeholder="" type="password" name="password"
                   id="password" autocomplete="new-password"
-                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
 
-              <div class="md:w-3/4 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="Endereço*" type="text" name="addressUser"
+              <div class="md:w-3/4 mb-6 md:pr-2">
+                <label class=" font-light text-green_dark">Endereço*</label>
+                <input oninput="cacheInput(this)" required placeholder="" type="text" name="addressUser"
                   id="addressUser" autocomplete="address-line1"
-                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
 
-              <div class="md:w-1/4 mb-4">
-                <input oninput="cacheInput(this)" placeholder="Complem." type="text" name="complementUser"
+              <div class="md:w-1/4 mb-6">
+                <label class=" font-light text-green_dark">Complem.</label>
+                <input oninput="cacheInput(this)" placeholder="" type="text" name="complementUser"
                   id="complementUser" autocomplete="address-line3"
-                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
 
 
-              <div class="md:w-1/5 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="CEP*" type="number" name="zipCodeUser"
+              <div class="md:w-1/5 mb-6 md:pr-2">
+                <label class=" font-light text-green_dark">CEP*</label>
+                <input oninput="cacheInput(this)" required placeholder="" type="number" name="zipCodeUser"
                   id="zipCodeUser" autocomplete="postal-code"
-                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
 
-              <div class="md:w-2/5 mb-4 md:pr-2">
-                <input oninput="cacheInput(this)" required placeholder="Cidade*" type="text" name="cityUser"
+              <div class="md:w-2/5 mb-6 md:pr-2">
+                <label class=" font-light text-green_dark">Cidade*</label>
+                <input oninput="cacheInput(this)" required placeholder="" type="text" name="cityUser"
                   id="cityUser" autocomplete="street-address"
-                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
 
-              <div class="md:w-2/5 mb-4">
-                <input oninput="cacheInput(this)" required placeholder="Estado*" type="text" name="stateUser"
+              <div class="md:w-2/5 mb-6">
+                <label class=" font-light text-green_dark">Estado*</label>
+                <input oninput="cacheInput(this)" required placeholder="" type="text" name="stateUser"
                   id="stateUser" autocomplete="address-level1"
-                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
 
 
-              <div class="md:w-full mb-4">
+              <div class="md:w-full mb-6">
+                <label class=" font-light text-green_dark">Nome de quem te convidou/indicou para o clube</label>
                 <input oninput="cacheInput(this)" autocomplete="false"
-                  placeholder="Nome de quem te convidou/indicou para o clube" type="invitedFrom" name="invitedFrom"
+                  placeholder="" type="invitedFrom" name="invitedFrom"
                   id="invitedFrom"
-                  class="text-green_dark border-b-1 outline-none border-green_dark  h-10 block w-full sm:text-sm ">
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
 
@@ -693,7 +704,7 @@
 
 
               <div class="md:w-full mb-4">
-                <label class=" font-light text-green_dark">Aeroporto mais próximo da casas</label>
+                <label class=" font-light text-green_dark">Aeroporto mais próximo da casa</label>
                 <input oninput="cacheInput(this)" placeholder="" type="text" name="airportDistance" id="airportDistance"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
