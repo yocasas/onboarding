@@ -83,17 +83,17 @@
       }
 
       var myCookie = getCookie("login_session");
-          if (myCookie) {
-            var tokens = myCookie.split(".");
-            // console.log(atob(tokens[0])); //Alg, Type
-            var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
+      if (myCookie) {
+        var tokens = myCookie.split(".");
+        // console.log(atob(tokens[0])); //Alg, Type
+        var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
 
-            var clientId = clientObject.ClientId
-            // objFormUser["ClientId"] = clientId
+        var clientId = clientObject.ClientId
+        // objFormUser["ClientId"] = clientId
 
-          }
+      }
 
-//TODO: Usar os headers e nao clientid como argumento
+      //TODO: Usar os headers e nao clientid como argumento
       data = JSON.stringify(data)
 
       $.ajax({
@@ -101,8 +101,8 @@
         type: 'POST',
         data: data,
         headers: {
-              'Authorization': myCookie,
-            },
+          'Authorization': myCookie,
+        },
         "contentType": "application/json",
         success: function (data1, textStatus, jqXHR) {
           let element = data1
@@ -139,26 +139,26 @@
       }
 
       var myCookie = getCookie("login_session");
-          if (myCookie) {
-            var tokens = myCookie.split(".");
-            // console.log(atob(tokens[0])); //Alg, Type
-            var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
+      if (myCookie) {
+        var tokens = myCookie.split(".");
+        // console.log(atob(tokens[0])); //Alg, Type
+        var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
 
-            var clientId = clientObject.ClientId
-            // objFormUser["ClientId"] = clientId
+        var clientId = clientObject.ClientId
+        // objFormUser["ClientId"] = clientId
 
-          }
+      }
 
 
       data = JSON.stringify(data)
 
       $.ajax({
-        url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed",
+        url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes",
         type: 'POST',
         data: data,
         headers: {
-              'Authorization': myCookie,
-            },
+          'Authorization': myCookie,
+        },
         "contentType": "application/json",
         success: function (data1, textStatus, jqXHR) {
           let element = data1[0]
@@ -438,7 +438,7 @@
           }
 
           function submitYouForms() {
-              youFormsRequest();
+            youFormsRequest();
 
 
 
@@ -519,22 +519,22 @@
 
               <div class="md:w-1/2 mb-6 md:pr-2">
                 <label class=" font-light text-green_dark">Nome*</label>
-                <input oninput="cacheInput(this)" required placeholder="" type="text" name="firstname"
-                  id="firstname" autocomplete="given-name"
+                <input oninput="cacheInput(this)" required placeholder="" type="text" name="firstname" id="firstname"
+                  autocomplete="given-name"
                   class="text-green_dark border-b-1 border-green_dark h-8 outline-none block w-full  sm:text-sm ">
               </div>
               <div class="md:w-1/2 mb-6">
                 <label class=" font-light text-green_dark">Sobrenome*</label>
-                <input oninput="cacheInput(this)" required placeholder="" type="text" name="lastname"
-                  id="lastname" autocomplete="family-name"
+                <input oninput="cacheInput(this)" required placeholder="" type="text" name="lastname" id="lastname"
+                  autocomplete="family-name"
                   class="text-green_dark border-b-1 border-green_dark h-8 outline-none block w-full  sm:text-sm ">
               </div>
 
               <div class="md:w-full mb-6">
                 <label class=" font-light text-green_dark">Data de nascimento*</label>
-                <input oninput="cacheInput(this)" required placeholder="" min='1899-01-01'
-                  onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" type="text" name="birthday"
-                  id="birthday" autocomplete="bday"
+                <input oninput="cacheInput(this)" required placeholder="" min='1899-01-01' onfocus="(this.type='date')"
+                  onblur="if(this.value==''){this.type='text'}" type="text" name="birthday" id="birthday"
+                  autocomplete="bday"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
               </div>
 
@@ -547,8 +547,8 @@
 
               <div class="md:w-full mb-6">
                 <label class=" font-light text-green_dark">Número de celular*</label>
-                <input oninput="cacheInput(this)" required placeholder="" type="text" name="telNumber"
-                  id="telNumber" autocomplete="tel"
+                <input oninput="cacheInput(this)" required placeholder="" type="text" name="telNumber" id="telNumber"
+                  autocomplete="tel"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
@@ -559,7 +559,7 @@
                   autocomplete="email"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
                 <div id="errorEmail" class="text-red-400"></div>
-                <div  id="emailStatus" class="text-red-400 hidden"></div>
+                <div id="emailStatus" class="text-red-400 hidden"></div>
 
 
               </div>
@@ -567,8 +567,8 @@
 
               <div class="md:w-full mb-6">
                 <label class=" font-light text-green_dark">Crie sua senha*</label>
-                <input oninput="cacheInput(this)" required placeholder="" type="password" name="password"
-                  id="password" autocomplete="new-password"
+                <input oninput="cacheInput(this)" required placeholder="" type="password" name="password" id="password"
+                  autocomplete="new-password"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
@@ -583,8 +583,8 @@
 
               <div class="md:w-1/4 mb-6">
                 <label class=" font-light text-green_dark">Complem.</label>
-                <input oninput="cacheInput(this)" placeholder="" type="text" name="complementUser"
-                  id="complementUser" autocomplete="address-line3"
+                <input oninput="cacheInput(this)" placeholder="" type="text" name="complementUser" id="complementUser"
+                  autocomplete="address-line3"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
@@ -600,8 +600,8 @@
 
               <div class="md:w-2/5 mb-6 md:pr-2">
                 <label class=" font-light text-green_dark">Cidade*</label>
-                <input oninput="cacheInput(this)" required placeholder="" type="text" name="cityUser"
-                  id="cityUser" autocomplete="street-address"
+                <input oninput="cacheInput(this)" required placeholder="" type="text" name="cityUser" id="cityUser"
+                  autocomplete="street-address"
                   class="capitalize text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
@@ -609,7 +609,7 @@
               <div class="md:w-2/5 mb-6">
                 <label class=" font-light text-green_dark">Estado*</label>
                 <select type="text" required name="stateUser" id="stateUser" autocomplete="address-level1"
-                class="block appearance-none border-b-1 border-green_dark w-full bg-white px-4 h-8 pr-8 leading-tight outline-none focus:outline-none"> 
+                  class="block appearance-none border-b-1 border-green_dark w-full bg-white px-4 h-8 pr-8 leading-tight outline-none focus:outline-none">
                   <option value="none" disabled selected>Selecione um estado</option>
                   <option value="AC">Acre</option>
                   <option value="AL">Alagoas</option>
@@ -653,9 +653,8 @@
 
               <div class="md:w-full mb-6">
                 <label class=" font-light text-green_dark">Nome de quem te convidou/indicou para o clube</label>
-                <input oninput="cacheInput(this)" autocomplete="false"
-                  placeholder="" type="invitedFrom" name="invitedFrom"
-                  id="invitedFrom"
+                <input oninput="cacheInput(this)" autocomplete="false" placeholder="" type="invitedFrom"
+                  name="invitedFrom" id="invitedFrom"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
@@ -760,7 +759,7 @@
               <div class="md:w-2/5 mb-4">
                 <label class=" font-light text-green_dark">Estado*</label>
                 <select type="text" required name="state" id="state" autocomplete="address-level1"
-                class="block appearance-none border-b-1 border-green_dark w-full bg-white px-4 h-8 pr-8 leading-tight outline-none focus:outline-none"> 
+                  class="block appearance-none border-b-1 border-green_dark w-full bg-white px-4 h-8 pr-8 leading-tight outline-none focus:outline-none">
                   <option value="none" disabled selected>Selecione um estado</option>
                   <option value="AC">Acre</option>
                   <option value="AL">Alagoas</option>
@@ -1121,11 +1120,25 @@
                           imageObject = { "b64pic": imageBase }
                           data = JSON.stringify(imageObject)
 
+                          var myCookie = getCookie("login_session");
+                          if (myCookie) {
+                            var tokens = myCookie.split(".");
+                            // console.log(atob(tokens[0])); //Alg, Type
+                            var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
+
+                            var clientId = clientObject.ClientId
+                            // objFormUser["ClientId"] = clientId
+
+                          }
+
 
                           $.ajax({
                             url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/addfile",
                             type: 'POST',
                             data: data,
+                            headers: {
+                              'Authorization': myCookie,
+                            },
                             "contentType": "application/json",
                             success: function (data1, textStatus, jqXHR) {
                               var keyImage = JSON.parse(data1)['key']
@@ -1506,8 +1519,9 @@
                   rounded-full active:border-none active:bg-green_light flex items-center 
                   justify-center" type="button" id="vagas_cobertas" onclick="decrement(this)">-</a>
 
-                    <input oninput="cacheInput(this)" value=0 type="number" name="coveredParking" id="vagas_cobertas_input"
-                      min=0 class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
+                    <input oninput="cacheInput(this)" value=0 type="number" name="coveredParking"
+                      id="vagas_cobertas_input" min=0
+                      class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
                     <a class="cursor-pointer border border-green_dark outline-none h-8 w-8 bg-transparent 
                   rounded-full active:border-none active:bg-green_light flex items-center 
                   justify-center" type="button" id="vagas_cobertas" onclick="increment(this)">+</a>
@@ -1521,8 +1535,9 @@
                   rounded-full active:border-none active:bg-green_light flex items-center 
                   justify-center" type="button" id="vagas_descobertas" onclick="decrement(this)">-</a>
 
-                    <input oninput="cacheInput(this)" value=0 type="number" name="uncoveredParking" id="vagas_descobertas_input"
-                      min=0 class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
+                    <input oninput="cacheInput(this)" value=0 type="number" name="uncoveredParking"
+                      id="vagas_descobertas_input" min=0
+                      class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
                     <a class="cursor-pointer border border-green_dark outline-none h-8 w-8 bg-transparent 
                   rounded-full active:border-none active:bg-green_light flex items-center 
                   justify-center" type="button" id="vagas_descobertas" onclick="increment(this)">+</a>
@@ -1776,7 +1791,8 @@
 
 
               <div id='app'>
-                <v-calendar  color="green" :attributes='attributes' @dayclick='onDayClick' :columns="$screens({ default: 1, lg: 2 })">
+                <v-calendar color="green" :attributes='attributes' @dayclick='onDayClick'
+                  :columns="$screens({ default: 1, lg: 2 })">
                 </v-calendar>
                 <!-- Add a column to display info for clicked day -->
                 <div v-if='days' class='selected-day'>
@@ -2167,7 +2183,7 @@
 
         }
       </script>
-                <input  id="emailStatus" class="text-red-400 hidden">
+      <input id="emailStatus" class="text-red-400 hidden">
 
 
 
