@@ -27,6 +27,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
 
 
+
   <script>
     var imageKeysList = []
 
@@ -254,6 +255,18 @@
   </script>
 
   <style>
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+    }
+
     * {
       box-sizing: border-box;
       padding: 0;
@@ -281,7 +294,6 @@
     }
   </style>
 </head>
-<!-- TODO: Mandar imagens pro S3 -->
 
 <body class="antialiased text-gray-800 font-niveau">
   <div class="md:w-screen md:h-screen md:grid md:grid-cols-5 md:grid-rows-2">
@@ -308,7 +320,7 @@
           Cadastro
         </h1>
 
-        <div class="md:inline-flex text-center justify-between  mb-2 border-b border-green_light">
+        <div class="md:inline-flex text-center justify-between  mb-2 border-b border-green_light ml-1">
 
           <div class="md:inline-flex  flex text-center justify-between  md:space-x-12 mb-2 ">
 
@@ -504,7 +516,7 @@
 
 
       <!-- Formulario Usuário -->
-      <div class="hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full " id="user_forms">
+      <div class="hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full ml-1" id="user_forms">
         <h1
           class="w-full mb-8 md:w-2/3 text-2xl tracking-tight leading-none font-niveau-bold text-green_dark sm:text-5xl sm:leading-none md:text-2xl">
           Vamos começar com as suas informações pessoais.
@@ -662,7 +674,7 @@
               <!-- <button class="btn btn-teal mx-auto" type="submit">Create Account</button> -->
             </form>
 
-            <div class="flex justify-center md:justify-end">
+            <div class="flex justify-center md:justify-end py-4">
               <a onClick="submitYouForms();" href="#"
                 class=" inline-flex next_step_1 bg-green_light px-8 py-2 rounded-full hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Próximo
                 Passo</a>
@@ -683,7 +695,7 @@
 
 
       <!-- Formulario Casa -->
-      <div class="hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full " id="home_forms">
+      <div class="hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full ml-1" id="home_forms">
         <h1
           class="w-full mb-8 md:w-2/4 text-2xl tracking-tight leading-none font-niveau-bold text-green_dark sm:text-5xl sm:leading-none md:text-2xl">
           Ótimo, agora conte-nos melhor sobre a casa.
@@ -696,12 +708,12 @@
 
 
 
-              <label class="w-full font-light text-green_dark">Qual o nome da sua casa?*</label>
+              <label class="w-full font-light text-green_dark text-base">Qual o nome da sua casa?*</label>
               <div id="teste" class="md:w-full mb-6">
                 <input oninput="cacheInput(this)" required placeholder="" type="text" name="nickName" id="nickName"
                   class="mb-4 text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
-                <h1 class="w-full italic text-green_medium tracking-tight leading-relaxed font-niveau">
+                <h1 class="w-full text-base italic text-green_medium tracking-tight leading-relaxed font-niveau">
                   Ex: Casa Tupi, Casa pé na areia em Trancoso
                 </h1>
               </div>
@@ -840,7 +852,7 @@
                 <div class=" items-center mb-2 mr-4">
 
                   <input oninput="cacheInput(this)" id="beach" type="radio" name="locationType" class="invisible"
-                    value="beach" required />
+                    value="beach" required onchange='handleChange(this);' />
                   <label for="beach" class="flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Praia</label>
@@ -871,22 +883,20 @@
                 </div>
               </div>
 
+              <script>
+                function handleChange(checkbox) {
+                  if (checkbox.checked == true) {
+                    var errorId = checkbox.name + "-error"
+                    document.getElementById(errorId).remove();
+
+                  }
+                }
+              </script>
 
 
 
-              <!-- <script type="text/javascript" defer>
-            $(document).ready(function () {
-            $('#checkBtn').click(function() {
-              checked = $('div.checkbox-group.required :checkbox:checked').length > 0;
-  
-              if(!checked) {
-                document.getElementById("error_checkbox_location").innerHTML = "Deve selecionar ao menos uma opção."
-                return false;
-              }
-  
-            });
-        });
-            </script> -->
+
+
               <label class="w-full font-light text-green_dark text">Sua casa fica em condomínio?*</label>
 
               <div class="flex flex-wrap radio-group required mb-4">
@@ -894,7 +904,7 @@
                 <div class=" items-center mb-2 mr-4">
 
                   <input oninput="cacheInput(this)" id="true" type="radio" name="inCondominum" class="invisible"
-                    value="true" required />
+                    value="true" required onchange='handleChange(this);' />
 
                   <label for="true" class=" flex items-center cursor-pointer text-green_dark">
 
@@ -918,13 +928,19 @@
 
 
               <label class="w-full font-light text-green_dark">Se sua casa fica no litoral, qual a distância aproximada
-                da praia?</label>
+                da praia (em metros)?</label>
               <div class="md:w-full mb-6">
-                <input oninput="cacheInput(this)" placeholder="" type="text" name="beachDistance" id="beachDistance"
+                <input oninput="addSuffix(this)" placeholder="" type="text" name="beachDistance" id="beachDistance"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
-
               </div>
 
+              <script>
+                function addSuffix(input) {
+                  input.value = input.value.replace(" m", '')
+                  input.value = input.value.replace("m", '')
+                  input.value = input.value + ' m'
+                }
+              </script>
 
               <label class="w-full font-light text-green_dark">Quais as metragens aproximadas do terreno e da área
                 construída?*</label>
@@ -1000,8 +1016,7 @@
                 .images .img,
                 .images .pic {
                   /* flex-basis: 25%; */
-                  width: 25%;
-                  margin-bottom: 10px;
+                  width: 85%;
                   border-radius: 4px;
                 }
 
@@ -1009,7 +1024,6 @@
                   width: 112px;
                   height: 93px;
                   background-size: cover;
-                  margin-right: 10px;
                   background-position: center;
                   display: flex;
                   align-items: center;
@@ -1031,8 +1045,8 @@
 
                 .images .img::after {
                   content: '';
-                  width: 100%;
                   height: 100%;
+                  width: 100%;
                   transition: opacity .1s ease-in;
                   border-radius: 4px;
                   opacity: 0;
@@ -1046,20 +1060,27 @@
                 }
 
                 .images .img:hover span {
-                  display: block;
-                  color: #fff;
+                  display:block;
+                  color: #AFC6B3;
                 }
 
                 .images .pic {
-                  background-color: #F5F7FA;
+                  background-color: #EEF7F4;
                   align-self: center;
                   text-align: center;
-                  padding: 40px 0;
                   text-transform: uppercase;
                   color: #848EA1;
                   font-size: 12px;
                   cursor: pointer;
+                  height: 8em;
+                  display: flex;
+                  justify-content: space-around;
+                  align-items: center;
                 }
+
+                
+
+              
 
                 @media (max-width: 767px) {
 
@@ -1072,48 +1093,37 @@
                 }
               </style>
               <div class="wrapper w-full">
-                <section class="active ">
+                <section id="imagesTotal" class="active flex flex-wrap">
 
-                  <div class="images ">
-                    <div class="pic ">
+                  <div id="images" class="images h-1/5 w-1/5 imageUploader">
+                    <div id="pic" style="color:#AFC6B3; " class="pic relative">
                       +
                     </div>
                   </div>
+
+                  
+
 
                 </section>
               </div>
 
               <!-- TODO: Enviar imagem tbm  -->
               <script>
+                $(document).on("click",".imageUploader", clickImage)
+                function clickImage() {
+                  elementTotal = $(this)
+                  var uploader = $('<input type="file" accept="image/*" />')
+                  uploader.click()
+                  var images = $('#imagesTotal')
 
-                (function ($) {
-                  $(document).ready(function () {
+                  var element = elementTotal
 
-                    uploadImage()
-                    submit()
-                    autoDequeue()
-
-                    var ID
-                    var way = 0
-                    var queue = []
-                    var fullStock = 10
-                    var speedCloseNoti = 1000
-
-
-
-                    function uploadImage() {
-                      var button = $('.images .pic')
-                      var uploader = $('<input type="file" accept="image/*" />')
-                      var images = $('.images')
-
-                      button.on('click', function () {
-                        uploader.click()
-                      })
-                      uploader.on('change', function () {
-                        var reader = new FileReader()
+                  uploader.on('change', function () {
+                  var reader = new FileReader()
                         reader.onload = function (event) {
-
-
+                          child = element.children()
+                          newElementImage = '<div class="img"><img class="img w-full h-full" src="'+ event.target.result + '"></img><span class="absolute">X</span></div>'
+                          
                           var imageBase = event.target.result.replace(/data:image\/.*?\;base64,/g, "");
 
 
@@ -1142,7 +1152,7 @@
                             "contentType": "application/json",
                             success: function (data1, textStatus, jqXHR) {
                               var keyImage = JSON.parse(data1)['key']
-                              images.prepend('<div class="img" id="' + keyImage + '" style="background-image: url(\'' + event.target.result + '\');" rel="' + event.target.result + '"><span>remove</span></div>') //<input name="homeImage" class="hidden" value="' + event.target.result + '">
+                              child[0].innerHTML = newElementImage
                               imageKeysList.push(keyImage)
 
 
@@ -1153,115 +1163,39 @@
                             },
                           })
 
-
                         }
                         reader.readAsDataURL(uploader[0].files[0])
 
-                      })
+                    })
 
-                      images.on('click', '.img', function () {
+                    images.on('click', '.img', function () {
                         const index = imageKeysList.indexOf($(this).attr('id'));
                         if (index > -1) {
                           imageKeysList.splice(index, 1);
                         }
 
-                        $(this).remove()
+                        $(this).parent()[0].innerHTML = "+"
 
                       })
+                  }
 
+                (function ($) {
+                  $(document).ready(function () {
 
-                    }
+                    
+                    cloneDivImage()
 
-                    function submit() {
-                      var button = $('#send')
+                 
 
-                      button.on('click', function () {
-                        if (!way) {
-                          var title = $('#title')
-                          var cate = $('#category')
-                          var images = $('.images .img')
-                          var imageArr = []
-
-
-                          for (var i = 0; i < images.length; i++) {
-                            imageArr.push({ url: $(images[i]).attr('rel') })
-                          }
-
-                          var newStock = {
-                            title: title.val(),
-                            category: cate.val(),
-                            images: imageArr,
-                            type: 1
-                          }
-
-                          saveToQueue(newStock)
-                        } else {
-                          // discussion
-                          var topic = $('#topic')
-                          var message = $('#msg')
-
-                          var newStock = {
-                            title: topic.val(),
-                            message: message.val(),
-                            type: 2
-                          }
-
-                          saveToQueue(newStock)
-                        }
-                      })
+                    function cloneDivImage() {
+                    var counter = 0;
+                      for (counter = 0; counter < 16; ++counter)
+                        $("#images").clone().attr('id','image_'+counter+'').appendTo('#imagesTotal');
+                      
                     }
 
 
 
-                    function autoDequeue() {
-                      var notification = $('.notification')
-                      var text
-
-                      setInterval(function () {
-
-                        if (queue.length > 0) {
-                          if (queue[0].type == 2) {
-                            text = ' Your discusstion is sent'
-                          } else {
-                            text = ' Your order is allowed.'
-                          }
-
-                          notification.append('<div class="success btn"><p><strong>Success:</strong>' + text + '</p><span><i class=\"fa fa-times\" aria-hidden=\"true\"></i></span></div>')
-                          queue.splice(0, 1)
-
-                        }
-                      }, 10000)
-                    }
-
-
-
-                    // helpers
-                    function saveToQueue(stock) {
-                      var notification = $('.notification')
-                      var check = 0
-
-                      if (queue.length <= fullStock) {
-                        if (stock.type == 2) {
-                          if (!stock.title || !stock.message) {
-                            check = 1
-                          }
-                        } else {
-                          if (!stock.title || !stock.category || stock.images == 0) {
-                            check = 1
-                          }
-                        }
-
-                        if (check) {
-                          notification.append('<div class="error btn"><p><strong>Error:</strong> Please fill in the form.</p><span><i class=\"fa fa-times\" aria-hidden=\"true\"></i></span></div>')
-                        } else {
-                          notification.append('<div class="success btn"><p><strong>Success:</strong> ' + ID + ' is submitted.</p><span><i class=\"fa fa-times\" aria-hidden=\"true\"></i></span></div>')
-                          queue.push(stock)
-                          reset()
-                        }
-                      } else {
-                        notification.append('<div class="error btn"><p><strong>Error:</strong> Please waiting a queue.</p><span><i class=\"fa fa-times\" aria-hidden=\"true\"></i></span></div>')
-                      }
-                    }
 
                   })
                 })(jQuery)
@@ -1271,7 +1205,7 @@
               <!-- <button class="btn btn-teal mx-auto" type="submit">Create Account</button> -->
             </form>
 
-            <div class="flex justify-center md:justify-between">
+            <div class="flex justify-center md:justify-between py-4">
               <a onClick="formsRequest();" href="#"
                 class=" inline-flex skip_2 bg-green_light px-8 py-2 rounded-full h-12 hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Terminar
                 Depois</a>
@@ -1292,7 +1226,7 @@
 
 
       <!-- Formulario Hospedagem -->
-      <div class="hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full " id="host_forms">
+      <div class="hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full ml-1" id="host_forms">
         <h1
           class="w-full mb-8 md:w-11/12 text-2xl tracking-tight leading-none font-niveau-bold text-green_dark sm:text-5xl sm:leading-none md:text-2xl">
           Você está indo bem, já estamos quase lá! Agora vamos conversar sobre a hospedagem.
@@ -1900,7 +1834,7 @@
               <!-- <button class="btn btn-teal mx-auto" type="submit">Create Account</button> -->
             </form>
 
-            <div class="flex justify-center md:justify-between">
+            <div class="flex justify-center md:justify-between py-4">
               <a onClick="formsRequest();" href="#"
                 class=" inline-flex skip_2 bg-green_light px-8 py-2 rounded-full h-12 hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Terminar
                 Depois</a>
@@ -2392,7 +2326,7 @@
         // });
 
         jQuery.extend(jQuery.validator.messages, {
-          required: '<span class="error12 ">Este campo é obrigatório</span>',
+          required: '<span class="error12 sm:text-sm">Este campo é obrigatório</span>',
           email: '<span class="error12 ">Por favor, digite um email válido.</span>',
           min: jQuery.validator.format('<span class="error12 ">Por favor, digite um valor maior ou igual que {0}.</span>')
         });
