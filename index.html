@@ -222,6 +222,7 @@
 
           var images = $('.images')
 
+          var counter_image = 0;
           if (`${element["picturesS3Urls"]}` !== 'undefined' || element["picturesS3Urls"].length === 0) {
             $.each(element["picturesS3Urls"], function (i, val) {
 
@@ -233,9 +234,14 @@
                 }),
                 contentType: "application/json",
                 success: (x) => {
+                  divImage = $("#images_"+counter_image+"")
+                  child = divImage.children()
 
-                  images.prepend('<div class="img" id="' + val + '" style="background-image: url(\'data:image/png;base64,' + x + '\');" rel="' + x + '"><span>remove</span></div>')
+                  newElementImage = '<div class="img"><img id="' + val + '" class="img w-full h-full" src="data:image/jpeg;base64,'+ x + '"></img><span class="absolute">X</span></div>'
+                  child[0].innerHTML = newElementImage
 
+                  counter_image++;
+                  imageKeysList.push(val)
 
 
                 }
@@ -1095,7 +1101,7 @@
               <div class="wrapper w-full">
                 <section id="imagesTotal" class="active flex flex-wrap">
 
-                  <div id="images" class="images h-1/5 w-1/5 imageUploader">
+                  <div id="images_0" class="images h-1/5 w-1/5 imageUploader">
                     <div id="pic" style="color:#AFC6B3; " class="pic relative">
                       +
                     </div>
@@ -1122,7 +1128,6 @@
                   var reader = new FileReader()
                         reader.onload = function (event) {
                           child = element.children()
-                          newElementImage = '<div class="img"><img class="img w-full h-full" src="'+ event.target.result + '"></img><span class="absolute">X</span></div>'
                           
                           var imageBase = event.target.result.replace(/data:image\/.*?\;base64,/g, "");
 
@@ -1152,9 +1157,8 @@
                             "contentType": "application/json",
                             success: function (data1, textStatus, jqXHR) {
                               var keyImage = JSON.parse(data1)['key']
-                              child[0].innerHTML = newElementImage
+                              child[0].innerHTML = '<div class="img"><img id="' + keyImage + '" class="img w-full h-full" src="'+ event.target.result + '"></img><span class="absolute">X</span></div>'
                               imageKeysList.push(keyImage)
-
 
 
                             },
@@ -1188,9 +1192,8 @@
                  
 
                     function cloneDivImage() {
-                    var counter = 0;
-                      for (counter = 0; counter < 16; ++counter)
-                        $("#images").clone().attr('id','image_'+counter+'').appendTo('#imagesTotal');
+                      for (counter = 1; counter < 15; ++counter)
+                        $("#images_0").clone().attr('id','images_'+counter+'').appendTo('#imagesTotal');
                       
                     }
 
