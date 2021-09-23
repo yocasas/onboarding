@@ -1117,10 +1117,24 @@
               <script>
                 $(document).on("click",".imageUploader", clickImage)
                 function clickImage() {
+                  var images = $('#imagesTotal')
+
+
+                  
+                  images.on('click', '.img', function () {
+                        const index = imageKeysList.indexOf($(this).attr('id'));
+                        if (index > -1) {
+                          imageKeysList.splice(index, 1);
+                        }
+
+                        $(this).parent()[0].innerHTML = "+"
+
+                      })
+
+
                   elementTotal = $(this)
                   var uploader = $('<input type="file" accept="image/*" />')
                   uploader.click()
-                  var images = $('#imagesTotal')
 
                   var element = elementTotal
 
@@ -1171,17 +1185,15 @@
                         reader.readAsDataURL(uploader[0].files[0])
 
                     })
+                    
 
-                    images.on('click', '.img', function () {
-                        const index = imageKeysList.indexOf($(this).attr('id'));
-                        if (index > -1) {
-                          imageKeysList.splice(index, 1);
-                        }
+                    //remove
 
-                        $(this).parent()[0].innerHTML = "+"
 
-                      })
+
                   }
+
+                    
 
                 (function ($) {
                   $(document).ready(function () {
