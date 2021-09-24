@@ -325,7 +325,7 @@
 
       <div class="items-center">
         <h1
-          class="w-full text-2xl tracking-tight leading-10 md:font-niveau-medium font-niveau-bold text-green_dark sm:text-5xl sm:leading-none md:text-4xl my-auto mb-5">
+          class="w-full text-2xl tracking-tight leading-10 font-niveau-bold text-green_dark sm:text-5xl sm:leading-none md:text-4xl my-auto mb-5">
           Cadastro
         </h1>
 
@@ -988,7 +988,7 @@
               </div>
 
 
-              <p class="w-full md:w-full tracking-tight leading-relaxed font-niveau text-green_medium mb-6">
+              <p class="w-full md:w-full tracking-tight italic leading-relaxed font-niveau text-green_medium mb-6">
                 Limite de 300 caracteres (sugerimos um breve resumo das qualidades da casa,
                 os detaques mais legais, dicas de utilização do imóvel e dos arredores, informações
                 relacionadas ao acesso ao locao, à entreda no condomínio e à segurança)
@@ -1716,7 +1716,7 @@
 
               <label class="w-full font-light text-green_dark mb-1">Se conta com funcionários, quais orientações
                 importantes?</label>
-              <p class="w-full md:w-full tracking-tight leading-relaxed font-niveau text-green_medium">
+              <p class="w-full italic md:w-full tracking-tight leading-relaxed font-niveau text-green_medium">
                 (quantos são, horário de expediente, dicas legais, logística de compras, remuneração extra... Conte
                 tudo!)
               </p>
@@ -1736,7 +1736,7 @@
               </label>
 
               <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
-                Todos os fins de semana
+                Todos os fins de semana, ou ao menos uma semana completa.
               </h1>
 
               <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
@@ -1755,11 +1755,13 @@
                 20 de dezembro a 31 de janeiro
               </h1>
 
+              <h1 class="w-full tracking-tight italic leading-none font-bold text-green_medium sm:leading-none mb-3">
+                Lembre-se: quantos mais dias disponibilizar, mais pontos você ganha.
+              </h1>
+
               <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
                 (Não é permitido disponibilizar uma noite isolada)
               </h1>
-
-
 
 
               <!-- <script type="text/javascript" defer>
@@ -1897,7 +1899,7 @@
                 Passo</a>
             </div>
             <div
-              class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+              class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-30">
               <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
 
               <div
@@ -2151,7 +2153,6 @@
             },
             "contentType": "application/json",
             success: function (data1, textStatus, jqXHR) {
-              console.log(data1)
               $("#cookie").val(data1.token)
               document.cookie = `login_session=${data1.token}; max-age=3000; path=/`;
               document.getElementById("errorEmail").innerHTML = ""
@@ -2294,7 +2295,7 @@
       <script>
         var swiper = new Swiper(".mySwiper", {
           autoplay: {
-            delay: 2500,
+            delay: 5000,
             disableOnInteraction: false,
           },
           pagination: {
