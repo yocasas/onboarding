@@ -26,6 +26,9 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
 
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.15/dist/browser-image-compression.js"></script>
+
+
 
 
   <script>
@@ -1114,7 +1117,36 @@
               </div>
 
               <!-- TODO: Enviar imagem tbm  -->
+            
               <script>
+              function handleImageUpload(event) {
+
+              var imageFile = event;
+              console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
+              //console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+
+              var options = {
+                maxSizeMB: 1,
+                maxWidthOrHeight: 1920,
+                useWebWorker: true
+              }
+              imageCompression(imageFile, options)
+                .then(function (compressedFile) {
+                  console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+                  console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+
+                  return compressedFile; // write your own logic
+                })
+                .catch(function (error) {
+                  console.log(error.message);
+                });
+              }
+
+
+
+
+
+
                 $(document).on("click",".imageUploader", clickImage)
                 function clickImage() {
                   var images = $('#imagesTotal')
@@ -1145,6 +1177,12 @@
                           
                           var imageBase = event.target.result.replace(/data:image\/.*?\;base64,/g, "");
 
+                          var resultado = imageCompression.getFilefromDataUrl(event.target.result).then(result => {
+                            var imageCompressed = handleImageUpload(result)
+                            return imageCompressed
+                          }) //Como pegar essa promise
+
+                          
 
                           imageObject = { "b64pic": imageBase }
                           data = JSON.stringify(imageObject)
@@ -2080,6 +2118,12 @@
           dataFormArrayFormUser.forEach(x => {
             objFormUser[x.name] = x.value
           })
+
+          if (objFormUser['password'] == "") {
+            delete objFormUser['password']
+          }
+
+
 
 
           var myCookie = getCookie("login_session");
