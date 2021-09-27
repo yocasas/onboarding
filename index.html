@@ -37,6 +37,8 @@
 
     var emailStatus = 1
 
+    var curatedHouse = false
+
     function getCookie(name) {
       var dc = document.cookie;
       var prefix = name + "=";
@@ -73,10 +75,7 @@
         getUserInfo(clientId)
         casa_button();
 
-        // nome, sobrenome, data de nascimento, cpf, fotos, endereço do imóvel, se fica em campo, praia, cidade, se fica em condomínio ou não
-        var disabledInputs = $(`#firstname, #lastname, #birthday, #cpf, #address, #complement, #number, #country, #city, 
-        #state, #beach, #mountain, #country, #city, #true, #false, #city-input, #zipCodeUser, #zipCode`)
-        disabledInputs.attr('disabled', 'disabled');
+        
 
       }
 
@@ -277,6 +276,18 @@
 
             // })
           }
+
+          curatedHouse = (`${element["curated"]}` === 'true')
+          //Block, bloquear campos para edicao
+        if (curatedHouse) {
+           // nome, sobrenome, data de nascimento, cpf, fotos, endereço do imóvel, se fica em campo, praia, cidade, se fica em condomínio ou não
+        var disabledInputs = $(`#firstname, #lastname, #birthday, #cpf, #address, #complement, #number, #country, #city, 
+        #state, #beach, #mountain, #country, #city, #true, #false, #city-input, #zipCodeUser, #zipCode`)
+        disabledInputs.attr('disabled', 'disabled');
+
+        }
+         
+
 
 
         },
@@ -1541,7 +1552,7 @@
                 $(document).on("click", ".imageUploader", clickImage)
                 function clickImage() {
                 var myCookie = getCookie("login_session");
-                  if(!myCookie){
+                  if(curatedHouse == false){
 
                   var images = $('#imagesTotal')
 
