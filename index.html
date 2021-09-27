@@ -321,7 +321,7 @@
 
     /* width */
     ::-webkit-scrollbar {
-      width: 1px;
+      width: 3px;
     }
 
     /* Track */
@@ -501,7 +501,13 @@
             var $formSubmitted = $('#youForms');
             if ($formSubmitted.valid({ ignore: '' })) {
               youFormsRequest().then(x => {
-                casa_button();
+                if (x == 1) {
+                  console.log(x)
+                  
+                  casa_button();
+
+
+                }
 
               });
             } else {
@@ -665,7 +671,7 @@
                 <input oninput="cacheInput(this)" required placeholder="" type="email" name="email" id="email"
                   autocomplete="email"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
-                <div id="errorEmail" class="text-red-400"></div>
+                <div id="errorEmail" class="error12 text-red-400"></div>
                 <div id="emailStatus" class="text-red-400 hidden"></div>
 
 
@@ -2601,16 +2607,20 @@
               document.cookie = `login_session=${data1.token}; max-age=3000; path=/`;
               document.getElementById("errorEmail").innerHTML = ""
               emailStatus = 1
+              return new Promise((resolve, reject) => resolve(emailStatus))
+
               // casa_button() //TODO: tentar chamar em outro lugar, problema em que o emailStatus é alterado apenas depois de casa_button() ser chamado
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
               document.getElementById("errorEmail").innerHTML = "Email já existente"
               emailStatus = 0
+              goToError()
               // casa_button()
+              return new Promise((resolve, reject) => resolve(emailStatus))
+
             },
           })
-          return new Promise((resolve, reject) => resolve(emailStatus)) //don't submit
 
 
         }
