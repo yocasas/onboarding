@@ -60,6 +60,7 @@
     $(document).ready(function () {
 
 
+
       var myCookie = getCookie("login_session");
       if (myCookie) {
         $("#cookie").val(myCookie)
@@ -328,6 +329,11 @@
 </head>
 
 <body class="antialiased text-gray-800 font-niveau">
+  <div class="hidden absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center">
+    <div class="loading dot-pulse">
+
+    </div>
+</div>
   <div class="md:w-screen md:h-screen md:grid md:grid-cols-5 md:grid-rows-2">
 
     <div
@@ -2180,6 +2186,7 @@
                 <!-- Add a column to display info for clicked day -->
                 <div v-if='days' class='selected-day'>
                   <div class="hidden" id="days_list">{{ days }}</div>
+
                   <!-- <ul>
                     <li v-for='day in days' :key='day.highlight'>
                       {{ day }}
@@ -2188,6 +2195,7 @@
                 </div>
               </div>
               <div id="daysMin" class="text-red-500"></div>
+              
 
               <!-- <script>
                 function days_print() {
@@ -2210,7 +2218,7 @@
                     return {
                       selectedDay: null, // Add state to store selected day
                       days: [],
-                      avbldates: [{ start: new Date("2021-10-02"), end: new Date("2022-02-01") }]
+                      avbldates: [{ start: new Date("2021-10-02"), end: new Date("2022-02-01") }] //TODO: Puxar do back as datas disponiveis
                       //["2021-09-16T03:00:00.000Z"]
                     };
                   },
@@ -2219,17 +2227,20 @@
                       return this.days.map(day => day.date);
                     },
                     attributes() {
-                      return this.dates.map(date => ({
+                      return this.dates.map(date => (
+                        (date > new Date("2021-10-02") && date < new Date("2022-02-01")) ?  //TODO: colocar na variavel global
+                        
+                        {
                         highlight: true,
                         dates: date,
-                      }));
+                      } : {}
+                      ));
 
                     },
 
                   },
                   methods: {
                     onDayClick(day) {
-                      if (avbldates.includes(day)) {
                         const idx = this.days.findIndex(d => d.id === day.id);
                         if (idx >= 0) {
                           this.days.splice(idx, 1);
@@ -2239,10 +2250,11 @@
                             date: day.date,
                           });
                         }
-                      }
                     },
                   },
                 })
+
+
 
 
 
@@ -2414,6 +2426,12 @@
           return listCheckboxes;
         }
         function formsRequest() {
+          $('html, body').css({
+                        overflow: 'hidden',
+                        height: '100%'
+                    });
+
+          $(".loading").parent().removeClass('hidden')
           // const form = document.forms.casa;
           var dataFormArrayForm1 = $("#casa_forms").serializeArray()
           var dataFormArrayForm2 = $("#hospedagem_forms").serializeArray()
@@ -2508,6 +2526,11 @@
 
             },
           })
+          $('html, body').css({
+                        overflow: 'auto',
+                        height: 'auto'
+                    });
+          $(".loading").parent().addClass('hidden')
           return false //don't submit
         }
 
