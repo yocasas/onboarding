@@ -74,7 +74,8 @@
         casa_button();
 
         // nome, sobrenome, data de nascimento, cpf, fotos, endereço do imóvel, se fica em campo, praia, cidade, se fica em condomínio ou não
-        var disabledInputs = $("#firstname, #lastname, #birthday, #cpf, #address, #complement, #number, #country, #city, #state, #beach, #mountain, #country, #city, #true, #false, #city-input, #zipCodeUser, #zipCode")
+        var disabledInputs = $(`#firstname, #lastname, #birthday, #cpf, #address, #complement, #number, #country, #city, 
+        #state, #beach, #mountain, #country, #city, #true, #false, #city-input, #zipCodeUser, #zipCode`)
         disabledInputs.attr('disabled', 'disabled');
 
       }
@@ -263,17 +264,18 @@
               })
             })
 
-            var images = $('#imagesTotal')
+            //Permite exlcuir as imagens vindas da DB
+            // var images = $('#imagesTotal')
 
-            images.on('click', '.img', function () {
-              const index = imageKeysList.indexOf($(this).attr('id'));
-              if (index > -1) {
-                imageKeysList.splice(index, 1);
-              }
+            // images.on('click', '.img', function () {
+            //   const index = imageKeysList.indexOf($(this).attr('id'));
+            //   if (index > -1) {
+            //     imageKeysList.splice(index, 1);
+            //   }
 
-              $(this).parent()[0].innerHTML = "+"
+            //   $(this).parent()[0].innerHTML = "+"
 
-            })
+            // })
           }
 
 
@@ -1538,6 +1540,8 @@
 
                 $(document).on("click", ".imageUploader", clickImage)
                 function clickImage() {
+                var myCookie = getCookie("login_session");
+                  if(!myCookie){
 
                   var images = $('#imagesTotal')
 
@@ -1628,7 +1632,7 @@
                   //remove
 
 
-
+                }
                 }
 
 
@@ -2517,20 +2521,26 @@
             },
             "contentType": "application/json",
             success: function (data1, textStatus, jqXHR) {
+              $('html, body').css({
+                        overflow: 'auto',
+                        height: 'auto'
+                    });
+          $(".loading").parent().addClass('hidden')
               window.location.href = "https://yocasas.com.br/home/";
 
 
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
-
-            },
-          })
-          $('html, body').css({
+              $('html, body').css({
                         overflow: 'auto',
                         height: 'auto'
                     });
           $(".loading").parent().addClass('hidden')
+
+            },
+          })
+          
           return false //don't submit
         }
 
