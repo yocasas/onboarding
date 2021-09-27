@@ -2604,7 +2604,7 @@
             "contentType": "application/json",
             success: function (data1, textStatus, jqXHR) {
               $("#cookie").val(data1.token)
-              document.cookie = `login_session=${data1.token}; max-age=3000; path=/`;
+              document.cookie = `login_session=${data1.token}; max-age=10800; path=/`;
               document.getElementById("errorEmail").innerHTML = ""
               emailStatus = 1
               return new Promise((resolve, reject) => resolve(emailStatus))
