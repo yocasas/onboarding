@@ -307,10 +307,10 @@
 
             } else {
               $('html, body').css({
-                  overflow: 'auto',
-                  height: 'auto'
-                });
-                $(".loading").parent().addClass('hidden')
+                overflow: 'auto',
+                height: 'auto'
+              });
+              $(".loading").parent().addClass('hidden')
             }
 
             curatedHouse = (`${element["curated"]}` === 'true')
@@ -329,10 +329,10 @@
 
           } else {
             $('html, body').css({
-                  overflow: 'auto',
-                  height: 'auto'
-                });
-                $(".loading").parent().addClass('hidden')
+              overflow: 'auto',
+              height: 'auto'
+            });
+            $(".loading").parent().addClass('hidden')
           }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -546,7 +546,7 @@
 
 
 
-          
+
 
 
 
@@ -2611,91 +2611,90 @@
 
 
         function youFormsRequest() {
-          var dataFormArrayFormUser = $("#youForms").serializeArray()
+          return new Promise((resolve, reject) => {
 
-          var objFormUser = {}
+            var dataFormArrayFormUser = $("#youForms").serializeArray()
 
-          dataFormArrayFormUser.forEach(x => {
-            objFormUser[x.name] = x.value
+            var objFormUser = {}
+
+            dataFormArrayFormUser.forEach(x => {
+              objFormUser[x.name] = x.value
+            })
+
+            if (objFormUser['password'] == "") {
+              delete objFormUser['password']
+            }
+
+
+
+
+            var myCookie = getCookie("login_session");
+            if (myCookie) {
+              var tokens = myCookie.split(".");
+              // console.log(atob(tokens[0])); //Alg, Type
+              var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
+
+              var clientId = clientObject.ClientId
+              // objFormUser["ClientId"] = clientId
+
+            }
+
+
+
+
+            data = JSON.stringify(objFormUser)
+
+            $.ajax({
+              url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register",
+              type: 'POST',
+              data: data,
+              headers: {
+                'Authorization': myCookie,
+              },
+              "contentType": "application/json",
+              success: function (data1, textStatus, jqXHR) {
+                $("#cookie").val(data1.token)
+                document.cookie = `login_session=${data1.token}; max-age=10800; path=/`;
+                document.getElementById("errorEmail").innerHTML = ""
+                emailStatus = 1
+                resolve(emailStatus)
+
+                // casa_button() //TODO: tentar chamar em outro lugar, problema em que o emailStatus é alterado apenas depois de casa_button() ser chamado
+
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+                document.getElementById("errorEmail").innerHTML = "Email já existente"
+                emailStatus = 0
+                goToError()
+                // casa_button()
+                resolve(emailStatus)
+
+              },
+            })
+
           })
-
-          if (objFormUser['password'] == "") {
-            delete objFormUser['password']
-          }
-
-
-
-
-          var myCookie = getCookie("login_session");
-          if (myCookie) {
-            var tokens = myCookie.split(".");
-            // console.log(atob(tokens[0])); //Alg, Type
-            var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
-
-            var clientId = clientObject.ClientId
-            // objFormUser["ClientId"] = clientId
-
-          }
-
-
-
-
-          data = JSON.stringify(objFormUser)
-
-          $.ajax({
-            url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register",
-            type: 'POST',
-            data: data,
-            headers: {
-              'Authorization': myCookie,
-            },
-            "contentType": "application/json",
-            success: function (data1, textStatus, jqXHR) {
-              $("#cookie").val(data1.token)
-              document.cookie = `login_session=${data1.token}; max-age=10800; path=/`;
-              document.getElementById("errorEmail").innerHTML = ""
-              emailStatus = 1
-              return new Promise((resolve, reject) => resolve(emailStatus))
-
-              // casa_button() //TODO: tentar chamar em outro lugar, problema em que o emailStatus é alterado apenas depois de casa_button() ser chamado
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-              document.getElementById("errorEmail").innerHTML = "Email já existente"
-              emailStatus = 0
-              goToError()
-              // casa_button()
-              return new Promise((resolve, reject) => resolve(emailStatus))
-
-            },
-          })
-
-          return new Promise((resolve, reject) => resolve(emailStatus))
-
-
-
-
 
         }
 
-        function submitYouForms() {
-            var $formSubmitted = $('#youForms');
-            if ($formSubmitted.valid({ ignore: '' })) {
-              youFormsRequest().then(x => {
-                if (x == 1) {
-                  console.log(x)
+        function submitYouForms(emailstatus) {
+          var $formSubmitted = $('#youForms');
+          if ($formSubmitted.valid({ ignore: '' })) {
+            youFormsRequest().then(x => {
 
-                  casa_button();
+              if (x == 1) {
+                console.log(x)
+
+                casa_button();
 
 
-                }
+              }
 
-              });
-            } else {
-              goToError()
+            });
+          } else {
+            goToError()
 
-            }
           }
+        }
       </script>
       <input id="emailStatus" class="text-red-400 hidden">
 
