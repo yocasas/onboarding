@@ -2586,36 +2586,36 @@
 
           data = JSON.stringify(objForm)
 
-          // $.ajax({
-          //   url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome",
-          //   type: 'POST',
-          //   data: data,
-          //   headers: {
-          //     'Authorization': myCookie,
-          //   },
-          //   "contentType": "application/json",
-          //   success: function (data1, textStatus, jqXHR) {
-          //     $('html, body').css({
-          //       overflow: 'auto',
-          //       height: 'auto'
-          //     });
-          //     $(".loading").parent().addClass('hidden')
-          //     window.location.href = "https://yocasas.com.br/home/";
+          $.ajax({
+            url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome",
+            type: 'POST',
+            data: data,
+            headers: {
+              'Authorization': myCookie,
+            },
+            "contentType": "application/json",
+            success: function (data1, textStatus, jqXHR) {
+              $('html, body').css({
+                overflow: 'auto',
+                height: 'auto'
+              });
+              $(".loading").parent().addClass('hidden')
+              window.location.href = "https://yocasas.com.br/home/";
 
 
 
-          //   },
-          //   error: function (jqXHR, textStatus, errorThrown) {
-          //     $('html, body').css({
-          //       overflow: 'auto',
-          //       height: 'auto'
-          //     });
-          //     $(".loading").parent().addClass('hidden')
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              $('html, body').css({
+                overflow: 'auto',
+                height: 'auto'
+              });
+              $(".loading").parent().addClass('hidden')
 
-          //   },
-          // })
+            },
+          })
 
-          // return false //don't submit
+          return false //don't submit
         }
 
 
