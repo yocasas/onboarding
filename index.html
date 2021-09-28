@@ -601,7 +601,6 @@
             var daysObjectList = JSON.parse($("#days_list").html())
             var daysList = daysObjectList.map(a => a.id);
 
-            console.log(daysList)
 
             if ($homeForms.valid({ ignore: '' }) && $youForms.valid({ ignore: '' }) && $hostForms.valid({ ignore: '' })) {
               if (daysList) {
@@ -620,6 +619,8 @@
               }
 
             }
+
+            goToError()
 
           }
 
@@ -2268,7 +2269,7 @@
                   </ul> -->
                 </div>
               </div>
-              <div id="daysMin" class="text-red-500"></div>
+              <div id="daysMin" class="text-red-500 error12"></div>
 
 
               <!-- <script>
@@ -2500,6 +2501,7 @@
           return listCheckboxes;
         }
         function formsRequest() {
+      
           $('html, body').css({
             overflow: 'hidden',
             height: '100%'
@@ -2575,43 +2577,45 @@
             var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
 
             var clientId = clientObject.ClientId
-            // objFormUser["ClientId"] = clientId
+            // objForm["ClientId"] = clientId
+            objForm['zipCode'] = $('#zipCode').val()
+            
 
           }
 
 
           data = JSON.stringify(objForm)
 
-          $.ajax({
-            url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome",
-            type: 'POST',
-            data: data,
-            headers: {
-              'Authorization': myCookie,
-            },
-            "contentType": "application/json",
-            success: function (data1, textStatus, jqXHR) {
-              $('html, body').css({
-                overflow: 'auto',
-                height: 'auto'
-              });
-              $(".loading").parent().addClass('hidden')
-              window.location.href = "https://yocasas.com.br/home/";
+          // $.ajax({
+          //   url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome",
+          //   type: 'POST',
+          //   data: data,
+          //   headers: {
+          //     'Authorization': myCookie,
+          //   },
+          //   "contentType": "application/json",
+          //   success: function (data1, textStatus, jqXHR) {
+          //     $('html, body').css({
+          //       overflow: 'auto',
+          //       height: 'auto'
+          //     });
+          //     $(".loading").parent().addClass('hidden')
+          //     window.location.href = "https://yocasas.com.br/home/";
 
 
 
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-              $('html, body').css({
-                overflow: 'auto',
-                height: 'auto'
-              });
-              $(".loading").parent().addClass('hidden')
+          //   },
+          //   error: function (jqXHR, textStatus, errorThrown) {
+          //     $('html, body').css({
+          //       overflow: 'auto',
+          //       height: 'auto'
+          //     });
+          //     $(".loading").parent().addClass('hidden')
 
-            },
-          })
+          //   },
+          // })
 
-          return false //don't submit
+          // return false //don't submit
         }
 
 
@@ -2687,7 +2691,6 @@
             youFormsRequest().then(x => {
 
               if (x == 1) {
-                console.log(x)
 
                 casa_button();
 
