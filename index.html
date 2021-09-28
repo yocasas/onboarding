@@ -1777,21 +1777,9 @@
               </div>
 
 
-              <label class="w-full font-light text-green_dark mb-2">Sua casa tem quantas suítes à disposição dos
-                hóspedes?*</label>
-              <div class="flex w-full mb-4">
-                <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
-                rounded-full active:border-none active:bg-green_light flex items-center 
-                justify-center" type="button" id="suites" onclick="decrement(this)">-</a>
+              
 
-                <input oninput="cacheInput(this)" required type="number" name="totalSuites" id="suites_input" min=0
-                  class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
-                <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
-                rounded-full active:border-none active:bg-green_light flex items-center 
-                justify-center" type="button" id="suites" onclick="increment(this)">+</a>
-              </div>
-
-              <label class="w-full font-light text-green_dark mb-2">E quantos dormitórios sem banheiro?*</label>
+              <label class="w-full font-light text-green_dark mb-2">Número total de dormitórios?*</label>
               <div class="flex w-full mb-4">
                 <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
                 rounded-full active:border-none active:bg-green_light flex items-center 
@@ -1802,6 +1790,20 @@
                 <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
                 rounded-full active:border-none active:bg-green_light flex items-center 
                 justify-center" type="button" id="rooms" onclick="increment(this)">+</a>
+              </div>
+
+
+              <label class="w-full font-light text-green_dark mb-2">Destes dormitórios, quantos são suites?*</label>
+              <div class="flex w-full mb-4">
+                <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
+                rounded-full active:border-none active:bg-green_light flex items-center 
+                justify-center" type="button" id="suites" onclick="decrement(this)">-</a>
+
+                <input oninput="cacheInput(this)" required type="number" name="totalSuites" id="suites_input" min=0
+                  class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
+                <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
+                rounded-full active:border-none active:bg-green_light flex items-center 
+                justify-center" type="button" id="suites" onclick="increment(this)">+</a>
               </div>
 
 
