@@ -8,6 +8,7 @@
   <link rel="icon" type="image/svg" sizes="16x16" href="LOGO.svg" />
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="./build/tailwind.css" />
+  <link rel="stylesheet" href="./assets/loading.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -167,6 +168,13 @@
 
       data = JSON.stringify(data)
 
+      $('html, body').css({
+                        overflow: 'hidden',
+                        height: '100%'
+                    });
+
+          $(".loading").parent().removeClass('hidden')
+
       $.ajax({
         url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed",
         type: 'POST',
@@ -238,10 +246,11 @@
           var images = $('.images')
 
           var counter_image = 0;
+          let listAjax = []
           if (`${element["picturesS3Urls"]}` !== 'undefined' || element["picturesS3Urls"].length === 0) {
             $.each(element["picturesS3Urls"], function (i, val) {
 
-              $.ajax({
+              let ajaxImage = $.ajax({
                 url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
                 type: "POST",
                 data: JSON.stringify({
@@ -261,20 +270,37 @@
 
                 }
               })
+
+              listAjax.push(ajaxImage)
+
+              
+
             })
 
+            Promise.all(listAjax).then(x => {
+              $('html, body').css({
+                        overflow: 'auto',
+                        height: 'auto'
+                    });
+          $(".loading").parent().addClass('hidden')
+
+            })
+            
+
             //Permite exlcuir as imagens vindas da DB
-            // var images = $('#imagesTotal')
+            var images = $('#imagesTotal')
 
-            // images.on('click', '.img', function () {
-            //   const index = imageKeysList.indexOf($(this).attr('id'));
-            //   if (index > -1) {
-            //     imageKeysList.splice(index, 1);
-            //   }
+            images.on('click', '.img', function () {
+              const index = imageKeysList.indexOf($(this).attr('id'));
+              if (index > -1) {
+                imageKeysList.splice(index, 1);
+              }
 
-            //   $(this).parent()[0].innerHTML = "+"
+              $(this).parent()[0].innerHTML = "+"
 
-            // })
+            })
+
+            
           }
 
           curatedHouse = (`${element["curated"]}` === 'true')
@@ -289,9 +315,16 @@
          
 
 
+        
+
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
+          $('html, body').css({
+                        overflow: 'auto',
+                        height: 'auto'
+                    });
+          $(".loading").parent().addClass('hidden')
 
         },
       })
@@ -1493,7 +1526,14 @@
               <!-- TODO: Enviar imagem tbm  -->
 
               <script>
+                //Carregamento para cada foto
                 function handleImageUpload(event) {
+                  $('html, body').css({
+                        overflow: 'hidden',
+                        height: '100%'
+                    });
+
+          $(".loading").parent().removeClass('hidden')
 
                   return new Promise((resolve, reject) => {
                     var imageFile = event;
@@ -1502,7 +1542,7 @@
 
                     var options = {
                       maxSizeMB: 1,
-                      // maxWidthOrHeight: 1920,
+                      // maxWidthOrHeight: 1920, //TODO: fazer teste
                       fileType: 'image/jpeg',
                       useWebWorker: true
                     }
@@ -1541,9 +1581,21 @@
                       child[0].innerHTML = '<div class="img"><img id="' + keyImage + '" class="img w-full h-full" src="' + compressedUrl + '"></img><span class="absolute">X</span></div>'
                       imageKeysList.push(keyImage)
 
+                      $('html, body').css({
+                        overflow: 'auto',
+                        height: 'auto'
+                    });
+                    $(".loading").parent().addClass('hidden')
+
 
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
+
+                      $('html, body').css({
+                        overflow: 'auto',
+                        height: 'auto'
+                    });
+                    $(".loading").parent().addClass('hidden')
 
                     },
                   })
@@ -1558,7 +1610,7 @@
                 $(document).on("click", ".imageUploader", clickImage)
                 function clickImage() {
                 var myCookie = getCookie("login_session");
-                  if(curatedHouse == false){
+                  // if(curatedHouse == false){
 
                   var images = $('#imagesTotal')
 
@@ -1649,7 +1701,7 @@
                   //remove
 
 
-                }
+                // }
                 }
 
 
@@ -2239,7 +2291,7 @@
                     return {
                       selectedDay: null, // Add state to store selected day
                       days: [],
-                      avbldates: [{ start: new Date("2021-10-02"), end: new Date("2022-02-01") }] //TODO: Puxar do back as datas disponiveis
+                      avbldates: [{ start: new Date("2021-09-02"), end: new Date("2022-02-01") }] //TODO: Puxar do back as datas disponiveis
                       //["2021-09-16T03:00:00.000Z"]
                     };
                   },
@@ -2249,7 +2301,7 @@
                     },
                     attributes() {
                       return this.dates.map(date => (
-                        (date > new Date("2021-10-02") && date < new Date("2022-02-01")) ?  //TODO: colocar na variavel global
+                        (date > new Date("2021-09-02") && date < new Date("2022-02-01")) ?  //TODO: colocar na variavel global
                         
                         {
                         highlight: true,
