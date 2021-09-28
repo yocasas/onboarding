@@ -239,9 +239,10 @@
 
             if (`${element["infoWorkers"]}` !== 'undefined') $("#infoWorkers").val(`${element["infoWorkers"]}`)
 
-            if (`${element["availableDates"]}` !== 'undefined' || element["availableDates"].length === 0) {
+            if (`${element["availableDates"]}` !== 'undefined' || element["availableDates"].length !== 0) {
               $.each(element["availableDates"], function (i, val) {
-                vue.onDayClick({ 'id': val, 'date': val + 'T03:00:00.000Z' })
+                let newDate = new Date(val)
+                vue.onDayClick({ 'id': val, 'date': newDate })
               })
             }
 
@@ -609,18 +610,23 @@
 
                 } else {
                   document.getElementById("daysMin").innerHTML = "Por favor, disponibilize sua casa ao menos 6 dias no calendário."
+                  goToError()
 
                 }
 
               } else {
                 document.getElementById("daysMin").innerHTML = "Por favor, disponibilize sua casa ao menos 6 dias no calendário."
+              goToError()
+
 
 
               }
 
+            } else {
+            goToError()
+
             }
 
-            goToError()
 
           }
 
@@ -2303,12 +2309,11 @@
                     },
                     attributes() {
                       return this.dates.map(date => (
-                        (date > new Date("2021-09-02") && date < new Date("2022-02-01")) ?  //TODO: colocar na variavel global
 
                           {
                             highlight: true,
                             dates: date,
-                          } : {}
+                          } 
                       ));
 
                     },
@@ -2320,10 +2325,13 @@
                       if (idx >= 0) {
                         this.days.splice(idx, 1);
                       } else {
+
+                        (day.date > new Date("2021-09-02") && day.date < new Date("2022-02-01")) ?  //TODO: colocar na variavel global
+
                         this.days.push({
                           id: day.id,
                           date: day.date,
-                        });
+                        }) : {}
                       }
                     },
                   },
