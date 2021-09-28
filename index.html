@@ -76,7 +76,7 @@
         getUserInfo(clientId)
         casa_button();
 
-        
+
 
       }
 
@@ -169,11 +169,11 @@
       data = JSON.stringify(data)
 
       $('html, body').css({
-                        overflow: 'hidden',
-                        height: '100%'
-                    });
+        overflow: 'hidden',
+        height: '100%'
+      });
 
-          $(".loading").parent().removeClass('hidden')
+      $(".loading").parent().removeClass('hidden')
 
       $.ajax({
         url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed",
@@ -185,145 +185,161 @@
         "contentType": "application/json",
         success: function (data1, textStatus, jqXHR) {
           let element = data1[0]
-          if (`${element["nickName"]}` !== 'undefined') $("#nickName").val(`${element["nickName"]}`)
-          if (`${element["address"]}` !== 'undefined') $("#address").val(`${element["address"]}`)
-          if (`${element["number"]}` !== 'undefined') $("#number").val(`${element["number"]}`)
-          if (`${element["complement"]}` !== 'undefined') $("#complement").val(`${element["complement"]}`)
-          if (`${element["zipCode"]}` !== 'undefined') $("#zipCode").val(`${element["zipCode"]}`)
-          if (`${element["city"]}` !== 'undefined') $("#city-input").val(`${element["city"]}`)
-          if (`${element["state"]}` !== 'undefined') $("#state").val(`${element["state"]}`);
-          if (`${element["airportDistance"]}` !== 'undefined') $("#airportDistance").val(`${element["airportDistance"]}`);
-          if (`${element["accessPath"]}` !== 'undefined') $("#accessPath").val(`${element["accessPath"]}`)
-          if (`${element["locationType"]}` !== 'undefined') $('#' + `${element["locationType"]}`).attr('checked', 'checked')
-          if (`${element["inCondominium"]}` !== 'undefined') $('#' + `${element["inCondominium"]}`).attr('checked', 'checked')
-          if (`${element["beachDistance"]}` !== 'undefined') $("#beachDistance").val(`${element["beachDistance"]}`)
-          if (`${element["floorSpace"]}` !== 'undefined') $("#floorSpace").val(`${element["floorSpace"]}`)
-          if (`${element["inferredValue"]}` !== 'undefined') $("#inferredValue").val(`${element["inferredValue"]}`)
-          if (`${element["description"]}` !== 'undefined') $("#description").val(`${element["description"]}`)
-          if (`${element["weakness"]}` !== 'undefined') $("#weakness").val(`${element["weakness"]}`)
-          if (`${element["maxPeople"]}` !== 'undefined') $("#hosts_input").val(`${element["maxPeople"]}`)
-          if (`${element["totalSuites"]}` !== 'undefined') $("#suites_input").val(`${element["totalSuites"]}`)
-          if (`${element["totalBedRooms"]}` !== 'undefined') $("#rooms_input").val(`${element["totalBedRooms"]}`)
-          if (`${element["totalBathRooms"]}` !== 'undefined') $("#bathroom_input").val(`${element["totalBathRooms"]}`)
-          if (`${element["coveredParking"]}` !== 'undefined') $("#vagas_cobertas_input").val(`${element["coveredParking"]}`)
-          if (`${element["uncoveredParking"]}` !== 'undefined') $("#vagas_descobertas_input").val(`${element["uncoveredParking"]}`)
 
-          if (`${element["facilities"]}` !== 'undefined' || element["facilities"].length === 0) {
-            $.each(element["facilities"], function (i, val) {
-              $('#' + val).attr('checked', 'checked')
-            })
-          }
-
-          if (`${element["totalAc"]}` !== 'undefined') $("#totalAc").val(`${element["totalAc"]}`);
-
-          if (`${element["authorizatedTo"]}` !== 'undefined' || element["authorizatedTo"].length === 0) {
-            $.each(element["authorizatedTo"], function (i, val) {
-              $('#' + val).attr('checked', 'checked')
-            })
-          }
-
-          if (`${element["extraRestriction"]}` !== 'undefined') $("#extraRestriction").val(`${element["extraRestriction"]}`)
+          if (element != undefined) {
+            if (`${element["nickName"]}` !== 'undefined') $("#nickName").val(`${element["nickName"]}`)
+            if (`${element["address"]}` !== 'undefined') $("#address").val(`${element["address"]}`)
+            if (`${element["number"]}` !== 'undefined') $("#number").val(`${element["number"]}`)
+            if (`${element["complement"]}` !== 'undefined') $("#complement").val(`${element["complement"]}`)
+            if (`${element["zipCode"]}` !== 'undefined') $("#zipCode").val(`${element["zipCode"]}`)
+            if (`${element["city"]}` !== 'undefined') $("#city-input").val(`${element["city"]}`)
+            if (`${element["state"]}` !== 'undefined') $("#state").val(`${element["state"]}`);
+            if (`${element["airportDistance"]}` !== 'undefined') $("#airportDistance").val(`${element["airportDistance"]}`);
+            if (`${element["accessPath"]}` !== 'undefined') $("#accessPath").val(`${element["accessPath"]}`)
+            if (`${element["locationType"]}` !== 'undefined') $('#' + `${element["locationType"]}`).attr('checked', 'checked')
+            if (`${element["inCondominium"]}` !== 'undefined') $('#' + `${element["inCondominium"]}`).attr('checked', 'checked')
+            if (`${element["beachDistance"]}` !== 'undefined') $("#beachDistance").val(`${element["beachDistance"]}`)
+            if (`${element["floorSpace"]}` !== 'undefined') $("#floorSpace").val(`${element["floorSpace"]}`)
+            if (`${element["inferredValue"]}` !== 'undefined') $("#inferredValue").val(`${element["inferredValue"]}`)
+            if (`${element["description"]}` !== 'undefined') $("#description").val(`${element["description"]}`)
+            if (`${element["weakness"]}` !== 'undefined') $("#weakness").val(`${element["weakness"]}`)
+            if (`${element["maxPeople"]}` !== 'undefined') $("#hosts_input").val(`${element["maxPeople"]}`)
+            if (`${element["totalSuites"]}` !== 'undefined') $("#suites_input").val(`${element["totalSuites"]}`)
+            if (`${element["totalBedRooms"]}` !== 'undefined') $("#rooms_input").val(`${element["totalBedRooms"]}`)
+            if (`${element["totalBathRooms"]}` !== 'undefined') $("#bathroom_input").val(`${element["totalBathRooms"]}`)
+            if (`${element["coveredParking"]}` !== 'undefined') $("#vagas_cobertas_input").val(`${element["coveredParking"]}`)
+            if (`${element["uncoveredParking"]}` !== 'undefined') $("#vagas_descobertas_input").val(`${element["uncoveredParking"]}`)
 
 
-          if (`${element["workers"]}` !== 'undefined' || element["workers"].length === 0) {
-            $.each(element["workers"], function (i, val) {
-              $('#' + val).attr('checked', 'checked')
-            })
-          }
+            if (`${element["facilities"]}` !== 'undefined' || element["facilities"].length === 0) {
+              $.each(element["facilities"], function (i, val) {
+                $('#' + val).attr('checked', 'checked')
+              })
+            }
 
-          if (`${element["infoWorkers"]}` !== 'undefined') $("#infoWorkers").val(`${element["infoWorkers"]}`)
+            if (`${element["totalAc"]}` !== 'undefined') $("#totalAc").val(`${element["totalAc"]}`);
 
-          if (`${element["availableDates"]}` !== 'undefined' || element["availableDates"].length === 0) {
-            $.each(element["availableDates"], function (i, val) {
-              vue.onDayClick({ 'id': val, 'date': val + 'T03:00:00.000Z' })
-            })
-          }
+            if (`${element["authorizatedTo"]}` !== 'undefined' || element["authorizatedTo"].length === 0) {
+              $.each(element["authorizatedTo"], function (i, val) {
+                $('#' + val).attr('checked', 'checked')
+              })
+            }
 
-
-
-
-
-          var images = $('.images')
-
-          var counter_image = 0;
-          let listAjax = []
-          if (`${element["picturesS3Urls"]}` !== 'undefined' || element["picturesS3Urls"].length === 0) {
-            $.each(element["picturesS3Urls"], function (i, val) {
-
-              let ajaxImage = $.ajax({
-                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
-                type: "POST",
-                data: JSON.stringify({
-                  "pic-name": val
-                }),
-                contentType: "application/json",
-                success: (x) => {
-                  divImage = $("#images_" + counter_image + "")
-                  child = divImage.children()
-
-                  newElementImage = '<div class="img"><img id="' + val + '" class="img w-full h-full" src="data:image/jpeg;base64,' + x + '"></img><span class="absolute">X</span></div>'
-                  child[0].innerHTML = newElementImage
-
-                  counter_image++;
-                  imageKeysList.push(val)
+            if (`${element["extraRestriction"]}` !== 'undefined') $("#extraRestriction").val(`${element["extraRestriction"]}`)
 
 
-                }
+            if (`${element["workers"]}` !== 'undefined' || element["workers"].length === 0) {
+              $.each(element["workers"], function (i, val) {
+                $('#' + val).attr('checked', 'checked')
+              })
+            }
+
+            if (`${element["infoWorkers"]}` !== 'undefined') $("#infoWorkers").val(`${element["infoWorkers"]}`)
+
+            if (`${element["availableDates"]}` !== 'undefined' || element["availableDates"].length === 0) {
+              $.each(element["availableDates"], function (i, val) {
+                vue.onDayClick({ 'id': val, 'date': val + 'T03:00:00.000Z' })
+              })
+            }
+
+
+
+
+            var images = $('.images')
+
+            var counter_image = 0;
+            let listAjax = []
+            if (`${element["picturesS3Urls"]}` !== 'undefined' || element["picturesS3Urls"].length === 0) {
+              $.each(element["picturesS3Urls"], function (i, val) {
+
+                let ajaxImage = $.ajax({
+                  url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                  type: "POST",
+                  data: JSON.stringify({
+                    "pic-name": val
+                  }),
+                  contentType: "application/json",
+                  success: (x) => {
+                    divImage = $("#images_" + counter_image + "")
+                    child = divImage.children()
+
+                    newElementImage = '<div class="img"><img id="' + val + '" class="img w-full h-full" src="data:image/jpeg;base64,' + x + '"></img><span class="absolute">X</span></div>'
+                    child[0].innerHTML = newElementImage
+
+                    counter_image++;
+                    imageKeysList.push(val)
+
+
+                  }
+                })
+
+                listAjax.push(ajaxImage)
+
+
+
               })
 
-              listAjax.push(ajaxImage)
+              Promise.all(listAjax).then(x => {
+                $('html, body').css({
+                  overflow: 'auto',
+                  height: 'auto'
+                });
+                $(".loading").parent().addClass('hidden')
 
-              
+              })
 
-            })
 
-            Promise.all(listAjax).then(x => {
+
+
+              //Permite exlcuir as imagens vindas da DB
+              var images = $('#imagesTotal')
+
+              images.on('click', '.img', function () {
+                const index = imageKeysList.indexOf($(this).attr('id'));
+                if (index > -1) {
+                  imageKeysList.splice(index, 1);
+                }
+
+                $(this).parent()[0].innerHTML = "+"
+
+              })
+
+
+            } else {
               $('html, body').css({
-                        overflow: 'auto',
-                        height: 'auto'
-                    });
-          $(".loading").parent().addClass('hidden')
+                  overflow: 'auto',
+                  height: 'auto'
+                });
+                $(".loading").parent().addClass('hidden')
+            }
 
-            })
-            
-
-            //Permite exlcuir as imagens vindas da DB
-            var images = $('#imagesTotal')
-
-            images.on('click', '.img', function () {
-              const index = imageKeysList.indexOf($(this).attr('id'));
-              if (index > -1) {
-                imageKeysList.splice(index, 1);
-              }
-
-              $(this).parent()[0].innerHTML = "+"
-
-            })
-
-            
-          }
-
-          curatedHouse = (`${element["curated"]}` === 'true')
-          //Block, bloquear campos para edicao
-        if (curatedHouse) {
-           // nome, sobrenome, data de nascimento, cpf, fotos, endereço do imóvel, se fica em campo, praia, cidade, se fica em condomínio ou não
-        var disabledInputs = $(`#firstname, #lastname, #birthday, #cpf, #address, #complement, #number, #country, #city, 
+            curatedHouse = (`${element["curated"]}` === 'true')
+            //Block, bloquear campos para edicao
+            if (curatedHouse) {
+              // nome, sobrenome, data de nascimento, cpf, fotos, endereço do imóvel, se fica em campo, praia, cidade, se fica em condomínio ou não
+              var disabledInputs = $(`#firstname, #lastname, #birthday, #cpf, #address, #complement, #number, #country, #city, 
         #state, #beach, #mountain, #country, #city, #true, #false, #city-input, #zipCodeUser, #zipCode`)
-        disabledInputs.attr('disabled', 'disabled');
+              disabledInputs.attr('disabled', 'disabled');
 
-        }
-         
-
-
-        
+            }
 
 
+
+
+
+          } else {
+            $('html, body').css({
+                  overflow: 'auto',
+                  height: 'auto'
+                });
+                $(".loading").parent().addClass('hidden')
+          }
         },
         error: function (jqXHR, textStatus, errorThrown) {
           $('html, body').css({
-                        overflow: 'auto',
-                        height: 'auto'
-                    });
+            overflow: 'auto',
+            height: 'auto'
+          });
           $(".loading").parent().addClass('hidden')
 
         },
@@ -379,7 +395,7 @@
     <div class="loading dot-pulse">
 
     </div>
-</div>
+  </div>
   <div class="md:w-screen md:h-screen md:grid md:grid-cols-5 md:grid-rows-2">
 
     <div
@@ -530,27 +546,7 @@
 
 
 
-          function submitYouForms() {
-            var $formSubmitted = $('#youForms');
-            if ($formSubmitted.valid({ ignore: '' })) {
-              youFormsRequest().then(x => {
-                if (x == 1) {
-                  console.log(x)
-                  
-                  casa_button();
-
-
-                }
-
-              });
-            } else {
-              goToError()
-
-            }
-
-
-
-          }
+          
 
 
 
@@ -1529,11 +1525,11 @@
                 //Carregamento para cada foto
                 function handleImageUpload(event) {
                   $('html, body').css({
-                        overflow: 'hidden',
-                        height: '100%'
-                    });
+                    overflow: 'hidden',
+                    height: '100%'
+                  });
 
-          $(".loading").parent().removeClass('hidden')
+                  $(".loading").parent().removeClass('hidden')
 
                   return new Promise((resolve, reject) => {
                     var imageFile = event;
@@ -1584,8 +1580,8 @@
                       $('html, body').css({
                         overflow: 'auto',
                         height: 'auto'
-                    });
-                    $(".loading").parent().addClass('hidden')
+                      });
+                      $(".loading").parent().addClass('hidden')
 
 
                     },
@@ -1594,8 +1590,8 @@
                       $('html, body').css({
                         overflow: 'auto',
                         height: 'auto'
-                    });
-                    $(".loading").parent().addClass('hidden')
+                      });
+                      $(".loading").parent().addClass('hidden')
 
                     },
                   })
@@ -1609,7 +1605,7 @@
 
                 $(document).on("click", ".imageUploader", clickImage)
                 function clickImage() {
-                var myCookie = getCookie("login_session");
+                  var myCookie = getCookie("login_session");
                   // if(curatedHouse == false){
 
                   var images = $('#imagesTotal')
@@ -1701,7 +1697,7 @@
                   //remove
 
 
-                // }
+                  // }
                 }
 
 
@@ -2268,7 +2264,7 @@
                 </div>
               </div>
               <div id="daysMin" class="text-red-500"></div>
-              
+
 
               <!-- <script>
                 function days_print() {
@@ -2302,11 +2298,11 @@
                     attributes() {
                       return this.dates.map(date => (
                         (date > new Date("2021-09-02") && date < new Date("2022-02-01")) ?  //TODO: colocar na variavel global
-                        
-                        {
-                        highlight: true,
-                        dates: date,
-                      } : {}
+
+                          {
+                            highlight: true,
+                            dates: date,
+                          } : {}
                       ));
 
                     },
@@ -2314,15 +2310,15 @@
                   },
                   methods: {
                     onDayClick(day) {
-                        const idx = this.days.findIndex(d => d.id === day.id);
-                        if (idx >= 0) {
-                          this.days.splice(idx, 1);
-                        } else {
-                          this.days.push({
-                            id: day.id,
-                            date: day.date,
-                          });
-                        }
+                      const idx = this.days.findIndex(d => d.id === day.id);
+                      if (idx >= 0) {
+                        this.days.splice(idx, 1);
+                      } else {
+                        this.days.push({
+                          id: day.id,
+                          date: day.date,
+                        });
+                      }
                     },
                   },
                 })
@@ -2500,9 +2496,9 @@
         }
         function formsRequest() {
           $('html, body').css({
-                        overflow: 'hidden',
-                        height: '100%'
-                    });
+            overflow: 'hidden',
+            height: '100%'
+          });
 
           $(".loading").parent().removeClass('hidden')
           // const form = document.forms.casa;
@@ -2591,10 +2587,10 @@
             "contentType": "application/json",
             success: function (data1, textStatus, jqXHR) {
               $('html, body').css({
-                        overflow: 'auto',
-                        height: 'auto'
-                    });
-          $(".loading").parent().addClass('hidden')
+                overflow: 'auto',
+                height: 'auto'
+              });
+              $(".loading").parent().addClass('hidden')
               window.location.href = "https://yocasas.com.br/home/";
 
 
@@ -2602,14 +2598,14 @@
             },
             error: function (jqXHR, textStatus, errorThrown) {
               $('html, body').css({
-                        overflow: 'auto',
-                        height: 'auto'
-                    });
-          $(".loading").parent().addClass('hidden')
+                overflow: 'auto',
+                height: 'auto'
+              });
+              $(".loading").parent().addClass('hidden')
 
             },
           })
-          
+
           return false //don't submit
         }
 
@@ -2674,8 +2670,32 @@
             },
           })
 
+          return new Promise((resolve, reject) => resolve(emailStatus))
+
+
+
+
 
         }
+
+        function submitYouForms() {
+            var $formSubmitted = $('#youForms');
+            if ($formSubmitted.valid({ ignore: '' })) {
+              youFormsRequest().then(x => {
+                if (x == 1) {
+                  console.log(x)
+
+                  casa_button();
+
+
+                }
+
+              });
+            } else {
+              goToError()
+
+            }
+          }
       </script>
       <input id="emailStatus" class="text-red-400 hidden">
 
