@@ -21569,10 +21569,10 @@ input[type="checkbox"]:checked + label span, input[type="radio"]:checked + label
 }
 
 .scroller {
-  width: 3px;
+  width: 5px;
   overflow-y: scroll;
   scrollbar-color: #888 #f1f1f1;
-  scrollbar-width: thin;
+  scrollbar-width: thin
 }
 
 .scroller:hover {
