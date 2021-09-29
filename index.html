@@ -32,7 +32,8 @@
   <script type="text/javascript"
     src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.15/dist/browser-image-compression.js"></script>
 
-    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+  <script type='text/javascript'
+    src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
 
   <script>
@@ -257,90 +258,89 @@
 
             var counter_image = 0;
             let listAjax = []
-            if (`${element["picturesS3Urls"]}` !== 'undefined' || element["picturesS3Urls"].length === 0) {
+            if (`${element["picturesS3Urls"]}` !== 'undefined') {
+              if (element["picturesS3Urls"].length === 0) {
+                $.each(element["picturesS3Urls"], function (i, val) {
 
-              $.each(element["picturesS3Urls"], function (i, val) {
+                  divImage = $("#images_" + counter_image + "")
+                  child = divImage.children()
 
-                divImage = $("#images_" + counter_image + "")
-                child = divImage.children()
-                
-                newElementImage = '<div class="img"><img id="' + val + '" class="img w-full h-full"></img><span class="absolute">X</span></div>'
-                child[0].innerHTML = newElementImage
+                  newElementImage = '<div class="img"><img id="' + val + '" class="img w-full h-full"></img><span class="absolute">X</span></div>'
+                  child[0].innerHTML = newElementImage
 
-                counter_image++;
+                  counter_image++;
 
-                imageKeysList[counter_image] = val //Push in order
-                
-                
-                
-                
-                let ajaxImage = $.ajax({
-                  url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
-                  type: "POST",
-                  data: JSON.stringify({
-                    "pic-name": val
-                  }),
-                  contentType: "application/json",
-                  success: (x) => {
-                    
+                  imageKeysList[counter_image] = val //Push in order
 
-                    src = "data:image/jpeg;base64," + x + ""
-
-                    valParsed = val.replace('.',"\\.") //Id with dot may caue conflict with class notation
-                    $("#"+valParsed+"").attr("src", src)
+                  if (val != undefined) {
+                  let ajaxImage = $.ajax({
+                    url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                    type: "POST",
+                    data: JSON.stringify({
+                      "pic-name": val
+                    }),
+                    contentType: "application/json",
+                    success: (x) => {
 
 
-                  }
-                })
+                      src = "data:image/jpeg;base64," + x + ""
 
-                listAjax.push(ajaxImage)
-
-
-                
-              return i < totalImages
-
-              })
+                      valParsed = val.replace('.', "\\.") //Id with dot may caue conflict with class notation
+                      $("#" + valParsed + "").attr("src", src)
 
 
-
-
-
-
-
-              Promise.all(listAjax).then(x => {
-                
-                $('html, body').css({
-                  overflow: 'auto',
-                  height: 'auto'
-                });
-                $(".loading").parent().addClass('hidden')
-              })
-
-
-             
-
-
-
-
-              //Permite exlcuir as imagens vindas da DB
-              var images = $('#imagesTotal')
-
-              images.on('click', '.img', function (e) {
-                e.preventDefault()
-                valParsed = $(this).children().attr('id') //Id with dot may caue conflict with class notation
-
-                const index = imageKeysList.indexOf(valParsed);
-
-                if (index > -1) {
-                  imageKeysList.splice(index, 1);
-                  
+                    }
+                  })
                 }
 
-                $(this).parent()[0].innerHTML = "+"
-
-              })
+                  listAjax.push(ajaxImage)
 
 
+
+                  return i < totalImages
+
+                })
+
+
+
+
+
+
+
+                Promise.all(listAjax).then(x => {
+
+                  $('html, body').css({
+                    overflow: 'auto',
+                    height: 'auto'
+                  });
+                  $(".loading").parent().addClass('hidden')
+                })
+
+
+
+
+
+
+
+                //Permite exlcuir as imagens vindas da DB
+                var images = $('#imagesTotal')
+
+                images.on('click', '.img', function (e) {
+                  e.preventDefault()
+                  valParsed = $(this).children().attr('id') //Id with dot may caue conflict with class notation
+
+                  const index = imageKeysList.indexOf(valParsed);
+
+                  if (index > -1) {
+                    imageKeysList.splice(index, 1);
+
+                  }
+
+                  $(this).parent()[0].innerHTML = "+"
+
+                })
+
+              }
             } else {
               $('html, body').css({
                 overflow: 'auto',
@@ -648,14 +648,14 @@
 
               } else {
                 document.getElementById("daysMin").innerHTML = "Por favor, disponibilize sua casa ao menos 6 dias no calendário."
-              goToError()
+                goToError()
 
 
 
               }
 
             } else {
-            goToError()
+              goToError()
 
             }
 
@@ -704,14 +704,14 @@
                   var yyyy = yyyy - 18
 
 
-                  $("#birthday").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy", "yearrange":{minyear: 1899, maxyear: yyyy }});
+                  $("#birthday").inputmask("dd/mm/yyyy", { "placeholder": "dd/mm/yyyy", "yearrange": { minyear: 1899, maxyear: yyyy } });
 
                 })
               </script>
               <div class="md:w-full mb-6">
                 <label class=" font-light text-green_dark">Data de nascimento*</label>
-                <input required placeholder="yyyy-mm-dd" min='1899-01-01' max='2000-01-01' data-inputmask="'alias': 'date'"  type="text" name="birthday" id="birthday"
-                  autocomplete="bday"
+                <input required placeholder="yyyy-mm-dd" min='1899-01-01' max='2000-01-01'
+                  data-inputmask="'alias': 'date'" type="text" name="birthday" id="birthday" autocomplete="bday"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
               </div>
 
@@ -1386,21 +1386,21 @@
                   input.value = input.value.replace(" ", '')
 
                   input.value = input.value.replace(/.*[A-Za-z]{2,}/, '')
-                  
-                  input.onkeydown = function() {
+
+                  input.onkeydown = function () {
                     var key = event.keyCode || event.charCode;
-                    if( key == 8 ){
+                    if (key == 8) {
                       input.value = input.value.replace(/[0-9]{1}(?:(?![0-9]))/, '')
                       input.value = input.value.replace(" ", '')
 
 
-                      
-                    } 
+
+                    }
                   }
                   input.value = input.value.replace(" m", '')
                   input.value = input.value.replace("m", '')
                   input.value = input.value + ' m'
-                  
+
                 }
               </script>
 
@@ -1625,8 +1625,8 @@
                     success: function (data1, textStatus, jqXHR) {
                       var keyImage = JSON.parse(data1)['key']
                       child[0].innerHTML = '<div class="img"><img id="' + keyImage + '" class="img w-full h-full" src="' + compressedUrl + '"></img><span class="absolute">X</span></div>'
-                      
-                      let idPlaceImg = parseInt(child.parent().attr('id').replace('images_',''))
+
+                      let idPlaceImg = parseInt(child.parent().attr('id').replace('images_', ''))
 
                       imageKeysList[idPlaceImg] = keyImage
 
@@ -1669,12 +1669,12 @@
                     e.preventDefault()
                     valParsed = $(this).children().attr('id') //Id with dot may cause conflict with class notation
 
-                    
+
                     const index = imageKeysList.indexOf(valParsed);
-                    
+
                     if (index > -1) {
                       imageKeysList.splice(index, 1);
-                      
+
                     }
 
                     $(this).parent()[0].innerHTML = "+"
@@ -1835,7 +1835,7 @@
               </div>
 
 
-              
+
 
               <label class="w-full font-light text-green_dark mb-2">Número total de dormitórios?*</label>
               <div class="flex w-full mb-4">
@@ -2361,10 +2361,10 @@
                     attributes() {
                       return this.dates.map(date => (
 
-                          {
-                            highlight: true,
-                            dates: date,
-                          } 
+                        {
+                          highlight: true,
+                          dates: date,
+                        }
                       ));
 
                     },
@@ -2379,10 +2379,10 @@
 
                         (day.date > new Date("2021-09-02") && day.date < new Date("2022-02-01")) ?  //TODO: colocar na variavel global
 
-                        this.days.push({
-                          id: day.id,
-                          date: day.date,
-                        }) : {}
+                          this.days.push({
+                            id: day.id,
+                            date: day.date,
+                          }) : {}
                       }
                     },
                   },
@@ -2560,7 +2560,7 @@
           return listCheckboxes;
         }
         function formsRequest() {
-      
+
           $('html, body').css({
             overflow: 'hidden',
             height: '100%'
@@ -2623,11 +2623,13 @@
           objForm["coveredParking"] = parseInt(objForm["coveredParking"])
           objForm["uncoveredParking"] = parseInt(objForm["uncoveredParking"])
           objForm["inCondominum"] = (objForm["inCondominum"] == 'true')
-
+          
 
           //Get image list
+          imageKeysListFiltered = imageKeysList.filter(x => x !== undefined)
+          imageKeysListFiltered = imageKeysList.filter(x => x !== null)
 
-          objForm["s3Pics"] = imageKeysList
+          objForm["s3Pics"] = imageKeysListFiltered
 
           var myCookie = getCookie("login_session");
           if (myCookie) {
@@ -2638,7 +2640,7 @@
             var clientId = clientObject.ClientId
             // objForm["ClientId"] = clientId
             objForm['zipCode'] = $('#zipCode').val()
-            
+
 
           }
 
@@ -2695,9 +2697,9 @@
 
             objFormUser['birthday'] = toIsoDate(objFormUser['birthday'])
 
-            
 
-            
+
+
 
 
 
