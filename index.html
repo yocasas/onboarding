@@ -198,6 +198,7 @@
             if (`${element["complement"]}` !== 'undefined') $("#complement").val(`${element["complement"]}`)
             if (`${element["zipCode"]}` !== 'undefined') $("#zipCode").val(`${element["zipCode"]}`)
             if (`${element["city"]}` !== 'undefined') $("#city-input").val(`${element["city"]}`)
+            if (`${element["country"]}` !== 'undefined') $("#countryInput").val(`${element["country"]}`)
             if (`${element["state"]}` !== 'undefined') $("#state").val(`${element["state"]}`);
             if (`${element["airportDistance"]}` !== 'undefined') $("#airportDistance").val(`${element["airportDistance"]}`);
             if (`${element["accessPath"]}` !== 'undefined') $("#accessPath").val(`${element["accessPath"]}`)
@@ -323,8 +324,8 @@
             //Block, bloquear campos para edicao
             if (curatedHouse) {
               // nome, sobrenome, data de nascimento, cpf, fotos, endereço do imóvel, se fica em campo, praia, cidade, se fica em condomínio ou não
-              var disabledInputs = $(`#firstname, #lastname, #birthday, #cpf, #address, #complement, #number, #country, #city, 
-        #state, #beach, #mountain, #country, #city, #true, #false, #city-input, #zipCodeUser, #zipCode`)
+              var disabledInputs = $(`#firstname, #lastname, #birthday, #cpf, #address, #complement, #number, 
+        #state, #city, #beach, #mountain, #country, #countryInput, #true, #false, #city-input, #zipCodeUser, #zipCode`)
               disabledInputs.attr('disabled', 'disabled');
 
             }
@@ -962,7 +963,7 @@
 
               <div class="md:w-1/6 mb-4">
                 <label class=" font-light text-green_dark">País*</label>
-                <select type="text" required name="country" id="country"
+                <select type="text" required name="country" id="countryInput"
                   class="block appearance-none border-b-1 border-green_dark w-full bg-white  h-8  leading-tight outline-none focus:outline-none">
                   <option value="none" disabled selected>Selecione</option>
                   <option value="Afeganistão">Afeganistão</option>
@@ -1353,9 +1354,22 @@
 
               <script>
                 function addSuffix(input) {
+                  
+                  input.value = input.value.replace(/\n(.*)\n/g, '')
+                  
+                  input.onkeydown = function() {
+                    var key = event.keyCode || event.charCode;
+                    if( key == 8 ){
+                      input.value = input.value.replace(/[0-9]+(?!.*[0-9])/, '')
+
+
+                      
+                    } 
+                  }
                   input.value = input.value.replace(" m", '')
-                  input.value = input.value.replace("m", '')
-                  input.value = input.value + ' m'
+                      input.value = input.value.replace("m", '')
+                      input.value = input.value + ' m'
+                  
                 }
               </script>
 
