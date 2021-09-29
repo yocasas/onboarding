@@ -1354,21 +1354,23 @@
 
               <script>
                 function addSuffix(input) {
-                  
-                  input.value = input.value.replace(/\n(.*)\n/g, '')
+                  input.value = input.value.replace(" ", '')
+
+                  input.value = input.value.replace(/.*[A-Za-z]{2,}/, '')
                   
                   input.onkeydown = function() {
                     var key = event.keyCode || event.charCode;
                     if( key == 8 ){
-                      input.value = input.value.replace(/[0-9]+(?!.*[0-9])/, '')
+                      input.value = input.value.replace(/[0-9]{1}(?:(?![0-9]))/, '')
+                      input.value = input.value.replace(" ", '')
 
 
                       
                     } 
                   }
                   input.value = input.value.replace(" m", '')
-                      input.value = input.value.replace("m", '')
-                      input.value = input.value + ' m'
+                  input.value = input.value.replace("m", '')
+                  input.value = input.value + ' m'
                   
                 }
               </script>
