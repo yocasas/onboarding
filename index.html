@@ -261,6 +261,8 @@
             if (`${element["picturesS3Urls"]}` !== 'undefined') {
               if (element["picturesS3Urls"].length === 0) {
                 $.each(element["picturesS3Urls"], function (i, val) {
+                  console.log(val)
+                  if (val != undefined) {
 
                   divImage = $("#images_" + counter_image + "")
                   child = divImage.children()
@@ -272,7 +274,6 @@
 
                   imageKeysList[counter_image] = val //Push in order
 
-                  if (val != undefined) {
                   let ajaxImage = $.ajax({
                     url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
                     type: "POST",
