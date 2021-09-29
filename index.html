@@ -36,7 +36,7 @@
 
 
   <script>
-    var imageKeysList = []
+    var imageKeysList = new Array(15)
 
     var emailStatus = 1
 
@@ -325,7 +325,6 @@
                 valParsed = $(this).children().attr('id') //Id with dot may caue conflict with class notation
 
                 const index = imageKeysList.indexOf(valParsed);
-                console.log(index)
 
                 if (index > -1) {
                   imageKeysList.splice(index, 1);
@@ -1621,7 +1620,12 @@
                     success: function (data1, textStatus, jqXHR) {
                       var keyImage = JSON.parse(data1)['key']
                       child[0].innerHTML = '<div class="img"><img id="' + keyImage + '" class="img w-full h-full" src="' + compressedUrl + '"></img><span class="absolute">X</span></div>'
-                      imageKeysList.push(keyImage)
+                      
+                      let idPlaceImg = parseInt(child.parent().attr('id').replace('images_',''))
+                      
+                      imageKeysList[idPlaceImg] = keyImage
+
+
 
                       $('html, body').css({
                         overflow: 'auto',
@@ -1656,13 +1660,16 @@
 
                   var images = $('#imagesTotal')
 
-                  images.on('click', '.img', function () {
+                  images.on('click', '.img', function (e) {
+                    e.preventDefault()
+                    valParsed = $(this).children().attr('id') //Id with dot may cause conflict with class notation
+
                     
-                    const index = imageKeysList.indexOf($(this).attr('id'));
-                    console.log(index)
+                    const index = imageKeysList.indexOf(valParsed);
+                    
                     if (index > -1) {
                       imageKeysList.splice(index, 1);
-                      console.log(imageKeysList)
+                      
                     }
 
                     $(this).parent()[0].innerHTML = "+"
