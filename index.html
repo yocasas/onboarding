@@ -252,13 +252,24 @@
 
 
 
-            var images = $('.images')
 
             var counter_image = 0;
             let listAjax = []
             if (`${element["picturesS3Urls"]}` !== 'undefined' || element["picturesS3Urls"].length === 0) {
+
               $.each(element["picturesS3Urls"], function (i, val) {
 
+                divImage = $("#images_" + counter_image + "")
+                child = divImage.children()
+                newElementImage = '<div class="img"><img id="' + val + '" class="img w-full h-full"></img><span class="absolute">X</span></div>'
+                child[0].innerHTML = newElementImage
+
+                counter_image++;
+
+                imageKeysList.push(val)
+                
+                
+                
                 let ajaxImage = $.ajax({
                   url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
                   type: "POST",
@@ -267,14 +278,12 @@
                   }),
                   contentType: "application/json",
                   success: (x) => {
-                    divImage = $("#images_" + counter_image + "")
-                    child = divImage.children()
+                    
 
-                    newElementImage = '<div class="img"><img id="' + val + '" class="img w-full h-full" src="data:image/jpeg;base64,' + x + '"></img><span class="absolute">X</span></div>'
-                    child[0].innerHTML = newElementImage
+                    src = "data:image/jpeg;base64," + x + ""
 
-                    counter_image++;
-                    imageKeysList.push(val)
+                    valParsed = val.replace('.',"\\.") //Id with dot may caue conflict with class notation
+                    $("#"+valParsed+"").attr("src", src)
 
 
                   }
@@ -283,17 +292,27 @@
                 listAjax.push(ajaxImage)
 
 
+                
 
               })
 
+
+
+
+
+
+
               Promise.all(listAjax).then(x => {
+                
                 $('html, body').css({
                   overflow: 'auto',
                   height: 'auto'
                 });
                 $(".loading").parent().addClass('hidden')
-
               })
+
+
+             
 
 
 
@@ -301,10 +320,16 @@
               //Permite exlcuir as imagens vindas da DB
               var images = $('#imagesTotal')
 
-              images.on('click', '.img', function () {
-                const index = imageKeysList.indexOf($(this).attr('id'));
+              images.on('click', '.img', function (e) {
+                e.preventDefault()
+                valParsed = $(this).children().attr('id') //Id with dot may caue conflict with class notation
+
+                const index = imageKeysList.indexOf(valParsed);
+                console.log(index)
+
                 if (index > -1) {
                   imageKeysList.splice(index, 1);
+                  
                 }
 
                 $(this).parent()[0].innerHTML = "+"
@@ -1632,9 +1657,12 @@
                   var images = $('#imagesTotal')
 
                   images.on('click', '.img', function () {
+                    
                     const index = imageKeysList.indexOf($(this).attr('id'));
+                    console.log(index)
                     if (index > -1) {
                       imageKeysList.splice(index, 1);
+                      console.log(imageKeysList)
                     }
 
                     $(this).parent()[0].innerHTML = "+"
