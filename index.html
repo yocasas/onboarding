@@ -18,8 +18,10 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
 
 
+
   <title>Yô</title>
 
+  <script type="text/javascript" src="scripts/commonYo.js"></script>
   <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
@@ -30,7 +32,7 @@
   <script type="text/javascript"
     src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.15/dist/browser-image-compression.js"></script>
 
-
+    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
 
   <script>
@@ -127,7 +129,7 @@
           let element = data1
           if (`${element["firstname"]}` !== 'undefined') $("#firstname").val(`${element["firstname"]}`)
           if (`${element["lastname"]}` !== 'undefined') $("#lastname").val(`${element["lastname"]}`)
-          if (`${element["birthday"]}` !== 'undefined') $("#birthday").val(`${element["birthday"]}`)
+          if (`${element["birthday"]}` !== 'undefined') $("#birthday").val(toHumanDate(`${element["birthday"]}`))
           if (`${element["cpf"]}` !== 'undefined') $("#cpf").val(`${element["cpf"]}`)
           if (`${element["telNumber"]}` !== 'undefined') $("#telNumber").val(`${element["telNumber"]}`)
           if (`${element["email"]}` !== 'undefined') $("#email").val(`${element["email"]}`);
@@ -667,29 +669,18 @@
               <script>
                 $(document).ready(function () {
                   var today = new Date();
-                  var dd = today.getDate();
-                  var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+
                   var yyyy = today.getFullYear();
                   var yyyy = yyyy - 18
-                  if (dd < 10) {
-                    dd = '0' + dd
-                  }
-                  if (mm < 10) {
-                    mm = '0' + mm
-                  }
 
-                  today = yyyy + '-' + mm + '-' + dd;
-                  document.getElementById("birthday").setAttribute("max", today);
 
-                  if ( $('[type="date"]').prop('type') != 'date' ) {
-    $('[type="date"]').datepicker();
-}
+                  $("#birthday").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy", "yearrange":{minyear: 1899, maxyear: yyyy }});
+
                 })
               </script>
               <div class="md:w-full mb-6">
                 <label class=" font-light text-green_dark">Data de nascimento*</label>
-                <input required placeholder="yyyy-mm-dd" min='1899-01-01' onfocus="(this.type='date')"
-                  onblur="if(this.value==''){this.type='text'}" type="text" name="birthday" id="birthday"
+                <input required placeholder="yyyy-mm-dd" min='1899-01-01' max='2000-01-01' data-inputmask="'alias': 'date'"  type="text" name="birthday" id="birthday"
                   autocomplete="bday"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
               </div>
@@ -2645,6 +2636,12 @@
             if (objFormUser['password'] == "") {
               delete objFormUser['password']
             }
+
+            objFormUser['birthday'] = toIsoDate(objFormUser['birthday'])
+
+            
+
+            
 
 
 
