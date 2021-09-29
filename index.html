@@ -680,11 +680,15 @@
 
                   today = yyyy + '-' + mm + '-' + dd;
                   document.getElementById("birthday").setAttribute("max", today);
+
+                  if ( $('[type="date"]').prop('type') != 'date' ) {
+    $('[type="date"]').datepicker();
+}
                 })
               </script>
               <div class="md:w-full mb-6">
                 <label class=" font-light text-green_dark">Data de nascimento*</label>
-                <input required placeholder="" min='1899-01-01' onfocus="(this.type='date')"
+                <input required placeholder="yyyy-mm-dd" min='1899-01-01' onfocus="(this.type='date')"
                   onblur="if(this.value==''){this.type='text'}" type="text" name="birthday" id="birthday"
                   autocomplete="bday"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
