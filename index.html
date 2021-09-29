@@ -261,8 +261,8 @@
             if (`${element["picturesS3Urls"]}` !== 'undefined') {
               if (element["picturesS3Urls"].length === 0) {
                 $.each(element["picturesS3Urls"], function (i, val) {
-                  console.log(val)
-                  if (val != undefined) {
+                  
+                  if (val != undefined && val != null) {
 
                   divImage = $("#images_" + counter_image + "")
                   child = divImage.children()
