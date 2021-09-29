@@ -42,6 +42,8 @@
 
     var curatedHouse = false
 
+    let totalImages = 14
+
     function getCookie(name) {
       var dc = document.cookie;
       var prefix = name + "=";
@@ -261,12 +263,13 @@
 
                 divImage = $("#images_" + counter_image + "")
                 child = divImage.children()
+                
                 newElementImage = '<div class="img"><img id="' + val + '" class="img w-full h-full"></img><span class="absolute">X</span></div>'
                 child[0].innerHTML = newElementImage
 
                 counter_image++;
 
-                imageKeysList.push(val)
+                imageKeysList.push(val) //Push in order
                 
                 
                 
@@ -293,6 +296,7 @@
 
 
                 
+              return i < totalImages
 
               })
 
@@ -1622,7 +1626,7 @@
                       child[0].innerHTML = '<div class="img"><img id="' + keyImage + '" class="img w-full h-full" src="' + compressedUrl + '"></img><span class="absolute">X</span></div>'
                       
                       let idPlaceImg = parseInt(child.parent().attr('id').replace('images_',''))
-                      
+
                       imageKeysList[idPlaceImg] = keyImage
 
 
@@ -1767,7 +1771,7 @@
 
 
                     function cloneDivImage() {
-                      for (counter = 1; counter < 15; ++counter)
+                      for (counter = 1; counter <= totalImages; ++counter)
                         $("#images_0").clone().attr('id', 'images_' + counter + '').appendTo('#imagesTotal');
 
                     }
