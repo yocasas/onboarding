@@ -195,57 +195,57 @@
           let element = data1[0]
 
           if (element != undefined) {
-            if (`${element["nickName"]}` !== 'undefined') $("#nickName").val(`${element["nickName"]}`)
-            if (`${element["address"]}` !== 'undefined') $("#address").val(`${element["address"]}`)
-            if (`${element["number"]}` !== 'undefined') $("#number").val(`${element["number"]}`)
-            if (`${element["complement"]}` !== 'undefined') $("#complement").val(`${element["complement"]}`)
-            if (`${element["zipCode"]}` !== 'undefined') $("#zipCode").val(`${element["zipCode"]}`)
-            if (`${element["city"]}` !== 'undefined') $("#city-input").val(`${element["city"]}`)
-            if (`${element["country"]}` !== 'undefined') $("#countryInput").val(`${element["country"]}`)
-            if (`${element["state"]}` !== 'undefined') $("#state").val(`${element["state"]}`);
-            if (`${element["airportDistance"]}` !== 'undefined') $("#airportDistance").val(`${element["airportDistance"]}`);
-            if (`${element["accessPath"]}` !== 'undefined') $("#accessPath").val(`${element["accessPath"]}`)
-            if (`${element["locationType"]}` !== 'undefined') $('#' + `${element["locationType"]}`).attr('checked', 'checked')
-            if (`${element["inCondominium"]}` !== 'undefined') $('#' + `${element["inCondominium"]}`).attr('checked', 'checked')
-            if (`${element["beachDistance"]}` !== 'undefined') $("#beachDistance").val(`${element["beachDistance"]}`)
-            if (`${element["floorSpace"]}` !== 'undefined') $("#floorSpace").val(`${element["floorSpace"]}`)
-            if (`${element["inferredValue"]}` !== 'undefined') $("#inferredValue").val(`${element["inferredValue"]}`)
-            if (`${element["description"]}` !== 'undefined') $("#description").val(`${element["description"]}`)
-            if (`${element["weakness"]}` !== 'undefined') $("#weakness").val(`${element["weakness"]}`)
-            if (`${element["maxPeople"]}` !== 'undefined') $("#hosts_input").val(`${element["maxPeople"]}`)
-            if (`${element["totalSuites"]}` !== 'undefined') $("#suites_input").val(`${element["totalSuites"]}`)
-            if (`${element["totalBedRooms"]}` !== 'undefined') $("#rooms_input").val(`${element["totalBedRooms"]}`)
-            if (`${element["totalBathRooms"]}` !== 'undefined') $("#bathroom_input").val(`${element["totalBathRooms"]}`)
-            if (`${element["coveredParking"]}` !== 'undefined') $("#vagas_cobertas_input").val(`${element["coveredParking"]}`)
-            if (`${element["uncoveredParking"]}` !== 'undefined') $("#vagas_descobertas_input").val(`${element["uncoveredParking"]}`)
+            if (`${element["nickName"]}` != undefined && `${element["nickName"]}` != null) $("#nickName").val(`${element["nickName"]}`)
+            if (`${element["address"]}` != undefined && `${element["address"]}` != null) $("#address").val(`${element["address"]}`)
+            if (`${element["number"]}` != undefined && `${element["number"]}` != null) $("#number").val(`${element["number"]}`)
+            if (`${element["complement"]}` != undefined && `${element["complement"]}` != null) $("#complement").val(`${element["complement"]}`)
+            if (`${element["zipCode"]}` != undefined && `${element["zipCode"]}` != null) $("#zipCode").val(`${element["zipCode"]}`)
+            if (`${element["city"]}` != undefined && `${element["city"]}` != null) $("#city-input").val(`${element["city"]}`)
+            if (`${element["country"]}` != undefined && `${element["country"]}` != null) $("#countryInput").val(`${element["country"]}`)
+            if (`${element["state"]}` != undefined && `${element["state"]}` != null) $("#state").val(`${element["state"]}`);
+            if (`${element["airportDistance"]}` != undefined && `${element["airportDistance"]}` != null) $("#airportDistance").val(`${element["airportDistance"]}`);
+            if (`${element["accessPath"]}` != undefined && `${element["accessPath"]}` != null) $("#accessPath").val(`${element["accessPath"]}`)
+            if (`${element["locationType"]}` != undefined && `${element["locationType"]}` != null) $('#' + `${element["locationType"]}`).attr('checked', 'checked')
+            if (`${element["inCondominium"]}` != undefined && `${element["inCondominium"]}` != null) $('#' + `${element["inCondominium"]}`).attr('checked', 'checked')
+            if (`${element["beachDistance"]}` != undefined && `${element["beachDistance"]}` != null) $("#beachDistance").val(`${element["beachDistance"]}`)
+            if (`${element["floorSpace"]}` != undefined && `${element["floorSpace"]}` != null) $("#floorSpace").val(`${element["floorSpace"]}`)
+            if (`${element["inferredValue"]}` != undefined && `${element["inferredValue"]}` != null) $("#inferredValue").val(`${element["inferredValue"]}`)
+            if (`${element["description"]}` != undefined && `${element["description"]}` != null) $("#description").val(`${element["description"]}`)
+            if (`${element["weakness"]}` != undefined && `${element["weakness"]}` != null) $("#weakness").val(`${element["weakness"]}`)
+            if (`${element["maxPeople"]}` != undefined && `${element["maxPeople"]}` != null) $("#hosts_input").val(`${element["maxPeople"]}`)
+            if (`${element["totalSuites"]}` != undefined && `${element["totalSuites"]}` != null) $("#suites_input").val(`${element["totalSuites"]}`)
+            if (`${element["totalBedRooms"]}` != undefined && `${element["totalBedRooms"]}` != null) $("#rooms_input").val(`${element["totalBedRooms"]}`)
+            if (`${element["totalBathRooms"]}` != undefined && `${element["totalBathRooms"]}` != null) $("#bathroom_input").val(`${element["totalBathRooms"]}`)
+            if (`${element["coveredParking"]}` != undefined && `${element["coveredParking"]}` != null) $("#vagas_cobertas_input").val(`${element["coveredParking"]}`)
+            if (`${element["uncoveredParking"]}` != undefined && `${element["uncoveredParking"]}` != null) $("#vagas_descobertas_input").val(`${element["uncoveredParking"]}`)
 
 
-            if (`${element["facilities"]}` !== 'undefined' || element["facilities"].length === 0) {
+            if (`${element["facilities"]}` != undefined && element["facilities"].length !== 0) {
               $.each(element["facilities"], function (i, val) {
                 $('#' + val).attr('checked', 'checked')
               })
             }
 
-            if (`${element["totalAc"]}` !== 'undefined') $("#totalAc").val(`${element["totalAc"]}`);
+            if (`${element["totalAc"]}` != undefined && `${element["totalAc"]}` != null) $("#totalAc").val(`${element["totalAc"]}`);
 
-            if (`${element["authorizatedTo"]}` !== 'undefined' || element["authorizatedTo"].length === 0) {
+            if (`${element["authorizatedTo"]}` != undefined && element["authorizatedTo"].length !== 0) {
               $.each(element["authorizatedTo"], function (i, val) {
                 $('#' + val).attr('checked', 'checked')
               })
             }
 
-            if (`${element["extraRestriction"]}` !== 'undefined') $("#extraRestriction").val(`${element["extraRestriction"]}`)
+            if (`${element["extraRestriction"]}` != undefined && `${element["extraRestriction"]}` != null) $("#extraRestriction").val(`${element["extraRestriction"]}`)
 
 
-            if (`${element["workers"]}` !== 'undefined' || element["workers"].length === 0) {
+            if (`${element["workers"]}` != undefined && element["workers"].length !== 0) {
               $.each(element["workers"], function (i, val) {
                 $('#' + val).attr('checked', 'checked')
               })
             }
 
-            if (`${element["infoWorkers"]}` !== 'undefined') $("#infoWorkers").val(`${element["infoWorkers"]}`)
+            if (`${element["infoWorkers"]}` != undefined && `${element["infoWorkers"]}` != null) $("#infoWorkers").val(`${element["infoWorkers"]}`)
 
-            if (`${element["availableDates"]}` !== 'undefined' || element["availableDates"].length !== 0) {
+            if (`${element["availableDates"]}` != undefined && element["availableDates"].length !== 0) {
               $.each(element["availableDates"], function (i, val) {
                 let newDate = new Date(val)
                 vue.onDayClick({ 'id': val, 'date': newDate })
@@ -258,7 +258,7 @@
 
             var counter_image = 0;
             let listAjax = []
-            if (`${element["picturesS3Urls"]}` !== 'undefined') {
+            if (`${element["picturesS3Urls"]}` != undefined && element["picturesS3Urls"].length !== 0) {
 
               if (element["picturesS3Urls"].length !== 0) {
                 $.each(element["picturesS3Urls"], function (i, val) {
@@ -664,9 +664,13 @@
           }
 
           function submitForm() {
-            formsRequest()
+            if ($('#terms').is(':checked') == true && $('#privacy').is(':checked') == true) {
+              formsRequest()
 
+            } else {
+              $('#errorTerms').removeClass('hidden')
 
+            }
           }
         </script>
 
@@ -2477,6 +2481,30 @@
                     viagem.
                   </p>
 
+            <form class="" id="termsForms" action="/" method="post">
+
+                  <div class="flex flex-col flex-wrap checkbox-group-termos required mb-8">
+
+                    <div class=" items-center mr-4">
+                      <input  id="terms" type="checkbox" name="terms" class="invisible"
+                        value="terms" required />
+                      <label for="terms" class="flex items-center cursor-pointer text-green_dark">
+                        <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                        <h1>Declaro que li e aceito os<a class="cursor-pointer underline" onclick="location.href='/legal/terms'" target="_blank">&nbsp;Termos e Condições</a></h1></label>
+                      
+                      </div>
+
+                    <div class=" items-center mr-4">
+                      <input id="privacy" type="checkbox" name="privacy" class="invisible"
+                        value="privacy" required/>
+                      <label for="privacy" class="flex items-center cursor-pointer text-green_dark">
+                        <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                        <h1>Declaro que li e aceito a<a class="cursor-pointer underline" onclick="location.href='/legal/privacy'" target="_blank">&nbsp;Política de privacidade</a></h1></label>
+                    </div>
+                <div id="errorTerms" class="error12 hidden text-red-400">Você precisa aceitar os Termos e Condições e a Política de privacidade</div>
+
+
+                  </div>
 
 
                   <!-- <div class="mb-6 text-sm">
@@ -2486,12 +2514,13 @@
           </div> -->
 
                   <div>
-                    <button type="button" onclick="formsRequest()"
+                    <button type="submit" onclick="submitForm()"
                       class="mb-2 text-green_dark group relative flex mx-auto justify-center px-10 py-1 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-4 border-green_light text-sm bg-green_light">
 
                       Finalizar
                     </button>
                   </div>
+                  </form>
 
 
                   </form>
