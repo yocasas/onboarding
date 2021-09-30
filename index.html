@@ -259,9 +259,9 @@
             var counter_image = 0;
             let listAjax = []
             if (`${element["picturesS3Urls"]}` !== 'undefined') {
-              if (element["picturesS3Urls"].length === 0) {
+
+              if (element["picturesS3Urls"].length !== 0) {
                 $.each(element["picturesS3Urls"], function (i, val) {
-                  
                   if (val != undefined && val != null) {
 
                   divImage = $("#images_" + counter_image + "")
@@ -292,9 +292,9 @@
 
                     }
                   })
-                }
 
                   listAjax.push(ajaxImage)
+                }
 
 
 
@@ -2631,6 +2631,7 @@
           imageKeysListFiltered = imageKeysList.filter(x => x !== null)
 
           objForm["s3Pics"] = imageKeysListFiltered
+
 
           var myCookie = getCookie("login_session");
           if (myCookie) {
