@@ -299,15 +299,9 @@
                   listAjax.push(ajaxImage)
                 }
 
-
-
                   return i < totalImages
 
                 })
-
-
-
-
 
 
 
@@ -319,10 +313,6 @@
                   });
                   $(".loading").parent().addClass('hidden')
                 })
-
-
-
-
 
 
 
@@ -2727,6 +2717,12 @@
 
         function youFormsRequest() {
           return new Promise((resolve, reject) => {
+            $('html, body').css({
+            overflow: 'hidden',
+            height: '100%'
+          });
+
+          $(".loading").parent().removeClass('hidden')
 
             var dataFormArrayFormUser = $("#youForms").serializeArray()
 
@@ -2778,6 +2774,11 @@
                 document.cookie = `login_session=${data1.token}; max-age=10800; path=/`;
                 document.getElementById("errorEmail").innerHTML = ""
                 emailStatus = 1
+                $('html, body').css({
+                    overflow: 'auto',
+                    height: 'auto'
+                  });
+                  $(".loading").parent().addClass('hidden')
                 resolve(emailStatus)
 
                 // casa_button() //TODO: tentar chamar em outro lugar, problema em que o emailStatus é alterado apenas depois de casa_button() ser chamado
@@ -2788,6 +2789,11 @@
                 emailStatus = 0
                 goToError()
                 // casa_button()
+                $('html, body').css({
+                    overflow: 'auto',
+                    height: 'auto'
+                  });
+                  $(".loading").parent().addClass('hidden')
                 resolve(emailStatus)
 
               },
@@ -2798,6 +2804,8 @@
         }
 
         function submitYouForms(emailstatus) {
+          
+
           var $formSubmitted = $('#youForms');
           if ($formSubmitted.valid({ ignore: '' })) {
             youFormsRequest().then(x => {
@@ -2828,15 +2836,15 @@
     </div>
 
     <div class="fundo2 hidden md:hidden col-start-4 col-span-2 row-span-2 bg-no-repeat bg-cover bg-center "
-      style="background-image: url('onboarding_images/onboarding_2.png');">
+      style="background-image: url('onboarding_images/onboarding_2.jpg');">
     </div>
 
     <div class="fundo3 hidden md:hidden col-start-4 col-span-2 row-span-2 bg-no-repeat bg-cover bg-center "
-      style="background-image: url('onboarding_images/onboarding_3.png');">
+      style="background-image: url('onboarding_images/onboarding_3.jpg');">
     </div>
 
     <div class="fundo4 hidden md:hidden col-start-4 col-span-2 row-span-2 bg-no-repeat bg-cover bg-center "
-      style="background-image: url('onboarding_images/onboarding_4.png');">
+      style="background-image: url('onboarding_images/onboarding_4.jpg');">
     </div>
     <!-- Colunas de fundo -->
 
