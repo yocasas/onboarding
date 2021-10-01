@@ -84,6 +84,9 @@
         //Alterar label de senha de criar para confirmar caso esteja logado
         $('#labelCreatePassword').text('Confirme ou altere sua senha*')
 
+        //Retirar checkbox de termos e condicoes caso logado
+        $('#termsDiv').hide()
+
 
 
       }
@@ -664,13 +667,13 @@
           }
 
           function submitForm() {
-            if ($('#terms').is(':checked') == true && $('#privacy').is(':checked') == true) {
+            // if ($('#terms').is(':checked') == true && $('#privacy').is(':checked') == true) {
               formsRequest()
 
-            } else {
-              $('#errorTerms').removeClass('hidden')
+            // } else {
+            //   $('#errorTerms').removeClass('hidden')
 
-            }
+            // }
           }
         </script>
 
@@ -846,6 +849,29 @@
                 <input oninput="cacheInput(this)" autocomplete="false" placeholder="" type="invitedFrom"
                   name="invitedFrom" id="invitedFrom"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
+
+              </div>
+
+              <div id="termsDiv" class="flex flex-col flex-wrap checkbox-group-termos required mb-8">
+
+                <div  class=" items-center mr-4">
+                  <input  id="terms" type="checkbox" name="terms" class="invisible"
+                    value="terms" onchange='handleChange(this);' required />
+                  <label for="terms" class="flex items-center cursor-pointer text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    <h1>Declaro que li e aceito os<a class="cursor-pointer underline"  href="/legal/terms" target="_blank">&nbsp;Termos e Condições</a></h1></label>
+                  
+                  </div>
+
+                <div  class=" items-center mr-4">
+                  <input id="privacy" type="checkbox" name="privacy" class="invisible"
+                    value="privacy" onchange='handleChange(this);' required/>
+                  <label for="privacy" class="flex items-center cursor-pointer text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    <h1>Declaro que li e aceito a<a class="cursor-pointer underline" href="/legal/privacy" target="_blank">&nbsp;Política de privacidade</a></h1></label>
+                </div>
+            <!-- <div id="errorTerms" class="error12 hidden text-red-400">Você precisa aceitar os Termos e Condições e a Política de privacidade</div> -->
+
 
               </div>
 
@@ -2492,28 +2518,7 @@
                   </p>
 
 
-                  <div class="flex flex-col flex-wrap checkbox-group-termos required mb-8">
-
-                    <div class=" items-center mr-4">
-                      <input  id="terms" type="checkbox" name="terms" class="invisible"
-                        value="terms" required />
-                      <label for="terms" class="flex items-center cursor-pointer text-green_dark">
-                        <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
-                        <h1>Declaro que li e aceito os<a class="cursor-pointer underline"  href="yocasas.com.br/legal/terms" target="_blank">&nbsp;Termos e Condições</a></h1></label>
-                      
-                      </div>
-
-                    <div class=" items-center mr-4">
-                      <input id="privacy" type="checkbox" name="privacy" class="invisible"
-                        value="privacy" required/>
-                      <label for="privacy" class="flex items-center cursor-pointer text-green_dark">
-                        <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
-                        <h1>Declaro que li e aceito a<a class="cursor-pointer underline" href="yocasas.com.br/legal/privacy" target="_blank">&nbsp;Política de privacidade</a></h1></label>
-                    </div>
-                <div id="errorTerms" class="error12 hidden text-red-400">Você precisa aceitar os Termos e Condições e a Política de privacidade</div>
-
-
-                  </div>
+                  
 
 
                   <!-- <div class="mb-6 text-sm">
