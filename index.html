@@ -2325,11 +2325,11 @@
                 <div v-if='days' class='selected-day'>
                   <div class="hidden" id="days_list">{{ days }}</div>
 
-                  <!-- <ul>
+                  <ul>
                     <li v-for='day in days' :key='day.highlight'>
                       {{ day }}
                     </li>
-                  </ul> -->
+                  </ul>
                 </div>
               </div>
               <div id="daysMin" class="text-red-500 error12"></div>
@@ -2349,6 +2349,14 @@
 
               <!--3. Create the Vue instance-->
               <script>
+                let daysAhead = 5
+                const beginDate = new Date()
+                beginDate.setDate(beginDate.getDate() + daysAhead)
+
+                const beginDateAvbl = new Date()
+                beginDateAvbl.setDate(beginDateAvbl.getDate() + daysAhead + 1)
+
+                const endDate = new Date("2022-02-01")
 
                 let vue = new Vue({
                   el: "#app",
@@ -2356,7 +2364,7 @@
                     return {
                       selectedDay: null, // Add state to store selected day
                       days: [],
-                      avbldates: [{ start: new Date("2021-09-02"), end: new Date("2022-02-01") }] //TODO: Puxar do back as datas disponiveis
+                      avbldates: [{ start: beginDateAvbl, end: endDate }] //TODO: Puxar do back as datas disponiveis
                       //["2021-09-16T03:00:00.000Z"]
                     };
                   },
@@ -2382,8 +2390,9 @@
                       if (idx >= 0) {
                         this.days.splice(idx, 1);
                       } else {
+                       
 
-                        (day.date > new Date("2021-09-02") && day.date < new Date("2022-02-01")) ?  //TODO: colocar na variavel global
+                        (day.date > beginDate && day.date < endDate) ?  //TODO: colocar na variavel global
 
                           this.days.push({
                             id: day.id,
