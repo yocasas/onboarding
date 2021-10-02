@@ -966,55 +966,10 @@
 
               </div>
 
-              <div class="md:w-2/6 mb-4 md:pr-2">
-                <label class=" font-light text-green_dark">Estado*</label>
-                <select type="text" required name="state" id="state" autocomplete="address-level1"
-                  class="block appearance-none border-b-1 border-green_dark w-full bg-white px-4 h-8 pr-8 leading-tight outline-none focus:outline-none">
-                  <option value="none" disabled selected>Selecione</option>
-                  <option value="AC">Acre</option>
-                  <option value="AL">Alagoas</option>
-                  <option value="AP">Amapá</option>
-                  <option value="AM">Amazonas</option>
-                  <option value="BA">Bahia</option>
-                  <option value="CE">Ceará</option>
-                  <option value="DF">Distrito Federal</option>
-                  <option value="ES">Espírito Santo</option>
-                  <option value="GO">Goiás</option>
-                  <option value="MA">Maranhão</option>
-                  <option value="MT">Mato Grosso</option>
-                  <option value="MS">Mato Grosso do Sul</option>
-                  <option value="MG">Minas Gerais</option>
-                  <option value="PA">Pará</option>
-                  <option value="PB">Paraíba</option>
-                  <option value="PR">Paraná</option>
-                  <option value="PE">Pernambuco</option>
-                  <option value="PI">Piauí</option>
-                  <option value="RJ">Rio de Janeiro</option>
-                  <option value="RN">Rio Grande do Norte</option>
-                  <option value="RS">Rio Grande do Sul</option>
-                  <option value="RO">Rondônia</option>
-                  <option value="RR">Roraima</option>
-                  <option value="SC">Santa Catarina</option>
-                  <option value="SP">São Paulo</option>
-                  <option value="SE">Sergipe</option>
-                  <option value="TO">Tocantins</option>
-                </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                  </svg>
-                </div>
-                <!-- <input oninput="cacheInput(this)" required placeholder="" type="text" name="state" id="state"
-                  autocomplete="address-level1"
-                  class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm "> -->
 
-              </div>
-
-
-
-              <div class="md:w-1/6 mb-4">
+              <div class="md:w-1/6 mb-4 md:pr-2">
                 <label class=" font-light text-green_dark">País*</label>
-                <select type="text" required name="country" id="countryInput"
+                <select type="text" oninput='otherCountry(this)' required name="country" id="countryInput"
                   class="block appearance-none border-b-1 border-green_dark w-full bg-white  h-8  leading-tight outline-none focus:outline-none">
                   <option value="none" disabled selected>Selecione</option>
                   <option value="Afeganistão">Afeganistão</option>
@@ -1278,8 +1233,63 @@
                 <!-- <input oninput="cacheInput(this)" required placeholder="" type="text" name="state" id="state"
                   autocomplete="address-level1"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm "> -->
+              </div>
+
+
+              <div class="md:w-2/6 mb-4 ">
+                <label class=" font-light text-green_dark">Estado*</label>
+                <select type="text" required name="state" id="state" autocomplete="address-level1"
+                  class="block appearance-none border-b-1 border-green_dark w-full bg-white px-4 h-8 pr-8 leading-tight outline-none focus:outline-none">
+                  <option value="none" disabled selected>Selecione</option>
+                  <option value="AC">Acre</option>
+                  <option value="AL">Alagoas</option>
+                  <option value="AP">Amapá</option>
+                  <option value="AM">Amazonas</option>
+                  <option value="BA">Bahia</option>
+                  <option value="CE">Ceará</option>
+                  <option value="DF">Distrito Federal</option>
+                  <option value="ES">Espírito Santo</option>
+                  <option value="GO">Goiás</option>
+                  <option value="MA">Maranhão</option>
+                  <option value="MT">Mato Grosso</option>
+                  <option value="MS">Mato Grosso do Sul</option>
+                  <option value="MG">Minas Gerais</option>
+                  <option value="PA">Pará</option>
+                  <option value="PB">Paraíba</option>
+                  <option value="PR">Paraná</option>
+                  <option value="PE">Pernambuco</option>
+                  <option value="PI">Piauí</option>
+                  <option value="RJ">Rio de Janeiro</option>
+                  <option value="RN">Rio Grande do Norte</option>
+                  <option value="RS">Rio Grande do Sul</option>
+                  <option value="RO">Rondônia</option>
+                  <option value="RR">Roraima</option>
+                  <option value="SC">Santa Catarina</option>
+                  <option value="SP">São Paulo</option>
+                  <option value="SE">Sergipe</option>
+                  <option value="TO">Tocantins</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </div>
+                <!-- <input oninput="cacheInput(this)" required placeholder="" type="text" name="state" id="state"
+                  autocomplete="address-level1"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm "> -->
 
               </div>
+              <script>
+                function otherCountry(input) {
+                  if (input.value != 'Brasil') {
+                    $("#state").prop('disabled', true)
+                    $("#state").val("none")
+
+                  } else {
+                    $("#state").prop('disabled', false)
+                  }
+                }
+              </script>
 
 
               <div class="md:w-full mb-4">
