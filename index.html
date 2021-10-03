@@ -86,8 +86,7 @@
         //Alterar label de senha de criar para confirmar caso esteja logado
         $('#labelCreatePassword').text('Confirme ou altere sua senha*')
 
-        //Retirar checkbox de termos e condicoes caso logado
-        $('#termsDiv').hide()
+        
 
 
 
@@ -111,7 +110,6 @@
         "ClientId": id
       }
 
-      
       var myCookie = getCookie("login_session");
       if (myCookie) {
         var tokens = myCookie.split(".");
@@ -149,6 +147,12 @@
           if (`${element["cityUser"]}` !== 'undefined') $("#cityUser").val(`${element["cityUser"]}`)
           if (`${element["stateUser"]}` !== 'undefined') $("#stateUser").val(`${element["stateUser"]}`)
           if (`${element["invitedFrom"]}` !== 'undefined') $("#invitedFrom").val(`${element["invitedFrom"]}`)
+
+        //Retirar checkbox de termos e condicoes caso tenha marcando
+          if (`${element["terms"]}` != 'undefined' && `${element["privacy"]}` != 'undefined') {
+            $('#termsDiv').hide()
+
+          }
 
 
         },
