@@ -45,6 +45,8 @@
 
     let totalImages = 14
 
+    let formsSubmitted = 0;
+
     function getCookie(name) {
       var dc = document.cookie;
       var prefix = name + "=";
@@ -548,6 +550,7 @@
           //TODO: Caso a pessoa volte a fazer o cadastro, permitir ela alterar as informacoes que ja cadastrou de usuario?
           function casa_button() {
             var $formSubmitted = $('#youForms');
+            formsSubmitted++;
 
             if (emailStatus != 0) {
 
@@ -587,7 +590,7 @@
             var $homeForms = $('#casa_forms');
             var $youForms = $('#youForms');
 
-            if ($homeForms.valid({ ignore: '' }) && $youForms.valid({ ignore: '' })) {
+            if ($homeForms.valid({ ignore: '' }) && $youForms.valid({ ignore: '' }) && formsSubmitted >= 1) {
               $('.hospedagem').addClass('around');
               $('.hospedagem').removeClass('not-around');
               $('.hospedagem_text').addClass('text-green_dark');
@@ -2746,7 +2749,7 @@
               delete objFormUser['password']
             }
 
-            objFormUser['birthday'] = toIsoDate(objFormUser['birthday'])
+            if(objFormUser['birthday'] != undefined)  objFormUser['birthday'] = toIsoDate(objFormUser['birthday'])
 
 
 
@@ -2814,13 +2817,15 @@
         }
 
         function submitYouForms(emailstatus) {
-          
+          //TODO: Todos campos required
+          requiredInputs = $("#firstname").val()
+          requiredInputs2 = $("#lastname").val()
 
           var $formSubmitted = $('#youForms');
           if ($formSubmitted.valid({ ignore: '' })) {
             youFormsRequest().then(x => {
 
-              if (x == 1) {
+              if (x == 1 && requiredInputs && requiredInputs2) {
 
                 casa_button();
 
