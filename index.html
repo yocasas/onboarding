@@ -81,7 +81,8 @@
         var clientId = clientObject.ClientId
         getHomeInfo(clientId)
         getUserInfo(clientId)
-        casa_button();
+        // casa_button(); //TODO: deixar casa button dps dos usuarios aceitarem os termos
+        voce_button();
 
         //Alterar label de senha de criar para confirmar caso esteja logado
         $('#labelCreatePassword').text('Confirme ou altere sua senha*')
@@ -152,6 +153,10 @@
           if (`${element["terms"]}` != 'undefined' && `${element["privacy"]}` != 'undefined') {
             $('#termsDiv').hide()
 
+          } else {
+            $('.overflow-y-auto').animate({
+        scrollTop: ($('#termsDiv').first().offset().top)
+      }, 1700);
           }
 
 
