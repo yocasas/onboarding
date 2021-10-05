@@ -262,7 +262,15 @@
 
             if (`${element["availableDates"]}` != undefined && element["availableDates"].length !== 0) {
               $.each(element["availableDates"], function (i, val) {
-                let newDate = new Date(val)
+
+                var dateArray = val.split("-");
+                var year = dateArray[0];
+                var month = parseInt(dateArray[1], 10) - 1;
+                var date = dateArray[2];
+                var _entryDate = new Date(year, month, date);
+
+
+                let newDate = new Date(_entryDate)
                 vue.onDayClick({ 'id': val, 'date': newDate })
               })
             }
