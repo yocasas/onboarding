@@ -679,7 +679,7 @@
 
           function submitForm() {
             // if ($('#terms').is(':checked') == true && $('#privacy').is(':checked') == true) {
-              formsRequest()
+              formsRequest(true)
 
             // } else {
             //   $('#errorTerms').removeClass('hidden')
@@ -1843,7 +1843,7 @@
             </form>
 
             <div class="flex justify-center md:justify-between py-4">
-              <a onClick="formsRequest();" href="#"
+              <a onClick="formsRequest(false);" href="#"
                 class=" inline-flex skip_2 bg-green_light px-8 py-2 rounded-full h-12 hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Terminar
                 Depois</a>
 
@@ -2498,7 +2498,7 @@
             </form>
 
             <div class="flex justify-center md:justify-between py-4">
-              <a onClick="formsRequest();" href="#"
+              <a onClick="formsRequest(false);" href="#"
                 class=" inline-flex skip_2 bg-green_light px-8 py-2 rounded-full h-12 hover:bg-gray-300 hover:border-gray-300 border-8 border-green_light text-green_dark  items-center">Terminar
                 Depois</a>
               <!-- TODO: botao de submit (fazer o request dos forms e verificar validade do forms de hospedagem) -->
@@ -2624,7 +2624,7 @@
           })
           return listCheckboxes;
         }
-        function formsRequest() {
+        function formsRequest(done) {
 
           $('html, body').css({
             overflow: 'hidden',
@@ -2687,6 +2687,7 @@
           objForm["totalBathRooms"] = parseInt(objForm["totalBathRooms"])
           objForm["coveredParking"] = parseInt(objForm["coveredParking"])
           objForm["uncoveredParking"] = parseInt(objForm["uncoveredParking"])
+          //Parse to bool
           objForm["inCondominum"] = (objForm["inCondominum"] == 'true')
           
 
@@ -2696,6 +2697,9 @@
 
           objForm["s3Pics"] = imageKeysListFiltered
 
+
+          //If forms completed
+          objForm["done"] = done
 
           var myCookie = getCookie("login_session");
           if (myCookie) {
