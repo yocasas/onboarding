@@ -47,6 +47,12 @@
 
     let formsSubmitted = 0;
 
+    //InfoClients
+    let firstname
+    let lastname
+    let telNumber
+    let email
+
     function getCookie(name) {
       var dc = document.cookie;
       var prefix = name + "=";
@@ -2714,6 +2720,12 @@
 
           }
 
+          //InfoClients
+          objForm['firstname'] = firstname
+          objForm['lastname'] = lastname
+          objForm['telNumber'] = telNumber
+          objForm['email'] = email
+
 
           data = JSON.stringify(objForm)
 
@@ -2790,6 +2802,13 @@
               // objFormUser["ClientId"] = clientId
 
             }
+
+
+            //InfoClients for home backend - historic registry
+            firstname = objFormUser['firstname']
+            lastname = objFormUser['lastname']
+            telNumber = objFormUser['telNumber']
+            email = objFormUser['email']
 
 
 
