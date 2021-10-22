@@ -2081,12 +2081,22 @@
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
+                  <input oninput="cacheInput(this)" id="fireplace" type="checkbox" name="fireplace"
+                    class="hidden" value="fireplace" />
+                  <label for="fireplace" class="flex items-center cursor-pointer text-sm text-green_dark">
+                    <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    Lareira</label>
+                </div>
+
+                <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
                   <input oninput="cacheInput(this)" id="kitchenKosher" type="checkbox" name="kitchenKosher"
                     class="hidden" value="kitchenKosher" />
                   <label for="kitchenKosher" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Cozinha casher</label>
                 </div>
+
+                
 
                 <div id="error_checkbox_location" class="w-full text-red-400"></div>
               </div>
