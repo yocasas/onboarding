@@ -673,6 +673,7 @@
             if ($homeForms.valid({ ignore: '' }) && $youForms.valid({ ignore: '' }) && $hostForms.valid({ ignore: '' })) {
               if (daysList) {
                 if (daysList.length >= 6) {
+                  document.getElementById("daysMin").innerHTML = ""
                   toggleModal()
 
                 } else {
