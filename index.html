@@ -389,7 +389,7 @@
             //Block, bloquear campos para edicao
             if (curatedHouse) {
               // nome, sobrenome, data de nascimento, cpf, fotos, endereço do imóvel, se fica em campo, praia, cidade, se fica em condomínio ou não
-              var disabledInputs = $(`#firstname, #lastname, #birthday, #cpf, #address, #complement, #number, 
+              var disabledInputs = $(`#firstname, #lastname, #cpf, #address, #complement, #number, 
         #state, #city, #beach, #mountain, #country, #countryInput, #true, #false, #city-input, #zipCodeUser, #zipCode`)
               disabledInputs.attr('disabled', 'disabled');
 
@@ -616,11 +616,6 @@
 
             }
           }
-
-
-
-
-
 
 
 
@@ -1488,17 +1483,17 @@
 
               </div>
 
-              <label class="w-full font-light text-green_dark">Qual o valor venal aproximado do imóvel (em reais)?*</label>
+              <label class="w-full font-light text-green_dark">Qual o valor de mercado aproximado do imóvel (em reais)?*</label>
               <div class="w-full inline-block relative mb-8">
                 <select type="text" required name="inferredValue" id="inferredValue"
                   class="block appearance-none border-b-1 border-green_dark w-full bg-white px-4 py-2 pr-8 leading-tight outline-none focus:outline-none">
                   <option value="none" disabled selected>Selecione uma opção</option>
-                  <option value="Menos de 1 mi">Menos de 1 mi</option>
-                  <option value="1 mi a 3 mi">1 mi a 3 mi</option>
-                  <option value="3 mi a 6 mi">3 mi a 6 mi</option>
-                  <option value="6 mi a 9 mi">6 mi a 9 mi</option>
-                  <option value="9 mi a 12 mi">9 mi a 12 mi</option>
-                  <option value="+ 12 mi">+ 12 mi</option>
+                  <option value="Menos de 1 milhão">Menos de 1 milhão</option>
+                  <option value="1 a 3 milhões">1 a 3 milhões</option>
+                  <option value="3 a 6 milhões">3 a 6 milhões</option>
+                  <option value="6 a 9 milhões">6 a 9 milhões</option>
+                  <option value="9 a 12 milhões">9 a 12 milhões</option>
+                  <option value="+ 12 milhões">+ 12 milhões</option>
 
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -2346,40 +2341,38 @@
               </div>
 
 
-              <label class="w-full font-light text-green_dark mb-6">Agora é a hora de emitir
-                seu passaporte de entrada no Yô Clube de Casas: Indique ao menos 6 dias para disponibilizar
-                sua casa até o dia 31 de janeiro.</label>
+              <label class="w-full font-light text-green_dark mb-6">Agora é a hora de emitir seu passaporte de entrada no Yô Clube de Casas. 
+                Disponibilize ao menos 18 dias nos próximos 12 meses (se disponibilizar mais dias, você ganha mais pontos).</label>
 
-              <label class="w-full font-light text-green_dark mb-1">Os 6 dias devem ser disponibilizados
-                em fins de semana, feriados ou férias (veja os períodos abaixo).
+              <label class="w-full font-light text-green_dark mb-1">Os 18 dias devem ser disponibilizados:
               </label>
 
               <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
-                Todos os fins de semana, ou ao menos uma semana completa.
+                - Em finais de semana.
               </h1>
 
               <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
-                8 a 12 de outubro (Nossa Sra. Aparecida)
+                - Em feriados.
               </h1>
 
               <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
-                29 de outubro a 2 de novembro (Finados)
+                - Nas férias (1º a 31 de julho e de 15 de dezembro a 31 de janeiro).
               </h1>
 
               <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
-                12 a 15 de novembro (Proclamação da República)
+                - Ao menos 4 dias seguidos.
               </h1>
 
-              <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-8">
-                20 de dezembro a 31 de janeiro
-              </h1>
+              
 
-              <h1 class="w-full tracking-tight italic leading-none font-bold text-green_medium sm:leading-none mb-3">
-                Lembre-se: quantos mais dias disponibilizar, mais pontos você ganha.
+              <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
+                As datas devem ser disponibilizadas no calendário 45 dias após a data do cadastro da casa. Por exemplo: 
+                se você estiver cadastrando sua casa no dia 10 de março, disponibilize datas a partir de 14 de abril. 
+                Isto permite que a curadoria da casa seja devidamente feita e que os membros do Yô Clube de Casa consigam se planejar.
               </h1>
 
               <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
-                (Não é permitido disponibilizar uma noite isolada)
+                Os dias disponibilizados além dos 18 necessários, não precisam necessariamente seguir as regras acima.
               </h1>
 
 
@@ -2430,14 +2423,14 @@
 
               <!--3. Create the Vue instance-->
               <script>
-                let daysAhead = 5
+                let daysAhead = 45
                 const beginDate = new Date()
                 beginDate.setDate(beginDate.getDate() + daysAhead)
 
                 const beginDateAvbl = new Date()
                 beginDateAvbl.setDate(beginDateAvbl.getDate() + daysAhead + 1)
 
-                const endDate = new Date("2022-02-01")
+                const endDate = new Date("2023-01-31")
 
                 let vue = new Vue({
                   el: "#app",
