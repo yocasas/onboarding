@@ -206,7 +206,7 @@
         var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
 
         var clientId = clientObject.ClientId
-        // objFormUser["ClientId"] = clientId
+        objFormUser["ClientId"] = clientId
 
       }
 
@@ -3029,83 +3029,7 @@
 
 
       <script>
-        // function cacheInput(e) {
-
-        //   localStorage.setItem(e.attributes["name"].value, e.value)
-        // }
-
-        // $(document).ready(function () {
-        //   // $('input[type=number]').each(function() {
-        //   //   console.log($(this).val())
-        //   //   this.addEventListener('change', cacheInput($(this)));
-        //   // });
-
-
-        //   let form = document.querySelectorAll('#user_forms input');
-        //   let inputs = form;
-        //   for (let i = 0; i < inputs.length; i++) {
-        //     let el = inputs[i];
-        //     if (el.tagName.toLowerCase() != "input" || el.attributes["type"].value != "text") {
-        //       continue
-        //     }
-        //     let cachedVal = localStorage.getItem(el.attributes["name"].value)
-        //     if (cachedVal != null) {
-        //       el.value = cachedVal;
-        //     }
-        //   }
-        // });
-
-        // $(document).ready(function () {
-
-        //   $('input[type=radio]').each(function() {
-        //   var key = $(this).attr('name');
-        //   var val = localStorage[key];
-        //   if ( $(this).attr('name') == key && $(this).attr('value') == val ) {
-        //     $(this).attr('checked', 'checked');
-        //   }
-        // });
-
-        // $('input[type=checkbox]').each(function() {
-        //   var key = $(this).attr('name');
-        //   var val = localStorage[key];
-        //   if ( $(this).attr('name') == key && $(this).attr('value') == val ) {
-        //     $(this).attr('checked', 'checked');
-        //   }
-        // });
-
-
-
-
-
-        //   let form = document.querySelectorAll('#home_forms input');
-        //   let inputs = form;
-        //   for (let i = 0; i < inputs.length; i++) {
-        //     let el = inputs[i];
-        //     if (el.tagName.toLowerCase() != "input" || el.attributes["type"].value != "text") {
-        //       continue
-        //     }
-        //     let cachedVal = localStorage.getItem(el.attributes["name"].value)
-        //     if (cachedVal != null) {
-
-        //       el.value = cachedVal;
-        //     }
-        //   }
-        // });
-
-        // $(document).ready(function () {
-        //   let form = document.querySelectorAll('#host_forms input');
-        //   let inputs = form;
-        //   for (let i = 0; i < inputs.length; i++) {
-        //     let el = inputs[i];
-        //     if (el.tagName.toLowerCase() != "input" || el.attributes["type"].value != "text") {
-        //       continue
-        //     }
-        //     let cachedVal = localStorage.getItem(el.attributes["name"].value)
-        //     if (cachedVal != null) {
-        //       el.value = cachedVal;
-        //     }
-        //   }
-        // });
+        
 
         jQuery.extend(jQuery.validator.messages, {
           required: '<span class="error12 sm:text-sm">Este campo é obrigatório</span>',
