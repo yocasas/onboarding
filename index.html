@@ -35,13 +35,13 @@
   <script type='text/javascript'
     src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
   <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-      gtag('config', 'G-V0C85S2RG3');
+    gtag('config', 'G-V0C85S2RG3');
   </script>
 
   <script>
@@ -103,7 +103,7 @@
         $('#password').hide()
         $('#labelCreatePassword').hide()
 
-        
+
 
 
 
@@ -171,14 +171,14 @@
           if (`${element["stateUser"]}` !== 'undefined') $("#stateUser").val(`${element["stateUser"]}`)
           if (`${element["invitedFrom"]}` !== 'undefined') $("#invitedFrom").val(`${element["invitedFrom"]}`)
 
-        //Retirar checkbox de termos e condicoes caso tenha marcando
+          //Retirar checkbox de termos e condicoes caso tenha marcando
           if (`${element["terms"]}` != 'undefined' && `${element["privacy"]}` != 'undefined') {
             $('#termsDiv').hide()
 
           } else {
             $('.overflow-y-auto').animate({
-        scrollTop: ($('#termsDiv').first().offset().top)
-      }, 1700);
+              scrollTop: ($('#termsDiv').first().offset().top)
+            }, 1700);
           }
 
 
@@ -264,12 +264,17 @@
             }
 
             if (`${element["totalAc"]}` != undefined && `${element["totalAc"]}` != null) $("#totalAc").val(`${element["totalAc"]}`);
+            console.log(element)
 
-            if (`${element["authorizatedTo"]}` != undefined && element["authorizatedTo"].length !== 0) {
-              $.each(element["authorizatedTo"], function (i, val) {
-                $('#' + val).attr('checked', 'checked')
-              })
+            if (`${element["authorizatedTo"]}` != undefined && element["authorizatedTo"] != null) {
+              if (element["authorizatedTo"].length !== 0) {
+                $.each(element["authorizatedTo"], function (i, val) {
+                  $('#' + val).attr('checked', 'checked')
+                })
+              }
+
             }
+
 
             if (`${element["extraRestriction"]}` != undefined && `${element["extraRestriction"]}` != null) $("#extraRestriction").val(`${element["extraRestriction"]}`)
 
@@ -303,43 +308,43 @@
 
             var counter_image = 0;
             let listAjax = []
-            if (`${element["picturesS3Urls"]}` != undefined && element["picturesS3Urls"].length !== 0) {
+            if (`${element["picturesS3Urls"]}` != undefined && element["picturesS3Urls"] != null && element["picturesS3Urls"].length !== 0) {
 
               if (element["picturesS3Urls"].length !== 0) {
                 $.each(element["picturesS3Urls"], function (i, val) {
                   if (val != undefined && val != null) {
 
-                  divImage = $("#images_" + counter_image + "")
-                  child = divImage.children()
+                    divImage = $("#images_" + counter_image + "")
+                    child = divImage.children()
 
-                  newElementImage = '<div class="img"><img id="' + val + '" class="img w-full h-full"></img><span class="absolute">X</span></div>'
-                  child[0].innerHTML = newElementImage
+                    newElementImage = '<div class="img"><img id="' + val + '" class="img w-full h-full"></img><span class="absolute">X</span></div>'
+                    child[0].innerHTML = newElementImage
 
-                  counter_image++;
+                    counter_image++;
 
-                  imageKeysList[counter_image] = val //Push in order
+                    imageKeysList[counter_image] = val //Push in order
 
-                  let ajaxImage = $.ajax({
-                    url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
-                    type: "POST",
-                    data: JSON.stringify({
-                      "pic-name": val
-                    }),
-                    contentType: "application/json",
-                    success: (x) => {
-
-
-                      src = "data:image/jpeg;base64," + x + ""
-
-                      valParsed = val.replace('.', "\\.") //Id with dot may caue conflict with class notation
-                      $("#" + valParsed + "").attr("src", src)
+                    let ajaxImage = $.ajax({
+                      url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                      type: "POST",
+                      data: JSON.stringify({
+                        "pic-name": val
+                      }),
+                      contentType: "application/json",
+                      success: (x) => {
 
 
-                    }
-                  })
+                        src = "data:image/jpeg;base64," + x + ""
 
-                  listAjax.push(ajaxImage)
-                }
+                        valParsed = val.replace('.', "\\.") //Id with dot may caue conflict with class notation
+                        $("#" + valParsed + "").attr("src", src)
+
+
+                      }
+                    })
+
+                    listAjax.push(ajaxImage)
+                  }
 
                   return i < totalImages
 
@@ -697,7 +702,7 @@
 
           function submitForm() {
             // if ($('#terms').is(':checked') == true && $('#privacy').is(':checked') == true) {
-              formsRequest(true)
+            formsRequest(true)
 
             // } else {
             //   $('#errorTerms').removeClass('hidden')
@@ -814,8 +819,9 @@
 
               <div class="md:w-1/5 mb-6 md:pr-2">
                 <label class=" font-light text-green_dark">CEP*</label>
-                <input oninput="cacheInput(this)" required placeholder="" onkeydown="javascript: return event.keyCode == 69 || event.keyCode == 189 ? false : true" type="number" name="zipCodeUser"
-                  id="zipCodeUser" autocomplete="postal-code"
+                <input oninput="cacheInput(this)" required placeholder=""
+                  onkeydown="javascript: return event.keyCode == 69 || event.keyCode == 189 ? false : true"
+                  type="number" name="zipCodeUser" id="zipCodeUser" autocomplete="postal-code"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
@@ -875,34 +881,38 @@
 
               <div class="md:w-full mb-6">
                 <label class=" font-light text-green_dark">Nome de quem te convidou/indicou para o clube</label>
-                <input oninput="cacheInput(this)" autocomplete="false" placeholder="" type="text"
-                  name="invitedFrom" id="invitedFrom"
+                <input oninput="cacheInput(this)" autocomplete="false" placeholder="" type="text" name="invitedFrom"
+                  id="invitedFrom"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
 
               <div id="termsDiv" class="flex flex-col flex-wrap checkbox-group-termos required mb-8">
 
-                <div  class=" items-center mr-4">
-                  <input  id="terms" type="checkbox" name="terms" class="invisible"
-                    value="terms" onchange='handleChange(this);' required />
+                <div class=" items-center mr-4">
+                  <input id="terms" type="checkbox" name="terms" class="invisible" value="terms"
+                    onchange='handleChange(this);' required />
                   <label for="terms" class="flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
-                    <h1>Declaro que li e aceito os<a class="cursor-pointer underline"  href="/legal/terms" target="_blank">&nbsp;Termos e Condições</a></h1></label>
-                  
-                  </div>
+                    <h1>Declaro que li e aceito os<a class="cursor-pointer underline" href="/legal/terms"
+                        target="_blank">&nbsp;Termos e Condições</a></h1>
+                  </label>
 
-                <div  class=" items-center mr-4">
-                  <input id="privacy" type="checkbox" name="privacy" class="invisible"
-                    value="privacy" onchange='handleChange(this);' required/>
+                </div>
+
+                <div class=" items-center mr-4">
+                  <input id="privacy" type="checkbox" name="privacy" class="invisible" value="privacy"
+                    onchange='handleChange(this);' required />
                   <label for="privacy" class="flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
-                    <h1>Declaro que li e aceito a<a class="cursor-pointer underline" href="/legal/privacy" target="_blank">&nbsp;Política de privacidade</a></h1></label>
+                    <h1>Declaro que li e aceito a<a class="cursor-pointer underline" href="/legal/privacy"
+                        target="_blank">&nbsp;Política de privacidade</a></h1>
+                  </label>
                 </div>
 
 
               </div>
-            <!-- <div id="errorTerms" class="error12 hidden text-red-400">Você precisa aceitar os Termos e Condições e a Política de privacidade</div> -->
+              <!-- <div id="errorTerms" class="error12 hidden text-red-400">Você precisa aceitar os Termos e Condições e a Política de privacidade</div> -->
 
 
               <!-- <button class="btn btn-teal mx-auto" type="submit">Create Account</button> -->
@@ -991,8 +1001,9 @@
 
               <div class="md:w-1/6 mb-4 md:pr-2">
                 <label class=" font-light text-green_dark">CEP*</label>
-                <input oninput="cacheInput(this)" required placeholder="" onkeydown="javascript: return event.keyCode == 69 || event.keyCode == 189 ? false : true" type="number" name="zipCode" id="zipCode"
-                  autocomplete="postal-code"
+                <input oninput="cacheInput(this)" required placeholder=""
+                  onkeydown="javascript: return event.keyCode == 69 || event.keyCode == 189 ? false : true"
+                  type="number" name="zipCode" id="zipCode" autocomplete="postal-code"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
@@ -1483,7 +1494,8 @@
 
               </div>
 
-              <label class="w-full font-light text-green_dark">Qual o valor de mercado aproximado do imóvel (em reais)?*</label>
+              <label class="w-full font-light text-green_dark">Qual o valor de mercado aproximado do imóvel (em
+                reais)?*</label>
               <div class="w-full inline-block relative mb-8">
                 <select type="text" required name="inferredValue" id="inferredValue"
                   class="block appearance-none border-b-1 border-green_dark w-full bg-white px-4 py-2 pr-8 leading-tight outline-none focus:outline-none">
@@ -2079,8 +2091,8 @@
                 </div>
 
                 <div class="flex items-center mb-2 mr-4 w-full md:w-1/4">
-                  <input oninput="cacheInput(this)" id="fireplace" type="checkbox" name="fireplace"
-                    class="hidden" value="fireplace" />
+                  <input oninput="cacheInput(this)" id="fireplace" type="checkbox" name="fireplace" class="hidden"
+                    value="fireplace" />
                   <label for="fireplace" class="flex items-center cursor-pointer text-sm text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Lareira</label>
@@ -2094,7 +2106,7 @@
                     Cozinha casher</label>
                 </div>
 
-                
+
 
                 <div id="error_checkbox_location" class="w-full text-red-400"></div>
               </div>
@@ -2341,8 +2353,10 @@
               </div>
 
 
-              <label class="w-full font-light text-green_dark mb-6">Agora é a hora de emitir seu passaporte de entrada no Yô Clube de Casas. 
-                Disponibilize ao menos 18 dias nos próximos 12 meses (se disponibilizar mais dias, você ganha mais pontos).</label>
+              <label class="w-full font-light text-green_dark mb-6">Agora é a hora de emitir seu passaporte de entrada
+                no Yô Clube de Casas.
+                Disponibilize ao menos 18 dias nos próximos 12 meses (se disponibilizar mais dias, você ganha mais
+                pontos).</label>
 
               <label class="w-full font-light text-green_dark mb-1">Os 18 dias devem ser disponibilizados:
               </label>
@@ -2363,12 +2377,13 @@
                 - Ao menos 4 dias seguidos.
               </h1>
 
-              
+
 
               <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
-                As datas devem ser disponibilizadas no calendário 45 dias após a data do cadastro da casa. Por exemplo: 
-                se você estiver cadastrando sua casa no dia 10 de março, disponibilize datas a partir de 14 de abril. 
-                Isto permite que a curadoria da casa seja devidamente feita e que os membros do Yô Clube de Casa consigam se planejar.
+                As datas devem ser disponibilizadas no calendário 45 dias após a data do cadastro da casa. Por exemplo:
+                se você estiver cadastrando sua casa no dia 10 de março, disponibilize datas a partir de 14 de abril.
+                Isto permite que a curadoria da casa seja devidamente feita e que os membros do Yô Clube de Casa
+                consigam se planejar.
               </h1>
 
               <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
@@ -2464,7 +2479,7 @@
                       if (idx >= 0) {
                         this.days.splice(idx, 1);
                       } else {
-                       
+
 
                         (day.date > beginDate && day.date < endDate) ?  //TODO: colocar na variavel global
 
@@ -2566,7 +2581,7 @@
                   </p>
 
 
-                  
+
 
 
                   <!-- <div class="mb-6 text-sm">
@@ -2715,7 +2730,7 @@
           objForm["uncoveredParking"] = parseInt(objForm["uncoveredParking"])
           //Parse to bool
           objForm["inCondominum"] = (objForm["inCondominum"] == 'true')
-          
+
 
           //Get image list
           imageKeysListFiltered = imageKeysList.filter(x => x !== undefined)
@@ -2785,11 +2800,11 @@
         function youFormsRequest() {
           return new Promise((resolve, reject) => {
             $('html, body').css({
-            overflow: 'hidden',
-            height: '100%'
-          });
+              overflow: 'hidden',
+              height: '100%'
+            });
 
-          $(".loading").parent().removeClass('hidden')
+            $(".loading").parent().removeClass('hidden')
 
             var dataFormArrayFormUser = $("#youForms").serializeArray()
 
@@ -2803,7 +2818,7 @@
               delete objFormUser['password']
             }
 
-            if(objFormUser['birthday'] != undefined)  objFormUser['birthday'] = toIsoDate(objFormUser['birthday'])
+            if (objFormUser['birthday'] != undefined) objFormUser['birthday'] = toIsoDate(objFormUser['birthday'])
 
 
 
@@ -2848,10 +2863,10 @@
                 document.getElementById("errorEmail").innerHTML = ""
                 emailStatus = 1
                 $('html, body').css({
-                    overflow: 'auto',
-                    height: 'auto'
-                  });
-                  $(".loading").parent().addClass('hidden')
+                  overflow: 'auto',
+                  height: 'auto'
+                });
+                $(".loading").parent().addClass('hidden')
                 resolve(emailStatus)
 
                 // casa_button() //TODO: tentar chamar em outro lugar, problema em que o emailStatus é alterado apenas depois de casa_button() ser chamado
@@ -2863,10 +2878,10 @@
                 goToError()
                 // casa_button()
                 $('html, body').css({
-                    overflow: 'auto',
-                    height: 'auto'
-                  });
-                  $(".loading").parent().addClass('hidden')
+                  overflow: 'auto',
+                  height: 'auto'
+                });
+                $(".loading").parent().addClass('hidden')
                 resolve(emailStatus)
 
               },
@@ -3029,7 +3044,7 @@
 
 
       <script>
-        
+
 
         jQuery.extend(jQuery.validator.messages, {
           required: '<span class="error12 sm:text-sm">Este campo é obrigatório</span>',
