@@ -43,8 +43,30 @@
 
     gtag('config', 'G-V0C85S2RG3');
 
+    let blockFunction = false;
     $(document).ready(function () {
       checkCurrentUser();
+      
+
+      // if (clientInfo.clientId == )
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = urlParams.get('userId');
+      if (userId){
+        
+        if (clientInfo.clientId != userId && clientInfo.clientType > 4){
+          blockFunction = true;
+          getUserInfo(userId)
+          
+          $("#youForms :input").prop("disabled", true);
+          $("#casa_forms :input").prop("disabled", true);
+          $("#hospedagem_forms :input").prop("disabled", true);
+
+          
+        }
+      } else {
+        getUserInfo(clientInfo.ClientId)
+      }
+      
     });
   </script>
 
@@ -98,7 +120,7 @@
 
         var clientId = clientObject.ClientId
         getHomeInfo(clientId)
-        getUserInfo(clientId)
+        
         // casa_button(); //TODO: deixar casa button dps dos usuarios aceitarem os termos
         voce_button();
 
@@ -680,7 +702,10 @@
               if (daysList) {
                 if (daysList.length >= 18 || curatedHouse) {
                   document.getElementById("daysMin").innerHTML = ""
-                  toggleModal()
+                  if (!blockFunction) {
+                    toggleModal()
+
+                  }
 
                 } else {
                   document.getElementById("daysMin").innerHTML = "Por favor, disponibilize sua casa ao menos 18 dias no calendário."
@@ -2804,9 +2829,10 @@
               overflow: 'hidden',
               height: '100%'
             });
-
             $(".loading").parent().removeClass('hidden')
-
+            
+            if (!blockFunction) { 
+              
             var dataFormArrayFormUser = $("#youForms").serializeArray()
 
             var objFormUser = {}
@@ -2887,6 +2913,16 @@
 
               },
             })
+          } else {
+            $('html, body').css({
+                  overflow: 'auto',
+                  height: 'auto'
+                });
+                $(".loading").parent().addClass('hidden')
+
+            resolve(1)
+            
+          }
 
           })
 
