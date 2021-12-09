@@ -46,27 +46,27 @@
     let blockFunction = false;
     $(document).ready(function () {
       checkCurrentUser();
-      
+
 
       // if (clientInfo.clientId == )
       const urlParams = new URLSearchParams(window.location.search);
       const userId = urlParams.get('userId');
-      if (userId){
-        
-        if (clientInfo.clientId != userId && clientInfo.clientType > 4){
+      if (userId) {
+
+        if (clientInfo.clientId != userId && clientInfo.clientType > 4) {
           blockFunction = true;
           getUserInfo(userId)
-          
+
           $("#youForms :input").prop("disabled", true);
           $("#casa_forms :input").prop("disabled", true);
           $("#hospedagem_forms :input").prop("disabled", true);
 
-          
+
         }
       } else {
         getUserInfo(clientInfo.ClientId)
       }
-      
+
     });
   </script>
 
@@ -120,7 +120,7 @@
 
         var clientId = clientObject.ClientId
         getHomeInfo(clientId)
-        
+
         // casa_button(); //TODO: deixar casa button dps dos usuarios aceitarem os termos
         voce_button();
 
@@ -128,6 +128,12 @@
         $('#labelCreatePassword').text('Confirme sua senha atual para salvar as alterações (você pode alterá-la também se desejar)*')
         $('#password').hide()
         $('#labelCreatePassword').hide()
+
+        if (clientObject.clientType > 1) {
+          $("#finalRegister").addClass("hidden")
+          $("#finalEdit").removeClass("hidden")
+
+        }
 
 
 
@@ -1379,7 +1385,8 @@
               </div>
 
               <div class="md:w-full mb-4">
-                <label class=" font-light text-green_dark">Dicas de como chegar (ponto de referência, melhor estrada...)</label>
+                <label class=" font-light text-green_dark">Dicas de como chegar (ponto de referência, melhor
+                  estrada...)</label>
                 <input oninput="cacheInput(this)" placeholder="" type="text" name="accessPath" id="accessPath"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
@@ -2599,15 +2606,30 @@
                     </div>
                   </div>
 
-                  <!--Body-->
-                  <p class="mb-6 text-center leading-relaxed text-sm text-green_dark mx-auto">Obrigado pelo
-                    preenchimento. Em breve, entraremos em contato
-                    para concluir a sua entrada no Yô Clube de Casas.
-                  </p>
+                  <div id="finalRegister">
+                    <!--Body-->
+                    <p class="mb-6 text-center leading-relaxed text-sm text-green_dark mx-auto">Obrigado pelo
+                      preenchimento. Em breve, entraremos em contato
+                      para concluir a sua entrada no Yô Clube de Casas.
+                    </p>
 
-                  <p class="mb-4 text-center text-sm text-green_dark mx-auto">Será um prazer ter você conosco nessa
-                    viagem.
-                  </p>
+                    <p class="mb-4 text-center text-sm text-green_dark mx-auto">Será um prazer ter você conosco nessa
+                      viagem.
+                    </p>
+                  </div>
+
+                  <div id="finalEdit" class="hidden">
+                    <!--Body-->
+                    <p class="mb-6 text-center leading-relaxed text-sm text-green_dark mx-auto">"Obrigado! Suas
+                      alterações serão salvas após clicar em finalizar"
+                    </p>
+
+
+                  </div>
+
+
+
+
 
 
 
@@ -2805,7 +2827,12 @@
                 height: 'auto'
               });
               $(".loading").parent().addClass('hidden')
-              window.location.href = "https://yocasas.com.br/home/";
+              if (clientInfo.clientType > 1) {
+                window.location.href = "https://yocasas.com.br/dashboard/buscador/";
+              } else {
+                window.location.href = "https://yocasas.com.br/home/";
+
+              }
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -2814,7 +2841,7 @@
                 height: 'auto'
               });
               $(".loading").parent().addClass('hidden')
-              alert("Erro na finalização do cadastro. Não foi possível estabelecer uma conexão com o Safari. Para melhor funcionamento do site, prefira Google Chrome ou Mozila Firefox.")
+              alert("Erro na finalização do cadastro. Não foi possível estabelecer uma conexão com o navegador. Para melhor funcionamento do site, prefira Google Chrome ou Mozila Firefox.")
 
             },
           })
@@ -2830,99 +2857,99 @@
               height: '100%'
             });
             $(".loading").parent().removeClass('hidden')
-            
-            if (!blockFunction) { 
-              
-            var dataFormArrayFormUser = $("#youForms").serializeArray()
 
-            var objFormUser = {}
+            if (!blockFunction) {
 
-            dataFormArrayFormUser.forEach(x => {
-              objFormUser[x.name] = x.value
-            })
+              var dataFormArrayFormUser = $("#youForms").serializeArray()
 
-            if (objFormUser['password'] == "") {
-              delete objFormUser['password']
+              var objFormUser = {}
+
+              dataFormArrayFormUser.forEach(x => {
+                objFormUser[x.name] = x.value
+              })
+
+              if (objFormUser['password'] == "") {
+                delete objFormUser['password']
+              }
+
+              if (objFormUser['birthday'] != undefined) objFormUser['birthday'] = toIsoDate(objFormUser['birthday'])
+
+
+
+
+
+
+
+
+              var myCookie = getCookie("login_session");
+              if (myCookie) {
+                var tokens = myCookie.split(".");
+                // console.log(atob(tokens[0])); //Alg, Type
+                var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
+
+                var clientId = clientObject.ClientId
+                // objFormUser["ClientId"] = clientId
+
+              }
+
+
+              //InfoClients for home backend - historic registry
+              firstname = objFormUser['firstname']
+              lastname = objFormUser['lastname']
+              telNumber = objFormUser['telNumber']
+              email = objFormUser['email']
+
+
+
+
+              data = JSON.stringify(objFormUser)
+              $.ajax({
+                url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register",
+                type: 'POST',
+                data: data,
+                headers: {
+                  'Authorization': myCookie,
+                },
+                "contentType": "application/json",
+                success: function (data1, textStatus, jqXHR) {
+                  $("#cookie").val(data1.token)
+                  document.cookie = `login_session=${data1.token}; max-age=86400; path=/`;
+                  document.getElementById("errorEmail").innerHTML = ""
+                  emailStatus = 1
+                  $('html, body').css({
+                    overflow: 'auto',
+                    height: 'auto'
+                  });
+                  $(".loading").parent().addClass('hidden')
+                  resolve(emailStatus)
+
+                  // casa_button() //TODO: tentar chamar em outro lugar, problema em que o emailStatus é alterado apenas depois de casa_button() ser chamado
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                  document.getElementById("errorEmail").innerHTML = "Email já existente"
+                  emailStatus = 0
+                  goToError()
+                  // casa_button()
+                  $('html, body').css({
+                    overflow: 'auto',
+                    height: 'auto'
+                  });
+                  $(".loading").parent().addClass('hidden')
+                  resolve(emailStatus)
+
+                },
+              })
+            } else {
+              $('html, body').css({
+                overflow: 'auto',
+                height: 'auto'
+              });
+              $(".loading").parent().addClass('hidden')
+
+              resolve(1)
+
             }
-
-            if (objFormUser['birthday'] != undefined) objFormUser['birthday'] = toIsoDate(objFormUser['birthday'])
-
-
-
-
-
-
-
-
-            var myCookie = getCookie("login_session");
-            if (myCookie) {
-              var tokens = myCookie.split(".");
-              // console.log(atob(tokens[0])); //Alg, Type
-              var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
-
-              var clientId = clientObject.ClientId
-              // objFormUser["ClientId"] = clientId
-
-            }
-
-
-            //InfoClients for home backend - historic registry
-            firstname = objFormUser['firstname']
-            lastname = objFormUser['lastname']
-            telNumber = objFormUser['telNumber']
-            email = objFormUser['email']
-
-
-
-
-            data = JSON.stringify(objFormUser)
-            $.ajax({
-              url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register",
-              type: 'POST',
-              data: data,
-              headers: {
-                'Authorization': myCookie,
-              },
-              "contentType": "application/json",
-              success: function (data1, textStatus, jqXHR) {
-                $("#cookie").val(data1.token)
-                document.cookie = `login_session=${data1.token}; max-age=86400; path=/`;
-                document.getElementById("errorEmail").innerHTML = ""
-                emailStatus = 1
-                $('html, body').css({
-                  overflow: 'auto',
-                  height: 'auto'
-                });
-                $(".loading").parent().addClass('hidden')
-                resolve(emailStatus)
-
-                // casa_button() //TODO: tentar chamar em outro lugar, problema em que o emailStatus é alterado apenas depois de casa_button() ser chamado
-
-              },
-              error: function (jqXHR, textStatus, errorThrown) {
-                document.getElementById("errorEmail").innerHTML = "Email já existente"
-                emailStatus = 0
-                goToError()
-                // casa_button()
-                $('html, body').css({
-                  overflow: 'auto',
-                  height: 'auto'
-                });
-                $(".loading").parent().addClass('hidden')
-                resolve(emailStatus)
-
-              },
-            })
-          } else {
-            $('html, body').css({
-                  overflow: 'auto',
-                  height: 'auto'
-                });
-                $(".loading").parent().addClass('hidden')
-
-            resolve(1)
-            
-          }
 
           })
 
