@@ -34,7 +34,7 @@
 
   <script type='text/javascript'
     src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
-    
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
@@ -207,6 +207,8 @@
           if (`${element["cityUser"]}` !== 'undefined') $("#cityUser").val(`${element["cityUser"]}`)
           if (`${element["stateUser"]}` !== 'undefined') $("#stateUser").val(`${element["stateUser"]}`)
           if (`${element["invitedFrom"]}` !== 'undefined') $("#invitedFrom").val(`${element["invitedFrom"]}`)
+          if (`${element["verifiedNumber"]}` !== 'undefined' && `${element["verifiedNumber"]}` == `true`) $("#verifyNumberButton").hide()
+
 
           //Retirar checkbox de termos e condicoes caso tenha marcando
           if (`${element["terms"]}` != 'undefined' && `${element["privacy"]}` != 'undefined') {
@@ -787,16 +789,16 @@
 
 
                   $("#birthday").inputmask("dd/mm/yyyy", { "placeholder": "dd/mm/yyyy", "yearrange": { minyear: 1899, maxyear: yyyy } });
-                  
-                  
+
+
                 })
 
-                
+
               </script>
               <div class="md:w-full mb-6">
                 <label class=" font-light text-green_dark">Data de nascimento*</label>
-                <input required placeholder="dd/mm/yyyy" min='1899-01-01' 
-                  data-inputmask="'alias': 'date'" type="text" name="birthday" id="birthday" autocomplete="bday"
+                <input required placeholder="dd/mm/yyyy" min='1899-01-01' data-inputmask="'alias': 'date'" type="text"
+                  name="birthday" id="birthday" autocomplete="bday"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
               </div>
 
@@ -812,7 +814,8 @@
                 <input oninput="cacheInput(this)" required placeholder="" type="text" name="telNumber" id="telNumber"
                   autocomplete="tel"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
-
+                <a id="verifyNumberButton" onclick="showVerificationComplete(true)"
+                  class="text-green_dark text-center cursor-pointer underline">Verificar Numero?</a>
               </div>
 
               <div class="md:w-full mb-6">
@@ -2858,7 +2861,7 @@
         }
 
 
-        function youFormsRequest() {
+        function youFormsRequest(verificationNumber = false) {
           return new Promise((resolve, reject) => {
             $('html, body').css({
               overflow: 'hidden',
@@ -2882,7 +2885,8 @@
 
               if (objFormUser['birthday'] != undefined) objFormUser['birthday'] = toIsoDate(objFormUser['birthday'])
 
-
+              //Sending confirmation telephone number code state
+              objFormUser['verificationNumber'] = verificationNumber
 
 
 
@@ -3139,7 +3143,8 @@
 
   </div>
 
-  <div id="numberVerification" class="hidden modal  fixed w-full h-full top-0 left-0 flex items-center justify-center z-20">
+  <div id="numberVerification"
+    class="hidden modal  fixed w-full h-full top-0 left-0 flex items-center justify-center z-20">
 
 
     <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
@@ -3164,8 +3169,9 @@
 
         <div class="flex justify-center"><a href="#" class="text-green_dark text-center cursor-pointer sm:text-sm">
             Verifique suas mensagens SMS.
-            <br> Enviamos o codigo a (+55) 999-999-999
+            <br> Enviamos o codigo a <h1 id="telNumberText">(+55) 999-999-999</h1>
           </a></div>
+
 
         <!--Body-->
         <form class="space-y-7" action="#" method="POST" id="loginForms" onsubmit="return onSubmit(this)">
@@ -3173,7 +3179,7 @@
           <div class="rounded-md  -space-y-px">
             <div class="flex flex-row justify-center ">
 
-              <div class="grid grid-cols-5 gap-6 mb-4 container">
+              <div id="numberCode" class="grid grid-cols-5 gap-6 mb-4 container">
                 <div class=" h-10">
                   <input maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"
                     class="input-verification w-10 rounded-sm h-14 text-center bg-green_light text-green_dark  outline-none block   sm:text-lg ">
@@ -3199,13 +3205,60 @@
               </div>
             </div>
           </div>
+          <script>
+            function verifyNumberRequest() {
+              let verificationNumberCode = '';
+              $("#numberCode input").each(function(){
+                var input = $(this).val(); 
+                verificationNumberCode = verificationNumberCode + input
+                });
 
+              
+              objForm = {}
+              objForm['verificationNumberCode'] = verificationNumberCode;
+
+              data = JSON.stringify(objForm)
+      
+              $.ajax({
+                url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/verifynumber",
+                type: 'POST',
+                data: data,
+                headers: {
+                  'Authorization': authCookie,
+                },
+                "contentType": "application/json",
+                success: function (data1, textStatus, jqXHR) {
+                  
+      
+      
+      
+                  $('html, body').css({
+                    overflow: 'auto',
+                    height: 'auto'
+                  });
+                  $(".loading").parent().addClass('hidden')
+      
+      
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+      
+                  $('html, body').css({
+                    overflow: 'auto',
+                    height: 'auto'
+                  });
+                  $(".loading").parent().addClass('hidden')
+      
+                },
+              })
+      
+            }
+          </script>
           <div>
-            <button type="submit"
-              class="mb-2 text-green_dark group relative flex mx-auto justify-center w-11/12 py-1 rounded-full hover:bg-green_detail hover:border-green_detail text-center border-4 border-green_light text-sm bg-green_light">
+            <a onclick="verifyNumberRequest()" 
+              class="mb-2 cursor-pointer text-green_dark group relative flex mx-auto justify-center w-11/12 py-1 rounded-full hover:bg-green_detail hover:border-green_detail text-center border-4 border-green_light text-sm bg-green_light">
 
               Verificar
-            </button>
+          </a>
           </div>
 
           <div class="flex justify-center"><a href="#" class="text-green_dark text-center cursor-pointer sm:text-sm">
@@ -3243,7 +3296,7 @@
               class="cursor-pointer mb-2 text-green_dark group relative flex mx-auto justify-center w-11/12 py-1 rounded-full hover:bg-green_detail hover:border-green_detail text-center border-4 border-green_light text-sm bg-green_light">
               Completar cadastro
             </a>
-            </div>
+          </div>
 
 
         </form>
@@ -3260,7 +3313,11 @@
       }
     </style>
     <script>
+
+
       function showVerificationComplete(end) {
+        youFormsRequest(true)
+        $("#telNumberText").text($("#telNumber").val());
         console.log($(".input-verify-number"))
         if (!end) {
           $("#input-verify-number").toggleClass("hidden")
@@ -3306,6 +3363,7 @@
         }
       }
     </script>
+   
   </div>
 
 </body>
