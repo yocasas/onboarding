@@ -814,7 +814,7 @@
                 <input oninput="cacheInput(this)" required placeholder="" type="text" name="telNumber" id="telNumber"
                   autocomplete="tel"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
-                <a id="verifyNumberButton" onclick="showVerificationComplete(true)"
+                <a id="verifyNumberButton" onclick="beforeVerificationComplete(true)"
                   class="text-green_dark text-center cursor-pointer underline">Verificar Numero?</a>
               </div>
 
@@ -2863,6 +2863,10 @@
 
         function youFormsRequest(verificationNumber = false) {
           return new Promise((resolve, reject) => {
+            if (!$("#password").valid()) {
+              resolve(false)
+                return false
+              } 
             $('html, body').css({
               overflow: 'hidden',
               height: '100%'
@@ -3207,6 +3211,7 @@
           </div>
           <script>
             function verifyNumberRequest() {
+              
               let verificationNumberCode = '';
               $("#numberCode input").each(function(){
                 var input = $(this).val(); 
@@ -3228,16 +3233,12 @@
                 },
                 "contentType": "application/json",
                 success: function (data1, textStatus, jqXHR) {
-                  
-      
-      
-      
                   $('html, body').css({
                     overflow: 'auto',
                     height: 'auto'
                   });
                   $(".loading").parent().addClass('hidden')
-      
+                  window.location.reload();
       
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -3313,10 +3314,17 @@
       }
     </style>
     <script>
-
+      function beforeVerificationComplete(end) {
+        youFormsRequest(true).then(resp => {
+          if (resp != false) {
+            showVerificationComplete(end)
+          }
+        })
+      }
 
       function showVerificationComplete(end) {
-        youFormsRequest(true)
+        
+        
         $("#telNumberText").text($("#telNumber").val());
         console.log($(".input-verify-number"))
         if (!end) {
