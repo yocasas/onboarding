@@ -61,17 +61,21 @@
       checkCurrentUser();
 
       //Initialize internation telephone number plugin
-      var input = document.querySelector("#telNumber");
-                $(input).on('countrychange', function(e){
+      var inputPhone = document.querySelector("#telNumber");
+      var currentMask = $(inputPhone).attr('placeholder').replace(/[0-9+]/ig,'9');
+            $(inputPhone).attr('placeholder', currentMask);
+
+            $(inputPhone).inputmask({ mask: currentMask, keepStatic: true });
+                $(inputPhone).on('countrychange', function(e){
             
             var currentMask = $(this).attr('placeholder').replace(/[0-9+]/ig,'9');
             $(this).attr('placeholder', currentMask);
 
-            $(input).inputmask({ mask: currentMask, keepStatic: true });
+            $(inputPhone).inputmask({ mask: currentMask, keepStatic: true });
 
         });
       // Use intTelInput plugin and detect country automatically
-      phonePlugin = window.intlTelInput(input, {
+      phonePlugin = window.intlTelInput(inputPhone, {
         initialCountry: "br",
         separateDialCode: true,
         utilsScript: "HTTPS://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.js",
