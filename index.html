@@ -478,7 +478,7 @@
               // nome, sobrenome, data de nascimento, cpf, fotos, endereço do imóvel, se fica em campo, praia, cidade, se fica em condomínio ou não
               var disabledInputs = $(`#firstname, #lastname, #cpf, #address, #complement, #number, 
         #state, #city, #beach, #mountain, #country, #countryInput, #true, #false, #city-input, #zipCodeUser, #zipCode`)
-              disabledInputs.attr('disabled', 'disabled');
+              disabledInputs.prop("disabled", true);
 
             }
 
@@ -2672,8 +2672,8 @@
 
                   <div id="finalEdit" class="hidden">
                     <!--Body-->
-                    <p class="mb-6 text-center leading-relaxed text-sm text-green_dark mx-auto">"Obrigado! Suas
-                      alterações serão salvas após clicar em finalizar"
+                    <p class="mb-6 text-center leading-relaxed text-sm text-green_dark mx-auto">Obrigado! Suas
+                      alterações serão salvas após clicar em finalizar
                     </p>
 
 
