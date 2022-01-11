@@ -1,0 +1,24 @@
+{
+  "scripts": {
+    "predeploy": "npm run serve",
+    "deploy": "gh-pages -d src",
+    "serve": "cross-env NODE_ENV=development concurrently \"postcss src/tailwind.css -o src/build/tailwind.css",
+    "live": "cross-env NODE_ENV=development concurrently \"postcss tailwind.css -o build/tailwind.css --watch\"  \"live-server \"",
+    "development": "cross-env NODE_ENV=development postcss src/tailwind.css -o src/build/tailwind.css",
+    "production": "cross-env NODE_ENV=production postcss src/tailwind.css -o src/build/tailwind.css"
+  },
+  "dependencies": {
+    "autoprefixer": "^9.5.1",
+    "tailwindcss": "^1.2.0"
+  },
+  "homepage": "http://yocasas.github.io/onboarding",
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^1.2.0",
+    "concurrently": "^4.1.0",
+    "cross-env": "^5.2.0",
+    "cssnano": "^4.1.10",
+    "gh-pages": "^3.2.3",
+    "live-server": "^1.2.1",
+    "postcss-cli": "^6.1.2"
+  }
+}

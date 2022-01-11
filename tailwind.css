@@ -110,7 +110,7 @@ body{
   width: 5px;
   overflow-y: scroll;
   scrollbar-color: #888 #f1f1f1;
-  scrollbar-width: thin
+  scrollbar-width: thin;
 }
 
 
@@ -164,5 +164,11 @@ input[type=number] {
 
 }
 
+/* disabled style for elements */
+.disabled {
+  
 
+  pointer-events: none;
+  opacity: 0.4;
 
+}
