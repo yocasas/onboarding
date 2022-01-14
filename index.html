@@ -317,7 +317,6 @@
         "contentType": "application/json",
         success: function (data1, textStatus, jqXHR) {
           let element = data1[0]
-
           if (element != undefined) {
             if (`${element["nickName"]}` != undefined && `${element["nickName"]}` != null) $("#nickName").val(`${element["nickName"]}`)
             if (`${element["address"]}` != undefined && `${element["address"]}` != null) $("#address").val(`${element["address"]}`)
@@ -342,6 +341,15 @@
             if (`${element["totalBathRooms"]}` != undefined && `${element["totalBathRooms"]}` != null) $("#bathroom_input").val(`${element["totalBathRooms"]}`)
             if (`${element["coveredParking"]}` != undefined && `${element["coveredParking"]}` != null) $("#vagas_cobertas_input").val(`${element["coveredParking"]}`)
             if (`${element["uncoveredParking"]}` != undefined && `${element["uncoveredParking"]}` != null) $("#vagas_descobertas_input").val(`${element["uncoveredParking"]}`)
+            if (`${element["underReview"]}` != undefined && `${element["underReview"]}` != null) {
+              if(`${element["underReview"]}` == 'true') {
+              $('#onRequest').attr('checked', 'checked') 
+
+              } else {
+                $('#allowDates').attr('checked', 'checked')
+              }
+            }  
+
 
 
             if (`${element["facilities"]}` != undefined && element["facilities"].length !== 0) {
@@ -351,7 +359,6 @@
             }
 
             if (`${element["totalAc"]}` != undefined && `${element["totalAc"]}` != null) $("#totalAc").val(`${element["totalAc"]}`);
-            console.log(element)
 
             if (`${element["authorizatedTo"]}` != undefined && element["authorizatedTo"] != null) {
               if (element["authorizatedTo"].length !== 0) {
@@ -399,6 +406,9 @@
 
               if (element["picturesS3Urls"].length !== 0) {
                 $.each(element["picturesS3Urls"], function (i, val) {
+
+                  $(".loading-images").parent().removeClass('hidden')
+
                   if (val != undefined && val != null) {
 
                     divImage = $("#images_" + counter_image + "")
@@ -440,14 +450,17 @@
 
 
                 Promise.all(listAjax).then(x => {
+                  
+                  $(".loading-images").parent().addClass('hidden')
 
-                  $('html, body').css({
+                  
+                })
+
+                $('html, body').css({
                     overflow: 'auto',
                     height: 'auto'
                   });
                   $(".loading").parent().addClass('hidden')
-                })
-
 
 
                 //Permite exlcuir as imagens vindas da DB
@@ -1510,7 +1523,7 @@
                   if (checkbox.checked == true) {
                     var errorId = checkbox.name + "-error"
                     let errorIdElement = document.getElementById(errorId)
-                    if (errorIdElement && errorIdElement.value)
+                    if (errorIdElement)
                       errorIdElement.remove();
 
                   }
@@ -1735,6 +1748,12 @@
               </style>
               <div class="wrapper w-full">
                 <section id="imagesTotal" class="active flex flex-wrap">
+
+                  <div class="hidden absolute bg-gray-900 bg-opacity-50 z-50 w-full h-full flex justify-center items-center">
+                    <div class="loading-images loading dot-pulse">
+                
+                    </div>
+                  </div>
 
                   <div id="images_0" class="images h-1/5 sm:w-1/5 w-1/3 imageUploader">
                     <div id="pic" style="color:#AFC6B3; " class="pic relative">
@@ -2486,18 +2505,18 @@
               </h1>
 
               <!-- Calendar or on request option -->
-              <div class="flex flex-wrap w-full justify-between required mb-8 border-b-1 border-green_dark">
+              <div class="flex flex-wrap w-full justify-between checkbox-group-calendar required mb-8">
                 <div class=" items-center mb-2 mr-4">
-                  <input id="allowDates" type="radio" name="calendarType" class="invisible"
-                    value="allowDates" required onchange='handleCalendar(this)' />
+                  <input id="allowDates" type="radio" name="underReview" class="invisible"
+                    value="false" required onchange='handleCalendar(this)' />
                   <label for="allowDates" class="flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Disponibilizar datas</label>
                 </div>
 
                 <div class=" items-center mb-2 mr-4">
-                  <input id="onRequest" type="radio" name="calendarType" class="invisible"
-                    value="onRequest" onchange='handleCalendar(this)'/>
+                  <input id="onRequest" type="radio" name="underReview" class="invisible"
+                    value="true" onchange='handleCalendar(this)'/>
                   <label for="onRequest" class="flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Sob consulta</label>
@@ -2529,13 +2548,15 @@
               </script> -->
 
 
-              <div id='app'>
-                <v-calendar color="green" :attributes='attributes' :available-dates='avbldates' @dayclick='onDayClick'
+              <div class="pt-2 border-t border-green_dark  " id='app'>
+                <v-calendar  color="green" :attributes='attributes' :available-dates='avbldates' @dayclick='onDayClick'
                   :columns="$screens({ default: 1, lg: 2 })">
                 </v-calendar>
                 <!-- Add a column to display info for clicked day -->
-                <div v-if='days' class='selected-day'>
+                <div v-if='days' class='selected-day pb-2 border-b border-green_dark mb-6'>
                   <div class="hidden" id="days_list">{{ days }}</div>
+
+                  
 
                   <!-- <ul>
                     <li v-for='day in days' :key='day.highlight'>
@@ -2543,8 +2564,19 @@
                     </li>
                   </ul> -->
                 </div>
+                <div class="flex w-full justify-between border-b border-green_dark pb-6">
+                  <h1>Pontos que você ganha</h1>
+                  <h1 id="availability_points">{{ days.length }}</h1>
+  
+                </div>
               </div>
               <div id="daysMin" class="text-red-500 error13"></div>
+
+              
+
+              
+
+              
 
 
               <!-- <script>
@@ -2616,12 +2648,9 @@
                 })
 
 
-
-
-
-
-
               </script>
+
+            
 
 
 
@@ -2817,7 +2846,6 @@
           var dataFormArrayTotal = dataFormArrayForm1.concat(dataFormArrayForm2)
 
 
-
           var facilidades = getCheckboxes('facilidades')
           var autorizo = getCheckboxes('autorizo')
           var funcionarios = getCheckboxes('funcionarios')
@@ -2839,11 +2867,9 @@
           objForm["workers"] = funcionarios
           // objForm["workers"].push(objForm['infoWorkers'])
 
-
           //Get inputed days
           var daysObjectList = JSON.parse($("#days_list").html())
           var daysList = daysObjectList.map(a => a.id);
-
           objForm["availableDates"] = daysList
 
 
