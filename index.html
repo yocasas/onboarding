@@ -2525,10 +2525,10 @@
 
                 <script>
                   function handleCalendar(el) {
-                    if (el.value == 'allowDates') {
+                    if (el.value == 'false') {
                       handleChange(el);
                       $("#app").removeClass("disabled")
-                    } else if (el.value == 'onRequest') {
+                    } else if (el.value == 'true') {
                       $("#app").addClass("disabled")
                     }
                   }
@@ -2574,7 +2574,7 @@
 
                 <div class="flex w-full justify-between border-b border-green_dark pb-6">
                   <h1>Pontos que você ganha</h1>
-                  <h1 id="availability_points">{{ days.length >= 24 ? 24 * 50 : days.length * 50 }}</h1>
+                  <h1 id="availability_points">{{ days.length >= 24 ? 24 * 100 : days.length * 100 }}</h1>
   
                 </div>
 
