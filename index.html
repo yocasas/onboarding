@@ -127,6 +127,8 @@
 
     var curatedHouse = false
 
+    let multiplier = 3
+
     let totalImages = 14
 
     let formsSubmitted = 0;
@@ -491,6 +493,9 @@
             }
 
             curatedHouse = (`${element["curated"]}` === 'true')
+
+            if (`${element["multiplier"]}` != undefined && `${element["multiplier"]}` != null) multiplier = `${element["multiplier"]}`
+            
             //Block, bloquear campos para edicao
             if (curatedHouse) {
               // nome, sobrenome, data de nascimento, cpf, fotos, endereço do imóvel, se fica em campo, praia, cidade, se fica em condomínio ou não
@@ -876,8 +881,8 @@
                 <input  required placeholder="" type="tel" name="telNumber" id="telNumber"
                   
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
-                <a id="verifyNumberButton" onclick="beforeVerificationComplete(true)"
-                  class="text-green_dark cursor-pointer underline">Verificar Numero?</a>
+                <!-- <a id="verifyNumberButton" onclick="beforeVerificationComplete(true)"
+                  class="text-green_dark cursor-pointer underline">Verificar Numero?</a> -->
               </div>
 
               <div class="md:w-full mb-6">
@@ -2574,7 +2579,8 @@
 
                 <div class="flex w-full justify-between border-b border-green_dark pb-6">
                   <h1>Pontos que você ganha</h1>
-                  <h1 id="availability_points">{{ days.length >= 24 ? 24 * 100 : days.length * 100 }}</h1>
+                  <!-- substituir 100 por multiplier -->
+                  <h1 id="availability_points">{{ days.length >= 24 ? 24 * 100 : days.length * 100 }}</h1> 
   
                 </div>
 
@@ -2616,6 +2622,7 @@
                   el: "#app",
                   data() {
                     return {
+                      multiplier: 3,
                       selectedDay: null, // Add state to store selected day
                       days: [],
                       avbldates: [{ start: beginDateAvbl, end: endDate }] //TODO: Puxar do back as datas disponiveis
