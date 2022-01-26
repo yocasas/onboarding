@@ -133,6 +133,10 @@
 
     let formsSubmitted = 0;
 
+    let nightPoints = 0;
+
+    let vue;
+
     //InfoClients
     let firstname
     let lastname
@@ -503,9 +507,28 @@
         #state, #city, #beach, #mountain, #country, #countryInput, #true, #false, #city-input, #zipCodeUser, #zipCode`)
               disabledInputs.prop("disabled", true);
 
+            } else {
+              //If house not curated, consider it as a possible 3 stars house
+              multiplier = 3
             }
 
+            if (multiplier == 2) {
+              nightPoints = 50
+            } else if (multiplier == 3) {
+              nightPoints = 100
+            } else if (multiplier == 4) {
+              nightPoints = 200
+            } else if (multiplier == 5) {
+              nightPoints = 400
+              
+            } else if (multiplier == 6) {
+              nightPoints = 800
+            } else if (multiplier == 7) {
+              nightPoints = 1200
+            }
 
+            console.log(multiplier)
+            console.log(nightPoints)
 
 
 
@@ -1445,6 +1468,7 @@
               <script>
                 function otherCountry(input) {
                   if (input.value != 'Brasil') {
+                    $("#state").addClass('disabled')
                     $("#state").prop('disabled', true)
                     $("#state").val("none")
 
@@ -2579,8 +2603,7 @@
 
                 <div class="flex w-full justify-between border-b border-green_dark pb-6">
                   <h1>Pontos que você ganha</h1>
-                  <!-- substituir 100 por multiplier -->
-                  <h1 id="availability_points">{{ days.length >= 24 ? 24 * 100 : days.length * 100 }}</h1> 
+                  <h1 id="availability_points">{{ days.length >= 24 ? 24 * nightPoints : days.length * nightPoints }}</h1> 
   
                 </div>
 
@@ -2609,6 +2632,7 @@
 
               <!--3. Create the Vue instance-->
               <script>
+                
                 let daysAhead = 30
                 const beginDate = new Date()
                 beginDate.setDate(beginDate.getDate() + daysAhead)
@@ -2618,11 +2642,11 @@
 
                 const endDate = new Date("2023-01-31")
 
-                let vue = new Vue({
+                vue = new Vue({
                   el: "#app",
                   data() {
                     return {
-                      multiplier: 3,
+                      nightPoints: nightPoints,
                       selectedDay: null, // Add state to store selected day
                       days: [],
                       avbldates: [{ start: beginDateAvbl, end: endDate }] //TODO: Puxar do back as datas disponiveis
@@ -2647,6 +2671,7 @@
                   },
                   methods: {
                     onDayClick(day) {
+
                       const idx = this.days.findIndex(d => d.id === day.id);
                       if (idx >= 0) {
                         this.days.splice(idx, 1);
@@ -2660,9 +2685,19 @@
                             date: day.date,
                           }) : {}
                       }
+                      updateNightPoints()
+                      
                     },
                   },
+                  
                 })
+
+                function updateNightPoints() {
+                  console.log(vue.days.length)
+                  console.log(nightPoints)
+                }
+
+                
 
 
               </script>
@@ -2685,20 +2720,6 @@
             });
         });
             </script> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
