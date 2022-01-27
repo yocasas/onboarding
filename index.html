@@ -520,16 +520,16 @@
               nightPoints = 200
             } else if (multiplier == 5) {
               nightPoints = 400
-              
             } else if (multiplier == 6) {
               nightPoints = 800
             } else if (multiplier == 7) {
               nightPoints = 1200
             }
 
-            console.log(multiplier)
-            console.log(nightPoints)
+            
+            $("#availability_points").text(vue.$data.days.length * nightPoints)
 
+      
 
 
           } else {
@@ -2641,7 +2641,7 @@
                 beginDateAvbl.setDate(beginDateAvbl.getDate() + daysAhead + 1)
 
                 const endDate = new Date("2023-01-31")
-
+                
                 vue = new Vue({
                   el: "#app",
                   data() {
@@ -2693,8 +2693,8 @@
                 })
 
                 function updateNightPoints() {
-                  console.log(vue.days.length)
-                  console.log(nightPoints)
+                  
+                  $("#availability_points").text(vue.days.length * nightPoints)
                 }
 
                 
