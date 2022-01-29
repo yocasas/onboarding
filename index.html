@@ -17,14 +17,14 @@
 
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
 
-  
+
   <!-- International telephone input plugin -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.15/js/intlTelInput.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.15/js/utils.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.15/css/intlTelInput.css"/>
-<link rel="image/png" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.15/img/flags.png"/>
-<link rel="image/png" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.15/img/flags@2x.png"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.15/js/intlTelInput.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.15/js/utils.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.15/css/intlTelInput.css" />
+  <link rel="image/png" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.15/img/flags.png" />
+  <link rel="image/png" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.15/img/flags@2x.png" />
 
 
 
@@ -63,23 +63,23 @@
       //Initialize international telephone number plugin
       var inputPhone = document.querySelector("#telNumber");
 
-      
+
       // On change country, change phone mask
-      $(inputPhone).on('countrychange', function(e){
-            
-            var currentMask = $(this).attr('placeholder').replace(/[0-9+]/ig,'9');
-            $(this).attr('placeholder', currentMask);
+      $(inputPhone).on('countrychange', function (e) {
 
-            $(inputPhone).inputmask({ mask: currentMask, keepStatic: true });
+        var currentMask = $(this).attr('placeholder').replace(/[0-9+]/ig, '9');
+        $(this).attr('placeholder', currentMask);
 
-        });
+        $(inputPhone).inputmask({ mask: currentMask, keepStatic: true });
+
+      });
       // Use intTelInput plugin
       phonePlugin = window.intlTelInput(inputPhone, {
         initialCountry: "br",
         separateDialCode: true,
         utilsScript: "HTTPS://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.js",
         //detect country automatically not working because of payment requirements
-        geoIpLookup: function (callback) { 
+        geoIpLookup: function (callback) {
           $.get('https://ipinfo.io', function () { }, "jsonp").always(function (resp) {
             var countryCode = (resp && resp.country) ? resp.country : "";
             callback(countryCode);
@@ -89,12 +89,12 @@
       });
 
       //Initialize phone mask with initialCountry from international telephone number plugin
-      var currentMask = $(inputPhone).attr('placeholder').replace(/[0-9+]/ig,'9');
+      var currentMask = $(inputPhone).attr('placeholder').replace(/[0-9+]/ig, '9');
       $(inputPhone).attr('placeholder', currentMask);
       $(inputPhone).inputmask({ mask: currentMask, keepStatic: true });
 
-            
-    
+
+
 
 
 
@@ -348,13 +348,13 @@
             if (`${element["coveredParking"]}` != undefined && `${element["coveredParking"]}` != null) $("#vagas_cobertas_input").val(`${element["coveredParking"]}`)
             if (`${element["uncoveredParking"]}` != undefined && `${element["uncoveredParking"]}` != null) $("#vagas_descobertas_input").val(`${element["uncoveredParking"]}`)
             if (`${element["underReview"]}` != undefined && `${element["underReview"]}` != null) {
-              if(`${element["underReview"]}` == 'true') {
-              $('#onRequest').attr('checked', 'checked') 
+              if (`${element["underReview"]}` == 'true') {
+                $('#onRequest').attr('checked', 'checked')
 
               } else {
                 $('#allowDates').attr('checked', 'checked')
               }
-            }  
+            }
 
 
 
@@ -456,17 +456,17 @@
 
 
                 Promise.all(listAjax).then(x => {
-                  
+
                   $(".loading-images").parent().addClass('hidden')
 
-                  
+
                 })
 
                 $('html, body').css({
-                    overflow: 'auto',
-                    height: 'auto'
-                  });
-                  $(".loading").parent().addClass('hidden')
+                  overflow: 'auto',
+                  height: 'auto'
+                });
+                $(".loading").parent().addClass('hidden')
 
 
                 //Permite exlcuir as imagens vindas da DB
@@ -499,7 +499,7 @@
             curatedHouse = (`${element["curated"]}` === 'true')
 
             if (`${element["multiplier"]}` != undefined && `${element["multiplier"]}` != null) multiplier = `${element["multiplier"]}`
-            
+
             //Block, bloquear campos para edicao
             if (curatedHouse) {
               // nome, sobrenome, data de nascimento, cpf, fotos, endereço do imóvel, se fica em campo, praia, cidade, se fica em condomínio ou não
@@ -526,10 +526,8 @@
               nightPoints = 1200
             }
 
-            
-            $("#availability_points").text(vue.$data.days.length * nightPoints)
 
-      
+            $("#availability_points").text(vue.$data.days.length * nightPoints)
 
 
           } else {
@@ -898,11 +896,10 @@
 
               </div>
 
-              
+
               <div class="md:w-full mb-6 flex flex-col">
                 <label class=" font-light text-green_dark">Número de celular*</label>
-                <input  required placeholder="" type="tel" name="telNumber" id="telNumber"
-                  
+                <input required placeholder="" type="tel" name="telNumber" id="telNumber"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
                 <!-- <a id="verifyNumberButton" onclick="beforeVerificationComplete(true)"
                   class="text-green_dark cursor-pointer underline">Verificar Numero?</a> -->
@@ -1494,7 +1491,7 @@
 
               </div>
 
-              
+
               <!-- 
               <script type="text/javascript" defer>
                 $(document).ready(function () {
@@ -1778,9 +1775,10 @@
               <div class="wrapper w-full">
                 <section id="imagesTotal" class="active flex flex-wrap">
 
-                  <div class="hidden absolute bg-gray-900 bg-opacity-50 z-50 w-full h-full flex justify-center items-center">
+                  <div
+                    class="hidden absolute bg-gray-900 bg-opacity-50 z-50 w-full h-full flex justify-center items-center">
                     <div class="loading-images loading dot-pulse">
-                
+
                     </div>
                   </div>
 
@@ -2496,72 +2494,75 @@
               </div>
 
 
-              <label class="w-full font-light text-green_dark mb-6">Agora é a hora de emitir seu passaporte de entrada
-                no Yô Clube de Casas.
-                Disponibilize ao menos 18 dias nos próximos 12 meses (se disponibilizar mais dias, você ganha mais
-                pontos).</label>
+              <label class="w-full text-xl font-bold text-green_dark mb-6">Calendário</label>
 
-              <label class="w-full font-light text-green_dark mb-1">Os 18 dias devem ser disponibilizados:
-              </label>
-
-              <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
-                - Em finais de semana.
+              <h1 class="w-full tracking-tight leading-none text-green_medium sm:leading-none mb-3">
+                Além dos <b>Pontos de Entrada*</b>, recebidos quando sua casa for
+                aprovada, você pode ganhar ainda mais pontos ao disponibilizar
+                datas na sua casa (<b>Pontos de Disponibilização</b>). Quanto mais dias
+                disponibilizar, mais pontos você ganha. Nesse momento do pré-cadastro
+                você pode selecionar a casa por <b>até 24 dias</b>.
               </h1>
 
-              <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
-                - Em feriados.
+              <h1 class="w-full tracking-tight leading-none text-green_medium sm:leading-none mb-5">
+                Outra opção é deixar o calendário aberto e ser consultado pelos
+                hóspedes interessados. Nesse caso, você recebe apenas os Pontos de
+                Entrada agora, mas pode sempre que quiser selecionar datas e genhar pontos.
               </h1>
 
-              <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
-                - Nas férias (1º a 31 de julho e de 15 de dezembro a 31 de janeiro).
+              <h1 class="w-full tracking-tight leading-none text-green_medium sm:leading-none mb-5">
+                Outra opção é deixar o calendário aberto e ser consultado pelos
+                hóspedes interessados. Nesse caso, você recebe apenas os Pontos de
+                Entrada agora, mas pode sempre que quiser selecionar datas e genhar pontos.
               </h1>
 
-              <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
-                - Ao menos 4 dias seguidos.
+              <h1 class="w-full tracking-tight leading-none text-green_medium sm:leading-none mb-5">
+                Você pode acrescentar datas ao calendário a qualquer momento,
+                mesmo após o cadastro.
               </h1>
 
-
-
-              <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
-                As datas devem ser disponibilizadas no calendário 45 dias após a data do cadastro da casa. Por exemplo:
-                se você estiver cadastrando sua casa no dia 10 de março, disponibilize datas a partir de 14 de abril.
-                Isto permite que a curadoria da casa seja devidamente feita e que os membros do Yô Clube de Casa
-                consigam se planejar.
+              <h1 class="w-full tracking-tight leading-none text-green_medium sm:leading-none mb-6">
+                <b>As datas devem ser disponibilizadas no calendário 30 dias após a
+                  data do cadastro da casa. </b> Por exemplo: se você estiver cadastrando
+                sua casa no dia 10 de março, disponibilize datas a partir do dia 14 de
+                abril. Isto permite que a curadoria da casa seja devidamente feita e
+                que os membros do Yô Clube de Casas consigam se planejar.
               </h1>
 
-              <h1 class="w-full tracking-tight italic leading-none text-green_medium sm:leading-none mb-3">
-                Os dias disponibilizados além dos 18 necessários, não precisam necessariamente seguir as regras acima.
+              <h1 class="w-full text-sm tracking-tight leading-none text-green_medium sm:leading-none mb-6">
+                *Estes pontos variam conforme a categoria da sua casa. <a href="/assets/tabela.pdf" target="_blank" class="underline font-bold cursor-pointer">Veja tabela.</a>
               </h1>
+
 
               <!-- Calendar or on request option -->
               <div class="flex flex-wrap w-full justify-between checkbox-group-calendar required mb-8">
                 <div class=" items-center mb-2 mr-4">
-                  <input id="allowDates" type="radio" name="underReview" class="invisible"
-                    value="false" required onchange='handleCalendar(this)' />
+                  <input id="allowDates" type="radio" name="underReview" class="invisible" value="false" required
+                    onchange='handleCalendar(this)' />
                   <label for="allowDates" class="flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Disponibilizar datas</label>
                 </div>
 
                 <div class=" items-center mb-2 mr-4">
-                  <input id="onRequest" type="radio" name="underReview" class="invisible"
-                    value="true" onchange='handleCalendar(this)'/>
+                  <input id="onRequest" type="radio" name="underReview" class="invisible" value="true"
+                    onchange='handleCalendar(this)' />
                   <label for="onRequest" class="flex items-center cursor-pointer text-green_dark">
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Sob consulta</label>
-                  </div>
                 </div>
+              </div>
 
-                <script>
-                  function handleCalendar(el) {
-                    if (el.value == 'false') {
-                      handleChange(el);
-                      $("#app").removeClass("disabled")
-                    } else if (el.value == 'true') {
-                      $("#app").addClass("disabled")
-                    }
+              <script>
+                function handleCalendar(el) {
+                  if (el.value == 'false') {
+                    handleChange(el);
+                    $("#app").removeClass("disabled")
+                  } else if (el.value == 'true') {
+                    $("#app").addClass("disabled")
                   }
-                </script>
+                }
+              </script>
               <!-- <script type="text/javascript" defer>
                 $(document).ready(function () {
                   $('#checkBtn').click(function () {
@@ -2578,14 +2579,14 @@
 
 
               <div class="pt-2 border-t border-green_dark  " id='app'>
-                <v-calendar  color="green" :attributes='attributes' :available-dates='avbldates' @dayclick='onDayClick'
+                <v-calendar color="green" :attributes='attributes' :available-dates='avbldates' @dayclick='onDayClick'
                   :columns="$screens({ default: 1, lg: 2 })">
                 </v-calendar>
                 <!-- Add a column to display info for clicked day -->
                 <div v-if='days' class='selected-day pb-2 border-b border-green_dark mb-6'>
                   <div class="hidden" id="days_list">{{ days }}</div>
 
-                  
+
 
                   <!-- <ul>
                     <li v-for='day in days' :key='day.highlight'>
@@ -2597,25 +2598,26 @@
                 <div class="flex w-full justify-between border-b border-green_dark pb-6 mb-6">
                   <h1>Noites selecionadas</h1>
                   <h1 id="availability_nights">{{ days.length }}</h1>
-  
+
                 </div>
 
 
                 <div class="flex w-full justify-between border-b border-green_dark pb-6">
                   <h1>Pontos que você ganha</h1>
-                  <h1 id="availability_points">{{ days.length >= 24 ? 24 * nightPoints : days.length * nightPoints }}</h1> 
-  
+                  <h1 id="availability_points">{{ days.length >= 24 ? 24 * nightPoints : days.length * nightPoints }}
+                  </h1>
+
                 </div>
 
-                
+
               </div>
               <div id="daysMin" class="text-red-500 error13"></div>
 
-              
 
-              
 
-              
+
+
+
 
 
               <!-- <script>
@@ -2632,7 +2634,7 @@
 
               <!--3. Create the Vue instance-->
               <script>
-                
+
                 let daysAhead = 30
                 const beginDate = new Date()
                 beginDate.setDate(beginDate.getDate() + daysAhead)
@@ -2641,7 +2643,7 @@
                 beginDateAvbl.setDate(beginDateAvbl.getDate() + daysAhead + 1)
 
                 const endDate = new Date("2023-01-31")
-                
+
                 vue = new Vue({
                   el: "#app",
                   data() {
@@ -2686,23 +2688,23 @@
                           }) : {}
                       }
                       updateNightPoints()
-                      
+
                     },
                   },
-                  
+
                 })
 
                 function updateNightPoints() {
-                  
+
                   $("#availability_points").text(vue.days.length * nightPoints)
                 }
 
-                
+
 
 
               </script>
 
-            
+
 
 
 
@@ -3005,8 +3007,8 @@
           return new Promise((resolve, reject) => {
             if (!$("#password").valid()) {
               resolve(false)
-                return false
-              } 
+              return false
+            }
             $('html, body').css({
               overflow: 'hidden',
               height: '100%'
@@ -3352,19 +3354,19 @@
           </div>
           <script>
             function verifyNumberRequest() {
-              
-              let verificationNumberCode = '';
-              $("#numberCode input").each(function(){
-                var input = $(this).val(); 
-                verificationNumberCode = verificationNumberCode + input
-                });
 
-              
+              let verificationNumberCode = '';
+              $("#numberCode input").each(function () {
+                var input = $(this).val();
+                verificationNumberCode = verificationNumberCode + input
+              });
+
+
               objForm = {}
               objForm['verificationNumberCode'] = verificationNumberCode;
 
               data = JSON.stringify(objForm)
-      
+
               $.ajax({
                 url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/verifynumber",
                 type: 'POST',
@@ -3380,27 +3382,27 @@
                   });
                   $(".loading").parent().addClass('hidden')
                   window.location.reload();
-      
+
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-      
+
                   $('html, body').css({
                     overflow: 'auto',
                     height: 'auto'
                   });
                   $(".loading").parent().addClass('hidden')
-      
+
                 },
               })
-      
+
             }
           </script>
           <div>
-            <a onclick="verifyNumberRequest()" 
+            <a onclick="verifyNumberRequest()"
               class="mb-2 cursor-pointer text-green_dark group relative flex mx-auto justify-center w-11/12 py-1 rounded-full hover:bg-green_detail hover:border-green_detail text-center border-4 border-green_light text-sm bg-green_light">
 
               Verificar
-          </a>
+            </a>
           </div>
 
           <div class="flex justify-center"><a href="#" class="text-green_dark text-center cursor-pointer sm:text-sm">
@@ -3464,8 +3466,8 @@
       }
 
       function showVerificationComplete(end) {
-        
-        
+
+
         $("#telNumberText").text(phonePlugin.getNumber(intlTelInputUtils.numberFormat.E164));
         if (!end) {
           $("#input-verify-number").toggleClass("hidden")
@@ -3511,7 +3513,7 @@
         }
       }
     </script>
-   
+
   </div>
 
 </body>
