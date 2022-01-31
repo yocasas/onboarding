@@ -2510,11 +2510,6 @@
                 Entrada agora, mas pode sempre que quiser selecionar datas e genhar pontos.
               </h1>
 
-              <h1 class="w-full tracking-tight leading-none text-green_medium sm:leading-none mb-5">
-                Outra opção é deixar o calendário aberto e ser consultado pelos
-                hóspedes interessados. Nesse caso, você recebe apenas os Pontos de
-                Entrada agora, mas pode sempre que quiser selecionar datas e genhar pontos.
-              </h1>
 
               <h1 class="w-full tracking-tight leading-none text-green_medium sm:leading-none mb-5">
                 Você pode acrescentar datas ao calendário a qualquer momento,
@@ -2673,6 +2668,7 @@
                   },
                   methods: {
                     onDayClick(day) {
+                      if (this.days.length < 24){
 
                       const idx = this.days.findIndex(d => d.id === day.id);
                       if (idx >= 0) {
@@ -2688,7 +2684,7 @@
                           }) : {}
                       }
                       updateNightPoints()
-
+                    }
                     },
                   },
 
