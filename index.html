@@ -2668,12 +2668,12 @@
                   },
                   methods: {
                     onDayClick(day) {
-                      if (this.days.length < 24){
 
                       const idx = this.days.findIndex(d => d.id === day.id);
                       if (idx >= 0) {
                         this.days.splice(idx, 1);
                       } else {
+                        if (this.days.length < 24){
 
 
                         (day.date > beginDate && day.date < endDate) ?  //TODO: colocar na variavel global
