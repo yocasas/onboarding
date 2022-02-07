@@ -137,6 +137,8 @@
 
     let vue;
 
+    let daysAhead;
+
     //InfoClients
     let firstname
     let lastname
@@ -497,7 +499,7 @@
             }
 
             curatedHouse = (`${element["curated"]}` === 'true')
-
+            
             if (`${element["multiplier"]}` != undefined && `${element["multiplier"]}` != null) multiplier = `${element["multiplier"]}`
 
             //Block, bloquear campos para edicao
@@ -507,10 +509,17 @@
         #state, #city, #beach, #mountain, #country, #countryInput, #true, #false, #city-input, #zipCodeUser, #zipCode`)
               disabledInputs.prop("disabled", true);
 
+              daysAhead = 0
+
             } else {
+              daysAhead = 30
               //If house not curated, consider it as a possible 3 stars house
               multiplier = 3
             }
+            
+            startDate = new Date()
+            startDate.setDate(startDate.getDate() + daysAhead) 
+            vue.$data.avbldates[0].start = startDate
 
             if (multiplier == 2) {
               nightPoints = 50
@@ -2629,8 +2638,6 @@
 
               <!--3. Create the Vue instance-->
               <script>
-
-                let daysAhead = 30
                 const beginDate = new Date()
                 beginDate.setDate(beginDate.getDate() + daysAhead)
 
