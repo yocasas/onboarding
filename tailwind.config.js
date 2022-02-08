@@ -483,7 +483,7 @@ module.exports = {
     width: ['responsive'],
     wordBreak: ['responsive'],
     zIndex: ['responsive'],
-    backgroundColor: ['active'],
+    backgroundColor: ['active', 'hover'],
     borderStyle: ['active']
   },
   corePlugins: {},
