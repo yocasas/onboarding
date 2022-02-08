@@ -2,7 +2,7 @@
   "scripts": {
     "predeploy": "npm run serve",
     "deploy": "gh-pages -d src",
-    "serve": "cross-env NODE_ENV=development concurrently \"postcss src/tailwind.css -o src/build/tailwind.css",
+    "serve": "cross-env NODE_ENV=development concurrently \"postcss tailwind.css -o build/tailwind.css",
     "live": "cross-env NODE_ENV=development concurrently \"postcss tailwind.css -o build/tailwind.css --watch\"  \"live-server \"",
     "development": "cross-env NODE_ENV=development postcss src/tailwind.css -o src/build/tailwind.css",
     "production": "cross-env NODE_ENV=production postcss src/tailwind.css -o src/build/tailwind.css"
