@@ -501,7 +501,7 @@
             }
 
             curatedHouse = (`${element["curated"]}` === 'true')
-            
+
             if (`${element["multiplier"]}` != undefined && `${element["multiplier"]}` != null) multiplier = `${element["multiplier"]}`
 
             //Block, bloquear campos para edicao
@@ -518,9 +518,9 @@
               //If house not curated, consider it as a possible 3 stars house
               multiplier = 3
             }
-            
+
             startDate = new Date()
-            startDate.setDate(startDate.getDate() + daysAhead + 1)  
+            startDate.setDate(startDate.getDate() + daysAhead + 1)
             vue.$data.avbldates[0].start = startDate
 
             beginDate = new Date()
@@ -2539,7 +2539,8 @@
               </h1>
 
               <h1 class="w-full text-sm tracking-tight leading-none text-green_medium sm:leading-none mb-6">
-                *Estes pontos variam conforme a categoria da sua casa. <a href="assets/tabela.pdf" target="_blank" class="underline font-bold cursor-pointer">Veja tabela.</a>
+                *Estes pontos variam conforme a categoria da sua casa. <a href="assets/tabela.pdf" target="_blank"
+                  class="underline font-bold cursor-pointer">Veja tabela.</a>
               </h1>
 
 
@@ -2659,6 +2660,7 @@
                       nightPoints: nightPoints,
                       selectedDay: null, // Add state to store selected day
                       days: [],
+                      removeDays: new Set(),
                       avbldates: [{ start: beginDateAvbl, end: endDate }] //TODO: Puxar do back as datas disponiveis
                       //["2021-09-16T03:00:00.000Z"]
                     };
@@ -2683,21 +2685,29 @@
                     onDayClick(day) {
                       const idx = this.days.findIndex(d => d.id === day.id);
                       if (idx >= 0) {
+                        this.removeDays.add(day.id)
                         this.days.splice(idx, 1);
-                      } else {
+                      } else { //Add days
 
-                        if (this.days.length < 24){
+                        if (this.days.length < 24) {
 
 
-                        (day.date > beginDate && day.date < endDate) ?  //TODO: colocar na variavel global
+                          if (day.date > beginDate && day.date < endDate) {  //TODO: colocar na variavel global
 
-                          this.days.push({
-                            id: day.id,
-                            date: day.date,
-                          }) : {}
+                            this.days.push({
+                              id: day.id,
+                              date: day.date,
+                            })
+
+                            this.removeDays.delete(day.id)
+                          } else {
+                            { }
+
+                          }
+
+                        }
+                        updateNightPoints()
                       }
-                      updateNightPoints()
-                    }
                     },
                   },
 
@@ -2921,6 +2931,10 @@
           var daysList = daysObjectList.map(a => a.id);
           objForm["availableDates"] = daysList
 
+          let removeDaysList = Array.from(vue.removeDays)
+          objForm["removeDates"] = removeDaysObjectList
+
+
 
 
           //Get clientId
@@ -2990,9 +3004,9 @@
               });
               $(".loading").parent().addClass('hidden')
               if (clientInfo.clientType > 1) {
-                window.location.href = "https://yocasas.com.br/dashboard/buscador/";
+                window.location.href = "/dashboard/buscador/";
               } else {
-                window.location.href = "https://yocasas.com.br/home/";
+                window.location.href = "/home/";
 
               }
 
