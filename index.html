@@ -2074,8 +2074,6 @@
               </div>
 
 
-
-
               <label class="w-full font-light text-green_dark mb-2">Número total de dormitórios?*</label>
               <div class="flex w-full mb-4">
                 <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
@@ -2986,9 +2984,14 @@
           objForm['telNumber'] = telNumber
           objForm['email'] = email
 
+          var underReview = (objForm['underReview'] === 'true');
+          objForm['underReview'] = underReview
+
+
 
           data = JSON.stringify(objForm)
 
+          console.log(authCookie)
           $.ajax({
             url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome",
             type: 'POST',
