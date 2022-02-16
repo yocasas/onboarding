@@ -813,27 +813,24 @@
 
 
             if ($homeForms.valid({ ignore: '' }) && $youForms.valid({ ignore: '' }) && $hostForms.valid({ ignore: '' })) {
-              if (daysList) {
-                if (daysList.length >= 18 || curatedHouse) {
+              // if (daysList) {
+                // if (curatedHouse) {
                   document.getElementById("daysMin").innerHTML = ""
                   if (!blockFunction) {
                     toggleModal()
 
                   }
 
-                } else {
-                  document.getElementById("daysMin").innerHTML = "Por favor, disponibilize sua casa ao menos 18 dias no calendário."
-                  // goToError13()
+                // } else {
+                //   document.getElementById("daysMin").innerHTML = "Por favor, disponibilize sua casa ao menos 18 dias no calendário."
+                //   // goToError13()
 
-                }
+                // }
 
-              } else {
-                document.getElementById("daysMin").innerHTML = "Por favor, disponibilize sua casa ao menos 18 dias no calendário."
-                // goToError13()
-
-
-
-              }
+              // } else {
+              //   document.getElementById("daysMin").innerHTML = "Por favor, disponibilize sua casa ao menos 18 dias no calendário."
+              //   // goToError13()
+              // }
 
             } else {
               goToError()
@@ -2897,6 +2894,9 @@
           });
 
           $(".loading").parent().removeClass('hidden')
+
+          checkCurrentUser()
+
           // const form = document.forms.casa;
           var dataFormArrayForm1 = $("#casa_forms").serializeArray()
           var dataFormArrayForm2 = $("#hospedagem_forms").serializeArray()
