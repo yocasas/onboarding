@@ -334,7 +334,17 @@
             if (`${element["complement"]}` != undefined && `${element["complement"]}` != null) $("#complement").val(`${element["complement"]}`)
             if (`${element["zipCode"]}` != undefined && `${element["zipCode"]}` != null) $("#zipCode").val(`${element["zipCode"]}`)
             if (`${element["city"]}` != undefined && `${element["city"]}` != null) $("#city-input").val(`${element["city"]}`)
-            if (`${element["country"]}` != undefined && `${element["country"]}` != null) $("#countryInput").val(`${element["country"]}`)
+            if (`${element["country"]}` != undefined && `${element["country"]}` != null){ 
+              $("#countryInput").val(`${element["country"]}`)
+              if (`${element["country"]}` != "Brasil") {
+                $("#state").addClass('disabled')
+                    $("#state").prop('disabled', true)
+                    $("#state").val("none")
+              } else {
+                $("#state").prop('disabled', false)
+
+              }
+          }
             if (`${element["state"]}` != undefined && `${element["state"]}` != null) $("#state").val(`${element["state"]}`);
             if (`${element["airportDistance"]}` != undefined && `${element["airportDistance"]}` != null) $("#airportDistance").val(`${element["airportDistance"]}`);
             if (`${element["accessPath"]}` != undefined && `${element["accessPath"]}` != null) $("#accessPath").val(`${element["accessPath"]}`)
@@ -672,7 +682,7 @@
               </div>
             </a>
 
-            <a class="cursor-pointer" onClick="hospedagem_button();">
+            <a class="cursor-pointer" onClick="saveHome();">
               <div class="flex items-center">
                 <div class="hospedagem not-around rounded-full flex items-center justify-center z-10">4</div>
                 <nobr>
@@ -2029,7 +2039,7 @@
                 class=" inline-flex skip_2 bg-green_light px-8 py-2 rounded-full h-12 hover:border-green_detail border-8 border-green_light text-green_dark hover:bg-green_detail items-center">Terminar
                 Depois</a>
 
-              <a onClick="hospedagem_button();" href="#"
+              <a onClick="saveHome();" href="#"
                 class=" inline-flex next_step_2 bg-green_light px-8 py-2 rounded-full h-12 hover:border-green_detail hover:bg-green_detail border-8 border-green_light  text-green_dark  items-center">Próximo
                 Passo</a>
             </div>
@@ -2583,7 +2593,7 @@
               </script> -->
 
 
-              <div class="pt-2 border-t border-green_dark  " id='app'>
+              <div class="pt-2 border-t border-green_dark" id='app'>
                 <v-calendar color="green" :attributes='attributes' :available-dates='avbldates' @dayclick='onDayClick'
                   :columns="$screens({ default: 1, lg: 2 })">
                 </v-calendar>
@@ -2887,8 +2897,8 @@
           })
           return listCheckboxes;
         }
-        function formsRequest(done) {
-
+        async function formsRequest(done, nextStep = 0) {
+          
           $('html, body').css({
             overflow: 'hidden',
             height: '100%'
@@ -3007,12 +3017,14 @@
                 height: 'auto'
               });
               $(".loading").parent().addClass('hidden')
+              if (nextStep == 0) {
               if (clientInfo.clientType > 1) {
                 window.location.href = "/dashboard/buscador/";
               } else {
                 window.location.href = "/home/";
 
               }
+            }
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -3162,6 +3174,14 @@
             goToError()
 
           }
+        }
+      </script>
+
+      <script>
+        function saveHome() {
+          formsRequest(false, 1).then(x => {
+            hospedagem_button()
+          })
         }
       </script>
       <input id="emailStatus" class="text-red-400 hidden">
