@@ -361,14 +361,14 @@
             if (`${element["totalBathRooms"]}` != undefined && `${element["totalBathRooms"]}` != null) $("#bathroom_input").val(`${element["totalBathRooms"]}`)
             if (`${element["coveredParking"]}` != undefined && `${element["coveredParking"]}` != null) $("#vagas_cobertas_input").val(`${element["coveredParking"]}`)
             if (`${element["uncoveredParking"]}` != undefined && `${element["uncoveredParking"]}` != null) $("#vagas_descobertas_input").val(`${element["uncoveredParking"]}`)
-            if (`${element["underReview"]}` != undefined && `${element["underReview"]}` != null) {
-              if (`${element["underReview"]}` == 'true') {
-                $('#onRequest').attr('checked', 'checked')
+            // if (`${element["underReview"]}` != undefined && `${element["underReview"]}` != null) {
+            //   if (`${element["underReview"]}` == 'true') {
+            //     $('#onRequest').attr('checked', 'checked')
 
-              } else {
-                $('#allowDates').attr('checked', 'checked')
-              }
-            }
+            //   } else {
+            //     $('#allowDates').attr('checked', 'checked')
+            //   }
+            // }
 
 
 
@@ -2524,9 +2524,8 @@
               </h1>
 
               <h1 class="w-full tracking-tight leading-none text-green_medium sm:leading-none mb-5">
-                Outra opção é deixar o calendário aberto e ser consultado pelos
-                hóspedes interessados. Nesse caso, você recebe apenas os Pontos de
-                Entrada agora, mas pode sempre que quiser selecionar datas e ganhar pontos.
+                Ganhe até 1.200 pontos** bônus por noite selecionando suas datas preferidas*** para hospedar!
+                Você pode fazer isso mais tarde no menu adicionar datas.
               </h1>
 
 
@@ -2544,13 +2543,21 @@
               </h1>
 
               <h1 class="w-full text-sm tracking-tight leading-none text-green_medium sm:leading-none mb-6">
-                *Estes pontos variam conforme a categoria da sua casa. <a href="assets/tabela.pdf" target="_blank"
+                * Estes pontos variam conforme a categoria da sua casa. <a href="assets/tabela.pdf" target="_blank"
                   class="underline font-bold cursor-pointer">Veja tabela.</a>
+              </h1>
+
+              <h1 class="w-full text-sm tracking-tight leading-none text-green_medium sm:leading-none mb-6">
+                **  Você ainda poderá rejeitar reservas solicitadas para estas datas, mas perderá os pontos bônus. 
+              </h1>
+
+              <h1 class="w-full text-sm tracking-tight leading-none text-green_medium sm:leading-none mb-6">
+                *** A pontuação total depende da categoria em que sua casa for enquadrada após a curadoria.
               </h1>
 
 
               <!-- Calendar or on request option -->
-              <div class="flex flex-wrap w-full justify-between checkbox-group-calendar required mb-8">
+              <!-- <div class="flex flex-wrap w-full justify-between checkbox-group-calendar required mb-8">
                 <div class=" items-center mb-2 mr-4">
                   <input id="allowDates" type="radio" name="underReview" class="invisible" value="false" required
                     onchange='handleCalendar(this)' />
@@ -2566,7 +2573,7 @@
                     <span class="w-4 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
                     Sob consulta</label>
                 </div>
-              </div>
+              </div> -->
 
               <script>
                 function handleCalendar(el) {
@@ -2995,8 +3002,8 @@
           objForm['telNumber'] = telNumber
           objForm['email'] = email
 
-          var underReview = (objForm['underReview'] === 'true');
-          objForm['underReview'] = underReview
+          
+          objForm['underReview'] = true
 
 
 
