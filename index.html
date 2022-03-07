@@ -317,8 +317,14 @@
 
       $(".loading").parent().removeClass('hidden')
 
+      let getHomesDetaileduri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed"
+
+      if (devMode) {
+        getHomesDetaileduri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/gethomes/detailed"
+      }
+
       $.ajax({
-        url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed",
+        url: getHomesDetaileduri,
         type: 'POST',
         data: data,
         headers: {
@@ -441,8 +447,14 @@
 
                     imageKeysList[counter_image] = val //Push in order
 
+                    let getFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile"
+
+                    if (devMode) {
+                      getFileS3Uri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/s3/getFile/v3"
+                    }
+
                     let ajaxImage = $.ajax({
-                      url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                      url: getFileS3Uri,
                       type: "POST",
                       data: JSON.stringify({
                         "pic-name": val
@@ -1860,8 +1872,14 @@
                   imageObject = { "b64pic": imageBase }
                   data = JSON.stringify(imageObject)
 
+                  let addFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/addfile"
+
+                  if (devMode) {
+                    addFileS3Uri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/s3/addfile"
+                  }
+
                   $.ajax({
-                    url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/addfile",
+                    url: addFileS3Uri,
                     type: 'POST',
                     data: data,
                     headers: {
@@ -3009,9 +3027,14 @@
 
           data = JSON.stringify(objForm)
 
-          console.log(authCookie)
+          let addHomeUri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome"
+
+          if (devMode) {
+            addHomeUri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/addHome"
+          }
+
           $.ajax({
-            url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome",
+            url: addHomeUri,
             type: 'POST',
             data: data,
             headers: {

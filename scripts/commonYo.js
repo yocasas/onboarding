@@ -2,6 +2,8 @@ let clientInfo
 
 let authCookie
 
+let devMode
+
 function capitalizeFirstLetter(string) {
     console.log(string)
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -59,6 +61,10 @@ function getCookie(name) {
 
 
 let checkCurrentUser = function () {
+
+    if (getCookie("dev_mode_enable") != null && getCookie("dev_mode_enable") != undefined && getCookie("dev_mode_enable")=="yes") {
+        devMode = true
+    }
 
     let myCookie = getCookie("login_session");
 
