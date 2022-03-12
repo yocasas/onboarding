@@ -238,9 +238,14 @@
 
       //TODO: Usar os headers e nao clientid como argumento
       data = JSON.stringify(data)
+      // if (authCookie != null) {
+            let getUserUri = 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser'
+            if (devMode) {
+                getUserUri = "https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/getuser"
+            }
 
       $.ajax({
-        url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser",
+        url: getUserUri,
         type: 'POST',
         data: data,
         headers: {
@@ -3128,11 +3133,15 @@
               email = objFormUser['email']
 
 
+              let registerUserUri = "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register"
 
+              if (devMode) {
+                registerUserUri = "https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV/register"
+              }
 
               data = JSON.stringify(objFormUser)
               $.ajax({
-                url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register",
+                url: registerUserUri,
                 type: 'POST',
                 data: data,
                 headers: {
@@ -3444,8 +3453,15 @@
 
               data = JSON.stringify(objForm)
 
+
+              let verifyNumberUri = "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/verifynumber"
+
+              if (devMode) {
+                verifyNumberUri = "https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV/verifynumber"
+              }
+
               $.ajax({
-                url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/verifynumber",
+                url: verifyNumberUri,
                 type: 'POST',
                 data: data,
                 headers: {
