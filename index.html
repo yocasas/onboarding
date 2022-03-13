@@ -239,10 +239,10 @@
       //TODO: Usar os headers e nao clientid como argumento
       data = JSON.stringify(data)
       // if (authCookie != null) {
-            let getUserUri = 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser'
-            if (devMode) {
-                getUserUri = "https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/getuser"
-            }
+      let getUserUri = 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser'
+      if (devMode) {
+        getUserUri = "https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/getuser"
+      }
 
       $.ajax({
         url: getUserUri,
@@ -345,17 +345,17 @@
             if (`${element["complement"]}` != undefined && `${element["complement"]}` != null) $("#complement").val(`${element["complement"]}`)
             if (`${element["zipCode"]}` != undefined && `${element["zipCode"]}` != null) $("#zipCode").val(`${element["zipCode"]}`)
             if (`${element["city"]}` != undefined && `${element["city"]}` != null) $("#city-input").val(`${element["city"]}`)
-            if (`${element["country"]}` != undefined && `${element["country"]}` != null){ 
+            if (`${element["country"]}` != undefined && `${element["country"]}` != null) {
               $("#countryInput").val(`${element["country"]}`)
               if (`${element["country"]}` != "Brasil") {
                 $("#state").addClass('disabled')
-                    $("#state").prop('disabled', true)
-                    $("#state").val("none")
+                $("#state").prop('disabled', true)
+                $("#state").val("none")
               } else {
                 $("#state").prop('disabled', false)
 
               }
-          }
+            }
             if (`${element["state"]}` != undefined && `${element["state"]}` != null) $("#state").val(`${element["state"]}`);
             if (`${element["airportDistance"]}` != undefined && `${element["airportDistance"]}` != null) $("#airportDistance").val(`${element["airportDistance"]}`);
             if (`${element["accessPath"]}` != undefined && `${element["accessPath"]}` != null) $("#accessPath").val(`${element["accessPath"]}`)
@@ -568,7 +568,13 @@
             }
 
 
-            $("#availability_points").text(vue.$data.days.length * nightPoints)
+            let vueDaysLength = 0;
+            if (vue.$data.days.length > 0) {
+              vueDaysLength = vue.$data.days.length - 1
+            } else {
+              vueDaysLength = vue.$data.days.length
+            }
+            $("#availability_points").text(vueDaysLength * nightPoints)
 
 
           } else {
@@ -841,18 +847,18 @@
 
             if ($homeForms.valid({ ignore: '' }) && $youForms.valid({ ignore: '' }) && $hostForms.valid({ ignore: '' })) {
               // if (daysList) {
-                // if (curatedHouse) {
-                  document.getElementById("daysMin").innerHTML = ""
-                  if (!blockFunction) {
-                    toggleModal()
+              // if (curatedHouse) {
+              document.getElementById("daysMin").innerHTML = ""
+              if (!blockFunction) {
+                toggleModal()
 
-                  }
+              }
 
-                // } else {
-                //   document.getElementById("daysMin").innerHTML = "Por favor, disponibilize sua casa ao menos 18 dias no calendário."
-                //   // goToError13()
+              // } else {
+              //   document.getElementById("daysMin").innerHTML = "Por favor, disponibilize sua casa ao menos 18 dias no calendário."
+              //   // goToError13()
 
-                // }
+              // }
 
               // } else {
               //   document.getElementById("daysMin").innerHTML = "Por favor, disponibilize sua casa ao menos 18 dias no calendário."
@@ -2571,7 +2577,7 @@
               </h1>
 
               <h1 class="w-full text-sm tracking-tight leading-none text-green_medium sm:leading-none mb-6">
-                **  Você ainda poderá rejeitar reservas solicitadas para estas datas, mas perderá os pontos bônus. 
+                ** Você ainda poderá rejeitar reservas solicitadas para estas datas, mas perderá os pontos bônus.
               </h1>
 
               <h1 class="w-full text-sm tracking-tight leading-none text-green_medium sm:leading-none mb-6">
@@ -2642,14 +2648,15 @@
 
                 <div class="flex w-full justify-between border-b border-green_dark pb-6 mb-6">
                   <h1>Noites selecionadas</h1>
-                  <h1 id="availability_nights">{{ days.length }}</h1>
+                  <h1 id="availability_nights">{{ days.length > 0 ? days.length - 1 : days.length }}</h1>
 
                 </div>
 
 
                 <div class="flex w-full justify-between border-b border-green_dark pb-6">
                   <h1>Pontos que você ganha</h1>
-                  <h1 id="availability_points">{{ days.length >= 24 ? 24 * nightPoints : days.length * nightPoints }}
+                  <h1 id="availability_points">{{ days.length >= 24 ? 24 * nightPoints : days.length - 1 * nightPoints
+                    }}
                   </h1>
 
                 </div>
@@ -2750,8 +2757,13 @@
                 })
 
                 function updateNightPoints() {
-
-                  $("#availability_points").text(vue.days.length * nightPoints)
+                  let vueDaysLength = 0;
+                  if (vue.days.length > 0) {
+                    vueDaysLength = vue.days.length - 1
+                  } else {
+                    vueDaysLength = vue.days.length
+                  }
+                  $("#availability_points").text(vueDaysLength * nightPoints)
                 }
 
 
@@ -2928,7 +2940,7 @@
           return listCheckboxes;
         }
         async function formsRequest(done, nextStep = 0) {
-          
+
           $('html, body').css({
             overflow: 'hidden',
             height: '100%'
@@ -3025,7 +3037,7 @@
           objForm['telNumber'] = telNumber
           objForm['email'] = email
 
-          
+
           objForm['underReview'] = true
 
 
@@ -3053,13 +3065,13 @@
               });
               $(".loading").parent().addClass('hidden')
               if (nextStep == 0) {
-              if (clientInfo.clientType > 1) {
-                window.location.href = "/dashboard/buscador/";
-              } else {
-                window.location.href = "/home/";
+                if (clientInfo.clientType > 1) {
+                  window.location.href = "/dashboard/buscador/";
+                } else {
+                  window.location.href = "/home/";
 
+                }
               }
-            }
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
