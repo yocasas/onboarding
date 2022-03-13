@@ -452,7 +452,7 @@
 
                     imageKeysList[counter_image] = val //Push in order
 
-                    let getFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile"
+                    let getFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3"
 
                     if (devMode) {
                       getFileS3Uri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/s3/getFile/v3"
@@ -468,7 +468,7 @@
                       success: (x) => {
 
 
-                        src = "data:image/jpeg;base64," + x + ""
+                        src = x
 
                         valParsed = val.replace('.', "\\.") //Id with dot may caue conflict with class notation
                         $("#" + valParsed + "").attr("src", src)
