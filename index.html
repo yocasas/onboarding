@@ -705,7 +705,7 @@
               </div>
             </a>
 
-            <a class="cursor-pointer" onClick="saveHome();">
+            <a class="cursor-pointer" onClick="saveHome(1);">
               <div class="flex items-center">
                 <div class="hospedagem not-around rounded-full flex items-center justify-center z-10">4</div>
                 <nobr>
@@ -2064,11 +2064,11 @@
             </form>
 
             <div class="flex justify-center md:justify-between py-4">
-              <a onClick="formsRequest(false);" href="#"
+              <a onClick="saveHome()" href="#"
                 class=" inline-flex skip_2 bg-green_light px-8 py-2 rounded-full h-12 hover:border-green_detail border-8 border-green_light text-green_dark hover:bg-green_detail items-center">Terminar
                 Depois</a>
 
-              <a onClick="saveHome();" href="#"
+              <a onClick="saveHome(1);" href="#"
                 class=" inline-flex next_step_2 bg-green_light px-8 py-2 rounded-full h-12 hover:border-green_detail hover:bg-green_detail border-8 border-green_light  text-green_dark  items-center">Próximo
                 Passo</a>
             </div>
@@ -2984,6 +2984,7 @@
 
           let removeDaysList = Array.from(vue.removeDays)
           objForm["removeDates"] = removeDaysList
+          console.log(removeDaysList)
 
 
 
@@ -3229,10 +3230,12 @@
       </script>
 
       <script>
-        function saveHome() {
-          formsRequest(false, 1).then(x => {
+        function saveHome(nextStep = 0) {
+          if ($("#casa_forms").valid({ ignore: '' })) {
+          formsRequest(false, nextStep).then(x => {
             hospedagem_button()
           })
+        }
         }
       </script>
       <input id="emailStatus" class="text-red-400 hidden">
