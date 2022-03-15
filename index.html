@@ -2731,8 +2731,25 @@
                         this.days.splice(idx, 1);
                       } else { //Add days
 
-                        if (this.days.length < 25) {
+                        if (curatedHouse == false) {
+                          if (this.days.length < 25) {
 
+
+                            if (day.date > beginDate && day.date < endDate) {  //TODO: colocar na variavel global
+
+                              this.days.push({
+                                id: day.id,
+                                date: day.date,
+                              })
+
+                              this.removeDays.delete(day.id)
+                            } else {
+                              { }
+
+                            }
+
+                          }
+                        } else {
 
                           if (day.date > beginDate && day.date < endDate) {  //TODO: colocar na variavel global
 
@@ -3232,12 +3249,12 @@
       <script>
         function saveHome(nextStep = 0) {
           if ($("#casa_forms").valid({ ignore: '' })) {
-          formsRequest(false, nextStep).then(x => {
-            hospedagem_button()
-          })
-        } else {
-          goToError()
-        }
+            formsRequest(false, nextStep).then(x => {
+              hospedagem_button()
+            })
+          } else {
+            goToError()
+          }
         }
       </script>
       <input id="emailStatus" class="text-red-400 hidden">
