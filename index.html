@@ -569,18 +569,16 @@
 
 
             let vueDaysLength = 0;
-            let totalPoints = 0;
             if (vue.$data.days.length > 0) {
               vueDaysLength = vue.$data.days.length - 1
             } else {
               vueDaysLength = vue.$data.days.length
             }
-            if (vueDaysLength < 24) {
-              totalPoints = vueDaysLength * nightPoints
-            } else {
-              totalPoints = 24 * nightPoints
+
+            if (vueDaysLength > 24) {
+              vueDaysLength = 24
             }
-            $("#availability_points").text(totalPoints)
+            $("#availability_points").text(vueDaysLength * nightPoints)
 
 
           } else {
@@ -2756,7 +2754,6 @@
 
                           }
                         } else {
-
                           if (day.date > beginDate && day.date < endDate) {  //TODO: colocar na variavel global
 
                             this.days.push({
@@ -2787,12 +2784,11 @@
                   } else {
                     vueDaysLength = vue.days.length
                   }
-                  if (vueDaysLength < 24) {
-                    totalPoints = vueDaysLength * vue.nightPoints
-                  } else {
-                    totalPoints = 24 * vue.nightPoints
+
+                  if (vueDaysLength > 24) {
+                    vueDaysLength = 24
                   }
-                  $("#availability_points").text(totalPoints)
+                  $("#availability_points").text(vueDaysLength * nightPoints)
                 }
 
 
