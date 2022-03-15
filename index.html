@@ -569,12 +569,18 @@
 
 
             let vueDaysLength = 0;
+            let totalPoints = 0;
             if (vue.$data.days.length > 0) {
               vueDaysLength = vue.$data.days.length - 1
             } else {
               vueDaysLength = vue.$data.days.length
             }
-            $("#availability_points").text(vueDaysLength * nightPoints)
+            if (vueDaysLength < 24) {
+              totalPoints = vueDaysLength * nightPoints
+            } else {
+              totalPoints = 24 * nightPoints
+            }
+            $("#availability_points").text(totalPoints)
 
 
           } else {
@@ -2775,12 +2781,18 @@
 
                 function updateNightPoints() {
                   let vueDaysLength = 0;
+                  let totalPoints = 0;
                   if (vue.days.length > 0) {
                     vueDaysLength = vue.days.length - 1
                   } else {
                     vueDaysLength = vue.days.length
                   }
-                  $("#availability_points").text(vueDaysLength * nightPoints)
+                  if (vueDaysLength < 24) {
+                    totalPoints = vueDaysLength * vue.nightPoints
+                  } else {
+                    totalPoints = 24 * vue.nightPoints
+                  }
+                  $("#availability_points").text(totalPoints)
                 }
 
 
