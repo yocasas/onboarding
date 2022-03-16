@@ -71,7 +71,7 @@
         $(this).attr('placeholder', currentMask);
 
         $(inputPhone).inputmask({ mask: currentMask, keepStatic: true });
-
+        
       });
       // Use intTelInput plugin
       phonePlugin = window.intlTelInput(inputPhone, {
@@ -167,6 +167,9 @@
       return decodeURI(dc.substring(begin + prefix.length, end));
     }
     //TODO: atob as a function to get info jwt
+    function cacheInput() {
+      
+    }
     $(document).ready(function () {
 
 
@@ -201,6 +204,8 @@
 
       }
 
+      $("#cpf").inputmask("999.999.999-99");
+      $("#zipCodeUser").inputmask("99999-999");
 
     });
 
