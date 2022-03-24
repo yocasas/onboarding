@@ -2,7 +2,7 @@ let clientInfo
 
 let authCookie
 
-let devMode
+let devMode = false
 
 function capitalizeFirstLetter(string) {
     console.log(string)

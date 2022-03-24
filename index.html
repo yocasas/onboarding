@@ -279,7 +279,7 @@
 
 
           //Retirar checkbox de termos e condicoes caso tenha marcando
-          if (`${element["terms"]}` != 'undefined' && `${element["privacy"]}` != 'undefined') {
+          if (`${element["terms"]}` != 'undefined' && `${element["privacy"]}` != 'undefined' && `${element["picturesCheck"]}` != 'undefined') {
             $('#termsDiv').hide()
 
           } else {
@@ -1096,6 +1096,14 @@
                   </label>
                 </div>
 
+                <div class="items-center mr-4">
+                  <input id="picturesCheck" type="checkbox" name="picturesCheck" class="invisible" value="true"
+                    onchange='handleChange(this);' required />
+                  <label for="picturesCheck" class="flex  cursor-pointer text-green_dark">
+                    <span class="w-8 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
+                    <h1>Autorizo a utilização das fotos da minha casa, sem a identificação do proprietário, em materiais de divulgação e redes sociais do Yô Troca de casas</h1>
+                  </label>
+                </div>
 
               </div>
               <!-- <div id="errorTerms" class="error12 hidden text-red-400">Você precisa aceitar os Termos e Condições e a Política de privacidade</div> -->
@@ -3152,7 +3160,8 @@
               objFormUser['verificationNumber'] = verificationNumber
 
 
-
+              let picturesCheck = (objFormUser["picturesCheck"] === 'true')
+              objFormUser['picturesCheck'] = picturesCheck
 
 
 
@@ -3175,6 +3184,7 @@
               telNumber = objFormUser['telNumber']
               email = objFormUser['email']
 
+              
 
               let registerUserUri = "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register"
 
