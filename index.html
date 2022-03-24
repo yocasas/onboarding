@@ -3496,7 +3496,7 @@
             </div>
           </div>
           <script>
-            function verifyNumberRequest() {
+            function verifyNumberRequest(resend=false) {
 
               let verificationNumberCode = '';
               $("#numberCode input").each(function () {
@@ -3504,6 +3504,9 @@
                 verificationNumberCode = verificationNumberCode + input
               });
 
+              if (resend == true) {
+                console.log($('#telNumberText').text())
+              }
 
               objForm = {}
               objForm['verificationNumberCode'] = verificationNumberCode;
@@ -3559,7 +3562,7 @@
               Não recebeu o código?
             </a></div>
 
-          <div class="flex justify-center"><a onClick="verifyNumberRequest();" href="#"
+          <div class="flex justify-center"><a onClick="verifyNumberRequest(true);" href="#"
               class="text-green_dark text-center cursor-pointer underline sm:text-sm"> Reenviar Código
             </a></div>
 
