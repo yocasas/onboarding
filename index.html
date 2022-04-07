@@ -172,6 +172,7 @@
       
     }
     $(document).ready(function () {
+      voce_button();
 
 
 
@@ -186,7 +187,6 @@
         getHomeInfo(clientId)
 
         // casa_button(); //TODO: deixar casa button dps dos usuarios aceitarem os termos
-        voce_button();
 
         //Alterar label de senha de criar para confirmar caso esteja logado
         $('#labelCreatePassword').text('Confirme sua senha atual para salvar as alterações (você pode alterá-la também se desejar)*')
@@ -700,7 +700,7 @@
 
           <div class="md:inline-flex  flex text-center justify-between  md:space-x-12 mb-2 ">
 
-            <a class="cursor-pointer" onClick="sobre_button();">
+            <!-- <a class="cursor-pointer" onClick="sobre_button();">
               <div class="flex  items-center">
 
 
@@ -711,11 +711,11 @@
                   <div class="sobre_yo_text  text-sm ml-2 text-green_dark md:flex hidden">Sobre o Yô</div>
                 </nobr>
               </div>
-            </a>
+            </a> -->
 
             <a class="cursor-pointer" onClick="voce_button();">
               <div class="flex items-center">
-                <div class="voce not-around rounded-full flex items-center justify-center z-10">2</div>
+                <div class="voce not-around rounded-full flex items-center justify-center z-10">1</div>
                 <nobr>
                   <div class="voce_text ml-2 text-sm text-green_light md:flex hidden">Você</div>
                 </nobr>
@@ -724,7 +724,7 @@
 
             <a class="cursor-pointer" onClick="submitYouForms();">
               <div class="flex items-center">
-                <div class="casa not-around rounded-full flex items-center justify-center z-10">3</div>
+                <div class="casa not-around rounded-full flex items-center justify-center z-10">2</div>
                 <nobr>
                   <div class="casa_text ml-2 text-sm text-green_light md:flex hidden">Sua Casa</div>
                 </nobr>
@@ -733,7 +733,7 @@
 
             <a class="cursor-pointer" onClick="saveHome(1);">
               <div class="flex items-center">
-                <div class="hospedagem not-around rounded-full flex items-center justify-center z-10">4</div>
+                <div class="hospedagem not-around rounded-full flex items-center justify-center z-10">3</div>
                 <nobr>
                   <div class="hospedagem_text ml-2 text-sm text-green_light md:flex hidden">Hospedagem</div>
                 </nobr>
@@ -3326,7 +3326,7 @@
 
 
     <!-- Slider sobre yo -->
-    <div class=" flex  md:ml-36 col-span-3 w-full h-full" id="slider">
+    <!-- <div class=" flex  md:ml-36 col-span-3 w-full h-full" id="slider">
 
       <style>
         .swiper-container {
@@ -3447,7 +3447,7 @@
 
 
 
-    </div>
+    </div> -->
     <!-- Slider sobre yo -->
 
 
