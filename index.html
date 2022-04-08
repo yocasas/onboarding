@@ -107,6 +107,8 @@
         if (clientInfo.clientId != userId && clientInfo.clientType > 4) {
           blockFunction = true;
           getUserInfo(userId)
+          getHomeInfo(userId)
+
 
           $("#youForms :input").prop("disabled", true);
           $("#casa_forms :input").prop("disabled", true);
@@ -116,6 +118,8 @@
         }
       } else {
         getUserInfo(clientInfo.ClientId)
+        getHomeInfo(clientInfo.ClientId)
+
       }
 
     });
@@ -184,7 +188,7 @@
         var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
 
         var clientId = clientObject.ClientId
-        getHomeInfo(clientId)
+        // getHomeInfo(clientId)
 
         // casa_button(); //TODO: deixar casa button dps dos usuarios aceitarem os termos
 
