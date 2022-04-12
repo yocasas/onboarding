@@ -3544,6 +3544,12 @@
           </div>
           <script>
             function verifyNumberRequest(resend=false) {
+              $('html, body').css({
+        overflow: 'hidden',
+        height: '100%'
+      });
+
+      $(".loading").parent().removeClass('hidden')
 
               let verificationNumberCode = '';
               $("#numberCode input").each(function () {
