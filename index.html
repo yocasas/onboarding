@@ -1976,6 +1976,13 @@
 
                 $(document).on("click", ".imageUploader", clickImage)
                 function clickImage() {
+                  $('html, body').css({
+            overflow: 'hidden',
+            height: '100%'
+          });
+
+          $(".loading").parent().removeClass('hidden')
+                  
                   var myCookie = getCookie("login_session");
                   // if(curatedHouse == false){
 
@@ -2005,8 +2012,12 @@
                   var element = elementTotal
 
                   uploader.on('change', function () {
+                    
+                    
+                    
                     var reader = new FileReader()
                     reader.onload = function (event) {
+                      
                       child = element.children()
 
                       // var imageBase = event.target.result.replace(/data:image\/.*?\;base64,/g, "");
@@ -2023,6 +2034,7 @@
                       }
 
                       var resultado = imageCompression.getFilefromDataUrl(event.target.result).then(result => {
+                        
                         handleImageUpload(result).then(compressedFile => {
                           imageCompression.getDataUrlFromFile(compressedFile).then(compressedUrl => {
                             handleImageRequest(compressedUrl, child, myCookie)
@@ -2066,8 +2078,10 @@
                       // })
 
                     }
+                    
                     reader.readAsDataURL(uploader[0].files[0])
 
+                    
                   })
 
 
@@ -2075,12 +2089,19 @@
 
 
                   // }
+                  $('html, body').css({
+                overflow: 'auto',
+                height: 'auto'
+              });
+              $(".loading").parent().addClass('hidden')
+                  
                 }
 
 
 
                 (function ($) {
                   $(document).ready(function () {
+                    
 
 
                     cloneDivImage()
