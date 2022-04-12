@@ -1124,7 +1124,7 @@
                     onchange='handleChange(this);' />
                   <label for="picturesCheck" class="flex  cursor-pointer text-green_dark">
                     <span class="w-8 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
-                    <h1>Autorizo a utilização das fotos da minha casa, sem a identificação do proprietário, em materiais de divulgação e redes sociais do Yô Troca de casas</h1>
+                    <h1>Autorizo a utilização das fotos da minha casa, sem a identificação do proprietário, em materiais de divulgação e redes sociais do Yô Clube de casas</h1>
                   </label>
                 </div>
 
@@ -3003,6 +3003,7 @@
         }
         async function formsRequest(done, nextStep = 0) {
 
+          if (!blockFunction){
           $('html, body').css({
             overflow: 'hidden',
             height: '100%'
@@ -3149,6 +3150,7 @@
           })
 
           return false //don't submit
+        }
         }
 
 
@@ -3482,7 +3484,7 @@
         <p class="text-center text-3xl font-black text-green_dark">Verifique seu número de telefone</p>
 
         <div class="flex justify-center"><a href="#" class="text-green_dark text-center cursor-pointer sm:text-sm">
-            Verifique suas mensagens SMS.
+            Verifique suas mensagens através do aplicativo WhatsApp.
             <br> Enviamos o codigo a <h1 id="telNumberText">(+55) 999-999-999</h1>
           </a></div>
 
