@@ -58,7 +58,7 @@
     let blockFunction = false;
     let phonePlugin = ""
     $(document).ready(function () {
-      
+
       checkCurrentUser();
 
       //Initialize international telephone number plugin
@@ -72,7 +72,7 @@
         $(this).attr('placeholder', currentMask);
 
         $(inputPhone).inputmask({ mask: currentMask, keepStatic: true });
-        
+
       });
       // Use intTelInput plugin
       phonePlugin = window.intlTelInput(inputPhone, {
@@ -173,7 +173,7 @@
     }
     //TODO: atob as a function to get info jwt
     function cacheInput() {
-      
+
     }
     $(document).ready(function () {
       voce_button();
@@ -971,7 +971,7 @@
               </div>
 
 
-              
+
 
               <div class="md:w-full mb-6">
                 <label class=" font-light text-green_dark">Email*</label>
@@ -999,6 +999,7 @@
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
                 <a id="verifyNumberButton" onclick="beforeVerificationComplete(true)"
                   class="text-green_dark cursor-pointer underline">Verificar Numero?</a>
+                  <h1 class="text-sm italic text-green_medium">Desta forma, o Yô Clube de Casas pode entrar em contato com você.</h1>
               </div>
 
               <div class="md:w-2/4 mb-6 md:pr-2">
@@ -1029,8 +1030,8 @@
               <div class="md:w-1/5 mb-6 md:pr-2">
                 <label class=" font-light text-green_dark">CEP*</label>
                 <input oninput="cacheInput(this)" required placeholder=""
-                  onkeydown="javascript: return event.keyCode == 69 || event.keyCode == 189 ? false : true"
-                  type="text" name="zipCodeUser" id="zipCodeUser" autocomplete="postal-code"
+                  onkeydown="javascript: return event.keyCode == 69 || event.keyCode == 189 ? false : true" type="text"
+                  name="zipCodeUser" id="zipCodeUser" autocomplete="postal-code"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm zipCode">
 
               </div>
@@ -1124,7 +1125,8 @@
                     onchange='handleChange(this);' />
                   <label for="picturesCheck" class="flex  cursor-pointer text-green_dark">
                     <span class="w-8 h-4 inline-block mr-1 rounded-sm border border-green_dark "></span>
-                    <h1>Autorizo a utilização das fotos da minha casa, sem a identificação do proprietário, em materiais de divulgação e redes sociais do Yô Clube de casas</h1>
+                    <h1>Autorizo a utilização das fotos da minha casa, sem a identificação do proprietário, em materiais
+                      de divulgação e redes sociais do Yô Clube de casas</h1>
                   </label>
                 </div>
 
@@ -1171,7 +1173,8 @@
 
               <label class="w-full font-light text-green_dark text-base">Qual o nome da sua casa?*</label>
               <div id="teste" class="md:w-full mb-6">
-                <input oninput="cacheInput(this)" required placeholder="" type="text" name="nickName" id="nickName" onblur="upperFirstAll(this)"
+                <input oninput="cacheInput(this)" required placeholder="" type="text" name="nickName" id="nickName"
+                  onblur="upperFirstAll(this)"
                   class=" mb-4 text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
                 <h1 class="w-full text-base italic text-green_medium tracking-tight leading-relaxed font-niveau">
@@ -1180,15 +1183,15 @@
               </div>
 
               <script>
-                upperFirstAll = function (valueToCap) {  
+                upperFirstAll = function (valueToCap) {
                   var x = document.getElementById("nickName");
-const words = valueToCap.value.split(" ");
+                  const words = valueToCap.value.split(" ");
 
-for (let i = 0; i < words.length; i++) {
-    words[i] = words[i][0].toUpperCase() + words[i].substr(1);
-}
-  valueToCap.value = words.join(" ");
-};
+                  for (let i = 0; i < words.length; i++) {
+                    words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+                  }
+                  valueToCap.value = words.join(" ");
+                };
               </script>
 
 
@@ -1231,8 +1234,8 @@ for (let i = 0; i < words.length; i++) {
               <div class="md:w-1/6 mb-4 md:pr-2">
                 <label class=" font-light text-green_dark">CEP*</label>
                 <input oninput="cacheInput(this)" required placeholder=""
-                  onkeydown="javascript: return event.keyCode == 69 || event.keyCode == 189 ? false : true"
-                  type="text" name="zipCode" id="zipCode" autocomplete="postal-code"
+                  onkeydown="javascript: return event.keyCode == 69 || event.keyCode == 189 ? false : true" type="text"
+                  name="zipCode" id="zipCode" autocomplete="postal-code"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
@@ -1989,12 +1992,12 @@ for (let i = 0; i < words.length; i++) {
                 $(document).on("click", ".imageUploader", clickImage)
                 function clickImage() {
                   $('html, body').css({
-            overflow: 'hidden',
-            height: '100%'
-          });
+                    overflow: 'hidden',
+                    height: '100%'
+                  });
 
-          $(".loading").parent().removeClass('hidden')
-                  
+                  $(".loading").parent().removeClass('hidden')
+
                   var myCookie = getCookie("login_session");
                   // if(curatedHouse == false){
 
@@ -2024,12 +2027,12 @@ for (let i = 0; i < words.length; i++) {
                   var element = elementTotal
 
                   uploader.on('change', function () {
-                    
-                    
-                    
+
+
+
                     var reader = new FileReader()
                     reader.onload = function (event) {
-                      
+
                       child = element.children()
 
                       // var imageBase = event.target.result.replace(/data:image\/.*?\;base64,/g, "");
@@ -2046,7 +2049,7 @@ for (let i = 0; i < words.length; i++) {
                       }
 
                       var resultado = imageCompression.getFilefromDataUrl(event.target.result).then(result => {
-                        
+
                         handleImageUpload(result).then(compressedFile => {
                           imageCompression.getDataUrlFromFile(compressedFile).then(compressedUrl => {
                             handleImageRequest(compressedUrl, child, myCookie)
@@ -2090,10 +2093,10 @@ for (let i = 0; i < words.length; i++) {
                       // })
 
                     }
-                    
+
                     reader.readAsDataURL(uploader[0].files[0])
 
-                    
+
                   })
 
 
@@ -2102,18 +2105,18 @@ for (let i = 0; i < words.length; i++) {
 
                   // }
                   $('html, body').css({
-                overflow: 'auto',
-                height: 'auto'
-              });
-              $(".loading").parent().addClass('hidden')
-                  
+                    overflow: 'auto',
+                    height: 'auto'
+                  });
+                  $(".loading").parent().addClass('hidden')
+
                 }
 
 
 
                 (function ($) {
                   $(document).ready(function () {
-                    
+
 
 
                     cloneDivImage()
@@ -2646,8 +2649,8 @@ for (let i = 0; i < words.length; i++) {
               </h1>
 
               <h1 class="w-full text-sm tracking-tight leading-none text-green_medium sm:leading-none mb-6">
-                * Estes pontos variam conforme a categoria da sua casa. <a href="assets/tabela_imagem.png" target="_blank"
-                  class="underline font-bold cursor-pointer">Veja tabela.</a>
+                * Estes pontos variam conforme a categoria da sua casa. <a href="assets/tabela_imagem.png"
+                  target="_blank" class="underline font-bold cursor-pointer">Veja tabela.</a>
               </h1>
 
               <h1 class="w-full text-sm tracking-tight leading-none text-green_medium sm:leading-none mb-6">
@@ -3036,154 +3039,154 @@ for (let i = 0; i < words.length; i++) {
         }
         async function formsRequest(done, nextStep = 0) {
 
-          if (!blockFunction){
-          $('html, body').css({
-            overflow: 'hidden',
-            height: '100%'
-          });
+          if (!blockFunction) {
+            $('html, body').css({
+              overflow: 'hidden',
+              height: '100%'
+            });
 
-          $(".loading").parent().removeClass('hidden')
+            $(".loading").parent().removeClass('hidden')
 
-          checkCurrentUser()
+            checkCurrentUser()
 
-          // const form = document.forms.casa;
-          var dataFormArrayForm1 = $("#casa_forms").serializeArray()
-          var dataFormArrayForm2 = $("#hospedagem_forms").serializeArray()
-          var dataFormArrayTotal = dataFormArrayForm1.concat(dataFormArrayForm2)
-
-
-          var facilidades = getCheckboxes('facilidades')
-          var autorizo = getCheckboxes('autorizo')
-          var funcionarios = getCheckboxes('funcionarios')
+            // const form = document.forms.casa;
+            var dataFormArrayForm1 = $("#casa_forms").serializeArray()
+            var dataFormArrayForm2 = $("#hospedagem_forms").serializeArray()
+            var dataFormArrayTotal = dataFormArrayForm1.concat(dataFormArrayForm2)
 
 
-          var objForm = {}
-
-          dataFormArrayTotal.forEach(x => {
-
-            objForm[x.name] = x.value
-          })
-
-          //Get checkboxes
-          objForm["facilities"] = facilidades
-
-          objForm["authorizedTo"] = autorizo
-          // objForm["authorizedTo"].push(objForm['extraRestriction'])
-
-          objForm["workers"] = funcionarios
-          // objForm["workers"].push(objForm['infoWorkers'])
-
-          //Get inputed days
-          var daysObjectList = JSON.parse($("#days_list").html())
-          var daysList = daysObjectList.map(a => a.id);
-          objForm["availableDates"] = daysList
-
-          let removeDaysList = Array.from(vue.removeDays)
-          objForm["removeDates"] = removeDaysList
-          console.log(removeDaysList)
+            var facilidades = getCheckboxes('facilidades')
+            var autorizo = getCheckboxes('autorizo')
+            var funcionarios = getCheckboxes('funcionarios')
 
 
+            var objForm = {}
+
+            dataFormArrayTotal.forEach(x => {
+
+              objForm[x.name] = x.value
+            })
+
+            //Get checkboxes
+            objForm["facilities"] = facilidades
+
+            objForm["authorizedTo"] = autorizo
+            // objForm["authorizedTo"].push(objForm['extraRestriction'])
+
+            objForm["workers"] = funcionarios
+            // objForm["workers"].push(objForm['infoWorkers'])
+
+            //Get inputed days
+            var daysObjectList = JSON.parse($("#days_list").html())
+            var daysList = daysObjectList.map(a => a.id);
+            objForm["availableDates"] = daysList
+
+            let removeDaysList = Array.from(vue.removeDays)
+            objForm["removeDates"] = removeDaysList
+            console.log(removeDaysList)
 
 
-          //Get clientId
-          var tokens = $("#cookie").val().split(".");
-          // console.log(atob(tokens[0])); //Alg, Type
-          var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
-
-          var clientId = clientObject.ClientId
-
-          objForm["clientId"] = clientId
 
 
-          //Parse to Int 
-          objForm["maxPeople"] = parseInt(objForm["maxPeople"])
-          objForm["number"] = parseInt(objForm["number"])
-          objForm["totalSuites"] = parseInt(objForm["totalSuites"])
-          objForm["totalBedRooms"] = parseInt(objForm["totalBedRooms"])
-          objForm["totalBathRooms"] = parseInt(objForm["totalBathRooms"])
-          objForm["coveredParking"] = parseInt(objForm["coveredParking"])
-          objForm["uncoveredParking"] = parseInt(objForm["uncoveredParking"])
-          //Parse to bool
-          objForm["inCondominum"] = (objForm["inCondominum"] == 'true')
-
-
-          //Get image list
-          imageKeysListFiltered = imageKeysList.filter(x => x !== undefined)
-          imageKeysListFiltered = imageKeysList.filter(x => x !== null)
-
-          objForm["s3Pics"] = imageKeysListFiltered
-
-
-          //If forms completed
-          objForm["done"] = done
-
-          var myCookie = getCookie("login_session");
-          if (myCookie) {
-            var tokens = myCookie.split(".");
+            //Get clientId
+            var tokens = $("#cookie").val().split(".");
             // console.log(atob(tokens[0])); //Alg, Type
             var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
 
             var clientId = clientObject.ClientId
-            // objForm["ClientId"] = clientId
-            objForm['zipCode'] = $('#zipCode').val()
-          }
 
-          //InfoClients
-          objForm['firstname'] = firstname
-          objForm['lastname'] = lastname
-          objForm['telNumber'] = telNumber
-          objForm['email'] = email
+            objForm["clientId"] = clientId
 
 
-          objForm['underReview'] = true
+            //Parse to Int 
+            objForm["maxPeople"] = parseInt(objForm["maxPeople"])
+            objForm["number"] = parseInt(objForm["number"])
+            objForm["totalSuites"] = parseInt(objForm["totalSuites"])
+            objForm["totalBedRooms"] = parseInt(objForm["totalBedRooms"])
+            objForm["totalBathRooms"] = parseInt(objForm["totalBathRooms"])
+            objForm["coveredParking"] = parseInt(objForm["coveredParking"])
+            objForm["uncoveredParking"] = parseInt(objForm["uncoveredParking"])
+            //Parse to bool
+            objForm["inCondominum"] = (objForm["inCondominum"] == 'true')
+
+
+            //Get image list
+            imageKeysListFiltered = imageKeysList.filter(x => x !== undefined)
+            imageKeysListFiltered = imageKeysList.filter(x => x !== null)
+
+            objForm["s3Pics"] = imageKeysListFiltered
+
+
+            //If forms completed
+            objForm["done"] = done
+
+            var myCookie = getCookie("login_session");
+            if (myCookie) {
+              var tokens = myCookie.split(".");
+              // console.log(atob(tokens[0])); //Alg, Type
+              var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
+
+              var clientId = clientObject.ClientId
+              // objForm["ClientId"] = clientId
+              objForm['zipCode'] = $('#zipCode').val()
+            }
+
+            //InfoClients
+            objForm['firstname'] = firstname
+            objForm['lastname'] = lastname
+            objForm['telNumber'] = telNumber
+            objForm['email'] = email
+
+
+            objForm['underReview'] = true
 
 
 
-          data = JSON.stringify(objForm)
+            data = JSON.stringify(objForm)
 
-          let addHomeUri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome"
+            let addHomeUri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome"
 
-          if (devMode) {
-            addHomeUri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/addHome"
-          }
+            if (devMode) {
+              addHomeUri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/addHome"
+            }
 
-          $.ajax({
-            url: addHomeUri,
-            type: 'POST',
-            data: data,
-            headers: {
-              'Authorization': authCookie,
-            },
-            "contentType": "application/json",
-            success: function (data1, textStatus, jqXHR) {
-              $('html, body').css({
-                overflow: 'auto',
-                height: 'auto'
-              });
-              $(".loading").parent().addClass('hidden')
-              if (nextStep == 0) {
-                if (clientInfo.clientType > 1) {
-                  window.location.href = "/dashboard/buscador/";
-                } else {
-                  window.location.href = "/home/";
+            $.ajax({
+              url: addHomeUri,
+              type: 'POST',
+              data: data,
+              headers: {
+                'Authorization': authCookie,
+              },
+              "contentType": "application/json",
+              success: function (data1, textStatus, jqXHR) {
+                $('html, body').css({
+                  overflow: 'auto',
+                  height: 'auto'
+                });
+                $(".loading").parent().addClass('hidden')
+                if (nextStep == 0) {
+                  if (clientInfo.clientType > 1) {
+                    window.location.href = "/dashboard/buscador/";
+                  } else {
+                    window.location.href = "/home/";
 
+                  }
                 }
-              }
 
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-              $('html, body').css({
-                overflow: 'auto',
-                height: 'auto'
-              });
-              $(".loading").parent().addClass('hidden')
-              alert("Erro na finalização do cadastro. Não foi possível estabelecer uma conexão com o navegador. Para melhor funcionamento do site, prefira Google Chrome ou Mozila Firefox.")
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+                $('html, body').css({
+                  overflow: 'auto',
+                  height: 'auto'
+                });
+                $(".loading").parent().addClass('hidden')
+                alert("Erro na finalização do cadastro. Não foi possível estabelecer uma conexão com o navegador. Para melhor funcionamento do site, prefira Google Chrome ou Mozila Firefox.")
 
-            },
-          })
+              },
+            })
 
-          return false //don't submit
-        }
+            return false //don't submit
+          }
         }
 
 
@@ -3243,7 +3246,7 @@ for (let i = 0; i < words.length; i++) {
               telNumber = objFormUser['telNumber']
               email = objFormUser['email']
 
-              
+
 
               let registerUserUri = "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register"
 
@@ -3451,43 +3454,43 @@ for (let i = 0; i < words.length; i++) {
       </div>
 
       <!-- Swiper JS -->
-      <script src="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.js"></script>
 
-      <!-- Initialize Swiper -->
-      <script>
-        var swiper = new Swiper(".mySwiper", {
-          autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-          },
-          pagination: {
-            el: ".swiper-pagination",
-            clickable: true
-          }
-        });
-      </script>
-
-
-      <script>
+    <!-- Initialize Swiper -->
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true
+        }
+      });
+    </script>
 
 
-        jQuery.extend(jQuery.validator.messages, {
-          required: '<span class="error12 sm:text-sm">Este campo é obrigatório</span>',
-          email: '<span class="error12 ">Por favor, digite um email válido.</span>',
-          min: jQuery.validator.format('<span class="error12 ">Por favor, digite um valor maior ou igual que {0}.</span>'),
-          max: jQuery.validator.format('<span class="error12 ">Por favor, digite um valor menor ou igual que {0}.</span>')
-
-        });
+    <script>
 
 
-      </script>
+      jQuery.extend(jQuery.validator.messages, {
+        required: '<span class="error12 sm:text-sm">Este campo é obrigatório</span>',
+        email: '<span class="error12 ">Por favor, digite um email válido.</span>',
+        min: jQuery.validator.format('<span class="error12 ">Por favor, digite um valor maior ou igual que {0}.</span>'),
+        max: jQuery.validator.format('<span class="error12 ">Por favor, digite um valor menor ou igual que {0}.</span>')
+
+      });
 
 
+    </script>
 
 
 
-    </div> -->
-    <!-- Slider sobre yo -->
+
+
+  </div> -->
+  <!-- Slider sobre yo -->
 
 
   </div>
@@ -3555,13 +3558,13 @@ for (let i = 0; i < words.length; i++) {
             </div>
           </div>
           <script>
-            function verifyNumberRequest(resend=false) {
+            function verifyNumberRequest(resend = false) {
               $('html, body').css({
-        overflow: 'hidden',
-        height: '100%'
-      });
+                overflow: 'hidden',
+                height: '100%'
+              });
 
-      $(".loading").parent().removeClass('hidden')
+              $(".loading").parent().removeClass('hidden')
 
               let verificationNumberCode = '';
               $("#numberCode input").each(function () {
