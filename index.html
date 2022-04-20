@@ -210,7 +210,7 @@
       }
 
       $("#cpf").inputmask("999.999.999-99");
-      $(".zipCode").inputmask("99999-999");
+      $(".zipCodeUser").inputmask("99999-999");
 
     });
 
@@ -3248,9 +3248,15 @@
 
 
 
+              
+
               let registerUserUri = "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register"
 
               if (devMode) {
+                if (!email.includes("@yocasas.com.br")){
+                  alert("Email de desenvolvimento tem que conter @yocasas.com.br para que o fluxo funcione corretamente")
+                  reject()
+                }
                 registerUserUri = "https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV/register"
               }
 
