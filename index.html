@@ -117,8 +117,10 @@
 
         }
       } else {
+        if (clientInfo != undefined) {
         getUserInfo(clientInfo.ClientId)
         getHomeInfo(clientInfo.ClientId)
+        }
 
       }
 
