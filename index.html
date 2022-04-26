@@ -385,6 +385,7 @@
             if (`${element["totalSuites"]}` != undefined && `${element["totalSuites"]}` != null) $("#suites_input").val(`${element["totalSuites"]}`)
             if (`${element["totalBedRooms"]}` != undefined && `${element["totalBedRooms"]}` != null) $("#rooms_input").val(`${element["totalBedRooms"]}`)
             if (`${element["totalBathRooms"]}` != undefined && `${element["totalBathRooms"]}` != null) $("#bathroom_input").val(`${element["totalBathRooms"]}`)
+            if (`${element["totalShowers"]}` != undefined && `${element["totalShowers"]}` != null) $("#shower_input").val(`${element["totalShowers"]}`)
             if (`${element["coveredParking"]}` != undefined && `${element["coveredParking"]}` != null) $("#vagas_cobertas_input").val(`${element["coveredParking"]}`)
             if (`${element["uncoveredParking"]}` != undefined && `${element["uncoveredParking"]}` != null) $("#vagas_descobertas_input").val(`${element["uncoveredParking"]}`)
             // if (`${element["underReview"]}` != undefined && `${element["underReview"]}` != null) {
@@ -2232,6 +2233,18 @@
               </div>
 
 
+              <label class="w-full font-light text-green_dark mb-2">Destes banheiros, são quantos banheiros com chuveiro?*</label>
+              <div class="flex w-full mb-4">
+                <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
+                rounded-full active:border-none active:bg-green_light flex items-center 
+                justify-center" type="button" id="shower" onclick="decrement(this)">-</a>
+
+                <input oninput="cacheInput(this)" required type="number" name="totalShowers" id="shower_input" min=0
+                  class=" text-green_dark outline-none w-1/4 items-center h-10 block text-center sm:text-sm ">
+                <a class="cursor-pointer border border-green_dark outline-none h-10 w-10 bg-transparent 
+                rounded-full active:border-none active:bg-green_light flex items-center 
+                justify-center" type="button" id="shower" onclick="increment(this)">+</a>
+              </div>
 
 
 
@@ -3107,6 +3120,7 @@
             objForm["totalSuites"] = parseInt(objForm["totalSuites"])
             objForm["totalBedRooms"] = parseInt(objForm["totalBedRooms"])
             objForm["totalBathRooms"] = parseInt(objForm["totalBathRooms"])
+            objForm["totalShowers"] = parseInt(objForm["totalShowers"])
             objForm["coveredParking"] = parseInt(objForm["coveredParking"])
             objForm["uncoveredParking"] = parseInt(objForm["uncoveredParking"])
             //Parse to bool
