@@ -26,7 +26,7 @@
   <link rel="image/png" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.15/img/flags.png" />
   <link rel="image/png" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.15/img/flags@2x.png" />
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/latest/js.cookie.min.js"></script>
 
 
 
@@ -51,6 +51,8 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
+    var Cookies2 = Cookies.noConflict()
+
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
@@ -62,7 +64,7 @@
       // console.log(Cookies.get())
       alert("Para preenchimento do cadastro, utilize os navegadores Google Chrome ou Mozila Firefox. Evite usar o Safari. Obrigado.")
 
-      checkCurrentUser();
+      checkCurrentUser(Cookies2);
 
       //Initialize international telephone number plugin
       var inputPhone = document.querySelector("#telNumber");
@@ -123,13 +125,16 @@
         if (clientInfo != undefined) {
           let dateNow = new Date();
           let dateExp = new Date(clientInfo.exp);
-          
-          if (dateExp > dateNow) {
+          console.log(dateNow)
+          console.log(dateExp)
+
+          // if (dateExp > dateNow) {
+
             getUserInfo(clientInfo.ClientId)
             getHomeInfo(clientInfo.ClientId)
             
             
-          }
+          // }
           
         }
 
@@ -2062,13 +2067,12 @@
                         // objFormUser["ClientId"] = clientId
 
                       }
-                      let loginCookie = Cookies.get('login_session')
 
                       var resultado = imageCompression.getFilefromDataUrl(event.target.result).then(result => {
 
                         handleImageUpload(result).then(compressedFile => {
                           imageCompression.getDataUrlFromFile(compressedFile).then(compressedUrl => {
-                            handleImageRequest(compressedUrl, child, loginCookie)
+                            handleImageRequest(compressedUrl, child, myCookie)
 
                           })
 
@@ -3076,7 +3080,7 @@
 
             $(".loading").parent().removeClass('hidden')
 
-            checkCurrentUser()
+            checkCurrentUser(Cookies2)
 
             // const form = document.forms.casa;
             var dataFormArrayForm1 = $("#casa_forms").serializeArray()
@@ -3179,13 +3183,13 @@
             if (devMode) {
               addHomeUri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/addHome"
             }
-            let loginCookie = Cookies.get('login_session')
+
             $.ajax({
               url: addHomeUri,
               type: 'POST',
               data: data,
               headers: {
-                'Authorization': loginCookie,
+                'Authorization': authCookie,
               },
               "contentType": "application/json",
               success: function (data1, textStatus, jqXHR) {
@@ -3296,13 +3300,14 @@
                 type: 'POST',
                 data: data,
                 headers: {
-                  'Authorization': myCookie,
+                  'Authorization': authCookie,
                 },
                 "contentType": "application/json",
                 success: function (data1, textStatus, jqXHR) {
                   $("#cookie").val(data1.token)
                   // document.cookie = `login_session=${data1.token}; max-age=86400; path=/`;
-                  Cookies.set("login_session", data1.token, {
+                  console.log(data1.token)
+                  Cookies2.set("login_session", data1.token, {
                     expires: 1,
                     path: '/'
                   })
