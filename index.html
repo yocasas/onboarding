@@ -2072,7 +2072,7 @@
 
                         handleImageUpload(result).then(compressedFile => {
                           imageCompression.getDataUrlFromFile(compressedFile).then(compressedUrl => {
-                            handleImageRequest(compressedUrl, child, myCookie)
+                            handleImageRequest(compressedUrl, child, authCookie)
 
                           })
 
