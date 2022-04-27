@@ -124,17 +124,17 @@
       } else {
         if (clientInfo != undefined) {
           let dateNow = new Date();
-          let dateExp = new Date(clientInfo.exp);
+          let dateExp = new Date(clientInfo.exp*1000);
           console.log(dateNow)
           console.log(dateExp)
 
-          // if (dateExp > dateNow) {
+          if (dateExp > dateNow) {
 
             getUserInfo(clientInfo.ClientId)
             getHomeInfo(clientInfo.ClientId)
             
             
-          // }
+          }
           
         }
 

@@ -66,7 +66,7 @@ let checkCurrentUser = function (cookieJs) {
         devMode = true
     }
 
-    let myCookie = getCookie('login_session')
+    let myCookie = cookieJs.get('login_session')
 
     authCookie = myCookie
 
