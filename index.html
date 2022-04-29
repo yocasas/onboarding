@@ -198,7 +198,7 @@
 
 
 
-      var myCookie = getCookie("login_session");
+      var myCookie = Cookies2.get('login_session')
       if (myCookie) {
         $("#cookie").val(myCookie)
         var tokens = $("#cookie").val().split(".");
@@ -253,7 +253,7 @@
         "ClientId": id
       }
 
-      var myCookie = getCookie("login_session");
+      var myCookie = Cookies2.get('login_session')
       if (myCookie) {
         var tokens = myCookie.split(".");
         // console.log(atob(tokens[0])); //Alg, Type
@@ -329,7 +329,7 @@
         "ClientId": id
       }
 
-      var myCookie = getCookie("login_session");
+      var myCookie = Cookies2.get('login_session')
       if (myCookie) {
         var tokens = myCookie.split(".");
         // console.log(atob(tokens[0])); //Alg, Type
@@ -2018,7 +2018,7 @@
 
                   $(".loading").parent().removeClass('hidden')
 
-                  var myCookie = getCookie("login_session");
+                  var myCookie = Cookies2.get('login_session')
                   // if(curatedHouse == false){
 
                   var images = $('#imagesTotal')
@@ -2057,7 +2057,7 @@
 
                       // var imageBase = event.target.result.replace(/data:image\/.*?\;base64,/g, "");
 
-                      var myCookie = getCookie("login_session");
+                      var myCookie = Cookies2.get('login_session')
                       if (myCookie) {
                         var tokens = myCookie.split(".");
                         // console.log(atob(tokens[0])); //Alg, Type
@@ -3155,7 +3155,7 @@
             //If forms completed
             objForm["done"] = done
 
-            var myCookie = getCookie("login_session");
+            var myCookie = Cookies2.get("login_session");
             if (myCookie) {
               var tokens = myCookie.split(".");
               // console.log(atob(tokens[0])); //Alg, Type
@@ -3262,7 +3262,7 @@
 
 
 
-              var myCookie = getCookie("login_session");
+              var myCookie = Cookies2.get('login_session')
               if (myCookie) {
                 var tokens = myCookie.split(".");
                 // console.log(atob(tokens[0])); //Alg, Type
