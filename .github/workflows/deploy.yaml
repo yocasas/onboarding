@@ -22,5 +22,5 @@ jobs:
           role-session-name: GitHubActions
       - name: Copy files to the test website with the AWS CLI
         run: |
-          aws s3 sync . s3://yo-casas-prod/dashboard
+          aws s3 sync . s3://yo-casas-prod/onboarding
         
