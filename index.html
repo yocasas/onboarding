@@ -3632,6 +3632,7 @@
               if (devMode) {
                 verifyNumberUri = "https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV/verifynumber"
               }
+              checkCurrentUser();
 
               $.ajax({
                 url: verifyNumberUri,
