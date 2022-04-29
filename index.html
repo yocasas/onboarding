@@ -2067,7 +2067,7 @@
                         // objFormUser["ClientId"] = clientId
 
                       }
-                      checkCurrentUser();
+                      checkCurrentUser(Cookies2);
 
                       var resultado = imageCompression.getFilefromDataUrl(event.target.result).then(result => {
 
@@ -3294,6 +3294,7 @@
                 }
                 registerUserUri = "https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV/register"
               }
+              checkCurrentUser(Cookies2);
 
               data = JSON.stringify(objFormUser)
               $.ajax({
@@ -3633,7 +3634,7 @@
               if (devMode) {
                 verifyNumberUri = "https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV/verifynumber"
               }
-              checkCurrentUser();
+              checkCurrentUser(Cookies2);
 
               $.ajax({
                 url: verifyNumberUri,
