@@ -302,7 +302,10 @@
           if (`${element["cityUser"]}` !== 'undefined') $("#cityUser").val(`${element["cityUser"]}`)
           if (`${element["stateUser"]}` !== 'undefined') $("#stateUser").val(`${element["stateUser"]}`)
           if (`${element["invitedFrom"]}` !== 'undefined') $("#invitedFrom").val(`${element["invitedFrom"]}`)
-          if (`${element["verifiedNumber"]}` !== 'undefined' && `${element["verifiedNumber"]}` == `true`) $("#verifyNumberButton").hide()
+          if (`${element["verifiedNumber"]}` !== 'undefined' && `${element["verifiedNumber"]}` == `true`) {
+            $("#telNumber").prop('disabled', true)
+            $("#verifyNumberButton").hide()
+        }
           if (`${element["countryUser"]}` != undefined && `${element["countryUser"]}` != null) {
               $("#countryUserInput").val(`${element["countryUser"]}`)
               if (`${element["countryUser"]}` != "Brasil") {
