@@ -291,8 +291,8 @@
           if (`${element["docType"]}` !== 'undefined') {
             $("#docType").val(`${element["docType"]}`)
             chooseIDType()
-     
-        }
+
+          }
           if (`${element["telNumber"]}` !== 'undefined') phonePlugin.setNumber(`${element["telNumber"]}`)
           if (`${element["email"]}` !== 'undefined') $("#email").val(`${element["email"]}`);
           if (`${element["addressUser"]}` !== 'undefined') $("#addressUser").val(`${element["addressUser"]}`)
@@ -988,21 +988,20 @@
 
 
 
+                <div class="flex flex-col mb-6 w-1/2">
+                  <label class="text-green_dark">Selecionar documento de identificação*:</label>
+                  <select required class="text-green_dark" id="docType" name="docType" onchange="chooseIDType()">
+                    <option value="none" disabled selected>Selecione um tipo de documento</option>
+                    <option value="cpf">CPF</option>
+                    <option value="passport">Passaporte</option>
+                  </select>
+                </div>
 
-              <div class="flex flex-col mb-6">
-                <label class="text-green_dark">Selecionar documento de identificação*:</label>
-                <select required class="text-green_dark" id="docType" name="docType" onchange="chooseIDType()">
-                  <option value="none" disabled selected>Selecione um tipo de documento</option>
-                  <option value="cpf">CPF</option>
-                  <option value="passport">Passporte</option>
-                </select>
-              </div>
-
-              <div class="md:w-full mb-6">
-                <label id="docLabel" class="font-light text-green_dark">CPF*</label>
-                <input disabled oninput="cacheInput(this)" required placeholder="" type="text" name="cpf" id="cpf"
-                  class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
-              </div>
+                <div class=" mb-6 w-1/2">
+                  <label id="docLabel" class="font-light text-green_dark">CPF*</label>
+                  <input disabled oninput="cacheInput(this)" required placeholder="" type="text" name="cpf" id="cpf"
+                    class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
+                </div>
 
               <script type="text/javascript">
                 function chooseIDType() {
@@ -1016,9 +1015,9 @@
 
 
                   } else {
-                    document.getElementById("docLabel").innerHTML = "Passporte*";
+                    document.getElementById("docLabel").innerHTML = "Passaporte*";
                     document.getElementById("cpf").setAttribute("autocomplete", "passport");
-                    document.getElementById("cpf").setAttribute("placeholder", "Passporte");
+                    document.getElementById("cpf").setAttribute("placeholder", "Passaporte");
                     // document.getElementById("cpf").setAttribute("data-inputmask", "'alias': 'passport'");
                     // document.getElementById("cpf").setAttribute("data-mask", "true");
                     document.getElementById("cpf").setAttribute("minlength", "8");
