@@ -71,7 +71,7 @@ let checkCurrentUser = function (cookieJs) {
     authCookie = myCookie
 
     if (myCookie == null) {
-        // window.onload(window.location.replace("/home"))
+        // window.onload(window.location.replace("/home/"))
     } else {
         //console.log(`cliente ja esta logado ${myCookie}`)
         clientInfo = JSON.parse(atob(myCookie.split(".")[1]));
@@ -79,7 +79,7 @@ let checkCurrentUser = function (cookieJs) {
 
 
         if (clientInfo.exp < (currentDate.getTime()/1000) | clientInfo.clientType < 2) {
-            // window.onload(window.location.replace("/home"))
+            // window.onload(window.location.replace("/home/"))
         }
     }
 
