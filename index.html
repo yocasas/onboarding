@@ -49,6 +49,64 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
+  
+  <script>
+    let selectedModal = ""
+    let textModal = "Erro. Tente novamente mais tarde ou contate um administrador."
+  </script>
+  <!-- Modal aviso -->
+  <style>
+    .modal {
+      transition: opacity 0.25s ease;
+    }
+
+    body.modal-active {
+      overflow-x: hidden;
+      overflow-y: visible !important;
+    }
+  </style>
+  
+  
+
+
+
+
+      <!-- Modal aviso de registro -->
+      <div
+        class="modalWarning opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-20">
+        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+
+        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
+
+
+
+          <!-- Add margin if you want to see some of the overlay behind the modal-->
+          <div class="modal-content py-4 text-left px-6">
+            <!--Title-->
+            <div class="flex justify-between items-center pb-3">
+              <p class="text-sm font-bold text-green_dark mx-auto">Aviso!</p>
+              <div class="modal-close cursor-pointer z-50">
+                <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                  viewBox="0 0 18 18">
+                  <path
+                    d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                  </path>
+                </svg>
+              </div>
+            </div>
+
+            <!--Body-->
+
+            <div id="modalText" class="text-center text-green_dark leading-relaxed">
+              Você precisa de mais pontos para reservar. Contate um administrador.
+            </div>
+
+            <!--Footer-->
+
+
+          </div>
+        </div>
+      </div>
   <script>
     window.dataLayer = window.dataLayer || [];
     var Cookies2 = Cookies.noConflict()
@@ -62,7 +120,10 @@
     let phonePlugin = ""
     $(document).ready(function () {
       // console.log(Cookies.get())
-      alert("Para preenchimento do cadastro, utilize os navegadores Google Chrome ou Mozila Firefox. Evite usar o Safari. Obrigado.")
+      selectedModal = '.modalWarning'
+      textModal = `Para preenchimento do cadastro, utilize os navegadores Google Chrome ou Mozila Firefox. Evite usar o Safari. Obrigado.`
+      toggleModal(selectedModal, textModal)
+      
 
       checkCurrentUser(Cookies2);
 
@@ -918,7 +979,53 @@
               // if (curatedHouse) {
               document.getElementById("daysMin").innerHTML = ""
               if (!blockFunction) {
-                toggleModal()
+                selectedModal = '.modalWarning'
+                textModal = `<div id="finalRegister">
+                    <!--Body-->
+                    <p class="mb-6 text-center leading-relaxed text-sm text-green_dark mx-auto">Obrigado pelo
+                      preenchimento. Em breve, entraremos em contato
+                      para concluir a sua entrada no Yô Clube de Casas.
+                    </p>
+
+                    <p class="mb-4 text-center text-sm text-green_dark mx-auto">Será um prazer ter você conosco nessa
+                      viagem.
+                    </p>
+                  </div>
+
+                  <div id="finalEdit" class="hidden">
+                    <!--Body-->
+                    <p class="mb-6 text-center leading-relaxed text-sm text-green_dark mx-auto">Obrigado! Suas
+                      alterações serão salvas após clicar em finalizar
+                    </p>
+
+
+                  </div>
+
+
+
+
+
+
+
+
+
+                  <!-- <div class="mb-6 text-sm">
+            <a href="#" class="mt-1 text-green_medium underline font-medium hover:text-green_dark">
+              Esqueci minha senha
+            </a>
+          </div> -->
+
+                  <div>
+                    <button type="submit" onclick="submitForm()"
+                      class="mb-2 text-green_dark group relative flex mx-auto justify-center px-10 py-1 rounded-full hover:bg-green_detail hover:border-green_detail text-center border-4 border-green_light text-sm bg-green_light">
+
+                      Finalizar
+                    </button>
+                  </div>
+
+
+                  </form>`
+                toggleModal(selectedModal, textModal)
 
               }
 
@@ -3276,7 +3383,7 @@
                 Passo</a>
             </div>
             <div
-              class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-30">
+              class="modalWarning opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-30">
               <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
 
               <div
@@ -3297,52 +3404,10 @@
                       </svg>
                     </div>
                   </div>
-
-                  <div id="finalRegister">
-                    <!--Body-->
-                    <p class="mb-6 text-center leading-relaxed text-sm text-green_dark mx-auto">Obrigado pelo
-                      preenchimento. Em breve, entraremos em contato
-                      para concluir a sua entrada no Yô Clube de Casas.
-                    </p>
-
-                    <p class="mb-4 text-center text-sm text-green_dark mx-auto">Será um prazer ter você conosco nessa
-                      viagem.
-                    </p>
+                  
+                  <div id="modalText" class="text-center text-green_dark leading-relaxed">
+                    Você precisa de mais pontos para reservar. Contate um administrador.
                   </div>
-
-                  <div id="finalEdit" class="hidden">
-                    <!--Body-->
-                    <p class="mb-6 text-center leading-relaxed text-sm text-green_dark mx-auto">Obrigado! Suas
-                      alterações serão salvas após clicar em finalizar
-                    </p>
-
-
-                  </div>
-
-
-
-
-
-
-
-
-
-                  <!-- <div class="mb-6 text-sm">
-            <a href="#" class="mt-1 text-green_medium underline font-medium hover:text-green_dark">
-              Esqueci minha senha
-            </a>
-          </div> -->
-
-                  <div>
-                    <button type="submit" onclick="submitForm()"
-                      class="mb-2 text-green_dark group relative flex mx-auto justify-center px-10 py-1 rounded-full hover:bg-green_detail hover:border-green_detail text-center border-4 border-green_light text-sm bg-green_light">
-
-                      Finalizar
-                    </button>
-                  </div>
-
-
-                  </form>
 
 
                   <!--Footer-->
@@ -3353,39 +3418,61 @@
             </div>
 
             <script>
+var openmodal = document.querySelectorAll('.modal-open')
+        for (var i = 0; i < openmodal.length; i++) {
+          openmodal[i].addEventListener('click', function (event) {
+            event.preventDefault()
+            toggleModal()
+          })
+        }
+
+        const overlay = document.querySelector('.modal-overlay')
+        overlay.addEventListener('click', toggleModal)
+
+        var closemodal = document.querySelectorAll('.modal-close')
+        for (var i = 0; i < closemodal.length; i++) {
+          closemodal[i].addEventListener('click', toggleModal)
+        }
+
+        document.onkeydown = function (evt) {
+          evt = evt || window.event
+          var isEscape = false
+          if ("key" in evt) {
+            isEscape = (evt.key === "Escape" || evt.key === "Esc")
+          } else {
+            isEscape = (evt.keyCode === 27)
+          }
+          if (isEscape && document.body.classList.contains('modal-active')) {
+            toggleModal()
+          }
+        };
 
 
-              const overlay = document.querySelector('.modal-overlay')
-              overlay.addEventListener('click', toggleModal)
-
-              var closemodal = document.querySelectorAll('.modal-close')
-              for (var i = 0; i < closemodal.length; i++) {
-                closemodal[i].addEventListener('click', toggleModal)
-              }
-
-              document.onkeydown = function (evt) {
-                evt = evt || window.event
-                var isEscape = false
-                if ("key" in evt) {
-                  isEscape = (evt.key === "Escape" || evt.key === "Esc")
-                } else {
-                  isEscape = (evt.keyCode === 27)
-                }
-                if (isEscape && document.body.classList.contains('modal-active')) {
-                  toggleModal()
-                }
-              };
+        function toggleModal(modalArgs, text) {
+          $("#modalText").html(text)
+          if (selectedModal != '.modal') {
+            modalArgs = selectedModal
+          }
 
 
-              function toggleModal() {
-                const body = document.querySelector('body')
-                const modal = document.querySelector('.modal')
-                modal.classList.toggle('opacity-0')
-                modal.classList.toggle('pointer-events-none')
-                body.classList.toggle('modal-active')
-              }
+          console.log(modalArgs)
 
 
+          if (!modalArgs || typeof (modalArgs) != "string" || modalArgs == "") {
+            modalArgs = '.modal'
+
+          }
+
+          const body = document.querySelector('body')
+          const modal = document.querySelector(modalArgs)
+          modal.classList.toggle('opacity-0')
+          modal.classList.toggle('pointer-events-none')
+          body.classList.toggle('modal-active')
+
+          if (typeof (modalArgs) != "object") selectedModal = modalArgs
+
+
+        }
             </script>
 
             <!-- TODO: arrumar messagem de erro - usar validate -->
