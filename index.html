@@ -3684,7 +3684,7 @@ var openmodal = document.querySelectorAll('.modal-open')
               let picturesCheck = (objFormUser["picturesCheck"] === 'true')
               objFormUser['picturesCheck'] = picturesCheck
 
-
+              objFormUser['email'] = objFormUser['email'].toLowerCase()
 
               var myCookie = Cookies2.get('login_session')
               if (myCookie) {
