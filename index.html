@@ -522,6 +522,8 @@
             }
 
             if (`${element["infoWorkers"]}` != undefined && `${element["infoWorkers"]}` != null) $("#infoWorkers").val(`${element["infoWorkers"]}`)
+            if (`${element["feeCleaning"]}` != undefined && `${element["feeCleaning"]}` != null) $("#feeCleaning").val(`${element["feeCleaning"]}`)
+
 
             if (`${element["availableDates"]}` != undefined && element["availableDates"].length !== 0) {
               $.each(element["availableDates"], function (i, val) {
@@ -3091,6 +3093,16 @@
               </p>
               <div class="md:w-full mb-6">
                 <textarea oninput="cacheInput(this)" placeholder="" type="text" name="infoWorkers" id="infoWorkers"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-20 block w-full sm:text-sm "></textarea>
+
+              </div>
+
+              <label class="w-full font-light text-green_dark mb-1">Existe alguma taxa de limpeza?</label>
+              <p class="w-full italic md:w-full tracking-tight leading-relaxed font-niveau text-green_medium">
+                Ex: R$ 300,00 (Comunique diretamente ao hóspede)
+              </p>
+              <div class="md:w-full mb-6">
+                <textarea oninput="cacheInput(this)" placeholder="" type="text" name="feeCleaning" id="feeCleaning"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-20 block w-full sm:text-sm "></textarea>
 
               </div>
