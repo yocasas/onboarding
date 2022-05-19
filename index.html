@@ -33,6 +33,7 @@
 
   
   <script src="/dashboard/js/commonYo.js"></script>
+  <script src="scripts/commonYo.old.js"></script>
   <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
@@ -125,7 +126,7 @@
       toggleModal(selectedModal, textModal)
       
 
-      checkCurrentUser(Cookies2);
+      checkCurrentUserNoBlock(Cookies2);
 
       //Initialize international telephone number plugin
       var inputPhone = document.querySelector("#telNumber");
@@ -2518,7 +2519,7 @@
                         // objFormUser["ClientId"] = clientId
 
                       }
-                      checkCurrentUser(Cookies2);
+                      checkCurrentUserNoBlock(Cookies2);
 
                       var resultado = imageCompression.getFilefromDataUrl(event.target.result).then(result => {
 
@@ -3522,7 +3523,7 @@ var openmodal = document.querySelectorAll('.modal-open')
 
             $(".loading").parent().removeClass('hidden')
 
-            checkCurrentUser(Cookies2)
+            checkCurrentUserNoBlock(Cookies2)
 
             // const form = document.forms.casa;
             var dataFormArrayForm1 = $("#casa_forms").serializeArray()
@@ -3735,7 +3736,7 @@ var openmodal = document.querySelectorAll('.modal-open')
                 }
                 registerUserUri = "https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV/register"
               }
-              checkCurrentUser(Cookies2);
+              checkCurrentUserNoBlock(Cookies2);
 
               data = JSON.stringify(objFormUser)
               $.ajax({
@@ -4075,7 +4076,7 @@ var openmodal = document.querySelectorAll('.modal-open')
               if (devMode) {
                 verifyNumberUri = "https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV/verifynumber"
               }
-              checkCurrentUser(Cookies2);
+              checkCurrentUserNoBlock(Cookies2);
 
               $.ajax({
                 url: verifyNumberUri,
