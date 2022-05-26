@@ -434,7 +434,7 @@
       let getHomesDetaileduri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed"
 
       if (devMode) {
-        getHomesDetaileduri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/gethomes/detailed"
+        getHomesDetaileduri = `${getCurrentHomeBaseUri()}/gethomes/detailed`
       }
 
       $.ajax({
@@ -569,7 +569,8 @@
                     let getFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3"
 
                     if (devMode) {
-                      getFileS3Uri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/s3/getFile/v3"
+                      getFileS3Uri = `${getCurrentHomeBaseUri()}/s3/getFile/v3`
+
                     }
 
                     let ajaxImage = $.ajax({
@@ -2414,7 +2415,7 @@
                   let addFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/addfile"
 
                   if (devMode) {
-                    addFileS3Uri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/s3/addfile"
+                    addFileS3Uri = `${getCurrentHomeBaseUri()}/s3/addfile`
                   }
 
                   $.ajax({
@@ -3624,9 +3625,9 @@ var openmodal = document.querySelectorAll('.modal-open')
             let addHomeUri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome"
 
             if (devMode) {
-              addHomeUri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/addHome"
+              addHomeUri = `${getCurrentHomeBaseUri()}/addHome`
             }
-
+            
             $.ajax({
               url: addHomeUri,
               type: 'POST',
