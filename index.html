@@ -119,6 +119,7 @@
 
     let blockFunction = false;
     let phonePlugin = ""
+    let houseList = []
     $(document).ready(function () {
       // console.log(Cookies.get())
       selectedModal = '.modalWarning'
@@ -436,7 +437,8 @@
       if (devMode) {
         getHomesDetaileduri = `${getCurrentHomeBaseUri()}/gethomes/detailed`
       }
-
+      let newTransaction = $('#newTransaction')
+      let transactionShow = $("#transaction_show")
       $.ajax({
         url: getHomesDetaileduri,
         type: 'POST',
@@ -446,8 +448,336 @@
         },
         "contentType": "application/json",
         success: function (data1, textStatus, jqXHR) {
-          let element = data1[0]
+          houseList = data1
+          let dbResponse = data1
+
+                            transactionShow.find(".show_transaction").remove()
+                            
+                                dbResponseLen = dbResponse.length
+                                dbResponseItems = dbResponse
+                            
+                            console.log(dbResponse)
+                            let counter = 0
+                            if (dbResponseLen > 0) {
+
+                                dbResponseItems.forEach(element => {
+                                    
+                                    let transactionClone = newTransaction.clone()
+
+
+                                    
+
+                                   
+
+                                    transactionClone.find('#oneHouseName').attr("id", "oneHouseName" + counter)
+                                    transactionClone.find('#oneHouseName' + counter).text(element["nickName"]);
+
+                                    transactionClone.find('#oneHouseLocation').attr("id", "oneHouseLocation" + counter)
+                                    transactionClone.find('#oneHouseLocation').text(element["city"]);
+
+                                    transactionClone.find('#house').attr("id", "house" + counter)
+                                    transactionClone.find('#house' + counter).attr("onClick", 'selectHouse(this)')
+
+                                    // transactionClone.find('#imageHouse').attr("id", "imageHouse" + counter)
+                                    // transactionClone.find('#imageHouse' + counter).attr("src", )
+
+
+
+
+                                    transactionClone.removeClass("hidden")
+                                    transactionClone.addClass("show_transaction")
+                                    transactionClone.attr("id", "show_transaction")
+                                    transactionShow.append(transactionClone)
+                                    counter++
+                                })
+                            }
+
+        //   let element = data1[0]
+        //   if (element != undefined) {
+        //     if (`${element["nickName"]}` != undefined && `${element["nickName"]}` != null) $("#nickName").val(`${element["nickName"]}`)
+        //     if (`${element["address"]}` != undefined && `${element["address"]}` != null) $("#address").val(`${element["address"]}`)
+        //     if (`${element["number"]}` != undefined && `${element["number"]}` != null) $("#number").val(`${element["number"]}`)
+        //     if (`${element["complement"]}` != undefined && `${element["complement"]}` != null) $("#complement").val(`${element["complement"]}`)
+        //     if (`${element["zipCode"]}` != undefined && `${element["zipCode"]}` != null) $("#zipCode").val(`${element["zipCode"]}`)
+        //     if (`${element["city"]}` != undefined && `${element["city"]}` != null) $("#city-input").val(`${element["city"]}`)
+        //     if (`${element["country"]}` != undefined && `${element["country"]}` != null) {
+        //       $("#countryInput").val(`${element["country"]}`)
+        //       if (`${element["country"]}` != "Brasil") {
+        //         $("#state").addClass('disabled')
+        //         $("#state").prop('disabled', true)
+        //         $("#state").val("none")
+        //       } else {
+        //         $("#state").prop('disabled', false)
+        //         $("#state").removeClass('disabled')
+
+
+        //       }
+        //     }
+        //     if (`${element["state"]}` != undefined && `${element["state"]}` != null) $("#state").val(`${element["state"]}`);
+        //     if (`${element["airportDistance"]}` != undefined && `${element["airportDistance"]}` != null) $("#airportDistance").val(`${element["airportDistance"]}`);
+        //     if (`${element["accessPath"]}` != undefined && `${element["accessPath"]}` != null) $("#accessPath").val(`${element["accessPath"]}`)
+        //     if (`${element["locationType"]}` != undefined && `${element["locationType"]}` != null) $('#' + `${element["locationType"]}`).attr('checked', 'checked')
+        //     if (`${element["inCondominium"]}` != undefined && `${element["inCondominium"]}` != null) $('#' + `${element["inCondominium"]}`).attr('checked', 'checked')
+        //     if (`${element["beachDistance"]}` != undefined && `${element["beachDistance"]}` != null) $("#beachDistance").val(`${element["beachDistance"]}`)
+        //     if (`${element["floorSpace"]}` != undefined && `${element["floorSpace"]}` != null) $("#floorSpace").val(`${element["floorSpace"]}`)
+        //     if (`${element["inferredValue"]}` != undefined && `${element["inferredValue"]}` != null) $("#inferredValue").val(`${element["inferredValue"]}`)
+        //     if (`${element["description"]}` != undefined && `${element["description"]}` != null) $("#description").val(`${element["description"]}`)
+        //     if (`${element["weakness"]}` != undefined && `${element["weakness"]}` != null) $("#weakness").val(`${element["weakness"]}`)
+        //     if (`${element["maxPeople"]}` != undefined && `${element["maxPeople"]}` != null) $("#hosts_input").val(`${element["maxPeople"]}`)
+        //     if (`${element["totalSuites"]}` != undefined && `${element["totalSuites"]}` != null) $("#suites_input").val(`${element["totalSuites"]}`)
+        //     if (`${element["totalBedRooms"]}` != undefined && `${element["totalBedRooms"]}` != null) $("#rooms_input").val(`${element["totalBedRooms"]}`)
+        //     if (`${element["totalBathRooms"]}` != undefined && `${element["totalBathRooms"]}` != null) $("#bathroom_input").val(`${element["totalBathRooms"]}`)
+        //     if (`${element["totalShowers"]}` != undefined && `${element["totalShowers"]}` != null) $("#shower_input").val(`${element["totalShowers"]}`)
+        //     if (`${element["coveredParking"]}` != undefined && `${element["coveredParking"]}` != null) $("#vagas_cobertas_input").val(`${element["coveredParking"]}`)
+        //     if (`${element["uncoveredParking"]}` != undefined && `${element["uncoveredParking"]}` != null) $("#vagas_descobertas_input").val(`${element["uncoveredParking"]}`)
+        //     // if (`${element["underReview"]}` != undefined && `${element["underReview"]}` != null) {
+        //     //   if (`${element["underReview"]}` == 'true') {
+        //     //     $('#onRequest').attr('checked', 'checked')
+
+        //     //   } else {
+        //     //     $('#allowDates').attr('checked', 'checked')
+        //     //   }
+        //     // }
+
+
+
+        //     if (`${element["facilities"]}` != undefined && element["facilities"].length !== 0) {
+        //       $.each(element["facilities"], function (i, val) {
+        //         $('#' + val).attr('checked', 'checked')
+        //       })
+        //     }
+
+        //     if (`${element["totalAc"]}` != undefined && `${element["totalAc"]}` != null) $("#totalAc").val(`${element["totalAc"]}`);
+
+        //     if (`${element["authorizatedTo"]}` != undefined && element["authorizatedTo"] != null) {
+        //       if (element["authorizatedTo"].length !== 0) {
+        //         $.each(element["authorizatedTo"], function (i, val) {
+        //           $('#' + val).attr('checked', 'checked')
+        //         })
+        //       }
+
+        //     }
+
+
+        //     if (`${element["extraRestriction"]}` != undefined && `${element["extraRestriction"]}` != null) $("#extraRestriction").val(`${element["extraRestriction"]}`)
+
+
+        //     if (`${element["workers"]}` != undefined && element["workers"].length !== 0) {
+        //       $.each(element["workers"], function (i, val) {
+        //         $('#' + val).attr('checked', 'checked')
+        //       })
+        //     }
+
+        //     if (`${element["infoWorkers"]}` != undefined && `${element["infoWorkers"]}` != null) $("#infoWorkers").val(`${element["infoWorkers"]}`)
+        //     if (`${element["feeCleaning"]}` != undefined && `${element["feeCleaning"]}` != null) $("#feeCleaning").val(`${element["feeCleaning"]}`)
+
+
+        //     if (`${element["availableDates"]}` != undefined && element["availableDates"].length !== 0) {
+        //       $.each(element["availableDates"], function (i, val) {
+
+        //         var dateArray = val.split("-");
+        //         var year = dateArray[0];
+        //         var month = parseInt(dateArray[1], 10) - 1;
+        //         var date = dateArray[2];
+        //         var _entryDate = new Date(year, month, date);
+
+
+        //         let newDate = new Date(_entryDate)
+        //         vue.onDayClick({ 'id': val, 'date': newDate })
+        //       })
+        //     }
+
+
+
+
+
+        //     var counter_image = 0;
+        //     let listAjax = []
+        //     if (`${element["picturesS3Urls"]}` != undefined && element["picturesS3Urls"] != null && element["picturesS3Urls"].length !== 0) {
+
+        //       if (element["picturesS3Urls"].length !== 0) {
+        //         $.each(element["picturesS3Urls"], function (i, val) {
+
+        //           $(".loading-images").parent().removeClass('hidden')
+
+        //           if (val != undefined && val != null) {
+
+        //             divImage = $("#images_" + counter_image + "")
+        //             child = divImage.children()
+
+        //             newElementImage = '<div class="img"><img id="' + val + '" class="img w-full h-full"></img><span class="absolute">X</span></div>'
+        //             child[0].innerHTML = newElementImage
+
+        //             counter_image++;
+
+        //             imageKeysList[counter_image] = val //Push in order
+
+        //             let getFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3"
+
+        //             if (devMode) {
+        //               getFileS3Uri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/s3/getFile/v3"
+        //             }
+
+        //             let ajaxImage = $.ajax({
+        //               url: getFileS3Uri,
+        //               type: "POST",
+        //               data: JSON.stringify({
+        //                 "pic-name": val
+        //               }),
+        //               contentType: "application/json",
+        //               success: (x) => {
+
+
+        //                 src = x
+
+        //                 valParsed = val.replace('.', "\\.") //Id with dot may caue conflict with class notation
+        //                 $("#" + valParsed + "").attr("src", src)
+
+
+        //               }
+        //             })
+
+        //             listAjax.push(ajaxImage)
+        //           }
+
+        //           return i < totalImages
+
+        //         })
+
+
+
+        //         Promise.all(listAjax).then(x => {
+
+        //           $(".loading-images").parent().addClass('hidden')
+
+
+        //         })
+
+        //         $('html, body').css({
+        //           overflow: 'auto',
+        //           height: 'auto'
+        //         });
+        //         $(".loading").parent().addClass('hidden')
+
+
+        //         //Permite exlcuir as imagens vindas da DB
+        //         var images = $('#imagesTotal')
+
+        //         images.on('click', '.img', function (e) {
+        //           e.preventDefault()
+        //           valParsed = $(this).children().attr('id') //Id with dot may caue conflict with class notation
+
+        //           const index = imageKeysList.indexOf(valParsed);
+
+        //           if (index > -1) {
+        //             imageKeysList.splice(index, 1);
+
+        //           }
+
+        //           $(this).parent()[0].innerHTML = "+"
+
+        //         })
+
+        //       }
+        //     } else {
+        //       $('html, body').css({
+        //         overflow: 'auto',
+        //         height: 'auto'
+        //       });
+        //       $(".loading").parent().addClass('hidden')
+        //     }
+
+        //     curatedHouse = (`${element["curated"]}` === 'true')
+
+        //     if (`${element["multiplier"]}` != undefined && `${element["multiplier"]}` != null) multiplier = `${element["multiplier"]}`
+
+        //     //Block, bloquear campos para edicao
+        //     if (curatedHouse) {
+        //       // nome, sobrenome, data de nascimento, cpf, fotos, endereço do imóvel, se fica em campo, praia, cidade, se fica em condomínio ou não
+        //       var disabledInputs = $(`#firstname, #lastname, #cpf, #address, #complement, #number, 
+        // #state, #city, #beach, #mountain, #country, #countryInput, #true, #false, #city-input, #zipCodeUser, #zipCode, #docType`)
+        //       disabledInputs.prop("disabled", true);
+
+        //       daysAhead = 0
+
+        //     } else {
+        //       daysAhead = 30
+        //       //If house not curated, consider it as a possible 3 stars house for the points counting in the calendar
+        //       multiplier = 3
+        //     }
+
+        //     startDate = new Date()
+        //     startDate.setDate(startDate.getDate() + daysAhead + 1)
+        //     vue.$data.avbldates[0].start = startDate
+
+        //     beginDate = new Date()
+        //     beginDate.setDate(beginDate.getDate() + daysAhead)
+
+        //     if (multiplier == 2) {
+        //       nightPoints = 50
+        //     } else if (multiplier == 3) {
+        //       nightPoints = 100
+        //     } else if (multiplier == 4) {
+        //       nightPoints = 200
+        //     } else if (multiplier == 5) {
+        //       nightPoints = 400
+        //     } else if (multiplier == 6) {
+        //       nightPoints = 800
+        //     } else if (multiplier == 7) {
+        //       nightPoints = 1200
+        //     }
+
+
+        //     let vueDaysLength = 0;
+        //     if (vue.$data.days.length > 0) {
+        //       vueDaysLength = vue.$data.days.length - 1
+        //     } else {
+        //       vueDaysLength = vue.$data.days.length
+        //     }
+
+        //     if (vueDaysLength > 24) {
+        //       vueDaysLength = 24
+        //     }
+        //     $("#availability_points").text(vueDaysLength * nightPoints)
+
+
+        //   } else {
+            $('html, body').css({
+              overflow: 'auto',
+              height: 'auto'
+            });
+            $(".loading").parent().addClass('hidden')
+        //   }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          $('html, body').css({
+            overflow: 'auto',
+            height: 'auto'
+          });
+          $(".loading").parent().addClass('hidden')
+
+        },
+      })
+
+    }
+
+    //Function used in the "Editar" button for each home in the list of homes
+    function selectHouse(element) {
+      let houseIndex = element.id.slice(5)
+      fillHomeForms(houseList[houseIndex])
+
+    }
+
+    function fillHomeForms(homeObject) {
+      $('html, body').css({
+        overflow: 'hidden',
+        height: '100%'
+      });
+
+      $(".loading").parent().removeClass('hidden')
+        let element = homeObject
           if (element != undefined) {
+            if (`${element["homeId"]}` != undefined && `${element["homeId"]}` != null) $("#homeId").val(`${element["homeId"]}`)
             if (`${element["nickName"]}` != undefined && `${element["nickName"]}` != null) $("#nickName").val(`${element["nickName"]}`)
             if (`${element["address"]}` != undefined && `${element["address"]}` != null) $("#address").val(`${element["address"]}`)
             if (`${element["number"]}` != undefined && `${element["number"]}` != null) $("#number").val(`${element["number"]}`)
@@ -547,8 +877,9 @@
 
             var counter_image = 0;
             let listAjax = []
-            if (`${element["picturesS3Urls"]}` != undefined && element["picturesS3Urls"] != null && element["picturesS3Urls"].length !== 0) {
+            console.log(element["picturesS3Urls"].length)
 
+            if (`${element["picturesS3Urls"]}` != undefined && element["picturesS3Urls"] != null && element["picturesS3Urls"].length !== 0) {
               if (element["picturesS3Urls"].length !== 0) {
                 $.each(element["picturesS3Urls"], function (i, val) {
 
@@ -657,7 +988,7 @@
 
             } else {
               daysAhead = 30
-              //If house not curated, consider it as a possible 3 stars house
+              //If house not curated, consider it as a possible 3 stars house for the points counting in the calendar
               multiplier = 3
             }
 
@@ -694,26 +1025,16 @@
               vueDaysLength = 24
             }
             $("#availability_points").text(vueDaysLength * nightPoints)
-
-
-          } else {
+      } else {
             $('html, body').css({
               overflow: 'auto',
               height: 'auto'
             });
             $(".loading").parent().addClass('hidden')
           }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-          $('html, body').css({
-            overflow: 'auto',
-            height: 'auto'
-          });
-          $(".loading").parent().addClass('hidden')
 
-        },
-      })
-
+      $('#chooseHomeForms').addClass('hidden')
+      casa_button()
     }
 
   </script>
@@ -873,7 +1194,7 @@
             $('.voce_text, .casa_text, .hospedagem_text').removeClass('text-green_dark');
 
             $('#slider').removeClass('hidden');
-            $('#user_forms, #home_forms, #host_forms').addClass('hidden');
+            $('#user_forms, #home_forms, #host_forms, #chooseHomeForms').addClass('hidden');
 
             $('.fundo1').addClass('md:flex')
             $('.fundo1').removeClass('md:hidden')
@@ -894,7 +1215,7 @@
             $('.sobre_yo_text, .casa_text, .hospedagem_text').removeClass('text-green_dark');
 
             $('#user_forms').removeClass('hidden');
-            $('#slider, #home_forms, #host_forms').addClass('hidden');
+            $('#slider, #home_forms, #host_forms, #chooseHomeForms').addClass('hidden');
 
             $('.fundo2').addClass('md:flex')
             $('.fundo2').removeClass('md:hidden')
@@ -923,6 +1244,35 @@
 
 
               $('#home_forms').removeClass('hidden');
+              $('#slider, #user_forms, #host_forms, #chooseHomeForms').addClass('hidden');
+
+              $('.fundo3').addClass('md:flex')
+              $('.fundo3').removeClass('md:hidden')
+
+              $('.fundo1, .fundo2, .fundo4').addClass('md:hidden')
+              $('.fundo1, .fundo2, .fundo4').removeClass('md:flex')
+
+            }
+          }
+
+          function showHouses() {
+            var $formSubmitted = $('#youForms');
+            formsSubmitted++;
+
+            if (emailStatus != 0) {
+
+              $('.casa').addClass('around');
+              $('.casa').removeClass('not-around');
+              $('.casa_text').addClass('text-green_dark');
+              $('.casa_text').removeClass('text-green_light');
+
+              $('.sobre_yo, .voce, .hospedagem').addClass('not-around');
+              $('.sobre_yo, .voce, .hospedagem').removeClass('around');
+              $('.sobre_yo_text, .voce_text, .hospedagem_text').addClass('text-green_light');
+              $('.sobre_yo_text, .voce_text, .hospedagem_text').removeClass('text-green_dark');
+
+
+              $('#chooseHomeForms').removeClass('hidden')
               $('#slider, #user_forms, #host_forms').addClass('hidden');
 
               $('.fundo3').addClass('md:flex')
@@ -954,7 +1304,7 @@
               $('.sobre_yo_text, .voce_text, .casa_text').removeClass('text-green_dark');
 
               $('#host_forms').removeClass('hidden');
-              $('#slider, #user_forms, #home_forms').addClass('hidden');
+              $('#slider, #user_forms, #home_forms, #chooseHomeForms').addClass('hidden');
 
               $('.fundo4').addClass('md:flex')
               $('.fundo4').removeClass('md:hidden')
@@ -1619,8 +1969,41 @@
       </div>
       <!-- Formulario Usuário -->
 
+      <!-- Escolher casa -->
+      <div id="chooseHomeForms" class='hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full ml-1 '>   <!-- Hidden -->
+        <div id="transaction_show" class=" py-5 w-full ">
+            <div id="points" class="py-4 border-green_medium text-2xl text-green_dark font-bold border-b">
+                Meus imóveis
+            </div>
+            <div id="newTransaction" class="hidden flex items-center border-b border-green_medium h-20"> <!-- hidden -->
+
+                <div class="flex flex-row w-full justify-between">
+                    <!-- <div id="transactionSymbol" class="text-4xl text-green_dark">&#8593;</div> -->
+                    <div class="flex flex-row justify-between w-1/3">
+                        <!-- <img id="imageHouse" src="assets/FLECHA_UP.svg" class="h-6 "> -->
+                        <div class=" text-green_dark">	&#9679</div>
+
+                        <div class="flex flex-col text-left left-auto float-left origin-left object-left items-start self-start content-start justify-start place-self-start place-items-start justify-self-start place-content-start justify-items-start">
+                        <div id="oneHouseName" class="text-green_dark font-bold text-left text-left left-auto float-left origin-left object-left items-start self-start content-start justify-start place-self-start place-items-start justify-self-start place-content-start justify-items-start">Casa 1</div>
+                        <div id="oneHouseLocation" class="text-green_dark font-bold">Local</div>
+                      </div>
+
+                    </div>
 
 
+                    <!-- <img class="w-10 h-10" src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Phoenicopterus_ruber_in_S%C3%A3o_Paulo_Zoo.jpg"> -->
+                    <a id="house" class="cursor-pointer underline text-green_dark font-bold">Editar</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <a class="hover:border-green_detail hover:bg-green_detail bg-green_light px-8 w-1/2 py-2 rounded-full  border-8 border-green_light  text-green_dark  text-center cursor-pointer">Adicionar casa</a>
+
+    </div>
+      <!-- Escolher casa -->
 
       <!-- Formulario Casa -->
       <div class="hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full ml-1" id="home_forms">
@@ -1646,6 +2029,10 @@
                   Ex: Casa Tupi, Casa pé na areia em Trancoso
                 </h1>
               </div>
+
+              <input oninput="cacheInput(this)" required placeholder="" type="text" name="homeId" id="homeId"
+              onblur="upperFirstAll(this)"
+              class="hidden mb-4 text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               <script>
                 upperFirstAll = function (valueToCap) {
@@ -3807,8 +4194,8 @@ var openmodal = document.querySelectorAll('.modal-open')
             youFormsRequest().then(x => {
 
               if (x == 1 && requiredInputs && requiredInputs2) {
-
-                casa_button();
+                
+                showHouses();
 
 
               }
