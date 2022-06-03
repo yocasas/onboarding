@@ -433,11 +433,9 @@
 
       $(".loading").parent().removeClass('hidden')
 
-      let getHomesDetaileduri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed"
+      let getHomesDetaileduri = `${getCurrentHomeBaseUri()}/gethomes/detailed`
 
-      if (devMode) {
-        getHomesDetaileduri = `${getCurrentHomeBaseUri()}/gethomes/detailed`
-      }
+      
       let newTransaction = $('#newTransaction')
       let transactionShow = $("#transaction_show")
       $.ajax({
@@ -899,12 +897,9 @@
 
                     imageKeysList[counter_image] = val //Push in order
 
-                    let getFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3"
 
-                    if (devMode) {
-                      getFileS3Uri = `${getCurrentHomeBaseUri()}/s3/getFile/v3`
+                      let getFileS3Uri = `${getCurrentHomeBaseUri()}/s3/getFile/v3`
 
-                    }
 
                     let ajaxImage = $.ajax({
                       url: getFileS3Uri,
@@ -2807,11 +2802,8 @@
                   imageObject = { "b64pic": imageBase }
                   data = JSON.stringify(imageObject)
 
-                  let addFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/addfile"
 
-                  if (devMode) {
-                    addFileS3Uri = `${getCurrentHomeBaseUri()}/s3/addfile`
-                  }
+                    let addFileS3Uri = `${getCurrentHomeBaseUri()}/s3/addfile`
 
                   $.ajax({
                     url: addFileS3Uri,
@@ -4024,11 +4016,8 @@ var openmodal = document.querySelectorAll('.modal-open')
 
             data = JSON.stringify(objForm)
 
-            let addHomeUri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome"
 
-            if (devMode) {
-              addHomeUri = `${getCurrentHomeBaseUri()}/addHome`
-            }
+              let addHomeUri = `${getCurrentHomeBaseUri()}/addHome`
             
             $.ajax({
               url: addHomeUri,
