@@ -330,10 +330,8 @@
       //TODO: Usar os headers e nao clientid como argumento
       data = JSON.stringify(data)
       // if (authCookie != null) {
-      let getUserUri = 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser'
-      if (devMode) {
-        getUserUri = "https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/getuser"
-      }
+      let getUserUri = `${getCurrentUserBaseUri()}/getuser`
+      
 
       $.ajax({
         url: getUserUri,
@@ -4119,14 +4117,14 @@ var openmodal = document.querySelectorAll('.modal-open')
 
 
 
-              let registerUserUri = "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register"
+              let registerUserUri = `${getCurrentUserBaseUri()}/register`
 
               if (devMode) {
                 if (!email.includes("@yocasas.com.br")) {
                   alert("Email de desenvolvimento tem que conter @yocasas.com.br para que o fluxo funcione corretamente")
                   reject()
                 }
-                registerUserUri = "https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV/register"
+                
               }
               checkCurrentUserNoBlock(Cookies2);
 
@@ -4463,11 +4461,9 @@ var openmodal = document.querySelectorAll('.modal-open')
               data = JSON.stringify(objForm)
 
 
-              let verifyNumberUri = "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/verifynumber"
+              let verifyNumberUri = `${getCurrentUserBaseUri()}/verifynumber`
 
-              if (devMode) {
-                verifyNumberUri = "https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV/verifynumber"
-              }
+              
               checkCurrentUserNoBlock(Cookies2);
 
               $.ajax({
