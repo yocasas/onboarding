@@ -330,10 +330,8 @@
       //TODO: Usar os headers e nao clientid como argumento
       data = JSON.stringify(data)
       // if (authCookie != null) {
-      let getUserUri = 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser'
-      if (devMode) {
-        getUserUri = "https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/getuser"
-      }
+      let getUserUri = `${getCurrentUserBaseUri()}/getuser`
+      
 
       $.ajax({
         url: getUserUri,
@@ -433,11 +431,9 @@
 
       $(".loading").parent().removeClass('hidden')
 
-      let getHomesDetaileduri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed"
+      let getHomesDetaileduri = `${getCurrentHomeBaseUri()}/gethomes/detailed`
 
-      if (devMode) {
-        getHomesDetaileduri = `${getCurrentHomeBaseUri()}/gethomes/detailed`
-      }
+      
       let newTransaction = $('#newTransaction')
       let transactionShow = $("#transaction_show")
       $.ajax({
@@ -899,12 +895,9 @@
 
                     imageKeysList[counter_image] = val //Push in order
 
-                    let getFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3"
 
-                    if (devMode) {
-                      getFileS3Uri = `${getCurrentHomeBaseUri()}/s3/getFile/v3`
+                      let getFileS3Uri = `${getCurrentHomeBaseUri()}/s3/getFile/v3`
 
-                    }
 
                     let ajaxImage = $.ajax({
                       url: getFileS3Uri,
@@ -2807,11 +2800,8 @@
                   imageObject = { "b64pic": imageBase }
                   data = JSON.stringify(imageObject)
 
-                  let addFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/addfile"
 
-                  if (devMode) {
-                    addFileS3Uri = `${getCurrentHomeBaseUri()}/s3/addfile`
-                  }
+                    let addFileS3Uri = `${getCurrentHomeBaseUri()}/s3/addfile`
 
                   $.ajax({
                     url: addFileS3Uri,
@@ -4024,11 +4014,8 @@ var openmodal = document.querySelectorAll('.modal-open')
 
             data = JSON.stringify(objForm)
 
-            let addHomeUri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome"
 
-            if (devMode) {
-              addHomeUri = `${getCurrentHomeBaseUri()}/addHome`
-            }
+              let addHomeUri = `${getCurrentHomeBaseUri()}/addHome`
             
             $.ajax({
               url: addHomeUri,
@@ -4130,14 +4117,14 @@ var openmodal = document.querySelectorAll('.modal-open')
 
 
 
-              let registerUserUri = "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register"
+              let registerUserUri = `${getCurrentUserBaseUri()}/register`
 
               if (devMode) {
                 if (!email.includes("@yocasas.com.br")) {
                   alert("Email de desenvolvimento tem que conter @yocasas.com.br para que o fluxo funcione corretamente")
                   reject()
                 }
-                registerUserUri = "https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV/register"
+                
               }
               checkCurrentUserNoBlock(Cookies2);
 
@@ -4474,11 +4461,9 @@ var openmodal = document.querySelectorAll('.modal-open')
               data = JSON.stringify(objForm)
 
 
-              let verifyNumberUri = "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/verifynumber"
+              let verifyNumberUri = `${getCurrentUserBaseUri()}/verifynumber`
 
-              if (devMode) {
-                verifyNumberUri = "https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV/verifynumber"
-              }
+              
               checkCurrentUserNoBlock(Cookies2);
 
               $.ajax({

@@ -96,7 +96,7 @@
       data = JSON.stringify(data)
 
       $.ajax({
-        url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser",
+        url: "`${getCurrentUserBaseUri()}`/getuser",
         type: 'POST',
         data: data,
         headers: {
@@ -2101,7 +2101,7 @@
           data = JSON.stringify(objFormUser)
 
           $.ajax({
-            url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register",
+            url: "`${getCurrentUserBaseUri()}`/register",
             type: 'POST',
             data: data,
             headers: {
