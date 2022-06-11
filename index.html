@@ -470,7 +470,7 @@
                                     transactionClone.find('#oneHouseName' + counter).text(element["nickName"]);
 
                                     transactionClone.find('#oneHouseLocation').attr("id", "oneHouseLocation" + counter)
-                                    transactionClone.find('#oneHouseLocation').text(element["city"]);
+                                    transactionClone.find('#oneHouseLocation' + counter).text(element["city"]);
 
                                     transactionClone.find('#house').attr("id", "house" + counter)
                                     transactionClone.find('#house' + counter).attr("onClick", 'selectHouse(this)')
@@ -1973,7 +1973,7 @@
       <div id="chooseHomeForms" class='hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full ml-1 '>   <!-- Hidden -->
         <div id="transaction_show" class=" py-5 w-full ">
             <div id="points" class="py-4 border-green_medium text-2xl text-green_dark font-bold border-b">
-                Meus imóveis
+                Minhas Casas
             </div>
             <div id="newTransaction" class="hidden flex items-center border-b border-green_medium h-20"> <!-- hidden -->
 
