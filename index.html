@@ -121,6 +121,7 @@
     let phonePlugin = ""
     let houseList = []
     let currentHomeInfo = {}
+    let currentFormState = 0
     $(document).ready(function () {
       // console.log(Cookies.get())
       selectedModal = '.modalWarning'
@@ -762,6 +763,7 @@
     function selectHouse(element) {
       let houseIndex = element.id.slice(5)
       fillHomeForms(houseList[houseIndex])
+      currentFormState = 1
 
     }
 
@@ -1204,6 +1206,7 @@
           }
 
           function voce_button() {
+            currentFormState = 0
             $('.voce').addClass('around');
             $('.voce').removeClass('not-around');
             $('.voce_text').addClass('text-green_dark');
@@ -4196,7 +4199,7 @@ var openmodal = document.querySelectorAll('.modal-open')
             youFormsRequest().then(x => {
 
               if (x == 1 && requiredInputs && requiredInputs2) {
-                
+                currentFormState = 0
                 showHouses();
 
 
@@ -4212,8 +4215,13 @@ var openmodal = document.querySelectorAll('.modal-open')
 
       <script>
         function saveHome(nextStep = 0) {
+          if (nextStep == 1) {
+                if (currentFormState < 1) return
+                currentFormState = 2
+              }
           if ($("#casa_forms").valid({ ignore: '' })) {
             formsRequest(false, nextStep).then(x => {
+              
               hospedagem_button()
             })
           } else {
