@@ -765,7 +765,7 @@
       let houseIndex = element.id.slice(5)
       resetForms()
       fillHomeForms(houseList[houseIndex])
-      currentFormState = 1
+      
 
     }
 
@@ -1036,6 +1036,7 @@
     }
 
     function houseChose() {
+      currentFormState = 1
       $('#chooseHomeForms').addClass('hidden')
       casa_button()
 
