@@ -3943,6 +3943,7 @@ var openmodal = document.querySelectorAll('.modal-open')
             objForm = currentHomeInfo 
             
 
+            if (curatedHouse) {
             dataFormArrayTotal.forEach(x => {
               if (x.value != "" && x.value != null && x.value != undefined) {
                 objForm[x.name] = x.value
@@ -3951,6 +3952,15 @@ var openmodal = document.querySelectorAll('.modal-open')
               }
 
             })
+          } else {
+            dataFormArrayTotal.forEach(x => {
+              if (x.value == null) {
+                x.value = undefined
+              }
+              objForm[x.name] = x.value
+
+            })
+          }
 
             console.log(objForm)
 
