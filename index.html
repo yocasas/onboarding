@@ -761,6 +761,7 @@
     //Function used in the "Editar" button for each home in the list of homes
     function selectHouse(element) {
       let houseIndex = element.id.slice(5)
+      resetForms()
       fillHomeForms(houseList[houseIndex])
 
     }
@@ -1035,6 +1036,16 @@
       $('#chooseHomeForms').addClass('hidden')
       casa_button()
 
+    }
+
+    function createNewHouse() {
+      resetForms()
+      houseChose()
+    }
+
+    function resetForms() {
+      document.getElementById("casa_forms").reset()
+      document.getElementById("hospedagem_forms").reset()
     }
 
   </script>
@@ -2001,7 +2012,7 @@
         </div>
         <div class="flex justify-center sm:justify-center py-4">
 
-        <a onclick="houseChose()" class="hover:border-green_detail hover:bg-green_detail bg-green_light px-8 w-1/2 py-2 rounded-full  border-8 border-green_light  text-green_dark  text-center cursor-pointer">Adicionar casa</a>
+        <a onclick="createNewHouse()" class="hover:border-green_detail hover:bg-green_detail bg-green_light px-8 w-1/2 py-2 rounded-full  border-8 border-green_light  text-green_dark  text-center cursor-pointer">Adicionar casa</a>
 </div>
     </div>
       <!-- Escolher casa -->
