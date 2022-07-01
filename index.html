@@ -4060,6 +4060,11 @@ var openmodal = document.querySelectorAll('.modal-open')
                   height: 'auto'
                 });
                 $(".loading").parent().addClass('hidden')
+
+                 
+                let homeId = JSON.parse(data1)['homeId']
+                $("#homeId").val(homeId)
+
                 if (nextStep == 0) {
                   if (clientInfo.clientType > 1) {
                     window.location.href = "/dashboard/buscador/";
