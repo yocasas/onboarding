@@ -4081,6 +4081,10 @@ var openmodal = document.querySelectorAll('.modal-open')
                   height: 'auto'
                 });
                 $(".loading").parent().addClass('hidden')
+                let res = JSON.parse(data1)
+                if (res == "ZERO_RESULTS") {
+                  alert("Endereço não encontrado. Tente outra referência.")
+                }
                 alert("Erro na finalização do cadastro. Não foi possível estabelecer uma conexão com o navegador. Para melhor funcionamento do site, prefira Google Chrome ou Mozila Firefox.")
 
               },
