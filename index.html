@@ -1024,6 +1024,8 @@
           vueDaysLength = vue.$data.days.length
         }
 
+        
+
         if (vueDaysLength > 24) {
           vueDaysLength = 24
         }
@@ -1060,9 +1062,10 @@
       Array.from(images.children()).forEach(divImg => {
 
         divImg.childNodes[1].innerHTML = "+"
-
-
       });
+
+      //Reset days display
+      vue.$data.days.length = 0
     }
 
   </script>
