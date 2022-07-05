@@ -122,6 +122,7 @@
     let houseList = []
     let currentHomeInfo = {}
     let currentFormState = 0
+    let currentUserInfo = {}
     $(document).ready(function () {
       // console.log(Cookies.get())
       selectedModal = '.modalWarning'
@@ -344,6 +345,7 @@
         },
         "contentType": "application/json",
         success: function (data1, textStatus, jqXHR) {
+          currentUserInfo = data1
           let element = data1
           if (`${element["firstname"]}` !== 'undefined') $("#firstname").val(`${element["firstname"]}`)
           if (`${element["lastname"]}` !== 'undefined') $("#lastname").val(`${element["lastname"]}`)
@@ -1584,6 +1586,7 @@
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
                 <a id="verifyNumberButton" onclick="beforeVerificationComplete(true)"
                   class="text-green_dark cursor-pointer underline">Verificar Numero?</a>
+                  <span id="numberMessage" class="hidden error12 sm:text-sm">Você deve verificar seu número de telefone.</span>
                 <h1 class="text-sm italic text-green_medium">Desta forma, o Yô Clube de Casas pode entrar em contato com
                   você.</h1>
               </div>
@@ -4261,6 +4264,12 @@
 
           var $formSubmitted = $('#youForms');
           if ($formSubmitted.valid({ ignore: '' })) {
+            if (currentUserInfo["verifiedNumber"] != true) {
+              console.log(currentUserInfo["verifiedNumber"]) 
+              $("#numberMessage").removeClass("hidden")
+              goToError()
+              return
+            }
             youFormsRequest().then(x => {
 
               if (x == 1 && requiredInputs && requiredInputs2) {
@@ -4555,6 +4564,7 @@
                   showVerificationComplete(false)
                   $("#telNumber").prop('disabled', true)
                   $("#verifyNumberButton").hide()
+                  currentUserInfo["verifiedNumber"] = true
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                   selectedModal = '.modalWarning'
