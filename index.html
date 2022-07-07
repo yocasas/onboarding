@@ -31,7 +31,7 @@
 
   <title>Yô</title>
 
-  
+
   <script src="/dashboard/js/commonYo.js"></script>
   <script src="scripts/commonYo.old.js"></script>
   <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
@@ -50,7 +50,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
-  
+  <script>
+    let calendarPage
+
+    function checkUrlOrigin() {
+      const urlParams = new URLSearchParams(window.location.search);
+      calendarPage = urlParams.get('calendarPage');
+      if (calendarPage != undefined && calendarPage != "") {
+        submitYouForms()
+      }
+    }
+  </script>
   <script>
     let selectedModal = ""
     let textModal = "Erro. Tente novamente mais tarde ou contate um administrador."
@@ -66,48 +76,48 @@
       overflow-y: visible !important;
     }
   </style>
-  
-  
 
 
 
 
-      <!-- Modal aviso de registro -->
-      <div
-        class="modalWarning opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-20">
-        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-
-        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
 
 
+  <!-- Modal aviso de registro -->
+  <div
+    class="modalWarning opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-20">
+    <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
 
-          <!-- Add margin if you want to see some of the overlay behind the modal-->
-          <div class="modal-content py-4 text-left px-6">
-            <!--Title-->
-            <div class="flex justify-between items-center pb-3">
-              <p class="text-sm font-bold text-green_dark mx-auto">Aviso!</p>
-              <div class="modal-close cursor-pointer z-50">
-                <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                  viewBox="0 0 18 18">
-                  <path
-                    d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
-                  </path>
-                </svg>
-              </div>
-            </div>
-
-            <!--Body-->
-
-            <div id="modalText" class="text-center text-green_dark leading-relaxed">
-              Você precisa de mais pontos para reservar. Contate um administrador.
-            </div>
-
-            <!--Footer-->
+    <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
 
 
+
+      <!-- Add margin if you want to see some of the overlay behind the modal-->
+      <div class="modal-content py-4 text-left px-6">
+        <!--Title-->
+        <div class="flex justify-between items-center pb-3">
+          <p id="modalTitle" class="text-sm font-bold text-green_dark mx-auto">Aviso!</p>
+          <div class="modal-close cursor-pointer z-50">
+            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+              viewBox="0 0 18 18">
+              <path
+                d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+              </path>
+            </svg>
           </div>
         </div>
+
+        <!--Body-->
+
+        <div id="modalText" class="text-center text-green_dark leading-relaxed">
+          Você precisa de mais pontos para reservar. Contate um administrador.
+        </div>
+
+        <!--Footer-->
+
+
       </div>
+    </div>
+  </div>
   <script>
     window.dataLayer = window.dataLayer || [];
     var Cookies2 = Cookies.noConflict()
@@ -121,12 +131,15 @@
     let phonePlugin = ""
     let houseList = []
     let currentHomeInfo = {}
+    let currentFormState = 0
+    let currentUserInfo = {}
     $(document).ready(function () {
       // console.log(Cookies.get())
       selectedModal = '.modalWarning'
       textModal = `Para preenchimento do cadastro, utilize os navegadores Google Chrome ou Mozila Firefox. Evite usar o Safari. Obrigado.`
-      toggleModal(selectedModal, textModal)
-      
+      titleModal = "Aviso!"
+      toggleModal(selectedModal, textModal, titleModal)
+
 
       checkCurrentUserNoBlock(Cookies2);
 
@@ -331,7 +344,7 @@
       data = JSON.stringify(data)
       // if (authCookie != null) {
       let getUserUri = `${getCurrentUserBaseUri()}/getuser`
-      
+
 
       $.ajax({
         url: getUserUri,
@@ -342,6 +355,7 @@
         },
         "contentType": "application/json",
         success: function (data1, textStatus, jqXHR) {
+          currentUserInfo = data1
           let element = data1
           if (`${element["firstname"]}` !== 'undefined') $("#firstname").val(`${element["firstname"]}`)
           if (`${element["lastname"]}` !== 'undefined') $("#lastname").val(`${element["lastname"]}`)
@@ -367,20 +381,20 @@
           if (`${element["verifiedNumber"]}` !== 'undefined' && `${element["verifiedNumber"]}` == `true`) {
             $("#telNumber").prop('disabled', true)
             $("#verifyNumberButton").hide()
-        }
+          }
           if (`${element["countryUser"]}` != undefined && `${element["countryUser"]}` != null) {
-              $("#countryUserInput").val(`${element["countryUser"]}`)
-              if (`${element["countryUser"]}` != "Brasil") {
-                $("#stateUser").addClass('disabled')
-                $("#stateUser").prop('disabled', true)
-                $("#stateUser").val("none")
-              } else {
-                $("#stateUser").prop('disabled', false)
-                $("#stateUser").removeClass('disabled')
+            $("#countryUserInput").val(`${element["countryUser"]}`)
+            if (`${element["countryUser"]}` != "Brasil") {
+              $("#stateUser").addClass('disabled')
+              $("#stateUser").prop('disabled', true)
+              $("#stateUser").val("none")
+            } else {
+              $("#stateUser").prop('disabled', false)
+              $("#stateUser").removeClass('disabled')
 
 
-              }
             }
+          }
 
           //Retirar checkbox de termos e condicoes caso tenha marcando
           if (`${element["terms"]}` != 'undefined' && `${element["privacy"]}` != 'undefined' && `${element["picturesCheck"]}` != 'undefined') {
@@ -393,6 +407,7 @@
           }
 
 
+          checkUrlOrigin()
         },
         error: function (jqXHR, textStatus, errorThrown) {
 
@@ -433,7 +448,7 @@
 
       let getHomesDetaileduri = `${getCurrentHomeBaseUri()}/gethomes/detailed`
 
-      
+
       let newTransaction = $('#newTransaction')
       let transactionShow = $("#transaction_show")
       $.ajax({
@@ -448,303 +463,303 @@
           houseList = data1
           let dbResponse = data1
 
-                            transactionShow.find(".show_transaction").remove()
-                            
-                                dbResponseLen = dbResponse.length
-                                dbResponseItems = dbResponse
-                            
-                            console.log(dbResponse)
-                            let counter = 0
-                            if (dbResponseLen > 0) {
-
-                                dbResponseItems.forEach(element => {
-                                    
-                                    let transactionClone = newTransaction.clone()
-
-
-                                    
-
-                                   
-
-                                    transactionClone.find('#oneHouseName').attr("id", "oneHouseName" + counter)
-                                    transactionClone.find('#oneHouseName' + counter).text(element["nickName"]);
-
-                                    transactionClone.find('#oneHouseLocation').attr("id", "oneHouseLocation" + counter)
-                                    transactionClone.find('#oneHouseLocation' + counter).text(element["city"]);
-
-                                    transactionClone.find('#house').attr("id", "house" + counter)
-                                    transactionClone.find('#house' + counter).attr("onClick", 'selectHouse(this)')
-
-                                    // transactionClone.find('#imageHouse').attr("id", "imageHouse" + counter)
-                                    // transactionClone.find('#imageHouse' + counter).attr("src", )
-
-
-
-
-                                    transactionClone.removeClass("hidden")
-                                    transactionClone.addClass("show_transaction")
-                                    transactionClone.attr("id", "show_transaction")
-                                    transactionShow.append(transactionClone)
-                                    counter++
-                                })
-                            }
+          transactionShow.find(".show_transaction").remove()
 
-        //   let element = data1[0]
-        //   if (element != undefined) {
-        //     if (`${element["nickName"]}` != undefined && `${element["nickName"]}` != null) $("#nickName").val(`${element["nickName"]}`)
-        //     if (`${element["address"]}` != undefined && `${element["address"]}` != null) $("#address").val(`${element["address"]}`)
-        //     if (`${element["number"]}` != undefined && `${element["number"]}` != null) $("#number").val(`${element["number"]}`)
-        //     if (`${element["complement"]}` != undefined && `${element["complement"]}` != null) $("#complement").val(`${element["complement"]}`)
-        //     if (`${element["zipCode"]}` != undefined && `${element["zipCode"]}` != null) $("#zipCode").val(`${element["zipCode"]}`)
-        //     if (`${element["city"]}` != undefined && `${element["city"]}` != null) $("#city-input").val(`${element["city"]}`)
-        //     if (`${element["country"]}` != undefined && `${element["country"]}` != null) {
-        //       $("#countryInput").val(`${element["country"]}`)
-        //       if (`${element["country"]}` != "Brasil") {
-        //         $("#state").addClass('disabled')
-        //         $("#state").prop('disabled', true)
-        //         $("#state").val("none")
-        //       } else {
-        //         $("#state").prop('disabled', false)
-        //         $("#state").removeClass('disabled')
+          dbResponseLen = dbResponse.length
+          dbResponseItems = dbResponse
 
+          console.log(dbResponse)
+          let counter = 0
+          if (dbResponseLen > 0) {
 
-        //       }
-        //     }
-        //     if (`${element["state"]}` != undefined && `${element["state"]}` != null) $("#state").val(`${element["state"]}`);
-        //     if (`${element["airportDistance"]}` != undefined && `${element["airportDistance"]}` != null) $("#airportDistance").val(`${element["airportDistance"]}`);
-        //     if (`${element["accessPath"]}` != undefined && `${element["accessPath"]}` != null) $("#accessPath").val(`${element["accessPath"]}`)
-        //     if (`${element["locationType"]}` != undefined && `${element["locationType"]}` != null) $('#' + `${element["locationType"]}`).attr('checked', 'checked')
-        //     if (`${element["inCondominium"]}` != undefined && `${element["inCondominium"]}` != null) $('#' + `${element["inCondominium"]}`).attr('checked', 'checked')
-        //     if (`${element["beachDistance"]}` != undefined && `${element["beachDistance"]}` != null) $("#beachDistance").val(`${element["beachDistance"]}`)
-        //     if (`${element["floorSpace"]}` != undefined && `${element["floorSpace"]}` != null) $("#floorSpace").val(`${element["floorSpace"]}`)
-        //     if (`${element["inferredValue"]}` != undefined && `${element["inferredValue"]}` != null) $("#inferredValue").val(`${element["inferredValue"]}`)
-        //     if (`${element["description"]}` != undefined && `${element["description"]}` != null) $("#description").val(`${element["description"]}`)
-        //     if (`${element["weakness"]}` != undefined && `${element["weakness"]}` != null) $("#weakness").val(`${element["weakness"]}`)
-        //     if (`${element["maxPeople"]}` != undefined && `${element["maxPeople"]}` != null) $("#hosts_input").val(`${element["maxPeople"]}`)
-        //     if (`${element["totalSuites"]}` != undefined && `${element["totalSuites"]}` != null) $("#suites_input").val(`${element["totalSuites"]}`)
-        //     if (`${element["totalBedRooms"]}` != undefined && `${element["totalBedRooms"]}` != null) $("#rooms_input").val(`${element["totalBedRooms"]}`)
-        //     if (`${element["totalBathRooms"]}` != undefined && `${element["totalBathRooms"]}` != null) $("#bathroom_input").val(`${element["totalBathRooms"]}`)
-        //     if (`${element["totalShowers"]}` != undefined && `${element["totalShowers"]}` != null) $("#shower_input").val(`${element["totalShowers"]}`)
-        //     if (`${element["coveredParking"]}` != undefined && `${element["coveredParking"]}` != null) $("#vagas_cobertas_input").val(`${element["coveredParking"]}`)
-        //     if (`${element["uncoveredParking"]}` != undefined && `${element["uncoveredParking"]}` != null) $("#vagas_descobertas_input").val(`${element["uncoveredParking"]}`)
-        //     // if (`${element["underReview"]}` != undefined && `${element["underReview"]}` != null) {
-        //     //   if (`${element["underReview"]}` == 'true') {
-        //     //     $('#onRequest').attr('checked', 'checked')
+            dbResponseItems.forEach(element => {
 
-        //     //   } else {
-        //     //     $('#allowDates').attr('checked', 'checked')
-        //     //   }
-        //     // }
+              let transactionClone = newTransaction.clone()
 
 
 
-        //     if (`${element["facilities"]}` != undefined && element["facilities"].length !== 0) {
-        //       $.each(element["facilities"], function (i, val) {
-        //         $('#' + val).attr('checked', 'checked')
-        //       })
-        //     }
 
-        //     if (`${element["totalAc"]}` != undefined && `${element["totalAc"]}` != null) $("#totalAc").val(`${element["totalAc"]}`);
 
-        //     if (`${element["authorizatedTo"]}` != undefined && element["authorizatedTo"] != null) {
-        //       if (element["authorizatedTo"].length !== 0) {
-        //         $.each(element["authorizatedTo"], function (i, val) {
-        //           $('#' + val).attr('checked', 'checked')
-        //         })
-        //       }
 
-        //     }
+              transactionClone.find('#oneHouseName').attr("id", "oneHouseName" + counter)
+              transactionClone.find('#oneHouseName' + counter).text(element["nickName"]);
 
+              transactionClone.find('#oneHouseLocation').attr("id", "oneHouseLocation" + counter)
+              transactionClone.find('#oneHouseLocation' + counter).text(element["city"]);
 
-        //     if (`${element["extraRestriction"]}` != undefined && `${element["extraRestriction"]}` != null) $("#extraRestriction").val(`${element["extraRestriction"]}`)
+              transactionClone.find('#house').attr("id", "house" + counter)
+              transactionClone.find('#house' + counter).attr("onClick", 'selectHouse(this)')
 
+              // transactionClone.find('#imageHouse').attr("id", "imageHouse" + counter)
+              // transactionClone.find('#imageHouse' + counter).attr("src", )
 
-        //     if (`${element["workers"]}` != undefined && element["workers"].length !== 0) {
-        //       $.each(element["workers"], function (i, val) {
-        //         $('#' + val).attr('checked', 'checked')
-        //       })
-        //     }
 
-        //     if (`${element["infoWorkers"]}` != undefined && `${element["infoWorkers"]}` != null) $("#infoWorkers").val(`${element["infoWorkers"]}`)
-        //     if (`${element["feeCleaning"]}` != undefined && `${element["feeCleaning"]}` != null) $("#feeCleaning").val(`${element["feeCleaning"]}`)
 
 
-        //     if (`${element["availableDates"]}` != undefined && element["availableDates"].length !== 0) {
-        //       $.each(element["availableDates"], function (i, val) {
+              transactionClone.removeClass("hidden")
+              transactionClone.addClass("show_transaction")
+              transactionClone.attr("id", "show_transaction")
+              transactionShow.append(transactionClone)
+              counter++
+            })
+          }
 
-        //         var dateArray = val.split("-");
-        //         var year = dateArray[0];
-        //         var month = parseInt(dateArray[1], 10) - 1;
-        //         var date = dateArray[2];
-        //         var _entryDate = new Date(year, month, date);
+          //   let element = data1[0]
+          //   if (element != undefined) {
+          //     if (`${element["nickName"]}` != undefined && `${element["nickName"]}` != null) $("#nickName").val(`${element["nickName"]}`)
+          //     if (`${element["address"]}` != undefined && `${element["address"]}` != null) $("#address").val(`${element["address"]}`)
+          //     if (`${element["number"]}` != undefined && `${element["number"]}` != null) $("#number").val(`${element["number"]}`)
+          //     if (`${element["complement"]}` != undefined && `${element["complement"]}` != null) $("#complement").val(`${element["complement"]}`)
+          //     if (`${element["zipCode"]}` != undefined && `${element["zipCode"]}` != null) $("#zipCode").val(`${element["zipCode"]}`)
+          //     if (`${element["city"]}` != undefined && `${element["city"]}` != null) $("#city-input").val(`${element["city"]}`)
+          //     if (`${element["country"]}` != undefined && `${element["country"]}` != null) {
+          //       $("#countryInput").val(`${element["country"]}`)
+          //       if (`${element["country"]}` != "Brasil") {
+          //         $("#state").addClass('disabled')
+          //         $("#state").prop('disabled', true)
+          //         $("#state").val("none")
+          //       } else {
+          //         $("#state").prop('disabled', false)
+          //         $("#state").removeClass('disabled')
 
 
-        //         let newDate = new Date(_entryDate)
-        //         vue.onDayClick({ 'id': val, 'date': newDate })
-        //       })
-        //     }
+          //       }
+          //     }
+          //     if (`${element["state"]}` != undefined && `${element["state"]}` != null) $("#state").val(`${element["state"]}`);
+          //     if (`${element["airportDistance"]}` != undefined && `${element["airportDistance"]}` != null) $("#airportDistance").val(`${element["airportDistance"]}`);
+          //     if (`${element["accessPath"]}` != undefined && `${element["accessPath"]}` != null) $("#accessPath").val(`${element["accessPath"]}`)
+          //     if (`${element["locationType"]}` != undefined && `${element["locationType"]}` != null) $('#' + `${element["locationType"]}`).attr('checked', 'checked')
+          //     if (`${element["inCondominium"]}` != undefined && `${element["inCondominium"]}` != null) $('#' + `${element["inCondominium"]}`).attr('checked', 'checked')
+          //     if (`${element["beachDistance"]}` != undefined && `${element["beachDistance"]}` != null) $("#beachDistance").val(`${element["beachDistance"]}`)
+          //     if (`${element["floorSpace"]}` != undefined && `${element["floorSpace"]}` != null) $("#floorSpace").val(`${element["floorSpace"]}`)
+          //     if (`${element["inferredValue"]}` != undefined && `${element["inferredValue"]}` != null) $("#inferredValue").val(`${element["inferredValue"]}`)
+          //     if (`${element["description"]}` != undefined && `${element["description"]}` != null) $("#description").val(`${element["description"]}`)
+          //     if (`${element["weakness"]}` != undefined && `${element["weakness"]}` != null) $("#weakness").val(`${element["weakness"]}`)
+          //     if (`${element["maxPeople"]}` != undefined && `${element["maxPeople"]}` != null) $("#hosts_input").val(`${element["maxPeople"]}`)
+          //     if (`${element["totalSuites"]}` != undefined && `${element["totalSuites"]}` != null) $("#suites_input").val(`${element["totalSuites"]}`)
+          //     if (`${element["totalBedRooms"]}` != undefined && `${element["totalBedRooms"]}` != null) $("#rooms_input").val(`${element["totalBedRooms"]}`)
+          //     if (`${element["totalBathRooms"]}` != undefined && `${element["totalBathRooms"]}` != null) $("#bathroom_input").val(`${element["totalBathRooms"]}`)
+          //     if (`${element["totalShowers"]}` != undefined && `${element["totalShowers"]}` != null) $("#shower_input").val(`${element["totalShowers"]}`)
+          //     if (`${element["coveredParking"]}` != undefined && `${element["coveredParking"]}` != null) $("#vagas_cobertas_input").val(`${element["coveredParking"]}`)
+          //     if (`${element["uncoveredParking"]}` != undefined && `${element["uncoveredParking"]}` != null) $("#vagas_descobertas_input").val(`${element["uncoveredParking"]}`)
+          //     // if (`${element["underReview"]}` != undefined && `${element["underReview"]}` != null) {
+          //     //   if (`${element["underReview"]}` == 'true') {
+          //     //     $('#onRequest').attr('checked', 'checked')
 
+          //     //   } else {
+          //     //     $('#allowDates').attr('checked', 'checked')
+          //     //   }
+          //     // }
 
 
 
+          //     if (`${element["facilities"]}` != undefined && element["facilities"].length !== 0) {
+          //       $.each(element["facilities"], function (i, val) {
+          //         $('#' + val).attr('checked', 'checked')
+          //       })
+          //     }
 
-        //     var counter_image = 0;
-        //     let listAjax = []
-        //     if (`${element["picturesS3Urls"]}` != undefined && element["picturesS3Urls"] != null && element["picturesS3Urls"].length !== 0) {
+          //     if (`${element["totalAc"]}` != undefined && `${element["totalAc"]}` != null) $("#totalAc").val(`${element["totalAc"]}`);
 
-        //       if (element["picturesS3Urls"].length !== 0) {
-        //         $.each(element["picturesS3Urls"], function (i, val) {
+          //     if (`${element["authorizatedTo"]}` != undefined && element["authorizatedTo"] != null) {
+          //       if (element["authorizatedTo"].length !== 0) {
+          //         $.each(element["authorizatedTo"], function (i, val) {
+          //           $('#' + val).attr('checked', 'checked')
+          //         })
+          //       }
 
-        //           $(".loading-images").parent().removeClass('hidden')
+          //     }
 
-        //           if (val != undefined && val != null) {
 
-        //             divImage = $("#images_" + counter_image + "")
-        //             child = divImage.children()
+          //     if (`${element["extraRestriction"]}` != undefined && `${element["extraRestriction"]}` != null) $("#extraRestriction").val(`${element["extraRestriction"]}`)
 
-        //             newElementImage = '<div class="img"><img id="' + val + '" class="img w-full h-full"></img><span class="absolute">X</span></div>'
-        //             child[0].innerHTML = newElementImage
 
-        //             counter_image++;
+          //     if (`${element["workers"]}` != undefined && element["workers"].length !== 0) {
+          //       $.each(element["workers"], function (i, val) {
+          //         $('#' + val).attr('checked', 'checked')
+          //       })
+          //     }
 
-        //             imageKeysList[counter_image] = val //Push in order
+          //     if (`${element["infoWorkers"]}` != undefined && `${element["infoWorkers"]}` != null) $("#infoWorkers").val(`${element["infoWorkers"]}`)
+          //     if (`${element["feeCleaning"]}` != undefined && `${element["feeCleaning"]}` != null) $("#feeCleaning").val(`${element["feeCleaning"]}`)
 
-        //             let getFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3"
 
-        //             if (devMode) {
-        //               getFileS3Uri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/s3/getFile/v3"
-        //             }
+          //     if (`${element["availableDates"]}` != undefined && element["availableDates"].length !== 0) {
+          //       $.each(element["availableDates"], function (i, val) {
 
-        //             let ajaxImage = $.ajax({
-        //               url: getFileS3Uri,
-        //               type: "POST",
-        //               data: JSON.stringify({
-        //                 "pic-name": val
-        //               }),
-        //               contentType: "application/json",
-        //               success: (x) => {
+          //         var dateArray = val.split("-");
+          //         var year = dateArray[0];
+          //         var month = parseInt(dateArray[1], 10) - 1;
+          //         var date = dateArray[2];
+          //         var _entryDate = new Date(year, month, date);
 
 
-        //                 src = x
+          //         let newDate = new Date(_entryDate)
+          //         vue.onDayClick({ 'id': val, 'date': newDate })
+          //       })
+          //     }
 
-        //                 valParsed = val.replace('.', "\\.") //Id with dot may caue conflict with class notation
-        //                 $("#" + valParsed + "").attr("src", src)
 
 
-        //               }
-        //             })
 
-        //             listAjax.push(ajaxImage)
-        //           }
 
-        //           return i < totalImages
+          //     var counter_image = 0;
+          //     let listAjax = []
+          //     if (`${element["picturesS3Urls"]}` != undefined && element["picturesS3Urls"] != null && element["picturesS3Urls"].length !== 0) {
 
-        //         })
+          //       if (element["picturesS3Urls"].length !== 0) {
+          //         $.each(element["picturesS3Urls"], function (i, val) {
 
+          //           $(".loading-images").parent().removeClass('hidden')
 
+          //           if (val != undefined && val != null) {
 
-        //         Promise.all(listAjax).then(x => {
+          //             divImage = $("#images_" + counter_image + "")
+          //             child = divImage.children()
 
-        //           $(".loading-images").parent().addClass('hidden')
+          //             newElementImage = '<div class="img"><img id="' + val + '" class="img w-full h-full"></img><span class="absolute">X</span></div>'
+          //             child[0].innerHTML = newElementImage
 
+          //             counter_image++;
 
-        //         })
+          //             imageKeysList[counter_image] = val //Push in order
 
-        //         $('html, body').css({
-        //           overflow: 'auto',
-        //           height: 'auto'
-        //         });
-        //         $(".loading").parent().addClass('hidden')
+          //             let getFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3"
 
+          //             if (devMode) {
+          //               getFileS3Uri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/s3/getFile/v3"
+          //             }
 
-        //         //Permite exlcuir as imagens vindas da DB
-        //         var images = $('#imagesTotal')
+          //             let ajaxImage = $.ajax({
+          //               url: getFileS3Uri,
+          //               type: "POST",
+          //               data: JSON.stringify({
+          //                 "pic-name": val
+          //               }),
+          //               contentType: "application/json",
+          //               success: (x) => {
 
-        //         images.on('click', '.img', function (e) {
-        //           e.preventDefault()
-        //           valParsed = $(this).children().attr('id') //Id with dot may caue conflict with class notation
 
-        //           const index = imageKeysList.indexOf(valParsed);
+          //                 src = x
 
-        //           if (index > -1) {
-        //             imageKeysList.splice(index, 1);
+          //                 valParsed = val.replace('.', "\\.") //Id with dot may caue conflict with class notation
+          //                 $("#" + valParsed + "").attr("src", src)
 
-        //           }
 
-        //           $(this).parent()[0].innerHTML = "+"
+          //               }
+          //             })
 
-        //         })
+          //             listAjax.push(ajaxImage)
+          //           }
 
-        //       }
-        //     } else {
-        //       $('html, body').css({
-        //         overflow: 'auto',
-        //         height: 'auto'
-        //       });
-        //       $(".loading").parent().addClass('hidden')
-        //     }
+          //           return i < totalImages
 
-        //     curatedHouse = (`${element["curated"]}` === 'true')
+          //         })
 
-        //     if (`${element["multiplier"]}` != undefined && `${element["multiplier"]}` != null) multiplier = `${element["multiplier"]}`
 
-        //     //Block, bloquear campos para edicao
-        //     if (curatedHouse) {
-        //       // nome, sobrenome, data de nascimento, cpf, fotos, endereço do imóvel, se fica em campo, praia, cidade, se fica em condomínio ou não
-        //       var disabledInputs = $(`#firstname, #lastname, #cpf, #address, #complement, #number, 
-        // #state, #city, #beach, #mountain, #country, #countryInput, #true, #false, #city-input, #zipCodeUser, #zipCode, #docType`)
-        //       disabledInputs.prop("disabled", true);
 
-        //       daysAhead = 0
+          //         Promise.all(listAjax).then(x => {
 
-        //     } else {
-        //       daysAhead = 30
-        //       //If house not curated, consider it as a possible 3 stars house for the points counting in the calendar
-        //       multiplier = 3
-        //     }
+          //           $(".loading-images").parent().addClass('hidden')
 
-        //     startDate = new Date()
-        //     startDate.setDate(startDate.getDate() + daysAhead + 1)
-        //     vue.$data.avbldates[0].start = startDate
 
-        //     beginDate = new Date()
-        //     beginDate.setDate(beginDate.getDate() + daysAhead)
+          //         })
 
-        //     if (multiplier == 2) {
-        //       nightPoints = 50
-        //     } else if (multiplier == 3) {
-        //       nightPoints = 100
-        //     } else if (multiplier == 4) {
-        //       nightPoints = 200
-        //     } else if (multiplier == 5) {
-        //       nightPoints = 400
-        //     } else if (multiplier == 6) {
-        //       nightPoints = 800
-        //     } else if (multiplier == 7) {
-        //       nightPoints = 1200
-        //     }
+          //         $('html, body').css({
+          //           overflow: 'auto',
+          //           height: 'auto'
+          //         });
+          //         $(".loading").parent().addClass('hidden')
 
 
-        //     let vueDaysLength = 0;
-        //     if (vue.$data.days.length > 0) {
-        //       vueDaysLength = vue.$data.days.length - 1
-        //     } else {
-        //       vueDaysLength = vue.$data.days.length
-        //     }
+          //         //Permite exlcuir as imagens vindas da DB
+          //         var images = $('#imagesTotal')
 
-        //     if (vueDaysLength > 24) {
-        //       vueDaysLength = 24
-        //     }
-        //     $("#availability_points").text(vueDaysLength * nightPoints)
+          //         images.on('click', '.img', function (e) {
+          //           e.preventDefault()
+          //           valParsed = $(this).children().attr('id') //Id with dot may caue conflict with class notation
 
+          //           const index = imageKeysList.indexOf(valParsed);
 
-        //   } else {
-            $('html, body').css({
-              overflow: 'auto',
-              height: 'auto'
-            });
-            $(".loading").parent().addClass('hidden')
-        //   }
+          //           if (index > -1) {
+          //             imageKeysList.splice(index, 1);
+
+          //           }
+
+          //           $(this).parent()[0].innerHTML = "+"
+
+          //         })
+
+          //       }
+          //     } else {
+          //       $('html, body').css({
+          //         overflow: 'auto',
+          //         height: 'auto'
+          //       });
+          //       $(".loading").parent().addClass('hidden')
+          //     }
+
+          //     curatedHouse = (`${element["curated"]}` === 'true')
+
+          //     if (`${element["multiplier"]}` != undefined && `${element["multiplier"]}` != null) multiplier = `${element["multiplier"]}`
+
+          //     //Block, bloquear campos para edicao
+          //     if (curatedHouse) {
+          //       // nome, sobrenome, data de nascimento, cpf, fotos, endereço do imóvel, se fica em campo, praia, cidade, se fica em condomínio ou não
+          //       var disabledInputs = $(`#firstname, #lastname, #cpf, #address, #complement, #number, 
+          // #state, #city, #beach, #mountain, #country, #countryInput, #true, #false, #city-input, #zipCodeUser, #zipCode, #docType`)
+          //       disabledInputs.prop("disabled", true);
+
+          //       daysAhead = 0
+
+          //     } else {
+          //       daysAhead = 30
+          //       //If house not curated, consider it as a possible 3 stars house for the points counting in the calendar
+          //       multiplier = 3
+          //     }
+
+          //     startDate = new Date()
+          //     startDate.setDate(startDate.getDate() + daysAhead + 1)
+          //     vue.$data.avbldates[0].start = startDate
+
+          //     beginDate = new Date()
+          //     beginDate.setDate(beginDate.getDate() + daysAhead)
+
+          //     if (multiplier == 2) {
+          //       nightPoints = 50
+          //     } else if (multiplier == 3) {
+          //       nightPoints = 100
+          //     } else if (multiplier == 4) {
+          //       nightPoints = 200
+          //     } else if (multiplier == 5) {
+          //       nightPoints = 400
+          //     } else if (multiplier == 6) {
+          //       nightPoints = 800
+          //     } else if (multiplier == 7) {
+          //       nightPoints = 1200
+          //     }
+
+
+          //     let vueDaysLength = 0;
+          //     if (vue.$data.days.length > 0) {
+          //       vueDaysLength = vue.$data.days.length - 1
+          //     } else {
+          //       vueDaysLength = vue.$data.days.length
+          //     }
+
+          //     if (vueDaysLength > 24) {
+          //       vueDaysLength = 24
+          //     }
+          //     $("#availability_points").text(vueDaysLength * nightPoints)
+
+
+          //   } else {
+          $('html, body').css({
+            overflow: 'auto',
+            height: 'auto'
+          });
+          $(".loading").parent().addClass('hidden')
+          //   }
         },
         error: function (jqXHR, textStatus, errorThrown) {
           $('html, body').css({
@@ -761,7 +776,9 @@
     //Function used in the "Editar" button for each home in the list of homes
     function selectHouse(element) {
       let houseIndex = element.id.slice(5)
+      resetForms()
       fillHomeForms(houseList[houseIndex])
+
 
     }
 
@@ -773,268 +790,295 @@
 
       $(".loading").parent().removeClass('hidden')
       currentHomeInfo = homeObject
-        let element = homeObject
-          if (element != undefined) {
-            if (`${element["homeId"]}` != undefined && `${element["homeId"]}` != null) $("#homeId").val(`${element["homeId"]}`)
-            if (`${element["nickName"]}` != undefined && `${element["nickName"]}` != null) $("#nickName").val(`${element["nickName"]}`)
-            if (`${element["address"]}` != undefined && `${element["address"]}` != null) $("#address").val(`${element["address"]}`)
-            if (`${element["number"]}` != undefined && `${element["number"]}` != null) $("#number").val(`${element["number"]}`)
-            if (`${element["complement"]}` != undefined && `${element["complement"]}` != null) $("#complement").val(`${element["complement"]}`)
-            if (`${element["zipCode"]}` != undefined && `${element["zipCode"]}` != null) $("#zipCode").val(`${element["zipCode"]}`)
-            if (`${element["city"]}` != undefined && `${element["city"]}` != null) $("#city-input").val(`${element["city"]}`)
-            if (`${element["country"]}` != undefined && `${element["country"]}` != null) {
-              $("#countryInput").val(`${element["country"]}`)
-              if (`${element["country"]}` != "Brasil") {
-                $("#state").addClass('disabled')
-                $("#state").prop('disabled', true)
-                $("#state").val("none")
-              } else {
-                $("#state").prop('disabled', false)
-                $("#state").removeClass('disabled')
+      let element = homeObject
+      if (element != undefined) {
+        if (`${element["homeId"]}` != undefined && `${element["homeId"]}` != null) $("#homeId").val(`${element["homeId"]}`)
+        if (`${element["nickName"]}` != undefined && `${element["nickName"]}` != null) $("#nickName").val(`${element["nickName"]}`)
+        if (`${element["address"]}` != undefined && `${element["address"]}` != null) $("#address").val(`${element["address"]}`)
+        if (`${element["number"]}` != undefined && `${element["number"]}` != null) $("#number").val(`${element["number"]}`)
+        if (`${element["complement"]}` != undefined && `${element["complement"]}` != null) $("#complement").val(`${element["complement"]}`)
+        if (`${element["zipCode"]}` != undefined && `${element["zipCode"]}` != null) $("#zipCode").val(`${element["zipCode"]}`)
+        if (`${element["city"]}` != undefined && `${element["city"]}` != null) $("#city-input").val(`${element["city"]}`)
+        if (`${element["country"]}` != undefined && `${element["country"]}` != null) {
+          $("#countryInput").val(`${element["country"]}`)
+          if (`${element["country"]}` != "Brasil") {
+            $("#state").addClass('disabled')
+            $("#state").prop('disabled', true)
+            $("#state").val("none")
+          } else {
+            $("#state").prop('disabled', false)
+            $("#state").removeClass('disabled')
 
 
-              }
-            }
-            if (`${element["state"]}` != undefined && `${element["state"]}` != null) $("#state").val(`${element["state"]}`);
-            if (`${element["airportDistance"]}` != undefined && `${element["airportDistance"]}` != null) $("#airportDistance").val(`${element["airportDistance"]}`);
-            if (`${element["accessPath"]}` != undefined && `${element["accessPath"]}` != null) $("#accessPath").val(`${element["accessPath"]}`)
-            if (`${element["locationType"]}` != undefined && `${element["locationType"]}` != null) $('#' + `${element["locationType"]}`).attr('checked', 'checked')
-            if (`${element["inCondominium"]}` != undefined && `${element["inCondominium"]}` != null) $('#' + `${element["inCondominium"]}`).attr('checked', 'checked')
-            if (`${element["beachDistance"]}` != undefined && `${element["beachDistance"]}` != null) $("#beachDistance").val(`${element["beachDistance"]}`)
-            if (`${element["floorSpace"]}` != undefined && `${element["floorSpace"]}` != null) $("#floorSpace").val(`${element["floorSpace"]}`)
-            if (`${element["inferredValue"]}` != undefined && `${element["inferredValue"]}` != null) $("#inferredValue").val(`${element["inferredValue"]}`)
-            if (`${element["description"]}` != undefined && `${element["description"]}` != null) $("#description").val(`${element["description"]}`)
-            if (`${element["weakness"]}` != undefined && `${element["weakness"]}` != null) $("#weakness").val(`${element["weakness"]}`)
-            if (`${element["maxPeople"]}` != undefined && `${element["maxPeople"]}` != null) $("#hosts_input").val(`${element["maxPeople"]}`)
-            if (`${element["totalSuites"]}` != undefined && `${element["totalSuites"]}` != null) $("#suites_input").val(`${element["totalSuites"]}`)
-            if (`${element["totalBedRooms"]}` != undefined && `${element["totalBedRooms"]}` != null) $("#rooms_input").val(`${element["totalBedRooms"]}`)
-            if (`${element["totalBathRooms"]}` != undefined && `${element["totalBathRooms"]}` != null) $("#bathroom_input").val(`${element["totalBathRooms"]}`)
-            if (`${element["totalShowers"]}` != undefined && `${element["totalShowers"]}` != null) $("#shower_input").val(`${element["totalShowers"]}`)
-            if (`${element["coveredParking"]}` != undefined && `${element["coveredParking"]}` != null) $("#vagas_cobertas_input").val(`${element["coveredParking"]}`)
-            if (`${element["uncoveredParking"]}` != undefined && `${element["uncoveredParking"]}` != null) $("#vagas_descobertas_input").val(`${element["uncoveredParking"]}`)
-            // if (`${element["underReview"]}` != undefined && `${element["underReview"]}` != null) {
-            //   if (`${element["underReview"]}` == 'true') {
-            //     $('#onRequest').attr('checked', 'checked')
+          }
+        }
+        if (`${element["state"]}` != undefined && `${element["state"]}` != null) $("#state").val(`${element["state"]}`);
+        if (`${element["airportDistance"]}` != undefined && `${element["airportDistance"]}` != null) $("#airportDistance").val(`${element["airportDistance"]}`);
+        if (`${element["accessPath"]}` != undefined && `${element["accessPath"]}` != null) $("#accessPath").val(`${element["accessPath"]}`)
+        if (`${element["locationType"]}` != undefined && `${element["locationType"]}` != null) $('#' + `${element["locationType"]}`).attr('checked', 'checked')
+        if (`${element["inCondominium"]}` != undefined && `${element["inCondominium"]}` != null) $('#' + `${element["inCondominium"]}`).attr('checked', 'checked')
+        if (`${element["beachDistance"]}` != undefined && `${element["beachDistance"]}` != null) $("#beachDistance").val(`${element["beachDistance"]}`)
+        if (`${element["floorSpace"]}` != undefined && `${element["floorSpace"]}` != null) $("#floorSpace").val(`${element["floorSpace"]}`)
+        if (`${element["inferredValue"]}` != undefined && `${element["inferredValue"]}` != null) $("#inferredValue").val(`${element["inferredValue"]}`)
+        if (`${element["description"]}` != undefined && `${element["description"]}` != null) $("#description").val(`${element["description"]}`)
+        if (`${element["weakness"]}` != undefined && `${element["weakness"]}` != null) $("#weakness").val(`${element["weakness"]}`)
+        if (`${element["maxPeople"]}` != undefined && `${element["maxPeople"]}` != null) $("#hosts_input").val(`${element["maxPeople"]}`)
+        if (`${element["totalSuites"]}` != undefined && `${element["totalSuites"]}` != null) $("#suites_input").val(`${element["totalSuites"]}`)
+        if (`${element["totalBedRooms"]}` != undefined && `${element["totalBedRooms"]}` != null) $("#rooms_input").val(`${element["totalBedRooms"]}`)
+        if (`${element["totalBathRooms"]}` != undefined && `${element["totalBathRooms"]}` != null) $("#bathroom_input").val(`${element["totalBathRooms"]}`)
+        if (`${element["totalShowers"]}` != undefined && `${element["totalShowers"]}` != null) $("#shower_input").val(`${element["totalShowers"]}`)
+        if (`${element["coveredParking"]}` != undefined && `${element["coveredParking"]}` != null) $("#vagas_cobertas_input").val(`${element["coveredParking"]}`)
+        if (`${element["uncoveredParking"]}` != undefined && `${element["uncoveredParking"]}` != null) $("#vagas_descobertas_input").val(`${element["uncoveredParking"]}`)
+        // if (`${element["underReview"]}` != undefined && `${element["underReview"]}` != null) {
+        //   if (`${element["underReview"]}` == 'true') {
+        //     $('#onRequest').attr('checked', 'checked')
 
-            //   } else {
-            //     $('#allowDates').attr('checked', 'checked')
-            //   }
-            // }
-
-
-
-            if (`${element["facilities"]}` != undefined && element["facilities"].length !== 0) {
-              $.each(element["facilities"], function (i, val) {
-                $('#' + val).attr('checked', 'checked')
-              })
-            }
-
-            if (`${element["totalAc"]}` != undefined && `${element["totalAc"]}` != null) $("#totalAc").val(`${element["totalAc"]}`);
-
-            if (`${element["authorizatedTo"]}` != undefined && element["authorizatedTo"] != null) {
-              if (element["authorizatedTo"].length !== 0) {
-                $.each(element["authorizatedTo"], function (i, val) {
-                  $('#' + val).attr('checked', 'checked')
-                })
-              }
-
-            }
-
-
-            if (`${element["extraRestriction"]}` != undefined && `${element["extraRestriction"]}` != null) $("#extraRestriction").val(`${element["extraRestriction"]}`)
-
-
-            if (`${element["workers"]}` != undefined && element["workers"].length !== 0) {
-              $.each(element["workers"], function (i, val) {
-                $('#' + val).attr('checked', 'checked')
-              })
-            }
-
-            if (`${element["infoWorkers"]}` != undefined && `${element["infoWorkers"]}` != null) $("#infoWorkers").val(`${element["infoWorkers"]}`)
-            if (`${element["feeCleaning"]}` != undefined && `${element["feeCleaning"]}` != null) $("#feeCleaning").val(`${element["feeCleaning"]}`)
-
-
-            if (`${element["availableDates"]}` != undefined && element["availableDates"].length !== 0) {
-              $.each(element["availableDates"], function (i, val) {
-
-                var dateArray = val.split("-");
-                var year = dateArray[0];
-                var month = parseInt(dateArray[1], 10) - 1;
-                var date = dateArray[2];
-                var _entryDate = new Date(year, month, date);
-
-
-                let newDate = new Date(_entryDate)
-                vue.onDayClick({ 'id': val, 'date': newDate })
-              })
-            }
+        //   } else {
+        //     $('#allowDates').attr('checked', 'checked')
+        //   }
+        // }
 
 
 
+        if (`${element["facilities"]}` != undefined && element["facilities"].length !== 0) {
+          $.each(element["facilities"], function (i, val) {
+            $('#' + val).attr('checked', 'checked')
+          })
+        }
+
+        if (`${element["totalAc"]}` != undefined && `${element["totalAc"]}` != null) $("#totalAc").val(`${element["totalAc"]}`);
+
+        if (`${element["authorizatedTo"]}` != undefined && element["authorizatedTo"] != null) {
+          if (element["authorizatedTo"].length !== 0) {
+            $.each(element["authorizatedTo"], function (i, val) {
+              $('#' + val).attr('checked', 'checked')
+            })
+          }
+
+        }
 
 
-            var counter_image = 0;
-            let listAjax = []
-            console.log(element["picturesS3Urls"].length)
-
-            if (`${element["picturesS3Urls"]}` != undefined && element["picturesS3Urls"] != null && element["picturesS3Urls"].length !== 0) {
-              if (element["picturesS3Urls"].length !== 0) {
-                $.each(element["picturesS3Urls"], function (i, val) {
-
-                  $(".loading-images").parent().removeClass('hidden')
-
-                  if (val != undefined && val != null) {
-
-                    divImage = $("#images_" + counter_image + "")
-                    child = divImage.children()
-
-                    newElementImage = '<div class="img"><img id="' + val + '" class="img w-full h-full"></img><span class="absolute">X</span></div>'
-                    child[0].innerHTML = newElementImage
-
-                    counter_image++;
-
-                    imageKeysList[counter_image] = val //Push in order
+        if (`${element["extraRestriction"]}` != undefined && `${element["extraRestriction"]}` != null) $("#extraRestriction").val(`${element["extraRestriction"]}`)
 
 
-                      let getFileS3Uri = `${getCurrentHomeBaseUri()}/s3/getFile/v3`
+        if (`${element["workers"]}` != undefined && element["workers"].length !== 0) {
+          $.each(element["workers"], function (i, val) {
+            $('#' + val).attr('checked', 'checked')
+          })
+        }
+
+        if (`${element["infoWorkers"]}` != undefined && `${element["infoWorkers"]}` != null) $("#infoWorkers").val(`${element["infoWorkers"]}`)
+        if (`${element["feeCleaning"]}` != undefined && `${element["feeCleaning"]}` != null) $("#feeCleaning").val(`${element["feeCleaning"]}`)
 
 
-                    let ajaxImage = $.ajax({
-                      url: getFileS3Uri,
-                      type: "POST",
-                      data: JSON.stringify({
-                        "pic-name": val
-                      }),
-                      contentType: "application/json",
-                      success: (x) => {
+        if (`${element["availableDates"]}` != undefined && element["availableDates"].length !== 0) {
+          $.each(element["availableDates"], function (i, val) {
+
+            var dateArray = val.split("-");
+            var year = dateArray[0];
+            var month = parseInt(dateArray[1], 10) - 1;
+            var date = dateArray[2];
+            var _entryDate = new Date(year, month, date);
 
 
-                        src = x
-
-                        valParsed = val.replace('.', "\\.") //Id with dot may caue conflict with class notation
-                        $("#" + valParsed + "").attr("src", src)
-
-
-                      }
-                    })
-
-                    listAjax.push(ajaxImage)
-                  }
-
-                  return i < totalImages
-
-                })
+            let newDate = new Date(_entryDate)
+            vue.onDayClick({ 'id': val, 'date': newDate })
+          })
+        }
 
 
 
-                Promise.all(listAjax).then(x => {
-
-                  $(".loading-images").parent().addClass('hidden')
 
 
-                })
+        var counter_image = 0;
+        let listAjax = []
+        console.log(element["picturesS3Urls"].length)
 
-                $('html, body').css({
-                  overflow: 'auto',
-                  height: 'auto'
-                });
-                $(".loading").parent().addClass('hidden')
+        if (`${element["picturesS3Urls"]}` != undefined && element["picturesS3Urls"] != null && element["picturesS3Urls"].length !== 0) {
+          if (element["picturesS3Urls"].length !== 0) {
+            $.each(element["picturesS3Urls"], function (i, val) {
+
+              $(".loading-images").parent().removeClass('hidden')
+
+              if (val != undefined && val != null) {
+
+                divImage = $("#images_" + counter_image + "")
+                child = divImage.children()
+
+                newElementImage = '<div class="img"><img id="' + val + '" class="img w-full h-full"></img><span class="absolute">X</span></div>'
+                child[0].innerHTML = newElementImage
+
+                counter_image++;
+
+                imageKeysList[counter_image] = val //Push in order
 
 
-                //Permite exlcuir as imagens vindas da DB
-                var images = $('#imagesTotal')
+                let getFileS3Uri = `${getCurrentHomeBaseUri()}/s3/getFile/v3`
 
-                images.on('click', '.img', function (e) {
-                  e.preventDefault()
-                  valParsed = $(this).children().attr('id') //Id with dot may caue conflict with class notation
 
-                  const index = imageKeysList.indexOf(valParsed);
+                let ajaxImage = $.ajax({
+                  url: getFileS3Uri,
+                  type: "POST",
+                  data: JSON.stringify({
+                    "pic-name": val
+                  }),
+                  contentType: "application/json",
+                  success: (x) => {
 
-                  if (index > -1) {
-                    imageKeysList.splice(index, 1);
+
+                    src = x
+
+                    valParsed = val.replace('.', "\\.") //Id with dot may caue conflict with class notation
+                    $("#" + valParsed + "").attr("src", src)
+
 
                   }
-
-                  $(this).parent()[0].innerHTML = "+"
-
                 })
 
+                listAjax.push(ajaxImage)
               }
-            } else {
-              $('html, body').css({
-                overflow: 'auto',
-                height: 'auto'
-              });
-              $(".loading").parent().addClass('hidden')
-            }
 
-            curatedHouse = (`${element["curated"]}` === 'true')
+              return i < totalImages
 
-            if (`${element["multiplier"]}` != undefined && `${element["multiplier"]}` != null) multiplier = `${element["multiplier"]}`
-
-            //Block, bloquear campos para edicao
-            if (curatedHouse) {
-              // nome, sobrenome, data de nascimento, cpf, fotos, endereço do imóvel, se fica em campo, praia, cidade, se fica em condomínio ou não
-              var disabledInputs = $(`#firstname, #lastname, #cpf, #address, #complement, #number, 
-        #state, #city, #beach, #mountain, #country, #countryInput, #true, #false, #city-input, #zipCodeUser, #zipCode, #docType`)
-              disabledInputs.prop("disabled", true);
-
-              daysAhead = 0
-
-            } else {
-              daysAhead = 30
-              //If house not curated, consider it as a possible 3 stars house for the points counting in the calendar
-              multiplier = 3
-            }
-
-            startDate = new Date()
-            startDate.setDate(startDate.getDate() + daysAhead + 1)
-            vue.$data.avbldates[0].start = startDate
-
-            beginDate = new Date()
-            beginDate.setDate(beginDate.getDate() + daysAhead)
-
-            if (multiplier == 2) {
-              nightPoints = 50
-            } else if (multiplier == 3) {
-              nightPoints = 100
-            } else if (multiplier == 4) {
-              nightPoints = 200
-            } else if (multiplier == 5) {
-              nightPoints = 400
-            } else if (multiplier == 6) {
-              nightPoints = 800
-            } else if (multiplier == 7) {
-              nightPoints = 1200
-            }
+            })
 
 
-            let vueDaysLength = 0;
-            if (vue.$data.days.length > 0) {
-              vueDaysLength = vue.$data.days.length - 1
-            } else {
-              vueDaysLength = vue.$data.days.length
-            }
 
-            if (vueDaysLength > 24) {
-              vueDaysLength = 24
-            }
-            $("#availability_points").text(vueDaysLength * nightPoints)
-      } else {
+            Promise.all(listAjax).then(x => {
+
+              $(".loading-images").parent().addClass('hidden')
+
+
+            })
+
             $('html, body').css({
               overflow: 'auto',
               height: 'auto'
             });
             $(".loading").parent().addClass('hidden')
-          }
 
-        houseChose()
+
+            //Permite exlcuir as imagens vindas da DB
+            var images = $('#imagesTotal')
+
+
+
+
+
+            images.on('click', '.img', function (e) {
+              e.preventDefault()
+              valParsed = $(this).children().attr('id') //Id with dot may caue conflict with class notation
+
+              const index = imageKeysList.indexOf(valParsed);
+
+              if (index > -1) {
+                imageKeysList.splice(index, 1);
+
+              }
+
+              $(this).parent()[0].innerHTML = "+"
+
+            })
+
+          }
+        } else {
+          $('html, body').css({
+            overflow: 'auto',
+            height: 'auto'
+          });
+          $(".loading").parent().addClass('hidden')
+        }
+
+        curatedHouse = (`${element["curated"]}` === 'true')
+
+        if (`${element["multiplier"]}` != undefined && `${element["multiplier"]}` != null) multiplier = `${element["multiplier"]}`
+
+        //Block, bloquear campos para edicao
+        if (curatedHouse) {
+          // nome, sobrenome, data de nascimento, cpf, fotos, endereço do imóvel, se fica em campo, praia, cidade, se fica em condomínio ou não
+          var disabledInputs = $(`#firstname, #lastname, #cpf, #address, #complement, #number, 
+        #state, #city, #beach, #mountain, #country, #countryInput, #true, #false, #city-input, #zipCodeUser, #zipCode, #docType`)
+          disabledInputs.prop("disabled", true);
+
+          daysAhead = 0
+
+        } else {
+          daysAhead = 30
+          //If house not curated, consider it as a possible 3 stars house for the points counting in the calendar
+          multiplier = 3
+        }
+
+        startDate = new Date()
+        startDate.setDate(startDate.getDate() + daysAhead + 1)
+        vue.$data.avbldates[0].start = startDate
+
+        beginDate = new Date()
+        beginDate.setDate(beginDate.getDate() + daysAhead)
+
+        if (multiplier == 2) {
+          nightPoints = 50
+        } else if (multiplier == 3) {
+          nightPoints = 100
+        } else if (multiplier == 4) {
+          nightPoints = 200
+        } else if (multiplier == 5) {
+          nightPoints = 400
+        } else if (multiplier == 6) {
+          nightPoints = 800
+        } else if (multiplier == 7) {
+          nightPoints = 1200
+        }
+
+
+        let vueDaysLength = 0;
+        if (vue.$data.days.length > 0) {
+          vueDaysLength = vue.$data.days.length - 1
+        } else {
+          vueDaysLength = vue.$data.days.length
+        }
+
+        
+
+        if (vueDaysLength > 24) {
+          vueDaysLength = 24
+        }
+        $("#availability_points").text(vueDaysLength * nightPoints)
+      } else {
+        $('html, body').css({
+          overflow: 'auto',
+          height: 'auto'
+        });
+        $(".loading").parent().addClass('hidden')
+      }
+
+      houseChose()
     }
 
     function houseChose() {
+      currentFormState = 1
       $('#chooseHomeForms').addClass('hidden')
       casa_button()
 
+    }
+
+    function createNewHouse() {
+      resetForms()
+      houseChose()
+    }
+
+    function resetForms() {
+      document.getElementById("casa_forms").reset()
+      document.getElementById("hospedagem_forms").reset()
+      imageKeysList.splice(0, imageKeysList.length) //reset images list
+      //Reset image display
+      var images = $('#imagesTotal')
+      Array.from(images.children()).forEach(divImg => {
+
+        divImg.childNodes[1].innerHTML = "+"
+      });
+
+      //Reset days display
+      vue.$data.days.length = 0
     }
 
   </script>
@@ -1204,6 +1248,7 @@
           }
 
           function voce_button() {
+            currentFormState = 0
             $('.voce').addClass('around');
             $('.voce').removeClass('not-around');
             $('.voce_text').addClass('text-green_dark');
@@ -1340,7 +1385,9 @@
               document.getElementById("daysMin").innerHTML = ""
               if (!blockFunction) {
                 selectedModal = '.modalWarning'
-                textModal = `<div id="finalRegister">
+                if (clientInfo.clientType < 2) {
+                  textModal =
+                    `<div id="finalRegister">
                     <!--Body-->
                     <p class="mb-6 text-center leading-relaxed text-sm text-green_dark mx-auto">Obrigado pelo
                       preenchimento. Em breve, entraremos em contato
@@ -1352,7 +1399,19 @@
                     </p>
                   </div>
 
-                  <div id="finalEdit" class="hidden">
+                  <div>
+                    <button type="submit" onclick="submitForm()"
+                      class="mb-2 text-green_dark group relative flex mx-auto justify-center px-10 py-1 rounded-full hover:bg-green_detail hover:border-green_detail text-center border-4 border-green_light text-sm bg-green_light">
+
+                      Finalizar
+                    </button>
+
+                </form>`
+                } else {
+
+                  textModal =
+                    `
+                  <div id="finalEdit">
                     <!--Body-->
                     <p class="mb-6 text-center leading-relaxed text-sm text-green_dark mx-auto">Obrigado! Suas
                       alterações serão salvas após clicar em finalizar
@@ -1360,13 +1419,6 @@
 
 
                   </div>
-
-
-
-
-
-
-
 
 
                   <!-- <div class="mb-6 text-sm">
@@ -1385,6 +1437,9 @@
 
 
                   </form>`
+
+                }
+
                 toggleModal(selectedModal, textModal)
 
               }
@@ -1470,20 +1525,20 @@
 
 
 
-                <div class="flex flex-col mb-6 w-1/3 md:pr-2">
-                  <label class="text-green_dark text-base">Selecionar documento*</label>
-                  <select required class="text-green_dark" id="docType" name="docType" onchange="chooseIDType()">
-                    <option value="none" disabled selected>Selecione</option>
-                    <option value="cpf">CPF</option>
-                    <option value="passport">Passaporte</option>
-                  </select>
-                </div>
+              <div class="flex flex-col mb-6 w-1/3 md:pr-2">
+                <label class="text-green_dark text-base">Selecionar documento*</label>
+                <select required class="text-green_dark" id="docType" name="docType" onchange="chooseIDType()">
+                  <option value="none" disabled selected>Selecione</option>
+                  <option value="cpf">CPF</option>
+                  <option value="passport">Passaporte</option>
+                </select>
+              </div>
 
-                <div class=" mb-6 w-2/3">
-                  <label id="docLabel" class="font-light text-green_dark">Número do Documento*</label>
-                  <input disabled oninput="cacheInput(this)" required placeholder="" type="text" name="cpf" id="cpf"
-                    class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
-                </div>
+              <div class=" mb-6 w-2/3">
+                <label id="docLabel" class="font-light text-green_dark">Número do Documento*</label>
+                <input disabled oninput="cacheInput(this)" required placeholder="" type="text" name="cpf" id="cpf"
+                  class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
+              </div>
 
               <script type="text/javascript">
                 function chooseIDType() {
@@ -1542,6 +1597,7 @@
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
                 <a id="verifyNumberButton" onclick="beforeVerificationComplete(true)"
                   class="text-green_dark cursor-pointer underline">Verificar Numero?</a>
+                  <span id="numberMessage" class="hidden error12 sm:text-sm">Você deve verificar seu número de telefone.</span>
                 <h1 class="text-sm italic text-green_medium">Desta forma, o Yô Clube de Casas pode entrar em contato com
                   você.</h1>
               </div>
@@ -1583,7 +1639,7 @@
               <div class="md:w-2/6 mb-6 md:pr-2">
                 <label class=" font-light text-green_dark">Cidade*</label>
                 <input oninput="cacheInput(this)" required placeholder="" type="text" name="cityUser" id="cityUser"
-                  autocomplete="home city"
+                  autocomplete="home city" onblur="upperFirstAll(this)"
                   class="capitalize text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
@@ -1970,40 +2026,44 @@
       <!-- Formulario Usuário -->
 
       <!-- Escolher casa -->
-      <div id="chooseHomeForms" class='hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full ml-1 '>   <!-- Hidden -->
+      <div id="chooseHomeForms" class='hidden flex flex-col md:px-0  md:col-span-1 w-11/12 h-full ml-1 '>
+        <!-- Hidden -->
         <div id="transaction_show" class=" py-5 w-full ">
-            <div id="points" class="py-4 border-green_medium text-2xl text-green_dark font-bold border-b">
-                Minhas Casas
-            </div>
-            <div id="newTransaction" class="hidden flex items-center border-b border-green_medium h-20"> <!-- hidden -->
+          <div id="points" class="py-4 border-green_medium text-2xl text-green_dark font-bold border-b">
+            Minhas Casas
+          </div>
+          <div id="newTransaction" class="hidden flex items-center border-b border-green_medium h-20">
+            <!-- hidden -->
 
-                <div class="flex flex-row w-full justify-between">
-                    <!-- <div id="transactionSymbol" class="text-4xl text-green_dark">&#8593;</div> -->
-                    <div class="flex flex-row  w-1/3">
-                        <!-- <img id="imageHouse" src="assets/FLECHA_UP.svg" class="h-6 "> -->
-                        <div class=" text-green_dark">	&#9679</div>
+            <div class="flex flex-row w-full justify-between">
+              <!-- <div id="transactionSymbol" class="text-4xl text-green_dark">&#8593;</div> -->
+              <div class="flex flex-row  w-1/3">
+                <!-- <img id="imageHouse" src="assets/FLECHA_UP.svg" class="h-6 "> -->
+                <div class=" text-green_dark"> &#9679</div>
 
-                        <div class="flex flex-col">
-                        <div id="oneHouseName" class="text-green_dark font-bold">Casa 1</div>
-                        <div id="oneHouseLocation" class="text-green_dark font-bold">Local</div>
-                      </div>
-
-                    </div>
-
-
-                    <!-- <img class="w-10 h-10" src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Phoenicopterus_ruber_in_S%C3%A3o_Paulo_Zoo.jpg"> -->
-                    <a id="house" class="cursor-pointer underline text-green_dark font-bold">Editar</a>
-
+                <div class="flex flex-col">
+                  <div id="oneHouseName" class="text-green_dark font-bold">Casa 1</div>
+                  <div id="oneHouseLocation" class="text-green_dark font-bold">Local</div>
                 </div>
 
+              </div>
+
+
+              <!-- <img class="w-10 h-10" src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Phoenicopterus_ruber_in_S%C3%A3o_Paulo_Zoo.jpg"> -->
+              <a id="house" class="cursor-pointer underline text-green_dark font-bold">Editar</a>
+
             </div>
+
+          </div>
 
         </div>
         <div class="flex justify-center sm:justify-center py-4">
 
-        <a onclick="houseChose()" class="hover:border-green_detail hover:bg-green_detail bg-green_light px-8 w-1/2 py-2 rounded-full  border-8 border-green_light  text-green_dark  text-center cursor-pointer">Adicionar casa</a>
-</div>
-    </div>
+          <a onclick="createNewHouse()"
+            class="hover:border-green_detail hover:bg-green_detail bg-green_light px-8 w-1/2 py-2 rounded-full  border-8 border-green_light  text-green_dark  text-center cursor-pointer">Adicionar
+            casa</a>
+        </div>
+      </div>
       <!-- Escolher casa -->
 
       <!-- Formulario Casa -->
@@ -2024,7 +2084,7 @@
               <div id="teste" class="md:w-full mb-6">
                 <input oninput="cacheInput(this)" required placeholder="" type="text" name="nickName" id="nickName"
                   onblur="upperFirstAll(this)"
-                  class=" mb-4 text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
+                  class="capitalize mb-4 text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
                 <h1 class="w-full text-base italic text-green_medium tracking-tight leading-relaxed font-niveau">
                   Ex: Casa Tupi, Casa pé na areia em Trancoso
@@ -2032,8 +2092,7 @@
               </div>
 
               <input oninput="cacheInput(this)" required placeholder="" type="text" name="homeId" id="homeId"
-              onblur="upperFirstAll(this)"
-              class="hidden mb-4 text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
+                class="hidden mb-4 text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               <script>
                 upperFirstAll = function (valueToCap) {
@@ -2096,7 +2155,7 @@
               <div class="md:w-2/6 mb-4 md:pr-2">
                 <label class=" font-light text-green_dark">Cidade*</label>
                 <input oninput="cacheInput(this)" required placeholder="" type="text" name="city" id="city-input"
-                  autocomplete="home city"
+                  autocomplete="home city" onblur="upperFirstAll(this)"
                   class="capitalize text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
 
               </div>
@@ -2417,11 +2476,11 @@
               <script>
                 function otherCountry(input) {
                   let stateInput = $("#stateUser");
-                  if (input.name == "countryUser"){
+                  if (input.name == "countryUser") {
                     stateInput = $("#stateUser")
 
-                  } else if (input.name == "country"){
-                    stateInput = $("#state")                    
+                  } else if (input.name == "country") {
+                    stateInput = $("#state")
                   }
 
                   if (input.value != 'Brasil') {
@@ -2614,7 +2673,7 @@
               <label class="w-full font-light text-green_dark">Faça uma breve descrição da casa*</label>
               <div class="md:w-full mb-4">
                 <textarea required oninput="cacheInput(this)" placeholder="" type="text" name="description"
-                  id="description"
+                  id="description" maxlength="300"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-20 block w-full sm:text-sm "></textarea>
 
               </div>
@@ -2801,7 +2860,7 @@
                   data = JSON.stringify(imageObject)
 
 
-                    let addFileS3Uri = `${getCurrentHomeBaseUri()}/s3/addfile`
+                  let addFileS3Uri = `${getCurrentHomeBaseUri()}/s3/addfile`
 
                   $.ajax({
                     url: addFileS3Uri,
@@ -2864,6 +2923,7 @@
                   images.on('click', '.img', function (e) {
                     e.preventDefault()
                     valParsed = $(this).children().attr('id') //Id with dot may cause conflict with class notation
+
 
 
                     const index = imageKeysList.indexOf(valParsed);
@@ -3495,7 +3555,7 @@
                 Ex: R$ 300,00 (Comunique diretamente ao hóspede)
               </p>
               <div class="md:w-full mb-6">
-                <input  placeholder="" type="text" name="feeCleaning" id="feeCleaning"
+                <input placeholder="" type="text" name="feeCleaning" id="feeCleaning"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
               </div>
 
@@ -3530,7 +3590,7 @@
               </h1>
 
               <h1 class="w-full text-sm tracking-tight leading-none text-green_medium sm:leading-none mb-6">
-                * Estes pontos variam conforme a categoria da sua casa. <a href="assets/tabela_imagem.png"
+                * Estes pontos variam conforme a categoria da sua casa. <a href="assets/YO_TABELA.pdf"
                   target="_blank" class="underline font-bold cursor-pointer">Veja tabela.</a>
               </h1>
 
@@ -3689,7 +3749,7 @@
                       } else { //Add days
 
                         if (curatedHouse == false) {
-                          if (this.days.length < 25) {
+                          if (this.days.length < 24) {
 
 
                             if (day.date > beginDate && day.date < endDate) {  //TODO: colocar na variavel global
@@ -3732,15 +3792,15 @@
                 function updateNightPoints() {
                   let vueDaysLength = 0;
                   let totalPoints = 0;
-                  
+
                   if (vue.days.length > 0) {
                     vueDaysLength = vue.days.length - 1
                   } else {
                     vueDaysLength = vue.days.length
                   }
 
-                  if (vueDaysLength > 24) {
-                    vueDaysLength = 24
+                  if (vueDaysLength > 23) {
+                    vueDaysLength = 23
                   }
 
                   $("#availability_points").text(vueDaysLength * nightPoints)
@@ -3787,7 +3847,7 @@
                 Passo</a>
             </div>
             <div
-              class="modalWarning opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-30">
+              class="modalWarning opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
               <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
 
               <div
@@ -3808,7 +3868,7 @@
                       </svg>
                     </div>
                   </div>
-                  
+
                   <div id="modalText" class="text-center text-green_dark leading-relaxed">
                     Você precisa de mais pontos para reservar. Contate um administrador.
                   </div>
@@ -3822,61 +3882,64 @@
             </div>
 
             <script>
-var openmodal = document.querySelectorAll('.modal-open')
-        for (var i = 0; i < openmodal.length; i++) {
-          openmodal[i].addEventListener('click', function (event) {
-            event.preventDefault()
-            toggleModal()
-          })
-        }
+              var openmodal = document.querySelectorAll('.modal-open')
+              for (var i = 0; i < openmodal.length; i++) {
+                openmodal[i].addEventListener('click', function (event) {
+                  event.preventDefault()
+                  toggleModal()
+                })
+              }
 
-        const overlay = document.querySelector('.modal-overlay')
-        overlay.addEventListener('click', toggleModal)
+              const overlay = document.querySelector('.modal-overlay')
+              overlay.addEventListener('click', toggleModal)
 
-        var closemodal = document.querySelectorAll('.modal-close')
-        for (var i = 0; i < closemodal.length; i++) {
-          closemodal[i].addEventListener('click', toggleModal)
-        }
+              var closemodal = document.querySelectorAll('.modal-close')
+              for (var i = 0; i < closemodal.length; i++) {
+                closemodal[i].addEventListener('click', toggleModal)
+              }
 
-        document.onkeydown = function (evt) {
-          evt = evt || window.event
-          var isEscape = false
-          if ("key" in evt) {
-            isEscape = (evt.key === "Escape" || evt.key === "Esc")
-          } else {
-            isEscape = (evt.keyCode === 27)
-          }
-          if (isEscape && document.body.classList.contains('modal-active')) {
-            toggleModal()
-          }
-        };
-
-
-        function toggleModal(modalArgs, text) {
-          $("#modalText").html(text)
-          if (selectedModal != '.modal') {
-            modalArgs = selectedModal
-          }
+              document.onkeydown = function (evt) {
+                evt = evt || window.event
+                var isEscape = false
+                if ("key" in evt) {
+                  isEscape = (evt.key === "Escape" || evt.key === "Esc")
+                } else {
+                  isEscape = (evt.keyCode === 27)
+                }
+                if (isEscape && document.body.classList.contains('modal-active')) {
+                  toggleModal()
+                }
+              };
 
 
-          console.log(modalArgs)
+              function toggleModal(modalArgs, text, title = "") {
+                $("#modalText").html(text)
+                $("#modalTitle").html(title)
 
 
-          if (!modalArgs || typeof (modalArgs) != "string" || modalArgs == "") {
-            modalArgs = '.modal'
-
-          }
-
-          const body = document.querySelector('body')
-          const modal = document.querySelector(modalArgs)
-          modal.classList.toggle('opacity-0')
-          modal.classList.toggle('pointer-events-none')
-          body.classList.toggle('modal-active')
-
-          if (typeof (modalArgs) != "object") selectedModal = modalArgs
+                if (selectedModal != '.modal') {
+                  modalArgs = selectedModal
+                }
 
 
-        }
+                console.log(modalArgs)
+
+
+                if (!modalArgs || typeof (modalArgs) != "string" || modalArgs == "") {
+                  modalArgs = '.modal'
+
+                }
+
+                const body = document.querySelector('body')
+                const modal = document.querySelector(modalArgs)
+                modal.classList.toggle('opacity-0')
+                modal.classList.toggle('pointer-events-none')
+                body.classList.toggle('modal-active')
+
+                if (typeof (modalArgs) != "object") selectedModal = modalArgs
+
+
+              }
             </script>
 
             <!-- TODO: arrumar messagem de erro - usar validate -->
@@ -3922,17 +3985,27 @@ var openmodal = document.querySelectorAll('.modal-open')
             var funcionarios = getCheckboxes('funcionarios')
             var objForm = {}
 
-            objForm = currentHomeInfo 
-            
+            objForm = currentHomeInfo
 
-            dataFormArrayTotal.forEach(x => {
-              if (x.value != "" && x.value != null && x.value != undefined) {
+
+            if (curatedHouse) {
+              dataFormArrayTotal.forEach(x => {
+                if (x.value != "" && x.value != null && x.value != undefined) {
+                  objForm[x.name] = x.value
+
+
+                }
+
+              })
+            } else {
+              dataFormArrayTotal.forEach(x => {
+                if (x.value == null) {
+                  x.value = undefined
+                }
                 objForm[x.name] = x.value
 
-
-              }
-
-            })
+              })
+            }
 
             console.log(objForm)
 
@@ -4015,8 +4088,8 @@ var openmodal = document.querySelectorAll('.modal-open')
             data = JSON.stringify(objForm)
 
 
-              let addHomeUri = `${getCurrentHomeBaseUri()}/addHome`
-            
+            let addHomeUri = `${getCurrentHomeBaseUri()}/addHome`
+
             $.ajax({
               url: addHomeUri,
               type: 'POST',
@@ -4031,6 +4104,11 @@ var openmodal = document.querySelectorAll('.modal-open')
                   height: 'auto'
                 });
                 $(".loading").parent().addClass('hidden')
+
+
+                let homeId = JSON.parse(data1)['homeId']
+                $("#homeId").val(homeId)
+
                 if (nextStep == 0) {
                   if (clientInfo.clientType > 1) {
                     window.location.href = "/dashboard/buscador/";
@@ -4047,6 +4125,10 @@ var openmodal = document.querySelectorAll('.modal-open')
                   height: 'auto'
                 });
                 $(".loading").parent().addClass('hidden')
+                let res = JSON.parse(data1)
+                if (res == "ZERO_RESULTS") {
+                  alert("Endereço não encontrado. Tente outra referência.")
+                }
                 alert("Erro na finalização do cadastro. Não foi possível estabelecer uma conexão com o navegador. Para melhor funcionamento do site, prefira Google Chrome ou Mozila Firefox.")
 
               },
@@ -4124,7 +4206,7 @@ var openmodal = document.querySelectorAll('.modal-open')
                   alert("Email de desenvolvimento tem que conter @yocasas.com.br para que o fluxo funcione corretamente")
                   reject()
                 }
-                
+
               }
               checkCurrentUserNoBlock(Cookies2);
 
@@ -4193,10 +4275,16 @@ var openmodal = document.querySelectorAll('.modal-open')
 
           var $formSubmitted = $('#youForms');
           if ($formSubmitted.valid({ ignore: '' })) {
+            if (currentUserInfo["verifiedNumber"] != true) {
+              console.log(currentUserInfo["verifiedNumber"]) 
+              $("#numberMessage").removeClass("hidden")
+              goToError()
+              return
+            }
             youFormsRequest().then(x => {
 
               if (x == 1 && requiredInputs && requiredInputs2) {
-                
+                currentFormState = 0
                 showHouses();
 
 
@@ -4212,8 +4300,13 @@ var openmodal = document.querySelectorAll('.modal-open')
 
       <script>
         function saveHome(nextStep = 0) {
+          if (nextStep == 1) {
+            if (currentFormState < 1) return
+            currentFormState = 2
+          }
           if ($("#casa_forms").valid({ ignore: '' })) {
             formsRequest(false, nextStep).then(x => {
+
               hospedagem_button()
             })
           } else {
@@ -4381,12 +4474,12 @@ var openmodal = document.querySelectorAll('.modal-open')
     <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
 
     <div id="input-verify-number"
-      class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
+      class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-30 overflow-y-auto">
       <!-- Add margin if you want to see some of the overlay behind the modal-->
       <div class="modal-content py-4 text-left px-6 space-y-7">
         <!--Title-->
         <div class="flex justify-end items-center pb-3">
-          <div class="modal-close cursor-pointer z-50" onclick="showVerificationComplete(true)">
+          <div class="modal-close cursor-pointer z-30" onclick="showVerificationComplete(true)">
             <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
               viewBox="0 0 18 18">
               <path
@@ -4399,8 +4492,7 @@ var openmodal = document.querySelectorAll('.modal-open')
         <p class="text-center text-3xl font-black text-green_dark">Verifique seu número de telefone</p>
 
         <div class="flex justify-center"><a href="#" class="text-green_dark text-center cursor-pointer sm:text-sm">
-            Verifique suas mensagens através do aplicativo WhatsApp.
-            <br> Enviamos o codigo a <h1 id="telNumberText">(+55) 999-999-999</h1>
+            <br> Enviamos o código a <h1 id="telNumberText">(+55) 999-999-999</h1>
           </a></div>
 
 
@@ -4463,7 +4555,7 @@ var openmodal = document.querySelectorAll('.modal-open')
 
               let verifyNumberUri = `${getCurrentUserBaseUri()}/verifynumber`
 
-              
+
               checkCurrentUserNoBlock(Cookies2);
 
               $.ajax({
@@ -4480,10 +4572,19 @@ var openmodal = document.querySelectorAll('.modal-open')
                     height: 'auto'
                   });
                   $(".loading").parent().addClass('hidden')
-                  window.location.reload();
-
+                  showVerificationComplete(false)
+                  $("#telNumber").prop('disabled', true)
+                  $("#verifyNumberButton").hide()
+                  currentUserInfo["verifiedNumber"] = true
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
+                  selectedModal = '.modalWarning'
+                  textModal = `Código incorreto. Tente novamente.`
+                  titleModal = "Atenção!"
+                  toggleModal(selectedModal, textModal, titleModal)
+                  showVerificationComplete(true)
+
+
 
                   $('html, body').css({
                     overflow: 'auto',
@@ -4509,7 +4610,7 @@ var openmodal = document.querySelectorAll('.modal-open')
             </a></div>
 
           <div class="flex justify-center"><a onClick="youFormsRequest(true);" href="#"
-              class="text-green_dark text-center cursor-pointer underline sm:text-sm"> Reenviar Código
+              class="text-green_dark text-center cursor-pointer underline sm:text-sm"> Reenviar código
             </a></div>
 
 
@@ -4525,7 +4626,7 @@ var openmodal = document.querySelectorAll('.modal-open')
       class="hidden modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
       <!-- Add margin if you want to see some of the overlay behind the modal-->
       <div class="modal-content py-4 text-left px-6 space-y-7">
-        <p class="text-center text-3xl font-black text-green_dark">Verificação feita com sucesso</p>
+        <p class="text-center text-3xl font-black text-green_dark">Número verificado com sucesso.</p>
 
 
 
