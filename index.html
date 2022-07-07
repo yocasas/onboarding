@@ -397,8 +397,20 @@
           }
 
           //Retirar checkbox de termos e condicoes caso tenha marcando
-          if (`${element["terms"]}` != 'undefined' && `${element["privacy"]}` != 'undefined' && `${element["picturesCheck"]}` != 'undefined') {
-            $('#termsDiv').hide()
+          if (`${element["terms"]}` == 'terms' && `${element["privacy"]}` != 'privacy' && `${element["picturesCheck"]}` == true) {
+            if (`${element["terms"]}` == 'terms') {
+              $('#terms').hide()
+            }
+
+            if (`${element["privacy"]}` == 'privacy') {
+              $('#privacy').hide()
+            }
+
+            if (`${element["picturesCheck"]}` == true) {
+              $('#picturesCheck').hide()
+            }
+
+
 
           } else {
             $('.overflow-y-auto').animate({
