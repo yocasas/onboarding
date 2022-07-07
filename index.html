@@ -50,7 +50,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
+  <script>
+    let originPage
 
+    function checkUrlOrigin() {
+      const urlParams = new URLSearchParams(window.location.search);
+      originPage = urlParams.get('originPage');
+      if (originPage != undefined && originPage != "") {
+        submitYouForms()
+      }
+    }
+  </script>
   <script>
     let selectedModal = ""
     let textModal = "Erro. Tente novamente mais tarde ou contate um administrador."
