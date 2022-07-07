@@ -396,9 +396,8 @@
             }
           }
 
-          //Retirar checkbox de termos e condicoes caso tenha marcando
-          if (`${element["terms"]}` == 'terms' && `${element["privacy"]}` != 'privacy' && `${element["picturesCheck"]}` == true) {
-            if (`${element["terms"]}` == 'terms') {
+
+          if (`${element["terms"]}` == 'terms') {
               $('#terms').hide()
             }
 
@@ -410,8 +409,9 @@
               $('#picturesCheck').hide()
             }
 
-
-
+          //Retirar checkbox de termos e condicoes caso tenha marcando
+          if (`${element["terms"]}` == 'terms' && `${element["privacy"]}` != 'privacy' && `${element["picturesCheck"]}` == true) {
+            
           } else {
             $('.overflow-y-auto').animate({
               scrollTop: ($('#termsDiv').first().offset().top)
