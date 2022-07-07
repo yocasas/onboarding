@@ -51,12 +51,12 @@
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
   <script>
-    let originPage
+    let calendarPage
 
     function checkUrlOrigin() {
       const urlParams = new URLSearchParams(window.location.search);
-      originPage = urlParams.get('originPage');
-      if (originPage != undefined && originPage != "") {
+      calendarPage = urlParams.get('calendarPage');
+      if (calendarPage != undefined && calendarPage != "") {
         submitYouForms()
       }
     }
