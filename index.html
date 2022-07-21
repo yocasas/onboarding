@@ -4290,7 +4290,7 @@
 
           var $formSubmitted = $('#youForms');
           if ($formSubmitted.valid({ ignore: '' })) {
-            if (currentUserInfo["verifiedNumber"] != true) {
+            if (currentUserInfo["verifiedNumber"] != true && blockFunction == false) {
               console.log(currentUserInfo["verifiedNumber"]) 
               $("#numberMessage").removeClass("hidden")
               goToError()
