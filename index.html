@@ -1560,7 +1560,12 @@
                 function chooseIDType() {
                   let docType = document.getElementById("docType");
                   if (docType.value == "cpf") {
+                    //Reset
+                    document.getElementById("cpf").setAttribute("pattern", "");
+
+                    // document.getElementById("cpf").reset();
                     // document.getElementById("docLabel").innerHTML = "CPF*";
+                    document.getElementById("cpf").setAttribute("autocomplete", "cpf");
                     document.getElementById("cpf").setAttribute("placeholder", "CPF");
                     document.getElementById("cpf").setAttribute("minlength", "14");
                     document.getElementById("cpf").setAttribute("maxlength", "14");
@@ -1568,7 +1573,12 @@
 
 
                   } else {
+                    //Reset
+                    document.getElementById("cpf").setAttribute("minlength", "0");
+                    document.getElementById("cpf").setAttribute("maxlength", "524288");
+                    document.getElementById("cpf").value = '';
                     // document.getElementById("docLabel").innerHTML = "Passaporte*";
+                    // document.getElementById("cpf").reset();
                     document.getElementById("cpf").setAttribute("autocomplete", "passport");
                     document.getElementById("cpf").setAttribute("placeholder", "Passaporte");
                     document.getElementById("cpf").setAttribute("pattern", "^(?!^0+$)[a-zA-Z0-9]{3,20}$");
