@@ -1550,11 +1550,13 @@
 
               <div class=" mb-6 w-2/3">
                 <label id="docLabel" class="font-light text-green_dark">Número do Documento*</label>
-                <input disabled oninput="cacheInput(this)" required placeholder="" type="text" name="cpf" id="cpf"
+                <input title="Digite um número do documento válido" disabled required placeholder="" type="text" name="cpf" id="cpf"
                   class="text-green_dark border-b-1 outline-none border-green_dark  h-8 block w-full sm:text-sm ">
               </div>
 
               <script type="text/javascript">
+                
+
                 function chooseIDType() {
                   let docType = document.getElementById("docType");
                   if (docType.value == "cpf") {
@@ -1569,18 +1571,25 @@
                     // document.getElementById("docLabel").innerHTML = "Passaporte*";
                     document.getElementById("cpf").setAttribute("autocomplete", "passport");
                     document.getElementById("cpf").setAttribute("placeholder", "Passaporte");
+                    document.getElementById("cpf").setAttribute("pattern", "^(?!^0+$)[a-zA-Z0-9]{3,20}$");
                     // document.getElementById("cpf").setAttribute("data-inputmask", "'alias': 'passport'");
                     // document.getElementById("cpf").setAttribute("data-mask", "true");
-                    document.getElementById("cpf").setAttribute("minlength", "8");
-                    document.getElementById("cpf").setAttribute("maxlength", "8");
+                    // document.getElementById("cpf").setAttribute("minlength", "8");
+                    // document.getElementById("cpf").setAttribute("maxlength", "8");
                     // document.getElementById("cpf").setAttribute("pattern", "[0-9]{8}");
                     $("#cpf").inputmask("remove");
+                    // $("#cpf").inputmask({mask:"^(?!^0+$)[a-zA-Z0-9]{3,20}$"});
+                    // $("#cpf").inputmask({regex:"^(?!^0+$)[a-zA-Z0-9]{3,20}$"});
+
 
                   }
 
                   $('#cpf').prop("disabled", false);
 
                 }
+
+                // get element by id and put regex
+
               </script>
 
 
@@ -4219,7 +4228,7 @@
               if (devMode) {
                 if (!email.includes("@yocasas.com.br")) {
                   alert("Email de desenvolvimento tem que conter @yocasas.com.br para que o fluxo funcione corretamente")
-                  reject()
+                  // reject()
                 }
 
               }
@@ -4290,7 +4299,7 @@
 
           var $formSubmitted = $('#youForms');
           if ($formSubmitted.valid({ ignore: '' })) {
-            if (currentUserInfo["verifiedNumber"] != true) {
+            if (currentUserInfo["verifiedNumber"] != true && blockFunction == false) {
               console.log(currentUserInfo["verifiedNumber"]) 
               $("#numberMessage").removeClass("hidden")
               goToError()
@@ -4466,7 +4475,7 @@
         email: '<span class="error12 ">Por favor, digite um email válido.</span>',
         min: jQuery.validator.format('<span class="error12 ">Por favor, digite um valor maior ou igual que {0}.</span>'),
         max: jQuery.validator.format('<span class="error12 ">Por favor, digite um valor menor ou igual que {0}.</span>')
-
+        
       });
 
 
