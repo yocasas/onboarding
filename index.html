@@ -406,6 +406,7 @@
             }
             
             if (`${element["picturesCheck"]}` == 'true') {
+              $('#picturesCheck').attr('checked', 'checked')
               $('#picturesBox').hide()
             } else {
               console.log(`${element["picturesCheck"]}`)
@@ -4212,7 +4213,7 @@
               //Sending confirmation telephone number code state
               objFormUser['verificationNumber'] = verificationNumber
 
-
+              //Bool from pictures check
               let picturesCheck = (objFormUser["picturesCheck"] === 'true')
   
               objFormUser['picturesCheck'] = picturesCheck
