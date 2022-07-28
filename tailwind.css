@@ -106,6 +106,10 @@ body{
    color:red;
  }
 
+ .error {
+  color:red !important;
+}
+
  .scroller {
   width: 5px;
   overflow-y: scroll;
@@ -172,3 +176,5 @@ input[type=number] {
   opacity: 0.4;
 
 }
+
+
